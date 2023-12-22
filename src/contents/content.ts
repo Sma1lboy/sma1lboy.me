@@ -2,9 +2,7 @@ let content = {
 
         author: "Jackson Chen",
         article: [
-            { p: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
-            { p: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." },
-
+                "I am a Full Stack Developer and also student in University of Wisconsin-Madison major in Computer Science. I'm an explorer of new tech, an avid learner, and a problem-solver at heart. Moreover, the passionate programmer on the earth. Feel free to connect with me for all things tech or just to say hello! Let's shape the future of tech together. 🌟 Since then I pushed 679+ commits, opened 9+ issues, submitted 21+ pull requests, created 0+ gists and contributed to 25+ public repositories",
         ]
     
 }

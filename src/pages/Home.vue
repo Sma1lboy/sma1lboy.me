@@ -13,7 +13,7 @@ console.log(data)
     <div class="m-auto prose mb-8 mt-20"><h1 class="mb-0 ">{{author}}</h1></div>
     <article class>
         <div class="prose m-auto">
-            <p v-for="paragraph in paragraphs">{{paragraph.p}}</p>
+            <p v-for="paragraph in paragraphs">{{paragraph}}</p>
             <hr/>
             <p>Find me on</p>   
             <p class="flex mt--2">
