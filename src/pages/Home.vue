@@ -1,19 +1,27 @@
 
 <script setup lang="ts">
-import { BilibiliIcon, GithubIcon } from 'vue3-simple-icons';
+import { ref } from 'vue';
+import { BilibiliIcon, GithubIcon, InstagramIcon, TwitterIcon } from 'vue3-simple-icons';
+import data from '../ArticleParser';
 
+let author = ref("");
+author.value = data.author;
+let paragraphs = data.article;
+console.log(data)
 </script>
 <template>
-    <div class="m-auto prose mb-8 mt-20"><h1 class="mb-0 ">Jackson Chen</h1></div>
+    <div class="m-auto prose mb-8 mt-20"><h1 class="mb-0 ">{{author}}</h1></div>
     <article class>
         <div class="prose m-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p v-for="paragraph in paragraphs">{{paragraph.p}}</p>
             <hr/>
             <p>Find me on</p>   
             <p class="flex mt--2">
-                <a href="" class="link-flex" target="_blank"><GithubIcon/>Github</a>
-                <a href="" class="link-flex" target="_blank"><BilibiliIcon/>Github</a>
+                <a href="https://github.com/Sma1lboy" class="link-flex" target="_blank"><GithubIcon/>Github</a>
+                <a href="https://space.bilibili.com/72605744" class="link-flex" target="_blank"><BilibiliIcon/>Github</a>
+                <a href="https://www.instagram.com/sma1lboy/" class="link-flex" target="_blank"><InstagramIcon/>Github</a>
+                <a href="https://twitter.com/Sma1lboy" class="link-flex" target="_blank"><TwitterIcon/>Github</a>
+
             </p>         
         </div>
 
