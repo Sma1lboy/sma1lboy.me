@@ -12,12 +12,11 @@
   },
   "dependencies": {
     "vue": "^3.3.10",
-    "vue-router": "^4.2.5",
-    "vue3-simple-icons": "^10.0.0"
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
-    "@types/node": "^18.19.2",
+    "@types/node": "^18.19.3",
     "@vitejs/plugin-vue": "^4.5.1",
     "@vue/tsconfig": "^0.4.0",
     "npm-run-all2": "^6.1.1",
@@ -26,6 +25,7 @@
     "vite-plugin-pages": "^0.32.0",
     "vite-plugin-windicss": "^1.9.2",
     "vue-tsc": "^1.8.25",
+    "vue3-simple-icons": "^10.0.0",
     "windicss": "^3.5.6"
   }
 }
