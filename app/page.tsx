@@ -1,6 +1,7 @@
-import UserProfile from "@/components/user-profile";
-import { Suspense } from "react";
-import { siteConfig } from "@/config/site";
+import { Suspense } from 'react'
+
+import UserProfile from '@/components/user-profile'
+import { siteConfig } from '@/config/site'
 export default async function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -8,5 +9,5 @@ export default async function Home() {
         <UserProfile username={siteConfig.name} />
       </Suspense>
     </section>
-  );
+  )
 }
