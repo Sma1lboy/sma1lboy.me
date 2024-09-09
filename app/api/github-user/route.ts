@@ -136,7 +136,7 @@ export async function GET(request: Request) {
     return NextResponse.json(userInfo)
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to fetch user information' },
+      { error: `Failed to fetch user information, ${error}` },
       { status: 500 }
     )
   }

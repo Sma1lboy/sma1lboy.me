@@ -15,6 +15,7 @@ async function getGitHubUserInfo(
     `http://localhost:3000/api/github-user?username=${username}`,
     { cache: 'no-store' }
   )
+  console.log(res)
 
   if (!res.ok) {
     throw new Error('Failed to fetch user information')
