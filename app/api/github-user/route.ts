@@ -14,10 +14,6 @@ const GITHUB_API_BASE = 'https://api.github.com'
 const CACHE_DIR = path.join(process.cwd(), '.cache')
 const CACHE_DURATION = 30 * 60 * 1000 // 30 minutes
 
-if (!fs.existsSync(CACHE_DIR)) {
-  fs.mkdirSync(CACHE_DIR, { recursive: true })
-}
-
 function getCacheFilePath(username: string): string {
   return path.join(CACHE_DIR, `${username}.json`)
 }
@@ -36,6 +32,11 @@ function readCache(username: string): CachedData | null {
 
 function writeCache(username: string, data: ExtendedGitHubUserInfo): void {
   const cacheFile = getCacheFilePath(username)
+
+  if (!fs.existsSync(CACHE_DIR)) {
+    fs.mkdirSync(CACHE_DIR, { recursive: true })
+  }
+
   const cacheData: CachedData = {
     data,
     timestamp: Date.now(),
