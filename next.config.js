@@ -6,6 +6,9 @@ const nextConfig = {
     }
     return config;
   },
+  fastRefresh: true,
+  swcMinify: true,
+  concurrentFeatures: true,
 };
 
 module.exports = nextConfig;
