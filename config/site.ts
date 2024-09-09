@@ -8,42 +8,22 @@ export const siteConfig = {
       label: "Home",
       href: "/",
     },
-  ],
-  navMenuItems: [
-    {
-      label: "Profile",
-      href: "/profile",
-    },
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-    },
     {
       label: "Projects",
       href: "/projects",
     },
     {
-      label: "Team",
-      href: "/team",
+      label: "Blog",
+      href: "/blog",
     },
     {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "About",
+      href: "/about",
     },
   ],
+  navMenuItems: [],
   links: {
     github: "https://github.com/Sma1lboy",
+    linkedin: "https://www.linkedin.com/in/chong-chen-857214292/",
   },
 };
