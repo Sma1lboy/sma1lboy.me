@@ -12,7 +12,7 @@ async function getGitHubUserInfo(
   username: string
 ): Promise<ExtendedGitHubUserInfo> {
   const res = await fetch(
-    `http://localhost:3000/api/github-user?username=${username}`,
+    `${process.env.NEXT_PUBLIC_URL}/api/github-user?username=${username}`,
     { cache: 'no-store' }
   )
   console.log(res)

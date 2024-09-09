@@ -11,7 +11,7 @@ import {
 } from '@/models/GithubUser'
 
 const GITHUB_API_BASE = 'https://api.github.com'
-const CACHE_DIR = path.join(process.cwd(), '.cache')
+const CACHE_DIR = path.join('/tmp', '.cache')
 const CACHE_DURATION = 30 * 60 * 1000 // 30 minutes
 
 function getCacheFilePath(username: string): string {
