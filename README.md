@@ -1,53 +1,44 @@
-# Next.js & NextUI Template
+# sma1lboy.me - Personal Website
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+![Personal Website Banner](./assets/image.png)
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+> [!WARNING] > **This project is currently under construction** 🚧
 
-## Technologies Used
+Welcome to the repository of my personal website! This site is being built to showcase my projects, skills, and experiences in software development.
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
+## 🌟 Features (Planned)
+
+- **Modern Design**: A clean, responsive layout that works on all devices.
+- **Project Showcase**: Highlighting my best work and contributions.
+- **Blog Section**: Sharing my thoughts and experiences in tech.
+- **Interactive Elements**: Engaging visitors with dynamic content.
+- **Performance Optimized**: Fast loading times and smooth interactions.
+
+## 🛠️ Tech Stack
+
+This website is built using:
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
 
-## How to Use
+## 🚀 Development Status
 
-### Use the template with create-next-app
+This project is actively being developed. Features and content are being added regularly. Feel free to watch or star the repository to stay updated on its progress!
 
-To create a new project based on this template using `create-next-app`, run the following command:
+## 📚 Future Plans
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+- Complete the core design and layout
+- Implement the project showcase section
+- Set up the blog functionality
+- Optimize for performance and SEO
+- Add interactive elements and animations
 
-### Install dependencies
+## 🤝 Contributing
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+While this is a personal project, I'm open to suggestions and feedback. Feel free to open an issue if you have any ideas or notice any bugs.
 
-```bash
-npm install
-```
+## 📄 License
 
-### Run the development server
-
-```bash
-npm run dev
-```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+This project is open source and available under the [MIT License](LICENSE).
