@@ -10,81 +10,82 @@ import {
   NavbarMenuItem,
 } from '@nextui-org/navbar'
 import { Link } from '@nextui-org/link'
-import { Button } from '@nextui-org/button'
 import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
-
 import { siteConfig } from '@/config/site'
 
-export const NavbarComp = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const pathname = usePathname()
+interface NavItem {
+  href: string
+  label: string
+}
 
+interface NavLinkProps {
+  href: string
+  label: string
+  isActive: boolean
+  onClick?: () => void
+}
+
+const NavLink: React.FC<NavLinkProps> = ({
+  href,
+  label,
+  isActive,
+  onClick,
+}) => (
+  <NextLink href={href} passHref legacyBehavior>
+    <Link
+      color={isActive ? 'primary' : 'foreground'}
+      className={isActive ? 'font-bold' : ''}
+      onClick={onClick}
+    >
+      {label}
+    </Link>
+  </NextLink>
+)
+
+export const NavbarComp: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const pathname = usePathname()
   const closeMenu = () => setIsMenuOpen(false)
 
+  const navItems = siteConfig.navItems.map((item: NavItem) => (
+    <NavLink
+      key={item.href}
+      href={item.href}
+      label={item.label}
+      isActive={pathname === item.href}
+      onClick={closeMenu}
+    />
+  ))
+
   return (
-    <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
         />
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden pr-3" justify="center">
+      <NavbarContent className="pr-3" justify="center">
         <NavbarBrand>
-          <NextLink passHref href="/">
-            <p className="font-bold text-inherit">{siteConfig.name}</p>
-          </NextLink>
+          <NavLink href="/" label={siteConfig.name} isActive={false} />
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarBrand>
-          <NextLink passHref href="/">
-            <p className="font-bold text-inherit">{siteConfig.name}</p>
-          </NextLink>
-        </NavbarBrand>
-        {siteConfig.navItems.map(item => (
-          <NavbarItem key={item.href} isActive={pathname === item.href}>
-            <NextLink passHref href={item.href}>
-              <Link
-                className={pathname === item.href ? 'font-bold' : ''}
-                color={pathname === item.href ? 'primary' : 'foreground'}
-              >
-                {item.label}
-              </Link>
-            </NextLink>
+        {navItems.map((item, index) => (
+          <NavbarItem
+            key={index}
+            isActive={pathname === siteConfig.navItems[index].href}
+          >
+            {item}
           </NavbarItem>
         ))}
       </NavbarContent>
 
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link isExternal href={siteConfig.links.github}>
-            GitHub
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Contact
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-
       <NavbarMenu>
-        {siteConfig.navItems.map(item => (
-          <NavbarMenuItem key={item.href}>
-            <NextLink passHref href={item.href}>
-              <Link
-                className="w-full"
-                color={pathname === item.href ? 'primary' : 'foreground'}
-                size="lg"
-                onClick={closeMenu}
-              >
-                {item.label}
-              </Link>
-            </NextLink>
-          </NavbarMenuItem>
+        {navItems.map((item, index) => (
+          <NavbarMenuItem key={index}>{item}</NavbarMenuItem>
         ))}
       </NavbarMenu>
     </Navbar>
