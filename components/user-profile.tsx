@@ -15,7 +15,6 @@ async function getGitHubUserInfo(
     `${process.env.NEXT_PUBLIC_URL}/api/github-user?username=${username}`,
     { cache: 'no-store' }
   )
-  console.log(res)
 
   if (!res.ok) {
     throw new Error('Failed to fetch user information')
@@ -28,11 +27,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
   const userInfo = use(getGitHubUserInfo(username))
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-lg border border-gray-200 transition-all duration-300 hover:shadow-xl">
+    <div className="max-w-4xl mx-auto p-8 rounded-lg ">
       <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8 mb-8">
         <img
           alt={userInfo.name || userInfo.login}
-          className="w-32 h-32 rounded-full ring-4 ring-purple-300 shadow-lg transform transition-all duration-300 hover:scale-105"
+          className="w-32 h-32 rounded-full ring-4 ring-purple-300  transform transition-all duration-300 hover:scale-105"
           src={userInfo.avatar_url}
         />
         <div className="text-center md:text-left">
@@ -56,11 +55,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="flex items-center text-gray-600 bg-white p-4 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+        <div className="flex items-center text-gray-600 bg-white p-4 rounded-lg ">
           <MapPinIcon className="w-6 h-6 mr-3 text-purple-500" />
           <span>{userInfo.location || 'Not specified'}</span>
         </div>
-        <div className="flex items-center text-gray-600 bg-white p-4 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+        <div className="flex items-center text-gray-600 bg-white p-4 rounded-lg ">
           <BuildingOfficeIcon className="w-6 h-6 mr-3 text-purple-500" />
           <span>{userInfo.company || 'Not specified'}</span>
         </div>
@@ -79,7 +78,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
           ].map((stat, index) => (
             <div
               key={stat.label}
-              className="bg-white p-4 rounded-lg shadow-md text-center transform transition-all duration-300 hover:scale-105 hover:bg-purple-50"
+              className="bg-white p-4 rounded-lg text-center "
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="text-3xl font-bold text-purple-600 mb-1">
@@ -112,17 +111,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
           </svg>
           GitHub Profile
         </a>
-        {userInfo.blog && (
-          <a
-            className="flex items-center justify-center px-6 py-3 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors duration-300"
-            href={userInfo.blog}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <GlobeAltIcon className="w-6 h-6 mr-2" />
-            Personal Website
-          </a>
-        )}
       </div>
     </div>
   )
