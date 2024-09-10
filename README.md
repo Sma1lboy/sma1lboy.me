@@ -2,7 +2,8 @@
 
 ![Personal Website Banner](./assets/image.png)
 
-> [!WARNING] > **This project is currently under construction** 🚧
+> [!WARNING]
+> **This project is currently under construction** 🚧
 
 Welcome to the repository of my personal website! This site is being built to showcase my projects, skills, and experiences in software development.
 
