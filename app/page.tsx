@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-
 import UserProfile from '@/components/user-profile'
 import { siteConfig } from '@/config/site'
 export default async function Home() {

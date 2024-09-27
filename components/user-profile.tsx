@@ -27,25 +27,25 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
   const userInfo = use(getGitHubUserInfo(username))
 
   return (
-    <div className="max-w-4xl mx-auto p-8 rounded-lg ">
-      <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8 mb-8">
+    <div className="mx-auto max-w-4xl rounded-lg p-8">
+      <div className="mb-8 flex flex-col items-center space-y-6 md:flex-row md:space-x-8 md:space-y-0">
         <img
           alt={userInfo.name || userInfo.login}
-          className="w-32 h-32 rounded-full ring-4 ring-purple-300  transform transition-all duration-300 hover:scale-105"
+          className="h-32 w-32 transform rounded-full ring-4 ring-purple-300 transition-all duration-300 hover:scale-105"
           src={userInfo.avatar_url}
         />
         <div className="text-center md:text-left">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <h1 className="mb-2 text-3xl font-bold text-gray-800">
             {userInfo.name || userInfo.login}
           </h1>
-          <p className="text-gray-600 flex items-center justify-center md:justify-start">
-            <UserIcon className="w-5 h-5 mr-2 text-purple-500" /> @
+          <p className="flex items-center justify-center text-gray-600 md:justify-start">
+            <UserIcon className="mr-2 h-5 w-5 text-purple-500" /> @
             {userInfo.login}
           </p>
         </div>
       </div>
 
-      <p className="text-gray-700 mb-8 leading-relaxed text-center md:text-left animate-fade-in">
+      <p className="animate-fade-in mb-8 text-center leading-relaxed text-gray-700 md:text-left">
         I am a Full Stack Developer and also a student at the University of
         Wisconsin-Madison, majoring in Computer Science. I&apos;m an explorer of
         new tech, an avid learner, and a problem-solver at heart. Moreover,
@@ -54,22 +54,22 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
         tech together. 🌟
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="flex items-center text-gray-600 bg-white p-4 rounded-lg ">
-          <MapPinIcon className="w-6 h-6 mr-3 text-purple-500" />
+      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="flex items-center rounded-lg bg-white p-4 text-gray-600">
+          <MapPinIcon className="mr-3 h-6 w-6 text-purple-500" />
           <span>{userInfo.location || 'Not specified'}</span>
         </div>
-        <div className="flex items-center text-gray-600 bg-white p-4 rounded-lg ">
-          <BuildingOfficeIcon className="w-6 h-6 mr-3 text-purple-500" />
+        <div className="flex items-center rounded-lg bg-white p-4 text-gray-600">
+          <BuildingOfficeIcon className="mr-3 h-6 w-6 text-purple-500" />
           <span>{userInfo.company || 'Not specified'}</span>
         </div>
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+        <h2 className="mb-4 text-center text-2xl font-semibold text-gray-800">
           GitHub Stats
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {[
             { label: 'Commits', value: userInfo.totalCommits },
             { label: 'Issues', value: userInfo.userIssuesCount },
@@ -78,10 +78,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
           ].map((stat, index) => (
             <div
               key={stat.label}
-              className="bg-white p-4 rounded-lg text-center "
+              className="rounded-lg bg-white p-4 text-center"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="text-3xl font-bold text-purple-600 mb-1">
+              <div className="mb-1 text-3xl font-bold text-purple-600">
                 {stat.value}+
               </div>
               <div className="text-sm text-gray-600">{stat.label}</div>
@@ -90,16 +90,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+      <div className="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0">
         <a
-          className="flex items-center justify-center px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors duration-300"
+          className="flex items-center justify-center rounded-full bg-purple-600 px-6 py-3 text-white transition-colors duration-300 hover:bg-purple-700"
           href={userInfo.html_url}
           rel="noopener noreferrer"
           target="_blank"
         >
           <svg
             aria-hidden="true"
-            className="w-6 h-6 mr-2"
+            className="mr-2 h-6 w-6"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
