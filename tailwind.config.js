@@ -1,5 +1,5 @@
 import { nextui } from '@nextui-org/theme'
-
+import typography from '@tailwindcss/typography'
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -17,5 +17,5 @@ module.exports = {
   },
   darkMode: 'class',
   darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [nextui(), typography()],
 }
