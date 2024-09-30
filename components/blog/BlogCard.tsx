@@ -5,6 +5,7 @@ interface BlogCardProps {
   description: string
   date?: string
   className?: string
+  slug: string
 }
 
 export const BlogCard = ({
@@ -12,16 +13,19 @@ export const BlogCard = ({
   description,
   date,
   className,
+  slug,
 }: BlogCardProps) => {
+  console.log(slug)
+
   return (
     <Card
-      shadow="sm"
       className={
         className ? 'px-2 py-2'.concat(' ').concat(className) : 'px-2 py-2'
       }
+      shadow="sm"
     >
       <CardHeader>
-        <a href={'https://blog.sma1lboy.me/' + title.split(' ').join('-')}>
+        <a className="hover:underline" href={`/blog/${slug}`}>
           <h3 className="prose prose-xl prose-stone">{title}</h3>
         </a>
       </CardHeader>

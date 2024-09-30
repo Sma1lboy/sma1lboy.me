@@ -30,7 +30,7 @@ export class MarkdownUtils {
       const title = file.replace(/\.md$/, '')
       const description = markdownToTxt(
         data.slice(0, MarkdownUtils.PREFIX_MAX_CHARS)
-      )
+      ).concat('...')
       const slug = MarkdownUtils.convertMarkdownNameToSlug(file)
 
       return { description, slug, title }

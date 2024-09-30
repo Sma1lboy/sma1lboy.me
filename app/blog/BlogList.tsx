@@ -10,12 +10,13 @@ const BlogList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
   useEffect(() => {}, [])
 
   return (
-    <div>
+    <div className="mx-auto max-w-3xl">
       {initialBlogs.map((b, i) => (
         <BlogCard
           key={i}
           className="my-4"
           description={b.description}
+          slug={b.slug}
           title={b.title}
         />
       ))}
