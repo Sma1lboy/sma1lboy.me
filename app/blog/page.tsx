@@ -1,11 +1,11 @@
-import BlogList from './BlogList'
+import BlogCardList from './BlogCardList'
 
 import { MarkdownUtils } from '@/utils/MarkdownUtils'
 
 const BlogPages = async () => {
   const blogs = await MarkdownUtils.getAllMarkdownFilesDetail('./public/blog')
 
-  return <BlogList initialBlogs={blogs} />
+  return <BlogCardList initialBlogs={blogs} />
 }
 
 export default BlogPages

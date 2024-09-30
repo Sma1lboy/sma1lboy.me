@@ -6,7 +6,7 @@ import { Blog } from './Blog'
 
 import { BlogCard } from '@/components/blog/BlogCard'
 
-const BlogList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
+const BlogCardList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
   useEffect(() => {}, [])
 
   return (
@@ -15,13 +15,22 @@ const BlogList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
         <BlogCard
           key={i}
           className="my-4"
+          date={b.date}
           description={b.description}
           slug={b.slug}
           title={b.title}
         />
       ))}
+      <div className="mt-4">
+        <a
+          className="font-serif text-gray-700 hover:text-gray-300"
+          href="https://blog.sma1lboy.me"
+        >
+          Go to Full version of blog Web
+        </a>
+      </div>
     </div>
   )
 }
 
-export default BlogList
+export default BlogCardList
