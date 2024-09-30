@@ -1,15 +1,10 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { BlogCard } from '@/components/blog/BlogCard'
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import React, { useEffect } from 'react'
 
-interface Blog {
-  title: string
-  description: string
-  content: string
-}
+import { Blog } from './Blog'
+
+import { BlogCard } from '@/components/blog/BlogCard'
 
 const BlogList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
   useEffect(() => {}, [])
@@ -18,10 +13,10 @@ const BlogList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
     <div>
       {initialBlogs.map((b, i) => (
         <BlogCard
-          className="my-4"
           key={i}
-          title={b.title}
+          className="my-4"
           description={b.description}
+          title={b.title}
         />
       ))}
     </div>

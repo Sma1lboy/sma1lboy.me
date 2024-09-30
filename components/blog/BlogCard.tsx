@@ -22,7 +22,7 @@ export const BlogCard = ({
     >
       <CardHeader>
         <a href={'https://blog.sma1lboy.me/' + title.split(' ').join('-')}>
-          <h3>{title}</h3>
+          <h3 className="prose prose-xl prose-stone">{title}</h3>
         </a>
       </CardHeader>
       <CardBody className="pt-0">
