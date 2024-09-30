@@ -14,7 +14,6 @@ interface Blog {
 const BlogList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
   useEffect(() => {}, [])
 
-  console.log(initialBlogs[2].content)
   return (
     <div>
       {initialBlogs.map((b, i) => (
