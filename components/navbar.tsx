@@ -72,7 +72,7 @@ export const NavbarComp: React.FC = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         {navItems.map((item, index) => (
           <NavbarItem
             key={index}
