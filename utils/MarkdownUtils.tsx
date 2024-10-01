@@ -15,7 +15,7 @@ export class MarkdownUtils {
   private static readonly PREFIX_MAX_CHARS = 80
 
   public static convertMarkdownNameToSlug(name: string): string {
-    return name.replace(/\.md$/, '').replace(/\s+/g, '-').toLowerCase()
+    return name.replace(/\.md$/, '').replace(/\s+/g, '-')
   }
 
   public static convertSlugToMarkdownName(slug: string): string {
@@ -74,14 +74,17 @@ export class MarkdownUtils {
       const { metadata, content } = parseMD(data)
 
       let date: Date
+
       if (MarkdownUtils.isValidMetadata(metadata) && metadata.Date) {
         date = new Date(metadata.Date)
       } else {
         date = new Date()
       }
+
       return {
         date: date.toISOString(),
         description,
+        filePath,
         slug,
         title,
       }

@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 
 import UserProfile from '@/components/UserProfile'
 import { siteConfig } from '@/config/site'
+
 export default async function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

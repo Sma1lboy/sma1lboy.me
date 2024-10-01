@@ -3,4 +3,5 @@ export interface Blog {
   description: string
   slug: string
   date?: string
+  filePath: string
 }
