@@ -20,7 +20,7 @@ const BlogCardList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
   }, [initialBlogs])
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto">
       {sortedBlogs.map((b, i) => (
         <BlogCard
           key={i}
@@ -31,14 +31,6 @@ const BlogCardList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
           title={b.title}
         />
       ))}
-      <div className="mt-4">
-        <a
-          className="font-serif text-gray-700 hover:text-gray-300"
-          href="https://blog.sma1lboy.me"
-        >
-          Go to Full version of blog Web
-        </a>
-      </div>
     </div>
   )
 }
