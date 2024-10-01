@@ -1,0 +1,3 @@
+[submodule "public/blog"]
+	path = public/blog
+	url = https://github.com/Sma1lboy/blog.sma1lboy.me.git
