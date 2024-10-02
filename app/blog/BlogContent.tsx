@@ -5,9 +5,11 @@ import { Pagination } from '@nextui-org/pagination'
 import { Blog } from './Blog'
 import BlogCardList from './BlogCardList'
 
+import { siteConfig } from '@/config/site'
+
 export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
   const [page, setPage] = useState(1)
-  const notesPerPage = 2
+  const notesPerPage = siteConfig.maxNotesPerPage
   const totalPage = Math.ceil(blogs.length / notesPerPage)
 
   const filteredBlogs = blogs.slice(

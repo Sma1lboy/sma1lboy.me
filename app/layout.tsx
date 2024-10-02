@@ -9,20 +9,20 @@ import { fontSans } from '@/config/fonts'
 import { NavbarComp } from '@/components/navbar'
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
   description: siteConfig.description,
   icons: {
     icon: '/favicon.ico',
+  },
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
   },
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { color: 'white', media: '(prefers-color-scheme: light)' },
+    { color: 'black', media: '(prefers-color-scheme: dark)' },
   ],
 }
 
