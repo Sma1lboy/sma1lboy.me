@@ -1,45 +1,81 @@
-# sma1lboy.me - Personal Website
-
 ![Personal Website Banner](./assets/image.png)
 
-> [!WARNING]
-> **This project is currently under construction** 🚧
+# Personal Website Portfolio
 
-Welcome to the repository of my personal website! This site is being built to showcase my projects, skills, and experiences in software development.
+This is a customizable personal website portfolio built with Next.js, React, and Tailwind CSS. It features a clean, modern design with easy customization options, GitHub information retrieval, and Markdown-based blog rendering.
 
-## 🌟 Features (Planned)
+## Description
 
-- **Modern Design**: A clean, responsive layout that works on all devices.
-- **Project Showcase**: Highlighting my best work and contributions.
-- **Blog Section**: Sharing my thoughts and experiences in tech.
-- **Interactive Elements**: Engaging visitors with dynamic content.
-- **Performance Optimized**: Fast loading times and smooth interactions.
+This personal website portfolio allows you to showcase your professional information, GitHub stats, and blog posts in a sleek, responsive design. It's built with modern web technologies and offers easy customization through configuration files.
 
-## 🛠️ Tech Stack
+## Features
 
-This website is built using:
+- 🎨 Easy theme customization
+- 📊 GitHub stats integration
+- 📝 Markdown-based blog
+- 🚀 Built with Next.js and React
+- 🎭 Dark mode support
+- 📱 Responsive design
 
-- [Next.js](https://nextjs.org/)
-- [React](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [TypeScript](https://www.typescriptlang.org/)
+## Configuration
 
-## 🚀 Development Status
+### Site Configuration
 
-This project is actively being developed. Features and content are being added regularly. Feel free to watch or star the repository to stay updated on its progress!
+To customize the site's basic information and links, edit the `config/site.ts` file:
 
-## 📚 Future Plans
+```typescript
+export const siteConfig = {
+  name: 'Your Name',
+  description: 'Your description',
+  links: {
+    github: 'https://github.com/yourusername',
+    linkedin: 'https://www.linkedin.com/in/yourusername',
+    // Add or remove social links as needed
+  },
+  // Other configurations...
+}
+```
 
-- Complete the core design and layout
-- Implement the project showcase section
-- Set up the blog functionality
-- Optimize for performance and SEO
-- Add interactive elements and animations
+### Description
 
-## 🤝 Contributing
+To update the main description on the home page, edit the `config/description.md` file. This file supports Markdown formatting.
 
-While this is a personal project, I'm open to suggestions and feedback. Feel free to open an issue if you have any ideas or notice any bugs.
+### Theme Customization
 
-## 📄 License
+You can easily change the color scheme by modifying the `colors` object in `config/site.ts`:
 
-This project is open source and available under the [MIT License](LICENSE).
+```typescript
+colors: {
+  dark: '#9366FF',
+  light: '#7C3AED',
+},
+```
+
+### Blog Posts
+
+To add or edit blog posts, simply add or modify Markdown files in the `public/blog` directory. The file name will be used as the URL slug, and you can add a date in the frontmatter:
+
+```markdown
+---
+Date: 2023-04-01
+---
+
+# Your Blog Post Title
+
+Your content here...
+```
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run dev`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Deployment
+
+This project can be easily deployed to platforms like Vercel or Netlify. Refer to their respective documentation for detailed deployment instructions.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
