@@ -13,7 +13,7 @@ export const siteConfig = {
     instagram: 'https://www.instagram.com/sma1lboy/',
     linkedin: 'https://www.linkedin.com/in/chong-chen-857214292/',
   },
-  maxNotesPerPage: 10,
+  maxNotesPerPage: 3,
   name: 'Sma1lboy',
   navItems: [
     {
