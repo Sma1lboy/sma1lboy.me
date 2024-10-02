@@ -12,6 +12,9 @@ import {
 import { Link } from '@nextui-org/link'
 import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
+
+import { CustomThemeToggle } from './CustomThemeToggle'
+
 import { siteConfig } from '@/config/site'
 
 interface NavItem {
@@ -32,10 +35,10 @@ const NavLink: React.FC<NavLinkProps> = ({
   isActive,
   onClick,
 }) => (
-  <NextLink href={href} passHref legacyBehavior>
+  <NextLink legacyBehavior passHref href={href}>
     <Link
-      color={isActive ? 'primary' : 'foreground'}
       className={isActive ? 'font-bold' : ''}
+      color={isActive ? 'primary' : 'foreground'}
       onClick={onClick}
     >
       {label}
@@ -52,8 +55,8 @@ export const NavbarComp: React.FC = () => {
     <NavLink
       key={item.href}
       href={item.href}
-      label={item.label}
       isActive={pathname === item.href}
+      label={item.label}
       onClick={closeMenu}
     />
   ))
@@ -65,14 +68,13 @@ export const NavbarComp: React.FC = () => {
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
         />
       </NavbarContent>
-
       <NavbarContent className="pr-3" justify="center">
         <NavbarBrand>
-          <NavLink href="/" label={siteConfig.name} isActive={false} />
+          <NavLink href="/" isActive={false} label={siteConfig.name} />
         </NavbarBrand>
       </NavbarContent>
-
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
+        <CustomThemeToggle />
         {navItems.map((item, index) => (
           <NavbarItem
             key={index}
@@ -82,7 +84,6 @@ export const NavbarComp: React.FC = () => {
           </NavbarItem>
         ))}
       </NavbarContent>
-
       <NavbarMenu>
         {navItems.map((item, index) => (
           <NavbarMenuItem key={index}>{item}</NavbarMenuItem>

@@ -21,7 +21,9 @@ export const BlogCard = ({
     <Card className={`px-2 py-2 ${className || ''}`} shadow="sm">
       <CardHeader className="flex items-center justify-between">
         <a className="hover:underline" href={`/blog/${slug}`}>
-          <h3 className="prose prose-xl prose-stone">{title}</h3>
+          <h3 className="prose prose-xl prose-stone dark:prose-invert">
+            {title}
+          </h3>
         </a>
         {date && <span className="text-sm text-gray-500">{formattedDate}</span>}
       </CardHeader>

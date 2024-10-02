@@ -32,7 +32,7 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
       )}
       <div className="mt-4">
         <a
-          className="font-serif text-gray-700 hover:text-gray-300"
+          className="font-serif hover:text-gray-300"
           href="https://blog.sma1lboy.me"
         >
           Go to Full version of blog Web
