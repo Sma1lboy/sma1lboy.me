@@ -12,8 +12,7 @@ import {
 import { Link } from '@nextui-org/link'
 import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
-
-import { CustomThemeToggle } from './CustomThemeToggle'
+import dynamic from 'next/dynamic'
 
 import { siteConfig } from '@/config/site'
 
@@ -26,24 +25,29 @@ interface NavLinkProps {
   href: string
   label: string
   isActive: boolean
-  onClick?: () => void
+  onPress?: () => void
 }
 
 const NavLink: React.FC<NavLinkProps> = ({
   href,
   label,
   isActive,
-  onClick,
+  onPress,
 }) => (
   <NextLink legacyBehavior passHref href={href}>
     <Link
       className={isActive ? 'font-bold' : ''}
       color={isActive ? 'primary' : 'foreground'}
-      onClick={onClick}
+      onPress={onPress}
     >
       {label}
     </Link>
   </NextLink>
+)
+
+const DynamicCustomThemeToggle = dynamic(
+  () => import('./CustomThemeToggle').then(mod => mod.CustomThemeToggle),
+  { ssr: false }
 )
 
 export const NavbarComp: React.FC = () => {
@@ -57,7 +61,7 @@ export const NavbarComp: React.FC = () => {
       href={item.href}
       isActive={pathname === item.href}
       label={item.label}
-      onClick={closeMenu}
+      onPress={closeMenu}
     />
   ))
 
@@ -74,7 +78,7 @@ export const NavbarComp: React.FC = () => {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        <CustomThemeToggle />
+        <DynamicCustomThemeToggle />
         {navItems.map((item, index) => (
           <NavbarItem
             key={index}
