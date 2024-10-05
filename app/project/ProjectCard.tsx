@@ -37,8 +37,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   isOrg,
 }) => {
   return (
-    <Card className="w-full overflow-hidden rounded-lg bg-background shadow-lg transition-all duration-300 hover:shadow-xl">
-      <CardHeader className="flex flex-col items-start gap-1 p-4">
+    <Card className="w-full overflow-hidden rounded-lg bg-background shadow-lg transition-all duration-1000 hover:shadow-xl">
+      <CardHeader className="flex flex-col items-start gap-1 px-4">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
             <FaCode className="flex-shrink-0 text-lg text-primary-600" />
@@ -66,7 +66,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </Link>
       </CardHeader>
       <Divider />
-      <CardBody className="p-4">
+      <CardBody>
         <p className="mb-3 line-clamp-2 text-sm text-foreground">
           {description || 'No description available'}
         </p>
@@ -95,7 +95,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       </CardBody>
       <Divider />
-      <CardFooter className="flex items-center justify-between p-4">
+      <CardFooter className="flex items-center justify-between px-4">
         <span className="text-xs text-primary-400">
           Updated: {new Date(updatedAt).toLocaleDateString()}
         </span>
