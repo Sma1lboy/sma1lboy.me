@@ -1,23 +1,12 @@
 import { Octokit } from '@octokit/rest'
 
 import { ProjectContent } from './ProjectContent'
+import { Repository } from './Repository'
 
 import { siteConfig } from '@/config/siteConfig'
 
 const octokit = new Octokit()
 
-export interface Repository {
-  description: string | null
-  forks: number
-  id: number
-  language: string | null
-  name: string
-  stars: number
-  updatedAt: string
-  url: string
-  owner: string
-  isOrg: boolean
-}
 function processRepoData(
   repoData: any,
   owner: string,
@@ -37,9 +26,7 @@ function processRepoData(
   }
 }
 
-export async function getUserRepositories(
-  username: string
-): Promise<Repository[]> {
+async function getUserRepositories(username: string): Promise<Repository[]> {
   let repositories: Repository[] = []
 
   const { data: userRepos } = await octokit.repos.listForUser({
@@ -78,7 +65,7 @@ export async function getUserRepositories(
   return repositories
 }
 
-export const ProjectPage: React.FC = async () => {
+const ProjectPage = async () => {
   const repos = await getUserRepositories(siteConfig.name)
 
   return <ProjectContent repos={repos} />

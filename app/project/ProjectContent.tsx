@@ -5,7 +5,7 @@ import { Tabs, Tab, Pagination, Input } from '@nextui-org/react'
 import { SearchIcon } from 'lucide-react'
 
 import { ProjectCard } from './ProjectCard'
-import { Repository } from './page'
+import { Repository } from './Repository'
 
 import { siteConfig } from '@/config/siteConfig'
 
