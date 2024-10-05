@@ -3,7 +3,7 @@ import { Octokit } from '@octokit/rest'
 import { ProjectContent } from './ProjectContent'
 import { Repository } from './Repository'
 
-import { siteConfig } from '@/config/siteConfig'
+import { defaultConfig } from '@/config/siteConfig'
 
 const octokit = new Octokit()
 
@@ -66,7 +66,7 @@ async function getUserRepositories(username: string): Promise<Repository[]> {
 }
 
 const ProjectPage = async () => {
-  const repos = await getUserRepositories(siteConfig.name)
+  const repos = await getUserRepositories(defaultConfig.name)
 
   return <ProjectContent repos={repos} />
 }

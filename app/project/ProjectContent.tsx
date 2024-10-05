@@ -7,7 +7,7 @@ import { SearchIcon } from 'lucide-react'
 import { ProjectCard } from './ProjectCard'
 import { Repository } from './Repository'
 
-import { siteConfig } from '@/config/siteConfig'
+import { defaultConfig } from '@/config/siteConfig'
 
 export interface ProjectContentProps {
   repos: Repository[]
@@ -17,7 +17,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
   const [sortBy, setSortBy] = useState<'stars' | 'updated' | 'forks'>('stars')
   const [currentPage, setCurrentPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
-  const maxProjectPerPage = siteConfig.maxProjectsPerPage || 30
+  const maxProjectPerPage = defaultConfig.maxProjectsPerPage || 30
 
   const breakpointColumnsObj = {
     1100: 3,

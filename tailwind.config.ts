@@ -4,7 +4,7 @@ import { nextui } from '@nextui-org/theme'
 import typography from '@tailwindcss/typography'
 
 import { generateThemes } from './utils/tailwindThemeGenerator'
-import { siteConfig } from './config/siteConfig'
+import { defaultConfig } from './config/siteConfig'
 
 const config: Config = {
   content: [
@@ -17,8 +17,8 @@ const config: Config = {
     nextui({
       themes: {
         ...generateThemes([
-          { name: 'light', primaryColor: siteConfig.colors.light },
-          { name: 'dark', primaryColor: siteConfig.colors.dark },
+          { name: 'light', primaryColor: defaultConfig.colors.light },
+          { name: 'dark', primaryColor: defaultConfig.colors.dark },
         ]),
       },
     }),

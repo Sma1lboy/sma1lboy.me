@@ -6,12 +6,12 @@ import { SearchIcon } from 'lucide-react'
 import { Blog } from './Blog'
 import BlogCardList from './BlogCardList'
 
-import { siteConfig } from '@/config/siteConfig'
+import { defaultConfig } from '@/config/siteConfig'
 
 export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
-  const notesPerPage = siteConfig.maxNotesPerPage
+  const notesPerPage = defaultConfig.maxNotesPerPage
 
   const filteredAndSortedBlogs = useMemo(() => {
     return blogs.filter(

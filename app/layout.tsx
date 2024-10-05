@@ -4,18 +4,18 @@ import clsx from 'clsx'
 
 import { Providers } from './providers'
 
-import { siteConfig } from '@/config/siteConfig'
+import { defaultConfig } from '@/config/siteConfig'
 import { fontSans } from '@/config/fonts'
 import { NavbarComp } from '@/components/navbar'
 
 export const metadata: Metadata = {
-  description: siteConfig.description,
+  description: defaultConfig.description,
   icons: {
     icon: '/favicon.ico',
   },
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: defaultConfig.name,
+    template: `%s - ${defaultConfig.name}`,
   },
 }
 

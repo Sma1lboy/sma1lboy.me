@@ -14,7 +14,7 @@ import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
-import { siteConfig } from '@/config/siteConfig'
+import { defaultConfig } from '@/config/siteConfig'
 
 interface NavItem {
   href: string
@@ -55,7 +55,7 @@ export const NavbarComp: React.FC = () => {
   const pathname = usePathname()
   const closeMenu = () => setIsMenuOpen(false)
 
-  const navItems = siteConfig.navItems.map((item: NavItem) => (
+  const navItems = defaultConfig.navItems.map((item: NavItem) => (
     <NavLink
       key={item.href}
       href={item.href}
@@ -74,7 +74,7 @@ export const NavbarComp: React.FC = () => {
       </NavbarContent>
       <NavbarContent className="pr-3" justify="center">
         <NavbarBrand>
-          <NavLink href="/" isActive={false} label={siteConfig.name} />
+          <NavLink href="/" isActive={false} label={defaultConfig.name} />
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
@@ -82,7 +82,7 @@ export const NavbarComp: React.FC = () => {
         {navItems.map((item, index) => (
           <NavbarItem
             key={index}
-            isActive={pathname === siteConfig.navItems[index].href}
+            isActive={pathname === defaultConfig.navItems[index].href}
           >
             {item}
           </NavbarItem>

@@ -109,9 +109,9 @@ async function getExtendedGitHubUserInfo(
 
     const extendedInfo: ExtendedGitHubUserInfo = {
       ...userInfo,
+      commitsLastYear: lastYearCommits,
       pullRequestCount: prCount,
       totalCommits: totalCommits,
-      commitsLastYear: lastYearCommits,
       userIssuesCount: userIssuesCount,
     }
 

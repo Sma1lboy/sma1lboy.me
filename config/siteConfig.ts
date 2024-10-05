@@ -1,11 +1,14 @@
-export type SiteConfig = typeof siteConfig
+import { Config } from './types'
 
-export const siteConfig = {
+export type SiteConfig = typeof defaultConfig
+
+export const defaultConfig: Config = {
   colors: {
     dark: '#9366FF',
     light: '#7C3AED',
   },
   description: 'Initializing...',
+  email: 'cchen686@wisc.edu',
   links: {
     bilibili: 'https://space.bilibili.com/72605744',
     github: 'https://github.com/Sma1lboy',
@@ -30,4 +33,5 @@ export const siteConfig = {
     },
   ],
   navMenuItems: [],
+  resume: '/resume.pdf',
 }
