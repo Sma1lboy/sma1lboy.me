@@ -14,7 +14,7 @@ import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
-import { siteConfig } from '@/config/site'
+import { siteConfig } from '@/config/siteConfig'
 
 interface NavItem {
   href: string

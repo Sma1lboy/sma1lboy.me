@@ -4,7 +4,7 @@ import { nextui } from '@nextui-org/theme'
 import typography from '@tailwindcss/typography'
 
 import { generateThemes } from './utils/tailwindThemeGenerator'
-import { siteConfig } from './config/site'
+import { siteConfig } from './config/siteConfig'
 
 const config: Config = {
   content: [

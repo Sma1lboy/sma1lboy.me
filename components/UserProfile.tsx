@@ -11,7 +11,7 @@ import {
 } from '@icons-pack/react-simple-icons'
 
 import { ExtendedGitHubUserInfo, UserProfileProps } from '@/models/GithubUser'
-import { siteConfig } from '@/config/site'
+import { siteConfig } from '@/config/siteConfig'
 
 async function getGitHubUserInfo(
   username: string

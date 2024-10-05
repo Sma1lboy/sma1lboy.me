@@ -3,7 +3,7 @@ import path from 'path'
 
 import { Suspense } from 'react'
 
-import { siteConfig } from '@/config/site'
+import { siteConfig } from '@/config/siteConfig'
 import UserProfile from '@/components/UserProfile'
 
 /*

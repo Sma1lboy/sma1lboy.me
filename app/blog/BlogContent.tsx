@@ -5,7 +5,7 @@ import { Pagination } from '@nextui-org/pagination'
 import { Blog } from './Blog'
 import BlogCardList from './BlogCardList'
 
-import { siteConfig } from '@/config/site'
+import { siteConfig } from '@/config/siteConfig'
 
 export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
   const [page, setPage] = useState(1)

@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import { Providers } from './providers'
 
-import { siteConfig } from '@/config/site'
+import { siteConfig } from '@/config/siteConfig'
 import { fontSans } from '@/config/fonts'
 import { NavbarComp } from '@/components/navbar'
 

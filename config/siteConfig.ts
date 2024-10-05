@@ -13,11 +13,16 @@ export const siteConfig = {
     linkedin: 'https://www.linkedin.com/in/chong-chen-857214292/',
   },
   maxNotesPerPage: 3,
+  maxProjectsPerPage: 12,
   name: 'Sma1lboy',
   navItems: [
     {
       href: '/',
       label: 'Home',
+    },
+    {
+      href: '/project',
+      label: 'Project',
     },
     {
       href: '/blog',
