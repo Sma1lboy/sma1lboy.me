@@ -1,6 +1,6 @@
 import PulsatingButton from './ui/pulsating-button'
 
-import { defaultTheme } from '@/app/page'
+import { defaultTheme } from '@/app/generateTheme'
 
 export const ResumeButton = () => {
   return (
