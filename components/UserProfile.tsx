@@ -6,6 +6,8 @@ import {
   SiInstagram,
 } from '@icons-pack/react-simple-icons'
 
+import { NumberTicker } from './NumberTicker'
+
 import { ExtendedGitHubUserInfo, UserProfileProps } from '@/models/GithubUser'
 import { defaultConfig } from '@/config/siteConfig'
 
@@ -110,7 +112,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
           ].map(stat => (
             <div key={stat.label} className="text-center">
               <div className="text-3xl font-bold text-primary">
-                {stat.value}+
+                <NumberTicker value={stat.value} />+
               </div>
               <div className="text-sm text-foreground/40">{stat.label}</div>
             </div>
