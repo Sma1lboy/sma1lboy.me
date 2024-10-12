@@ -27,7 +27,8 @@
     "@react-aria/ssr": "3.9.4",
     "@react-aria/visually-hidden": "3.8.12",
     "axios": "^1.7.7",
-    "clsx": "2.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "framer-motion": "~11.1.1",
     "fs": "^0.0.1-security",
     "intl-messageformat": "^10.5.0",
@@ -37,7 +38,9 @@
     "prettier": "^3.3.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "tailwind-merge": "^2.5.3",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@octokit/rest": "^21.0.2",
@@ -64,7 +67,7 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-unused-imports": "^3.2.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.446.0",
+    "lucide-react": "^0.452.0",
     "parse-md": "^3.0.3",
     "postcss": "8.4.38",
     "prettier-plugin-tailwindcss": "^0.6.8",

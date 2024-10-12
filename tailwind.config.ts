@@ -12,7 +12,7 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: 'class',
+  darkMode: ['class', 'class'],
   plugins: [
     nextui({
       themes: {
@@ -23,20 +23,26 @@ const config: Config = {
       },
     }),
     typography(),
-  ],
+      require("tailwindcss-animate")
+],
   theme: {
-    extend: {
-      colors: {
-        card: {
-          dark: '#FFFFFF',
-          light: '#FFFFFF',
-        },
-      },
-      fontFamily: {
-        mono: ['var(--font-mono)'],
-        sans: ['var(--font-sans)'],
-      },
-    },
+  	extend: {
+  		colors: {
+  			card: {
+  				dark: '#FFFFFF',
+  				light: '#FFFFFF'
+  			}
+  		},
+  		fontFamily: {
+  			mono: ['var(--font-mono)'],
+  			sans: ['var(--font-sans)']
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		}
+  	}
   },
 }
 
