@@ -23,26 +23,39 @@ const config: Config = {
       },
     }),
     typography(),
-      require("tailwindcss-animate")
-],
+    require('tailwindcss-animate'),
+  ],
   theme: {
-  	extend: {
-  		colors: {
-  			card: {
-  				dark: '#FFFFFF',
-  				light: '#FFFFFF'
-  			}
-  		},
-  		fontFamily: {
-  			mono: ['var(--font-mono)'],
-  			sans: ['var(--font-sans)']
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+    extend: {
+      animation: {
+        pulse: 'pulse var(--duration) ease-out infinite',
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      colors: {
+        card: {
+          dark: '#FFFFFF',
+          light: '#FFFFFF',
+        },
+      },
+      fontFamily: {
+        mono: ['var(--font-mono)'],
+        sans: ['var(--font-sans)'],
+      },
+      keyframes: {
+        pulse: {
+          '0%, 100%': {
+            boxShadow: '0 0 0 0 var(--pulse-color)',
+          },
+          '50%': {
+            boxShadow: '0 0 0 8px var(--pulse-color)',
+          },
+        },
+      },
+    },
   },
 }
 

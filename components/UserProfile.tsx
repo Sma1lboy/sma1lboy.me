@@ -1,12 +1,14 @@
 import React, { use } from 'react'
-import { DocumentTextIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import { EnvelopeIcon } from '@heroicons/react/24/outline'
 import {
   SiGithub,
   SiLinkedin,
   SiInstagram,
 } from '@icons-pack/react-simple-icons'
 
-import { NumberTicker } from './NumberTicker'
+import { NumberTicker } from './ui/number-ticker'
+import { TypingAnimation } from './ui/typing-animation'
+import { ResumeButton } from './resume-button'
 
 import { ExtendedGitHubUserInfo, UserProfileProps } from '@/models/GithubUser'
 import { defaultConfig } from '@/config/siteConfig'
@@ -28,7 +30,6 @@ async function getGitHubUserInfo(
 
 const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
   const userInfo = use(getGitHubUserInfo(username))
-
   const socialLinks = [
     { icon: SiGithub, label: 'GitHub', link: defaultConfig.links.github },
     { icon: SiLinkedin, label: 'LinkedIn', link: defaultConfig.links.linkedin },
@@ -52,55 +53,17 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 font-sans">
       <header className="mb-12">
-        <h1 className="mb-2 text-4xl font-bold">
-          Hi, I&apos;m {userInfo.name} 👋
-        </h1>
+        <TypingAnimation
+          className="mb-2 text-4xl font-bold"
+          duration={100}
+          text={"Hi, I'm " + userInfo.name + ' 👋'}
+        />
       </header>
 
       <section className="mb-12 text-lg leading-relaxed">
         <p className="text-foreground/50">{defaultConfig.description}</p>
       </section>
 
-      {/* <div className="mb-4 flex items-start justify-between">
-        <p className="text-xl text-primary/80">@{userInfo.login}</p>
-        <section className="flex space-x-4 text-primary/60">
-          {userInfo.location && (
-            <div className="flex items-center">
-              <MapPinIcon className="mr-2 h-5 w-5" />
-              <span>{userInfo.location}</span>
-            </div>
-          )}
-          {userInfo.company && (
-            <div className="flex items-center">
-              <BuildingOfficeIcon className="mr-2 h-5 w-5" />
-              <span>{userInfo.company}</span>
-            </div>
-          )}
-        </section>
-      </div>
-
-      <div className="flex space-x-4">
-        {defaultConfig.email && (
-          <a
-            className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            href={`mailto:${defaultConfig.email}`}
-          >
-            <EnvelopeIcon className="mr-2 h-5 w-5" />
-            Contact Me
-          </a>
-        )}
-        {defaultConfig.resume && (
-          <a
-            className="inline-flex items-center rounded-md border border-primary bg-white px-4 py-2 text-sm font-medium text-primary shadow-sm hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            href={defaultConfig.resume}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <DocumentTextIcon className="mr-2 h-5 w-5" />
-            Check Resume
-          </a>
-        )}
-      </div> */}
       <section className="mb-10">
         <h2 className="mb-4 text-2xl font-semibold">GitHub Contributions</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -121,17 +84,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
       </section>
 
       <section className="mb-5 flex justify-center">
-        {defaultConfig.resume && (
-          <a
-            className="inline-flex items-center rounded-md border border-primary bg-white px-4 py-2 text-sm font-medium text-primary shadow-sm hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            href={defaultConfig.resume}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <DocumentTextIcon className="mr-2 h-5 w-5" />
-            Resume
-          </a>
-        )}
+        {defaultConfig.resume && <ResumeButton />}
       </section>
 
       {socialLinks.length > 0 && (

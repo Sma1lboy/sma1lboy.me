@@ -5,6 +5,7 @@ import { Suspense } from 'react'
 
 import { defaultConfig } from '@/config/siteConfig'
 import UserProfile from '@/components/UserProfile'
+import { generateThemes } from '@/utils/tailwindThemeGenerator'
 
 /*
 
@@ -15,6 +16,11 @@ init config
 const des = readFileSync(path.resolve('./config/description.md'), 'utf-8')
 
 defaultConfig.description = des
+
+export const defaultTheme = generateThemes([
+  { name: 'light', primaryColor: defaultConfig.colors.light },
+  { name: 'dark', primaryColor: defaultConfig.colors.dark },
+])
 
 export default async function Home() {
   return (
