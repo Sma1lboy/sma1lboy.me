@@ -2,7 +2,7 @@ import { readFileSync } from 'fs'
 import path from 'path'
 
 import { Suspense } from 'react'
-
+//
 import { defaultConfig } from '@/config/siteConfig'
 import UserProfile from '@/components/UserProfile'
 
