@@ -8,24 +8,27 @@ import { MarkdownUtils } from '@/utils/MarkdownUtils'
 
 interface BlogPostProps {
   params: {
-    slug: string
+    slug: string[]
   }
 }
 
 const BLOG_BASE_URL = './public/blog'
 
 export async function generateStaticParams() {
-  return MarkdownUtils.getAllMarkdownFilesDetail(BLOG_BASE_URL).map(b => ({
-    slug: b.slug,
+  const posts = MarkdownUtils.getAllMarkdownFilesDetail(BLOG_BASE_URL)
+
+  return posts.map(post => ({
+    slug: encodeURI(post.slug).split('/').filter(Boolean),
   }))
 }
 
 const BlogPost = async ({ params }: BlogPostProps) => {
-  const { slug } = params
-  const filePath = resolve(
-    BLOG_BASE_URL,
-    MarkdownUtils.convertSlugToMarkdownName(slug)
-  )
+  if (!params.slug || params.slug.length === 0) {
+    return <div>Blog Index Page</div>
+  }
+
+  const decodedPath = decodeURI(params.slug.join('/'))
+  const filePath = resolve(process.cwd(), BLOG_BASE_URL, decodedPath + '.md')
 
   try {
     const content = await readFile(filePath, 'utf-8')
@@ -46,7 +49,13 @@ const BlogPost = async ({ params }: BlogPostProps) => {
   } catch (error) {
     console.error('Error reading blog post:', error)
 
-    return <div>Blog post not found</div>
+    return (
+      <div>
+        <p>Blog post not found</p>
+        <p>Path: {filePath}</p>
+        <pre>{JSON.stringify(error, null, 2)}</pre>
+      </div>
+    )
   }
 }
 

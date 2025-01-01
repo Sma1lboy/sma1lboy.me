@@ -15,11 +15,7 @@ export class MarkdownUtils {
   private static readonly PREFIX_MAX_CHARS = 80
 
   public static convertMarkdownNameToSlug(name: string): string {
-    return name.replace(/\.md$/, '').replace(/\s+/g, '-')
-  }
-
-  public static convertSlugToMarkdownName(slug: string): string {
-    return `${slug.replace(/-/g, ' ')}.md`
+    return name.replace(/\.md$/, '')
   }
 
   public static getAllMarkdownFilesName(dir: string): string[] {
@@ -86,7 +82,8 @@ export class MarkdownUtils {
         .replace(/\.md$/, '')
         .replace(/^\w+ \d{4}-\d{2}-\d{2} /, '')
 
-      const slug = MarkdownUtils.convertMarkdownNameToSlug(file)
+      const blogPath = file.split('/blog/').pop() || ''
+      const slug = MarkdownUtils.convertMarkdownNameToSlug(blogPath)
       const { metadata, content } = parseMD(data)
       const description = markdownToTxt(
         content.slice(0, MarkdownUtils.PREFIX_MAX_CHARS)
@@ -103,6 +100,10 @@ export class MarkdownUtils {
         date = new Date(MarkdownUtils.getGitLastModifiedDate(filePath))
       }
 
+      // slug wrong
+      // current all filename like
+      // /blog/Users/jacksonchen/Documents/Github/sma1lboy.me/public/blog/Declarative-and-Imperative-Programming
+      // use our base name to replace prefix as /blog/Declarative-and-Imperative-Programming
       return {
         date: date.toISOString(),
         description,
