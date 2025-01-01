@@ -23,18 +23,23 @@ export class MarkdownUtils {
   }
 
   public static getAllMarkdownFilesName(dir: string): string[] {
-    return readdirSync(dir).filter(file => file.endsWith('.md'))
+    return readdirSync(dir).filter(
+      file => file.endsWith('.md') && !file.toLowerCase().endsWith('readme.md')
+    )
   }
 
   private static isValidMetadata(metadata: unknown): metadata is BlogMetadata {
-    return (
-      typeof metadata === 'object' &&
-      metadata !== null &&
-      'Date' in metadata &&
-      (typeof (metadata as BlogMetadata).Date === 'string' ||
-        (metadata as BlogMetadata).Date === undefined)
-    )
+    if (typeof metadata !== 'object' || metadata === null) {
+      return false
+    }
+
+    if (Object.keys(metadata).length === 0) {
+      return false
+    }
+
+    return 'Date' in metadata
   }
+
   private static getGitLastModifiedDate(filePath: string): string {
     try {
       const dateStr = execSync(`git log -1 --format=%cd -- "${filePath}"`, {
@@ -43,19 +48,14 @@ export class MarkdownUtils {
         .toString()
         .trim()
 
-      console.log('Git date string:', dateStr)
       if (dateStr) {
         const date = new Date(dateStr)
 
-        console.log('Parsed and converted date:', date.toISOString())
-
         return date.toISOString()
-      } else {
-        return new Date().toISOString()
       }
-    } catch (error) {
-      console.error(`Error getting git date for ${filePath}:`, error)
 
+      return new Date().toISOString()
+    } catch (error) {
       return new Date().toISOString()
     }
   }
@@ -67,18 +67,22 @@ export class MarkdownUtils {
       const filePath = resolve(dir, file)
       const data = readFileSync(filePath, 'utf-8')
       const title = file.replace(/\.md$/, '')
-      const description = markdownToTxt(
-        data.slice(0, MarkdownUtils.PREFIX_MAX_CHARS)
-      ).concat('...')
+
       const slug = MarkdownUtils.convertMarkdownNameToSlug(file)
       const { metadata, content } = parseMD(data)
-
+      const description = markdownToTxt(
+        content.slice(0, MarkdownUtils.PREFIX_MAX_CHARS)
+      ).concat('...')
       let date: Date
 
       if (MarkdownUtils.isValidMetadata(metadata) && metadata.Date) {
-        date = new Date(metadata.Date)
+        const parsedDate = new Date(metadata.Date)
+
+        date = isNaN(parsedDate.getTime())
+          ? new Date(MarkdownUtils.getGitLastModifiedDate(filePath))
+          : parsedDate
       } else {
-        date = new Date()
+        date = new Date(MarkdownUtils.getGitLastModifiedDate(filePath))
       }
 
       return {
