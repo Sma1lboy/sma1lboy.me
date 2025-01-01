@@ -66,7 +66,7 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-7">
+    <div className="mx-auto mt-1 max-w-4xl px-7">
       <div className="mb-6 flex items-center justify-between">
         <Tabs
           aria-label="Sort options"

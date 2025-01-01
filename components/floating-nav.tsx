@@ -106,19 +106,23 @@ export const FloatingNav = () => {
             className="fixed bottom-8 right-8 md:right-12"
             exit={{ opacity: 0, y: 20 }}
             initial={{ opacity: 0, y: 20 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <button
+            <motion.button
               className="flex h-8 items-center gap-2 rounded-full border px-4 text-sm font-medium shadow-sm transition-colors hover:bg-primary/10"
               style={{
                 backgroundColor: themeColors.background,
                 borderColor: themeColors.primary.DEFAULT,
                 color: themeColors.primary.DEFAULT,
               }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => router.back()}
             >
               <IconArrowBack className="h-4 w-4" />
               <span>Back</span>
-            </button>
+            </motion.button>
           </motion.div>
         </AnimatePresence>
       )}

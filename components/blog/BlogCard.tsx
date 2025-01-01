@@ -18,7 +18,10 @@ export const BlogCard = ({
   const formattedDate = date ? formatRelativeDate(date) : ''
 
   return (
-    <Card className={`px-2 py-2 ${className || ''}`} shadow="sm">
+    <Card
+      className={`border-0 border-none px-2 py-2 ${className || ''}`}
+      shadow="sm"
+    >
       <CardHeader className="flex items-center justify-between">
         <a className="hover:underline" href={`/blog/${slug}`}>
           <h3 className="prose prose-xl prose-stone dark:prose-invert">

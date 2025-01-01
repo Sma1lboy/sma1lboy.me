@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 //
 import { defaultConfig } from '@/config/siteConfig'
 import UserProfile from '@/components/UserProfile'
+import { BackgroundBeamsWithCollision } from '@/components/background-beams-with-collision'
 
 /*
 
@@ -19,10 +20,12 @@ defaultConfig.description = des
 
 export default async function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <Suspense fallback={<div>Loading user profile...</div>}>
-        <UserProfile username={defaultConfig.name} />
-      </Suspense>
-    </section>
+    <BackgroundBeamsWithCollision>
+      <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+        <Suspense fallback={<div>Loading user profile...</div>}>
+          <UserProfile username={defaultConfig.name} />
+        </Suspense>
+      </section>
+    </BackgroundBeamsWithCollision>
   )
 }

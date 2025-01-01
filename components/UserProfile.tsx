@@ -1,5 +1,17 @@
 import React, { use } from 'react'
 import { EnvelopeIcon } from '@heroicons/react/24/outline'
+
+const parseMarkdown = (text: string) => {
+  // First join all lines with spaces to handle multi-line markdown
+  const singleLineText = text.replace(/\n/g, ' ')
+
+  // Then apply markdown formatting with primary-400 color
+  return singleLineText.replace(
+    /\*\*(.*?)\*\*/g,
+    '<span class="font-bold text-primary-400 hover:text-primary transition-all duration-300 transform-gpu hover:scale-110">$1</span>'
+  )
+}
+
 import {
   SiGithub,
   SiLinkedin,
@@ -61,7 +73,12 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
       </header>
 
       <section className="mb-12 text-lg leading-relaxed">
-        <p className="text-foreground/50">{defaultConfig.description}</p>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: parseMarkdown(defaultConfig.description),
+          }}
+          className="text-foreground/50"
+        />
       </section>
 
       <section className="mb-10">

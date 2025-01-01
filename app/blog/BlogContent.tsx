@@ -1,19 +1,15 @@
 'use client'
 import React, { useState, useMemo } from 'react'
-import { Pagination, Input } from '@nextui-org/react'
+import { Input } from '@nextui-org/react'
 import { SearchIcon } from 'lucide-react'
 
 import { Blog } from './Blog'
 import BlogCardList from './BlogCardList'
 
-import { defaultConfig } from '@/config/siteConfig'
-
 export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
-  const [currentPage, setCurrentPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
-  const notesPerPage = defaultConfig.maxNotesPerPage
 
-  const filteredAndSortedBlogs = useMemo(() => {
+  const filteredBlogs = useMemo(() => {
     return blogs.filter(
       blog =>
         blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -22,57 +18,51 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
     )
   }, [blogs, searchQuery])
 
-  const paginatedBlogs = useMemo(() => {
-    const startIndex = (currentPage - 1) * notesPerPage
-
-    return filteredAndSortedBlogs.slice(startIndex, startIndex + notesPerPage)
-  }, [filteredAndSortedBlogs, currentPage, notesPerPage])
-
-  const totalPages = Math.ceil(filteredAndSortedBlogs.length / notesPerPage)
-
   return (
-    <div className="mx-auto max-w-3xl px-5 py-4">
-      <div className="mb-6">
+    <div className="animate-fade-in mx-auto max-w-5xl px-5 py-8">
+      <div className="mb-8">
         <Input
           classNames={{
-            base: 'max-w-full h-10',
-            input: 'text-small',
+            base: 'max-w-full h-12',
+            input: 'text-medium',
             inputWrapper:
-              'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+              'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 hover:bg-default-400/30 dark:hover:bg-default-500/30',
             mainWrapper: 'h-full',
           }}
           placeholder="Search blogs..."
-          size="sm"
-          startContent={<SearchIcon size={18} />}
+          size="md"
+          startContent={<SearchIcon className="text-default-500" size={20} />}
           type="search"
           value={searchQuery}
           onValueChange={setSearchQuery}
         />
       </div>
 
-      <BlogCardList initialBlogs={paginatedBlogs} />
+      <BlogCardList initialBlogs={filteredBlogs} />
 
-      {totalPages > 1 && (
-        <div className="mt-8 flex justify-center">
-          <Pagination
-            isCompact
-            showControls
-            initialPage={1}
-            page={currentPage}
-            total={totalPages}
-            onChange={setCurrentPage}
-          />
-        </div>
-      )}
-
-      <div className="mt-6 text-center">
+      <div className="mt-8 text-center">
         <a
-          className="font-serif text-primary transition-colors hover:text-primary-400"
+          className="inline-flex items-center gap-2 font-medium text-primary transition-all hover:gap-3 hover:text-primary-400"
           href="https://blog.sma1lboy.me"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Go to Full version of blog Web
+          <span>Go to Full version of blog Web</span>
+          <svg
+            className="lucide lucide-arrow-right"
+            fill="none"
+            height="16"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
         </a>
       </div>
     </div>
