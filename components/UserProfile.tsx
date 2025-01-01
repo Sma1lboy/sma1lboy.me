@@ -22,7 +22,7 @@ async function getGitHubUserInfo(
   )
 
   if (!res.ok) {
-    throw new Error('Failed to fetch user information')
+    throw new Error('Failed to fetch user information' + JSON.stringify(res))
   }
 
   return res.json()

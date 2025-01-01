@@ -20,7 +20,8 @@ export const defaultConfig: Config = {
   name: 'Sma1lboy',
   navItems: [
     {
-      href: '/',
+      default: true,
+      href: '/home',
       label: 'Home',
     },
     {

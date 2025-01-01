@@ -1,10 +1,9 @@
 'use client'
-import React, { useState, useMemo } from 'react'
-import Masonry from 'react-masonry-css'
+import React, { useState, useMemo, Key } from 'react'
 import { Tabs, Tab, Pagination, Input } from '@nextui-org/react'
-import { SearchIcon } from 'lucide-react'
+import { SearchIcon, GitFork, Star, Calendar } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
-import { ProjectCard } from './ProjectCard'
 import { Repository } from './Repository'
 
 import { defaultConfig } from '@/config/siteConfig'
@@ -12,19 +11,14 @@ import { defaultConfig } from '@/config/siteConfig'
 export interface ProjectContentProps {
   repos: Repository[]
 }
-
+export type SortType = 'stars' | 'updated' | 'forks'
 export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
-  const [sortBy, setSortBy] = useState<'stars' | 'updated' | 'forks'>('stars')
+  const [sortBy, setSortBy] = useState<SortType>('stars')
   const [currentPage, setCurrentPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
   const maxProjectPerPage = defaultConfig.maxProjectsPerPage || 30
 
-  const breakpointColumnsObj = {
-    1100: 3,
-    500: 1,
-    700: 2,
-    default: 4,
-  }
+  const [activeHighlight, setActiveHighlight] = useState<SortType | null>(null)
 
   const filteredAndSortedRepos = useMemo(() => {
     return [...repos]
@@ -66,17 +60,20 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
     { key: 'forks', label: 'Forks' },
   ]
 
+  const handleSortChange = (key: Key) => {
+    setSortBy(key as SortType)
+    setActiveHighlight(key as SortType)
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-7">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between">
         <Tabs
           aria-label="Sort options"
           color="primary"
           selectedKey={sortBy}
           variant="underlined"
-          onSelectionChange={key =>
-            setSortBy(key as 'stars' | 'updated' | 'forks')
-          }
+          onSelectionChange={handleSortChange}
         >
           {sortOptions.map(option => (
             <Tab key={option.key} title={option.label} />
@@ -98,27 +95,94 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
           onValueChange={setSearchQuery}
         />
       </div>
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="ml-[-16px] flex w-auto"
-        columnClassName="pl-[16px] bg-clip-padding"
-      >
-        {paginatedRepos.map(repo => (
-          <div key={repo.id} className="mb-4">
-            <ProjectCard
-              description={repo.description || 'No description available'}
-              forks={repo.forks}
-              isOrg={repo.isOrg}
-              language={repo.language || 'Unknown'}
-              name={repo.name}
-              owner={repo.owner}
-              stars={repo.stars}
-              updatedAt={repo.updatedAt}
-              url={repo.url}
-            />
-          </div>
-        ))}
-      </Masonry>
+
+      <AnimatePresence mode="popLayout">
+        <div className="space-y-6">
+          {paginatedRepos.map(repo => (
+            <motion.div
+              key={repo.id}
+              animate={{ opacity: 1, y: 0 }}
+              className="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
+              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex flex-col gap-4">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <a
+                      className="text-xl font-medium text-primary hover:underline"
+                      href={repo.url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {repo.owner}/{repo.name}
+                    </a>
+                    {repo.isOrg && (
+                      <span className="ml-2 inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                        Organization
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-4 text-gray-600">
+                    <motion.div
+                      animate={{
+                        scale: activeHighlight === 'stars' ? 1.1 : 1,
+                      }}
+                      className={`flex items-center gap-1 transition-colors duration-300 ${
+                        activeHighlight === 'stars' ? 'text-purple-600' : ''
+                      }`}
+                    >
+                      <Star size={16} />
+                      <span>{repo.stars}</span>
+                    </motion.div>
+                    <motion.div
+                      animate={{
+                        scale: activeHighlight === 'forks' ? 1.1 : 1,
+                      }}
+                      className={`flex items-center gap-1 transition-colors duration-300 ${
+                        activeHighlight === 'forks' ? 'text-purple-600' : ''
+                      }`}
+                    >
+                      <GitFork size={16} />
+                      <span>{repo.forks}</span>
+                    </motion.div>
+                  </div>
+                </div>
+
+                <p className="text-gray-600">
+                  {repo.description || 'No description available'}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                  {repo.language && (
+                    <div className="flex items-center gap-1">
+                      <span className="h-3 w-3 rounded-full bg-primary" />
+                      <span>{repo.language}</span>
+                    </div>
+                  )}
+                  <motion.div
+                    animate={{
+                      scale: activeHighlight === 'updated' ? 1.05 : 1,
+                    }}
+                    className={`flex items-center gap-1 transition-colors duration-300 ${
+                      activeHighlight === 'updated'
+                        ? 'font-bold text-purple-400'
+                        : ''
+                    }`}
+                  >
+                    <Calendar size={16} />
+                    <span>
+                      Updated {new Date(repo.updatedAt).toLocaleDateString()}
+                    </span>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </AnimatePresence>
+
       <div className="mt-8 flex justify-center">
         <Pagination
           initialPage={1}

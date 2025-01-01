@@ -1,6 +1,7 @@
 export interface NavItem {
   href: string
   label: string
+  default?: boolean
 }
 
 export interface Config {

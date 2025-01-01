@@ -6,7 +6,7 @@ import { Providers } from './providers'
 
 import { defaultConfig } from '@/config/siteConfig'
 import { fontSans } from '@/config/fonts'
-import { NavbarComp } from '@/components/navbar'
+import { FloatingNav } from '@/components/floating-nav'
 
 export const metadata: Metadata = {
   description: defaultConfig.description,
@@ -40,8 +40,10 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
-          <NavbarComp />
-          {children}
+          <main className="relative min-h-screen">
+            {children}
+            <FloatingNav />
+          </main>
         </Providers>
       </body>
     </html>
