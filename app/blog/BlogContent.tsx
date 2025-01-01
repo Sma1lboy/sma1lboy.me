@@ -3,6 +3,7 @@ import React, { useState, useMemo } from 'react'
 import { Input } from '@nextui-org/react'
 import { SearchIcon, FolderIcon } from 'lucide-react'
 import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import { Blog } from './type'
 import BlogCardList from './BlogCardList'
@@ -131,63 +132,73 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
   }
 
   return (
-    <div className="animate-fade-in mx-auto flex max-w-7xl gap-6 px-5 py-8">
-      <div className="bg-card w-64 shrink-0 rounded-lg border p-4 shadow-sm">
-        <h2 className="mb-4 font-semibold">Categories</h2>
-        <ScrollArea className="h-[calc(100vh-200px)]">
-          <Accordion className="w-full" type="multiple">
-            {renderDirectory(directoryTree)}
-          </Accordion>
-        </ScrollArea>
-      </div>
-
-      <div className="flex-1">
-        <div className="mb-8">
-          <Input
-            classNames={{
-              base: 'max-w-full h-12',
-              input: 'text-medium',
-              inputWrapper:
-                'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 hover:bg-default-400/30 dark:hover:bg-default-500/30',
-              mainWrapper: 'h-full',
-            }}
-            placeholder="Search blogs..."
-            size="md"
-            startContent={<SearchIcon className="text-default-500" size={20} />}
-            type="search"
-            value={searchQuery}
-            onValueChange={setSearchQuery}
-          />
+    <AnimatePresence mode="popLayout">
+      <motion.div
+        animate={{ opacity: 1, y: 0 }}
+        className="mx-auto flex max-w-7xl gap-6 px-5 py-8"
+        exit={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="bg-card w-64 shrink-0 rounded-lg border p-4 shadow-sm">
+          <h2 className="mb-4 font-semibold">Categories</h2>
+          <ScrollArea className="h-[calc(100vh-200px)]">
+            <Accordion className="w-full" type="multiple">
+              {renderDirectory(directoryTree)}
+            </Accordion>
+          </ScrollArea>
         </div>
 
-        <BlogCardList initialBlogs={filteredBlogs} />
+        <div className="flex-1">
+          <div className="mb-8">
+            <Input
+              classNames={{
+                base: 'max-w-full h-12',
+                input: 'text-medium',
+                inputWrapper:
+                  'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20 hover:bg-default-400/30 dark:hover:bg-default-500/30',
+                mainWrapper: 'h-full',
+              }}
+              placeholder="Search blogs..."
+              size="md"
+              startContent={
+                <SearchIcon className="text-default-500" size={20} />
+              }
+              type="search"
+              value={searchQuery}
+              onValueChange={setSearchQuery}
+            />
+          </div>
 
-        <div className="mt-8 text-center">
-          <a
-            className="inline-flex items-center gap-2 font-medium text-primary transition-all hover:gap-3 hover:text-primary-400"
-            href="https://blog.sma1lboy.me"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>Go to Full version of blog Web</span>
-            <svg
-              className="lucide lucide-arrow-right"
-              fill="none"
-              height="16"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
+          <BlogCardList initialBlogs={filteredBlogs} />
+
+          <div className="mt-8 text-center">
+            <a
+              className="inline-flex items-center gap-2 font-medium text-primary transition-all hover:gap-3 hover:text-primary-400"
+              href="https://blog.sma1lboy.me"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
+              <span>Go to Full version of blog Web</span>
+              <svg
+                className="lucide lucide-arrow-right"
+                fill="none"
+                height="16"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   )
 }
