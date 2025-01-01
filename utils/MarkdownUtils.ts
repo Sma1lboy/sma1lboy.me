@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from 'fs'
+import { readdirSync, readFileSync, statSync } from 'fs'
 import { resolve } from 'path'
 import { execSync } from 'child_process'
 
@@ -23,9 +23,24 @@ export class MarkdownUtils {
   }
 
   public static getAllMarkdownFilesName(dir: string): string[] {
-    return readdirSync(dir).filter(
-      file => file.endsWith('.md') && !file.toLowerCase().endsWith('readme.md')
-    )
+    const results: string[] = []
+    const files = readdirSync(dir)
+
+    for (const file of files) {
+      const fullPath = resolve(dir, file)
+      const stat = statSync(fullPath)
+
+      if (stat.isDirectory()) {
+        results.push(...this.getAllMarkdownFilesName(fullPath))
+      } else if (
+        file.endsWith('.md') &&
+        !file.toLowerCase().endsWith('readme.md')
+      ) {
+        results.push(fullPath)
+      }
+    }
+
+    return results
   }
 
   private static isValidMetadata(metadata: unknown): metadata is BlogMetadata {
@@ -66,7 +81,10 @@ export class MarkdownUtils {
     return mdFiles.map(file => {
       const filePath = resolve(dir, file)
       const data = readFileSync(filePath, 'utf-8')
-      const title = file.replace(/\.md$/, '')
+      const basename = file.split('/').pop() || ''
+      const title = basename
+        .replace(/\.md$/, '')
+        .replace(/^\w+ \d{4}-\d{2}-\d{2} /, '')
 
       const slug = MarkdownUtils.convertMarkdownNameToSlug(file)
       const { metadata, content } = parseMD(data)
