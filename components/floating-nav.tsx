@@ -118,7 +118,7 @@ export const FloatingNav = () => {
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => router.back()}
+              onClick={() => router.replace('/')}
             >
               <IconArrowBack className="h-4 w-4" />
               <span>Back</span>

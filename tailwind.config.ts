@@ -26,36 +26,58 @@ const config: Config = {
     require('tailwindcss-animate'),
   ],
   theme: {
-    extend: {
-      animation: {
-        pulse: 'pulse var(--duration) ease-out infinite',
-      },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-      },
-      colors: {
-        card: {
-          dark: '#FFFFFF',
-          light: '#FFFFFF',
-        },
-      },
-      fontFamily: {
-        mono: ['var(--font-mono)'],
-        sans: ['var(--font-sans)'],
-      },
-      keyframes: {
-        pulse: {
-          '0%, 100%': {
-            boxShadow: '0 0 0 0 var(--pulse-color)',
-          },
-          '50%': {
-            boxShadow: '0 0 0 8px var(--pulse-color)',
-          },
-        },
-      },
-    },
+  	extend: {
+  		animation: {
+  			pulse: 'pulse var(--duration) ease-out infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		colors: {
+  			card: {
+  				dark: '#FFFFFF',
+  				light: '#FFFFFF'
+  			}
+  		},
+  		fontFamily: {
+  			mono: [
+  				'var(--font-mono)'
+  			],
+  			sans: [
+  				'var(--font-sans)'
+  			]
+  		},
+  		keyframes: {
+  			pulse: {
+  				'0%, 100%': {
+  					boxShadow: '0 0 0 0 var(--pulse-color)'
+  				},
+  				'50%': {
+  					boxShadow: '0 0 0 8px var(--pulse-color)'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		}
+  	}
   },
 }
 
