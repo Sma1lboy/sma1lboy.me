@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/rest'
+import React from 'react'
 
 import { ProjectContent } from './ProjectContent'
 import { Repository } from './Repository'
@@ -65,8 +66,16 @@ async function getUserRepositories(username: string): Promise<Repository[]> {
   return repositories
 }
 
-const ProjectPage = async () => {
+async function getRepos() {
   const repos = await getUserRepositories(defaultConfig.name)
+
+  return repos
+}
+
+export const revalidate = 86400 // 24 hours
+
+async function ProjectPage() {
+  const repos = await getRepos()
 
   return <ProjectContent repos={repos} />
 }
