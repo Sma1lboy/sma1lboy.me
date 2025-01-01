@@ -3,22 +3,27 @@ import React, { useState, useMemo, Key } from 'react'
 import { Tabs, Tab, Pagination, Input } from '@nextui-org/react'
 import { SearchIcon, GitFork, Star, Calendar } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTheme } from 'next-themes'
 
 import { Repository } from './Repository'
 
+import { cn } from '@/lib/utils'
 import { defaultConfig } from '@/config/siteConfig'
 
 export interface ProjectContentProps {
   repos: Repository[]
 }
+
 export type SortType = 'stars' | 'updated' | 'forks'
+
 export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
+  const { theme } = useTheme()
   const [sortBy, setSortBy] = useState<SortType>('stars')
   const [currentPage, setCurrentPage] = useState(1)
   const [searchQuery, setSearchQuery] = useState('')
-  const maxProjectPerPage = defaultConfig.maxProjectsPerPage || 30
-
   const [activeHighlight, setActiveHighlight] = useState<SortType | null>(null)
+
+  const maxProjectPerPage = defaultConfig.maxProjectsPerPage || 30
 
   const filteredAndSortedRepos = useMemo(() => {
     return [...repos]
@@ -83,8 +88,10 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
           classNames={{
             base: 'max-w-[300px] h-10',
             input: 'text-small',
-            inputWrapper:
-              'h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20',
+            inputWrapper: cn(
+              'h-full font-normal',
+              theme === 'dark' ? 'bg-default-500/20' : 'bg-default-400/20'
+            ),
             mainWrapper: 'h-full',
           }}
           placeholder="Search repositories..."
@@ -102,7 +109,14 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
             <motion.div
               key={repo.id}
               animate={{ opacity: 1, y: 0 }}
-              className="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
+              className={cn(
+                'group relative rounded-lg border p-6',
+                'transition-all duration-300',
+                'border-border',
+                theme === 'dark'
+                  ? 'bg-card/30 hover:bg-card/50 hover:shadow-lg'
+                  : 'bg-background hover:bg-background/80 hover:shadow-md'
+              )}
               exit={{ opacity: 0, y: -20 }}
               initial={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.3 }}
@@ -124,14 +138,15 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-gray-600">
+                  <div className="text-muted-foreground flex items-center gap-4">
                     <motion.div
                       animate={{
                         scale: activeHighlight === 'stars' ? 1.1 : 1,
                       }}
-                      className={`flex items-center gap-1 transition-colors duration-300 ${
-                        activeHighlight === 'stars' ? 'text-purple-600' : ''
-                      }`}
+                      className={cn(
+                        'flex items-center gap-1 transition-colors duration-300',
+                        activeHighlight === 'stars' && 'text-primary'
+                      )}
                     >
                       <Star size={16} />
                       <span>{repo.stars}</span>
@@ -140,9 +155,10 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
                       animate={{
                         scale: activeHighlight === 'forks' ? 1.1 : 1,
                       }}
-                      className={`flex items-center gap-1 transition-colors duration-300 ${
-                        activeHighlight === 'forks' ? 'text-purple-600' : ''
-                      }`}
+                      className={cn(
+                        'flex items-center gap-1 transition-colors duration-300',
+                        activeHighlight === 'forks' && 'text-primary'
+                      )}
                     >
                       <GitFork size={16} />
                       <span>{repo.forks}</span>
@@ -150,11 +166,11 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
                   </div>
                 </div>
 
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   {repo.description || 'No description available'}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                <div className="text-muted-foreground flex flex-wrap items-center gap-4 text-sm">
                   {repo.language && (
                     <div className="flex items-center gap-1">
                       <span className="h-3 w-3 rounded-full bg-primary" />
@@ -165,11 +181,11 @@ export const ProjectContent: React.FC<ProjectContentProps> = ({ repos }) => {
                     animate={{
                       scale: activeHighlight === 'updated' ? 1.05 : 1,
                     }}
-                    className={`flex items-center gap-1 transition-colors duration-300 ${
-                      activeHighlight === 'updated'
-                        ? 'font-bold text-purple-400'
-                        : ''
-                    }`}
+                    className={cn(
+                      'flex items-center gap-1 transition-colors duration-300',
+                      activeHighlight === 'updated' &&
+                        'font-medium text-primary'
+                    )}
                   >
                     <Calendar size={16} />
                     <span>

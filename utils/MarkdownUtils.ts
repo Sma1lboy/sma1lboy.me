@@ -5,7 +5,7 @@ import { execSync } from 'child_process'
 import markdownToTxt from 'markdown-to-txt'
 import parseMD from 'parse-md'
 
-import { Blog } from '@/app/blog/Blog'
+import { Blog } from '@/app/blog/type'
 
 interface BlogMetadata {
   Date?: string

@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { useTheme } from 'next-themes'
 import {
   Card,
   CardHeader,
@@ -12,6 +13,8 @@ import {
 } from '@nextui-org/react'
 import { FaStar, FaCode } from 'react-icons/fa'
 import { BiGitRepoForked } from 'react-icons/bi'
+
+import { cn } from '@/lib/utils'
 
 interface ProjectCardProps {
   name: string
@@ -36,12 +39,24 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   owner,
   isOrg,
 }) => {
+  const { theme } = useTheme()
+
   return (
-    <Card className="w-full overflow-hidden rounded-lg bg-background shadow-lg transition-all duration-1000 hover:shadow-xl">
+    <Card
+      className={cn(
+        'w-full overflow-hidden rounded-lg shadow-lg',
+        'transition-all duration-300',
+        'hover:shadow-xl',
+        'border-border border',
+        theme === 'dark'
+          ? 'bg-card/30 hover:bg-card/50'
+          : 'bg-background/80 hover:bg-background'
+      )}
+    >
       <CardHeader className="flex flex-col items-start gap-1 px-4">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-2 overflow-hidden">
-            <FaCode className="flex-shrink-0 text-lg text-primary-600" />
+            <FaCode className="flex-shrink-0 text-lg text-primary" />
             <Tooltip content={name}>
               <h3 className="truncate text-base font-bold text-foreground">
                 {name}
@@ -59,20 +74,31 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
         <Link
           isExternal
-          className="text-xs text-primary-700 transition-colors duration-200 hover:text-primary-500"
+          className={cn(
+            'text-xs',
+            'transition-colors duration-200',
+            theme === 'dark'
+              ? 'text-primary-400 hover:text-primary-300'
+              : 'text-primary-600 hover:text-primary-700'
+          )}
           href={`https://github.com/${owner}`}
         >
           {owner}
         </Link>
       </CardHeader>
-      <Divider />
+      <Divider className="bg-border" />
       <CardBody>
-        <p className="mb-3 line-clamp-2 text-sm text-foreground">
+        <p className="mb-3 line-clamp-2 text-sm text-foreground/90">
           {description || 'No description available'}
         </p>
         <div className="flex flex-wrap gap-2">
           {language && (
-            <Chip color="default" size="sm" variant="flat">
+            <Chip
+              className={cn(theme === 'dark' ? 'bg-muted' : 'bg-background')}
+              color="default"
+              size="sm"
+              variant="flat"
+            >
               {language}
             </Chip>
           )}
@@ -94,15 +120,21 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </Chip>
         </div>
       </CardBody>
-      <Divider />
+      <Divider className="bg-border" />
       <CardFooter className="flex items-center justify-between px-4">
-        <span className="text-xs text-primary-400">
+        <span className="text-muted-foreground text-xs">
           Updated: {new Date(updatedAt).toLocaleDateString()}
         </span>
         <Link
           isExternal
           showAnchorIcon
-          className="text-xs font-medium text-primary-500 hover:text-primary-600"
+          className={cn(
+            'text-xs font-medium',
+            'transition-colors duration-200',
+            theme === 'dark'
+              ? 'text-primary-400 hover:text-primary-300'
+              : 'text-primary-600 hover:text-primary-700'
+          )}
           href={url}
         >
           View on GitHub

@@ -1,11 +1,20 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
+import { useTheme } from 'next-themes'
 
-import { Blog } from './Blog'
+import { Blog } from './type'
+
+import { cn } from '@/lib/utils'
 
 const BlogCardList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const [sortedBlogs, setSortedBlogs] = useState<Blog[]>(initialBlogs)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const sorted = [...initialBlogs].sort((a, b) => {
@@ -18,29 +27,48 @@ const BlogCardList = ({ initialBlogs }: { initialBlogs: Blog[] }) => {
     setSortedBlogs(sorted)
   }, [initialBlogs])
 
+  if (!mounted) {
+    return null
+  }
+
   return (
     <div className="mx-auto space-y-4">
       {sortedBlogs.map((b, i) => (
         <div key={i}>
-          <div className="rounded-lg bg-white/10 p-4 backdrop-blur-sm">
+          <div
+            className={cn(
+              'rounded-lg p-4 backdrop-blur-sm',
+              'transition-colors duration-200',
+              'border-border border',
+              theme === 'dark'
+                ? 'bg-card/30 hover:bg-card/50'
+                : 'bg-background/80 hover:bg-background'
+            )}
+          >
             <div className="flex items-center justify-between">
-              <a className="hover:underline" href={`/blog/${b.slug}`}>
-                <h3 className="prose prose-xl prose-stone dark:prose-invert">
+              <a className="group" href={`/blog/${b.slug}`}>
+                <h3
+                  className={cn(
+                    'text-xl font-semibold',
+                    'group-hover:underline',
+                    'text-foreground'
+                  )}
+                >
                   {b.title}
                 </h3>
               </a>
               {b.date && (
-                <span className="text-sm text-gray-500">
+                <span className="text-muted-foreground text-sm">
                   {formatRelativeDate(b.date)}
                 </span>
               )}
             </div>
             <div className="pt-2">
-              <p>{b.description}</p>
+              <p className="text-muted-foreground">{b.description}</p>
             </div>
           </div>
           {i < sortedBlogs.length - 1 && (
-            <div className="my-4 border-t border-white/10" />
+            <div className="border-border my-4 border-t" />
           )}
         </div>
       ))}

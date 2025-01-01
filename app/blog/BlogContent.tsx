@@ -4,7 +4,7 @@ import { Input } from '@nextui-org/react'
 import { SearchIcon, FolderIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { Blog } from './Blog'
+import { Blog } from './type'
 import BlogCardList from './BlogCardList'
 
 import {
@@ -132,7 +132,6 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
 
   return (
     <div className="animate-fade-in mx-auto flex max-w-7xl gap-6 px-5 py-8">
-      {/* 目录侧边栏 */}
       <div className="bg-card w-64 shrink-0 rounded-lg border p-4 shadow-sm">
         <h2 className="mb-4 font-semibold">Categories</h2>
         <ScrollArea className="h-[calc(100vh-200px)]">
@@ -142,7 +141,6 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
         </ScrollArea>
       </div>
 
-      {/* 主内容区域 */}
       <div className="flex-1">
         <div className="mb-8">
           <Input

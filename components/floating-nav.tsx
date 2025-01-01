@@ -39,7 +39,6 @@ export const FloatingNav = () => {
     setMounted(true)
   }, [])
 
-  // 获取当前主题的颜色
   const themeColors = mounted
     ? defaultTheme[theme as 'light' | 'dark'].colors
     : defaultTheme['light'].colors
