@@ -1,15 +1,13 @@
 'use client'
 import { usePathname, useRouter } from 'next/navigation'
-import {
-  IconHome,
-  IconCode,
-  IconArticle,
-  IconSun,
-  IconMoon,
-} from '@tabler/icons-react'
+import { IconHome, IconSun } from '@tabler/icons-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { FaCameraRetro } from 'react-icons/fa'
+import { MdArticle } from 'react-icons/md'
+import { FaCode } from 'react-icons/fa'
+import { FaHome } from 'react-icons/fa'
+import { FaSun, FaMoon } from 'react-icons/fa'
 
 import { FloatingDock } from './floating-dock'
 
@@ -18,10 +16,10 @@ import { defaultTheme } from '@/app/generateTheme'
 
 const getIconForPath = (href: string) => {
   const iconMap: Record<string, React.ReactNode> = {
-    '/blog': <IconArticle className="h-full w-full" />,
-    '/home': <IconHome className="h-full w-full" />,
+    '/blog': <MdArticle className="h-full w-full" />,
+    '/home': <FaHome className="h-full w-full" />,
     '/photo': <FaCameraRetro className="h-full w-full" />,
-    '/project': <IconCode className="h-full w-full" />,
+    '/project': <FaCode className="h-full w-full" />,
   }
 
   return iconMap[href] || <IconHome className="h-full w-full" />
@@ -47,9 +45,9 @@ export const FloatingNav = () => {
     if (!mounted) return <IconSun className="h-full w-full" />
 
     return theme === 'light' ? (
-      <IconSun className="h-full w-full" />
+      <FaSun className="h-full w-full" />
     ) : (
-      <IconMoon className="h-full w-full" />
+      <FaMoon className="h-full w-full" />
     )
   }
 
