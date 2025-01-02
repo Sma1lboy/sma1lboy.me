@@ -32,6 +32,10 @@ export const defaultConfig: Config = {
       href: '/blog',
       label: 'Blog',
     },
+    {
+      href: '/photo',
+      label: 'Photo',
+    },
   ],
   navMenuItems: [],
   resume: '/resume.pdf',

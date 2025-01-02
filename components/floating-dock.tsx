@@ -143,7 +143,7 @@ const FloatingDockDesktop = ({
   return (
     <motion.div
       className={cn(
-        'mx-auto hidden h-12 items-end gap-3 rounded-2xl px-3 pb-2 md:flex',
+        'mx-auto hidden h-10 items-end gap-3 rounded-2xl px-3 pb-2 md:flex',
         className
       )}
       style={{
