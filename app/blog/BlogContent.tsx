@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 'use client'
 import React, { useState, useMemo } from 'react'
 import { Input } from '@nextui-org/react'
@@ -8,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Blog } from './type'
 import BlogCardList from './BlogCardList'
 
+import { cn } from '@/lib/utils'
 import {
   Accordion,
   AccordionContent,
@@ -34,6 +38,7 @@ const FileItem = ({ blog }: { blog: Blog }) => (
 
 export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
   const [searchQuery, setSearchQuery] = useState('')
+  const [showSidebar, setShowSidebar] = useState(false)
 
   const directoryTree = useMemo(() => {
     const tree: DirectoryTree = {
@@ -89,24 +94,31 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
     if (node.name === 'root') {
       return (
         <>
-          {node.subdirectories.map(subdir => renderDirectory(subdir))}
-          {node.blogs.length > 0 && (
-            <AccordionItem value="root-blogs">
+          {/* Render root-level blogs directly */}
+          {node.blogs.map(blog => (
+            <FileItem key={blog.slug} blog={blog} />
+          ))}
+          {/* Render subdirectories */}
+          {node.subdirectories.map(subdir => (
+            <AccordionItem key={subdir.path} value={subdir.path}>
               <AccordionTrigger className="text-sm">
                 <div className="flex items-center gap-2">
                   <FolderIcon size={16} />
-                  Root
+                  {subdir.name}
                 </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="ml-6 space-y-1">
-                  {node.blogs.map(blog => (
+                  {subdir.blogs.map(blog => (
                     <FileItem key={blog.slug} blog={blog} />
                   ))}
+                  {subdir.subdirectories.map(subSubDir =>
+                    renderDirectory(subSubDir)
+                  )}
                 </div>
               </AccordionContent>
             </AccordionItem>
-          )}
+          ))}
         </>
       )
     }
@@ -140,14 +152,45 @@ export const BlogContent = ({ blogs }: { blogs: Blog[] }) => {
         initial={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="bg-card w-64 shrink-0 rounded-lg border p-4 shadow-sm">
+        {/* show file button */}
+        {!showSidebar && (
+          <button
+            aria-label="Toggle directory sidebar"
+            className="fixed bottom-6 left-4 z-50 rounded-full bg-background p-3 lg:hidden"
+            onClick={() => setShowSidebar(true)}
+            onKeyDown={e => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                setShowSidebar(true)
+              }
+            }}
+          >
+            <FolderIcon className="text-primary" size={20} />
+          </button>
+        )}
+
+        <aside
+          aria-label="Blog categories"
+          className={cn(
+            'bg-card fixed left-0 top-0 z-50 h-screen w-64 shrink-0 rounded-lg border bg-background p-4 shadow-sm transition-transform duration-300 lg:static lg:z-0 lg:h-auto lg:translate-x-0',
+            showSidebar ? 'translate-x-0' : '-translate-x-full'
+          )}
+          onClick={e => e.stopPropagation()}
+        >
           <h2 className="mb-4 font-semibold">Categories</h2>
           <ScrollArea className="h-[calc(100vh-200px)]">
             <Accordion className="w-full" type="multiple">
               {renderDirectory(directoryTree)}
             </Accordion>
           </ScrollArea>
-        </div>
+        </aside>
+
+        <div
+          className={cn(
+            'fixed inset-0 z-40 bg-black/50 lg:hidden',
+            showSidebar ? 'block' : 'hidden'
+          )}
+          onClick={() => setShowSidebar(false)}
+        />
 
         <div className="flex-1">
           <div className="mb-8">
