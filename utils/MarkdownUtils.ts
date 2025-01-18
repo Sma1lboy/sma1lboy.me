@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, statSync } from 'fs'
-import { resolve } from 'path'
+import { join } from 'path'
 import { execSync } from 'child_process'
 
 import markdownToTxt from 'markdown-to-txt'
@@ -23,7 +23,7 @@ export class MarkdownUtils {
     const files = readdirSync(dir)
 
     for (const file of files) {
-      const fullPath = resolve(dir, file)
+      const fullPath = join(dir, file)
       const stat = statSync(fullPath)
 
       if (stat.isDirectory()) {
@@ -75,15 +75,21 @@ export class MarkdownUtils {
     const mdFiles = MarkdownUtils.getAllMarkdownFilesName(dir)
 
     return mdFiles.map(file => {
-      const filePath = resolve(dir, file)
+      const filePath = file
       const data = readFileSync(filePath, 'utf-8')
       const basename = file.split('/').pop() || ''
       const title = basename
         .replace(/\.md$/, '')
         .replace(/^\w+ \d{4}-\d{2}-\d{2} /, '')
 
+      // Extract the relative path from the blog directory
       const blogPath = file.split('/blog/').pop() || ''
-      const slug = MarkdownUtils.convertMarkdownNameToSlug(blogPath)
+      // Handle nested directories and spaces in the path
+      // Handle nested directories and spaces in the path without encoding
+      const slug = blogPath
+        .split('/')
+        .map(part => part.replace(/\.md$/, ''))
+        .join('/')
       const { metadata, content } = parseMD(data)
       const description = markdownToTxt(
         content.slice(0, MarkdownUtils.PREFIX_MAX_CHARS)

@@ -18,7 +18,8 @@ export async function generateStaticParams() {
   )
 
   return posts.map(post => ({
-    slug: encodeURI(post.slug).split('/').filter(Boolean),
+    // Split the slug into path segments without encoding
+    slug: post.slug.split('/').filter(Boolean),
   }))
 }
 
@@ -27,8 +28,18 @@ const BlogPost = async ({ params }: BlogPostProps) => {
     return <div>Blog Index Page</div>
   }
 
-  const decodedPath = decodeURI(params.slug.join('/'))
-  const filePath = join(process.cwd(), 'public', 'blog', decodedPath + '.md')
+  // Handle path segments and construct file path
+  const decodedPath = params.slug.map(segment => {
+    // Handle potential double-encoded segments
+    try {
+      return decodeURIComponent(decodeURIComponent(segment))
+    } catch {
+      return decodeURIComponent(segment)
+    }
+  })
+
+  // Join path segments and add .md extension
+  const filePath = join(process.cwd(), 'public', 'blog', ...decodedPath) + '.md'
 
   try {
     const content = await readFile(filePath, 'utf-8')
