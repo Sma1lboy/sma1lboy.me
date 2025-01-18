@@ -12,10 +12,10 @@ interface BlogPostProps {
   }
 }
 
-const BLOG_BASE_URL = './public/blog'
-
 export async function generateStaticParams() {
-  const posts = MarkdownUtils.getAllMarkdownFilesDetail(BLOG_BASE_URL)
+  const posts = MarkdownUtils.getAllMarkdownFilesDetail(
+    join(process.cwd(), 'public', 'blog')
+  )
 
   return posts.map(post => ({
     slug: encodeURI(post.slug).split('/').filter(Boolean),
@@ -28,7 +28,7 @@ const BlogPost = async ({ params }: BlogPostProps) => {
   }
 
   const decodedPath = decodeURI(params.slug.join('/'))
-  const filePath = join(__dirname, BLOG_BASE_URL, decodedPath + '.md')
+  const filePath = join(process.cwd(), 'public', 'blog', decodedPath + '.md')
 
   try {
     const content = await readFile(filePath, 'utf-8')
