@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises'
-import { resolve } from 'path'
+import { join } from 'path'
 
 import Link from 'next/link'
 
@@ -28,7 +28,7 @@ const BlogPost = async ({ params }: BlogPostProps) => {
   }
 
   const decodedPath = decodeURI(params.slug.join('/'))
-  const filePath = resolve(process.cwd(), BLOG_BASE_URL, decodedPath + '.md')
+  const filePath = join(__dirname, BLOG_BASE_URL, decodedPath + '.md')
 
   try {
     const content = await readFile(filePath, 'utf-8')
