@@ -1,11 +1,6 @@
 {
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/node"
-    }
-  ],
-  "hooks": {
-    "build": "git submodule update --init --recursive && npm install && npm run build"
-  }
+  "installCommand": "git submodule update --init --recursive && yarn install",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD .",
+  "buildCommand": "yarn build",
+  "outputDirectory": "dist"
 }
