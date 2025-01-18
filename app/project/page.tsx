@@ -7,23 +7,17 @@ import { defaultConfig } from '@/config/siteConfig'
 
 export const revalidate = 86400 // 24 hours
 
-async function getRepos(): Promise<Repository[]> {
+async function ProjectPage() {
   const response = await fetch(
-    `/api/github-repos?username=${defaultConfig.name}`,
-    {
-      next: { revalidate: 86400 }, // 24 hours cache
-    }
+    `${process.env.NEXT_PUBLIC_URL}/api/github-repos?username=${defaultConfig.name}`,
+    { cache: 'no-store' }
   )
 
   if (!response.ok) {
     throw new Error('Failed to fetch repositories')
   }
 
-  return response.json()
-}
-
-async function ProjectPage() {
-  const repos = await getRepos()
+  const repos: Repository[] = await response.json()
   return <ProjectContent repos={repos} />
 }
 

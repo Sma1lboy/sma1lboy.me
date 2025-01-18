@@ -4,7 +4,7 @@ import path from 'path'
 import { Octokit } from '@octokit/rest'
 import { NextResponse } from 'next/server'
 
-const CACHE_DIR = path.join('/tmp', '.cache')
+const CACHE_DIR = path.join(process.cwd(), '.next/cache/github-repos')
 const CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours
 
 interface Repository {
