@@ -2,5 +2,8 @@
   "installCommand": "git submodule update --init --recursive && yarn install",
   "ignoreCommand": "git diff --quiet HEAD^ HEAD .",
   "buildCommand": "yarn build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false
 }
