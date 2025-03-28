@@ -5,5 +5,8 @@
   "outputDirectory": ".next",
   "public": true,
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "env": {
+    "NEXT_PUBLIC_URL": "https://sma1lboy.me"
+  }
 }

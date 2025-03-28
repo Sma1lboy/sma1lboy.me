@@ -4,7 +4,10 @@ import path from 'path'
 import { Octokit } from '@octokit/rest'
 import { NextResponse } from 'next/server'
 
-const CACHE_DIR = path.join(process.cwd(), '.next/cache/github-repos')
+// Use /tmp directory for Vercel serverless functions
+const CACHE_DIR = process.env.VERCEL
+  ? path.join('/tmp', 'github-repos-cache')
+  : path.join(process.cwd(), '.next/cache/github-repos')
 const CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours
 
 interface Repository {
@@ -30,29 +33,39 @@ function getCacheFilePath(username: string): string {
 }
 
 function readCache(username: string): CachedData | null {
-  const cacheFile = getCacheFilePath(username)
+  try {
+    const cacheFile = getCacheFilePath(username)
 
-  if (fs.existsSync(cacheFile)) {
-    const data = JSON.parse(fs.readFileSync(cacheFile, 'utf8'))
-    return data as CachedData
+    if (fs.existsSync(cacheFile)) {
+      const data = JSON.parse(fs.readFileSync(cacheFile, 'utf8'))
+      return data as CachedData
+    }
+  } catch (error) {
+    console.error('Error reading cache:', error)
+    // Continue execution without cache
   }
 
   return null
 }
 
 function writeCache(username: string, data: Repository[]): void {
-  const cacheFile = getCacheFilePath(username)
+  try {
+    const cacheFile = getCacheFilePath(username)
 
-  if (!fs.existsSync(CACHE_DIR)) {
-    fs.mkdirSync(CACHE_DIR, { recursive: true })
+    if (!fs.existsSync(CACHE_DIR)) {
+      fs.mkdirSync(CACHE_DIR, { recursive: true })
+    }
+
+    const cacheData: CachedData = {
+      data,
+      timestamp: Date.now(),
+    }
+
+    fs.writeFileSync(cacheFile, JSON.stringify(cacheData))
+  } catch (error) {
+    console.error('Error writing cache:', error)
+    // Continue execution without caching
   }
-
-  const cacheData: CachedData = {
-    data,
-    timestamp: Date.now(),
-  }
-
-  fs.writeFileSync(cacheFile, JSON.stringify(cacheData))
 }
 
 function processRepoData(
@@ -117,8 +130,21 @@ async function getUserRepositories(username: string): Promise<Repository[]> {
 }
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const username = searchParams.get('username')
+  let username
+
+  try {
+    const url = new URL(request.url)
+    username = url.searchParams.get('username')
+  } catch (error) {
+    console.error('Error parsing URL:', error, 'URL:', request.url)
+    return NextResponse.json(
+      {
+        error: `Failed to parse URL: ${request.url}`,
+        details: error instanceof Error ? error.message : String(error),
+      },
+      { status: 400 }
+    )
+  }
 
   if (!username) {
     return NextResponse.json({ error: 'Username is required' }, { status: 400 })
@@ -131,15 +157,36 @@ export async function GET(request: Request) {
       return NextResponse.json(cachedData.data)
     }
 
-    // Fetch fresh data
-    const repositories = await getUserRepositories(username)
-    writeCache(username, repositories)
+    try {
+      // Fetch fresh data
+      const repositories = await getUserRepositories(username)
+      writeCache(username, repositories)
+      return NextResponse.json(repositories)
+    } catch (fetchError) {
+      console.error('Error fetching fresh data:', fetchError)
 
-    return NextResponse.json(repositories)
+      // If we have cached data (even if expired), use it as fallback
+      if (cachedData) {
+        console.log('Using expired cache as fallback')
+        return NextResponse.json(cachedData.data)
+      }
+
+      // No fallback available, re-throw the error
+      throw fetchError
+    }
   } catch (error: any) {
-    return NextResponse.json(
-      { error: `Failed to fetch repositories: ${error.message}` },
-      { status: error.status || 500 }
-    )
+    console.error('GitHub API error:', error)
+
+    // More detailed error response
+    const errorMessage = error.message || 'Unknown error'
+    const errorStatus = error.status || 500
+    const errorResponse = {
+      error: `Failed to fetch repositories: ${errorMessage}`,
+      status: errorStatus,
+      path: request.url,
+      timestamp: new Date().toISOString(),
+    }
+
+    return NextResponse.json(errorResponse, { status: errorStatus })
   }
 }
