@@ -10,7 +10,7 @@ interface PhotoPageProps {
 
 export const PhotoGallery: FC<PhotoPageProps> = ({ photoPaths }) => {
   return (
-    <div className="min-h-screen w-full p-1">
+    <div className="min-h-screen w-full">
       <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {photoPaths.map(src => (
           <motion.div
@@ -37,6 +37,7 @@ export const PhotoGallery: FC<PhotoPageProps> = ({ photoPaths }) => {
                 priority={false}
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 src={src}
+                unoptimized={!src.startsWith('/')} // Use unoptimized for external URLs
               />
             </div>
           </motion.div>

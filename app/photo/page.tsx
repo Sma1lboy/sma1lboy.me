@@ -1,9 +1,10 @@
 import { PhotoGallery } from './photoContent'
+import { photoUrls } from './photoUrls'
 
-import { PhotoUtils } from '@/utils/photoUtils'
-
-export default async function PhotoPage() {
-  const photoPaths = await PhotoUtils.getAllPhotoPaths('./public/photos')
-
-  return <PhotoGallery photoPaths={photoPaths} />
+export default function PhotoPage() {
+  return (
+    <div className="mx-auto p-1">
+      <PhotoGallery photoPaths={photoUrls} />
+    </div>
+  )
 }
