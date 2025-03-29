@@ -9,7 +9,7 @@ import { FaCode } from 'react-icons/fa'
 import { FaHome } from 'react-icons/fa'
 import { FaSun, FaMoon } from 'react-icons/fa'
 
-import { FloatingDock } from './floating-dock'
+import { FloatingDock } from './floatingDock'
 
 import { defaultConfig } from '@/config/siteConfig'
 import { defaultTheme } from '@/app/generateTheme'

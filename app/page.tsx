@@ -6,7 +6,7 @@ import { Suspense } from 'react'
 //
 import { defaultConfig } from '@/config/siteConfig'
 import UserProfile from '@/components/UserProfile'
-import { BackgroundBeamsWithCollision } from '@/components/background-beams-with-collision'
+import { BackgroundBeamsWithCollision } from '@/components/backgroundBeamsWithCollision'
 
 /*
 

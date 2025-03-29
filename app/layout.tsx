@@ -6,7 +6,7 @@ import { Providers } from './providers'
 
 import { defaultConfig } from '@/config/siteConfig'
 import { fontSans } from '@/config/fonts'
-import { FloatingNav } from '@/components/floating-nav'
+import { FloatingNav } from '@/components/floatingNav'
 
 export const metadata: Metadata = {
   description: defaultConfig.description,

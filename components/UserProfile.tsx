@@ -20,10 +20,10 @@ import {
 
 import { NumberTicker } from './ui/number-ticker'
 import { TypingAnimation } from './ui/typing-animation'
-import { ResumeButton } from './resume-button'
 
 import { ExtendedGitHubUserInfo, UserProfileProps } from '@/models/GithubUser'
 import { defaultConfig } from '@/config/siteConfig'
+import { ResumeButton } from './resumeButton'
 
 async function getGitHubUserInfo(
   username: string
