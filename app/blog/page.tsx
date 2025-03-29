@@ -1,6 +1,6 @@
 import { BlogContent } from './BlogContent'
 
-import { MarkdownUtils } from '@/utils/markdownUtils'
+import { MarkdownUtils } from '@/utils/MarkdownUtils'
 
 const BlogPages = async () => {
   const blogs = await MarkdownUtils.getAllMarkdownFilesDetail('./public/blog')

@@ -3,8 +3,8 @@ import { join } from 'path'
 
 import Link from 'next/link'
 
-import { MarkdownUtils } from '@/utils/markdownUtils'
-import MarkdownNote from '@/components/markdownProvider'
+import { MarkdownUtils } from '@/utils/MarkdownUtils'
+import MarkdownNote from '@/components/MarkdownProvider'
 
 interface BlogPostProps {
   params: {
