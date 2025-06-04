@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 import { nextui } from '@nextui-org/theme'
+
 // eslint-disable-next-line import/order
 const typography = require('@tailwindcss/typography')
 
@@ -29,9 +30,9 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
-        pulse: 'pulse var(--duration) ease-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        pulse: 'pulse var(--duration) ease-out infinite',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -46,17 +47,10 @@ const config: Config = {
       },
       fontFamily: {
         mono: ['var(--font-mono)'],
+        pixel: ['var(--font-pixel)'],
         sans: ['var(--font-sans)'],
       },
       keyframes: {
-        pulse: {
-          '0%, 100%': {
-            boxShadow: '0 0 0 0 var(--pulse-color)',
-          },
-          '50%': {
-            boxShadow: '0 0 0 8px var(--pulse-color)',
-          },
-        },
         'accordion-down': {
           from: {
             height: '0',
@@ -71,6 +65,14 @@ const config: Config = {
           },
           to: {
             height: '0',
+          },
+        },
+        pulse: {
+          '0%, 100%': {
+            boxShadow: '0 0 0 0 var(--pulse-color)',
+          },
+          '50%': {
+            boxShadow: '0 0 0 8px var(--pulse-color)',
           },
         },
       },

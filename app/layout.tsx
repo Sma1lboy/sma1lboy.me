@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { Providers } from './providers'
 
 import { defaultConfig } from '@/config/siteConfig'
-import { fontSans } from '@/config/fonts'
+import { fontSans, fontPixel } from '@/config/fonts'
 import { FloatingNav } from '@/components/floatingNav'
 
 export const metadata: Metadata = {
@@ -35,8 +35,9 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <body
         className={clsx(
-          'min-h-screen bg-background font-sans antialiased',
-          fontSans.variable
+          'min-h-screen bg-background font-pixel antialiased',
+          fontSans.variable,
+          fontPixel.variable
         )}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'light' }}>
