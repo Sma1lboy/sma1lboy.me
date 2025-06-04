@@ -20,10 +20,16 @@ import {
 
 import { NumberTicker } from './ui/number-ticker'
 import { TypingAnimation } from './ui/typing-animation'
+import { ResumeButton } from './resumeButton'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from './ui/8bit/card'
 
 import { ExtendedGitHubUserInfo, UserProfileProps } from '@/models/GithubUser'
 import { defaultConfig } from '@/config/siteConfig'
-import { ResumeButton } from './resumeButton'
 
 async function getGitHubUserInfo(
   username: string
@@ -63,14 +69,18 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
   ].filter(({ link }) => link !== undefined && link.trim() !== '')
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 font-sans">
-      <header className="mb-12">
-        <TypingAnimation
-          className="mb-2 text-4xl font-bold"
-          duration={100}
-          text={"Hi, I'm " + userInfo.name + ' 👋'}
-        />
-      </header>
+    <Card font="retro" className="mx-auto max-w-3xl px-4 py-12">
+      <CardHeader>
+        <CardTitle>Profile</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <header className="mb-12">
+          <TypingAnimation
+            className="mb-2 text-4xl font-bold"
+            duration={100}
+            text={"Hi, I'm " + userInfo.name + ' 👋'}
+          />
+        </header>
 
       <section className="mb-12 text-lg leading-relaxed">
         <div
@@ -130,7 +140,8 @@ const UserProfile: React.FC<UserProfileProps> = ({ username }) => {
           ))}
         </footer>
       )}
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 
