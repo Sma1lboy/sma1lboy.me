@@ -42,9 +42,9 @@ export function ProjectCarousel({
 
   return (
     <div className="relative">
-      <div className="flex flex-col items-center gap-12 lg:flex-row lg:gap-16">
+      <div className="flex flex-col items-center gap-8 sm:gap-12 lg:flex-row lg:gap-16">
         {/* Project Info */}
-        <div className="space-y-6 lg:w-2/5">
+        <div className="space-y-4 sm:space-y-6 lg:w-2/5">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={currentProject}
@@ -55,29 +55,30 @@ export function ProjectCarousel({
               transition={{ duration: 0.3 }}
               custom={direction}
             >
-              <div className="mb-3 text-sm font-medium tracking-wider text-gray-400 uppercase">
+              <div className="mb-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:mb-3 sm:text-sm">
                 {featuredProjects[currentProject].year} • Selected Work
               </div>
-              <h3 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
+              <h3 className="mb-3 text-2xl font-bold text-gray-900 sm:text-3xl lg:mb-4 lg:text-4xl">
                 {featuredProjects[currentProject].title}
               </h3>
-              <p className="mb-6 text-lg leading-relaxed font-light text-gray-600">
+              <p className="mb-4 text-base leading-relaxed font-light text-gray-600 sm:mb-6 sm:text-lg">
                 {featuredProjects[currentProject].description}
               </p>
-              <div className="mb-6 text-sm font-medium text-gray-500">
+              <div className="mb-4 text-xs font-medium text-gray-500 sm:mb-6 sm:text-sm">
                 {featuredProjects[currentProject].tech}
               </div>
               <motion.a
                 href={featuredProjects[currentProject].url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 text-gray-900 transition-colors duration-200 hover:text-gray-600"
+                className="group inline-flex touch-manipulation items-center gap-2 text-gray-900 transition-colors duration-200 hover:text-gray-600"
                 whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className="text-lg font-medium">Visit Project</span>
+                <span className="text-base font-medium sm:text-lg">Visit Project</span>
                 <ArrowUpRight
-                  size={20}
-                  className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  size={18}
+                  className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-5"
                 />
               </motion.a>
             </motion.div>
@@ -85,11 +86,13 @@ export function ProjectCarousel({
         </div>
 
         {/* Project Preview with Safari Component */}
-        <div className="lg:w-3/5">
+        <div className="w-full lg:w-3/5">
           <div
             className="relative"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
           >
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -103,7 +106,7 @@ export function ProjectCarousel({
                 custom={direction}
               >
                 <div
-                  className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+                  className="cursor-pointer touch-manipulation transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   onClick={() => window.open(featuredProjects[currentProject].url, "_blank")}
                 >
                   <Safari
@@ -111,7 +114,7 @@ export function ProjectCarousel({
                     imageSrc={featuredProjects[currentProject].preview}
                     width={800}
                     height={500}
-                    className="h-full w-full overflow-hidden rounded-lg bg-transparent shadow-2xl"
+                    className="h-full w-full overflow-hidden rounded-lg bg-transparent shadow-xl sm:shadow-2xl"
                   />
                 </div>
               </motion.div>
@@ -121,13 +124,13 @@ export function ProjectCarousel({
       </div>
 
       {/* Dots Navigation */}
-      <div className="mt-16 mb-10 flex items-center justify-center">
-        <div className="flex gap-3">
+      <div className="mt-12 mb-8 flex items-center justify-center sm:mt-16 sm:mb-10">
+        <div className="flex gap-2 sm:gap-3">
           {featuredProjects.map((_, index) => (
             <motion.button
               key={index}
               onClick={() => jumpToProject(index)}
-              className={`h-3 w-3 rounded-full transition-colors duration-300 ${
+              className={`h-3 w-3 touch-manipulation rounded-full transition-colors duration-300 sm:h-3 sm:w-3 ${
                 index === currentProject ? "bg-gray-800" : "bg-gray-300"
               }`}
               whileHover={{ scale: 1.3 }}

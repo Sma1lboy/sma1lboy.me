@@ -25,9 +25,11 @@ export interface DockProps extends VariantProps<typeof dockVariants> {
 const DEFAULT_SIZE = 40;
 const DEFAULT_MAGNIFICATION = 60;
 const DEFAULT_DISTANCE = 140;
+const MOBILE_SIZE = 36;
+const MOBILE_MAGNIFICATION = 48;
 
 const dockVariants = cva(
-  "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-8 flex h-[58px] w-max items-center justify-center gap-2 rounded-2xl border p-2 backdrop-blur-md",
+  "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-6 flex h-[52px] w-max items-center justify-center gap-1.5 rounded-2xl border p-1.5 backdrop-blur-md sm:mt-8 sm:h-[58px] sm:gap-2 sm:p-2",
 );
 
 const Dock = React.forwardRef<HTMLDivElement, DockProps>(
@@ -104,7 +106,13 @@ const DockIcon = ({
   ...props
 }: DockIconProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const padding = Math.max(6, size * 0.2);
+
+  // Use smaller sizes on mobile
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  const actualSize = isMobile ? MOBILE_SIZE : size;
+  const actualMagnification = isMobile ? MOBILE_MAGNIFICATION : magnification;
+
+  const padding = Math.max(4, actualSize * 0.15);
   const defaultMouseX = useMotionValue(Infinity);
 
   const distanceCalc = useTransform(mouseX ?? defaultMouseX, (val: number) => {
@@ -116,7 +124,7 @@ const DockIcon = ({
   const sizeTransform = useTransform(
     distanceCalc,
     [-distance, 0, distance],
-    [size, magnification, size],
+    [actualSize, actualMagnification, actualSize],
   );
 
   const scaleSize = useSpring(sizeTransform, {
@@ -130,7 +138,7 @@ const DockIcon = ({
       ref={ref}
       style={{ width: scaleSize, height: scaleSize, padding }}
       className={cn(
-        "flex aspect-square cursor-pointer items-center justify-center rounded-full",
+        "flex aspect-square cursor-pointer touch-manipulation items-center justify-center rounded-full",
         className,
       )}
       {...props}

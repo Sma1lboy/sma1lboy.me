@@ -43,7 +43,7 @@ export function Home({ ...rest }: Props) {
 
   return (
     <>
-      <div className="bg-white text-gray-900" {...rest}>
+      <div className="overflow-x-hidden bg-white text-gray-900" {...rest}>
         <HeroSection />
         <ProjectsSection />
       </div>

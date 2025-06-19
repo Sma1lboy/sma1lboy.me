@@ -13,20 +13,20 @@ export function HeroSection() {
       variants={containerVariants}
     >
       {/* Main Layout - Two Columns */}
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-screen flex-col lg:flex-row">
           {/* Left Column - Personal Introduction */}
-          <div className="flex flex-col justify-center p-8 lg:w-1/2 lg:p-16 xl:p-24">
+          <div className="flex flex-col justify-center p-6 sm:p-8 lg:w-1/2 lg:p-16 xl:p-24">
             {/* Header */}
             <motion.div className="max-w-md" variants={itemVariants}>
               <motion.h1
-                className="mb-4 text-4xl font-bold text-gray-900 lg:text-6xl"
+                className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl lg:text-6xl"
                 variants={itemVariants}
               >
                 Jackson Chen
               </motion.h1>
               <motion.p
-                className="mb-8 text-lg font-light text-gray-600 lg:text-xl"
+                className="mb-6 text-base font-light text-gray-600 sm:text-lg lg:mb-8 lg:text-xl"
                 variants={itemVariants}
               >
                 Full Stack Developer & Computer Science Student
@@ -34,21 +34,24 @@ export function HeroSection() {
 
               {/* Quote */}
               <motion.blockquote
-                className="mb-12 text-2xl leading-relaxed font-light text-gray-700 italic lg:text-3xl"
+                className="mb-8 text-xl leading-relaxed font-light text-gray-700 italic sm:text-2xl lg:mb-12 lg:text-3xl"
                 variants={itemVariants}
               >
                 "I came, I saw, I made it."
               </motion.blockquote>
 
               {/* About */}
-              <motion.div className="mb-12 space-y-6 text-gray-600" variants={itemVariants}>
-                <motion.p className="leading-relaxed" variants={itemVariants}>
+              <motion.div
+                className="mb-8 space-y-4 text-gray-600 sm:space-y-6 lg:mb-12"
+                variants={itemVariants}
+              >
+                <motion.p className="text-sm leading-relaxed sm:text-base" variants={itemVariants}>
                   I am a <strong>Full Stack Developer</strong> and also a student at the{" "}
                   <strong>University of Wisconsin-Madison</strong>, majoring in{" "}
                   <strong>Computer Science</strong>. I'm an explorer of new tech, an{" "}
                   <strong>avid learner</strong>, and a <strong>problem-solver</strong> at heart.
                 </motion.p>
-                <motion.p className="leading-relaxed" variants={itemVariants}>
+                <motion.p className="text-sm leading-relaxed sm:text-base" variants={itemVariants}>
                   Moreover, I'm a <strong>passionate programmer</strong> on earth. Feel free to
                   connect with me for all things tech or just to say hello!
                 </motion.p>
@@ -63,12 +66,14 @@ export function HeroSection() {
 
           {/* Right Column - Interactive Avatar */}
           <motion.div
-            className="flex flex-col items-center justify-center bg-white p-8 lg:w-1/2 lg:p-16 xl:p-24"
+            className="flex flex-col items-center justify-center bg-white p-6 sm:p-8 lg:w-1/2 lg:p-16 xl:p-24"
             variants={avatarVariants}
             initial="hidden"
             animate="visible"
           >
-            <InteractiveAvatar imageSrc="/home-avatar.png" />
+            <div className="w-full max-w-sm sm:max-w-md lg:max-w-none">
+              <InteractiveAvatar imageSrc="/home-avatar.png" />
+            </div>
           </motion.div>
         </div>
       </div>
