@@ -1,72 +1,74 @@
-## React-ts Starter
+# sma1lboy's Personal Website
 
-#### This is a simple starter for a React project with TypeScript and vite. It includes a basic setup for a React project with TypeScript, ESLint, Prettier, shadcn/ui. and many more. This could be your perfect starter templates to initialize your new React project. you don't have to waste time in configuring everything. setup your project with this template withing a minute.
+This is the repository for my personal website, built with React, TypeScript, and Vite.
 
-#### Don't forget to give a ⭐ `star` if you like it. and feel to contribute. Thank you.
+## 🚀 Live Demo
 
-### Features
+[https://sma1lboy.me/](https://sma1lboy.me/)
 
-- Tailwindcss, shadcn-ui with Typescript configured
-- igniting vite with powerful plugins
-- husky hooks setup for pre-commit
-- docker setup
-- eslint, prettier setup for code formatting
-- standard folder structure
-- Custom import aliases (Example: @/components )
-- dependabot to keep notify to update dependencies
-- perfect workspace settings for single or team project.
+## ✨ Features
 
-## Vite Plugins That you must need to know for this starter.
+- **Framework**: [React](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Routing**: [TanStack Router](https://tanstack.com/router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
 
-### vite-plugin-svgr
+## 🛠️ Setup and Installation
 
-This plugin is used to generate SVG images from React components. You can use this plugin in your project.
-Example:
+To get started with this project, follow these steps:
 
-```javascript
-import Logo from "@/assets/react.svg?react";
-// just add ?react query to get the svg component
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/sma1lboy/sma1lboy.me.git
+   cd sma1lboy.me
+   ```
 
-export const App = () => {
-  return (
-    <div {...props}>
-      <Logo />
-      {/* You can use svg components as like normal React components */}
-    </div>
-  );
-};
+2. **Install dependencies using bun:**
+   ```bash
+   bun install
+   ```
+
+3. **Run the development server:**
+   ```bash
+   bun run dev
+   ```
+   The application will be available at `http://localhost:5173`.
+
+##  NPM Scripts
+
+- `bun run dev`: Starts the development server.
+- `bun run build`: Builds the application for production.
+- `bun run preview`: Previews the production build locally.
+- `bun run lint`: Lints the codebase.
+- `bun run prettier`: Checks for formatting errors.
+
+## 📁 Project Structure
+
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── ui/
+│   │   └── ...
+│   ├── constants/
+│   ├── hooks/
+│   ├── routes/
+│   ├── store/
+│   └── ...
+├── package.json
+└── vite.config.ts
 ```
 
-### unplugin-fonts
+- **`src/components`**: Contains all React components, with shared UI components in `src/components/ui`.
+- **`src/constants`**: Holds static data and constants.
+- **`src/hooks`**: Custom React hooks.
+- **`src/routes`**: Route definitions for TanStack Router.
+- **`src/store`**: Zustand stores for state management.
 
-This plugin is used to generate fonts from Google fonts. You can use this plugin in your project.
+## 🤝 Contributing
 
-How to use ? Open `/config/fonts.config.ts` file and add your fonts like this: name should be exactly same as in Google fonts. If you wan to add custom fonts you can check their doc. [link](https://github.com/cssninjaStudio/unplugin-fonts#readme)
-
-```javascript
-{
-    name: 'Space Grotesk',
-    styles: 'wght@300;400;500;700',
-  },
-```
-
-### unplugin-auto-import/vite
-
-This plugin is used to auto import modules. You can use this plugin in your project.
-auto-import will handle all imports like react, react-router and also shadcn-ui's component in your @component/ui folder , etc. and you can add more.
-
-Example:
-
-```javascript
-export function Counter() {
-  const [count, setCount] = useState(0); // no need to import react and react-router, auto-import will handle it
-  return (
-    <div>
-      <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>
-      {/*  also,  Button from @/components/ui but you don't need to import it.  */}
-    </div>
-  );
-}
-```
-
-#### Note: If you need SEO or Server Side Rendering you can use Next.js, Nuxtjs, Remix, Astro Etc SSR based framework. This template is just for vite-react.
+Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions or improvements.
