@@ -130,7 +130,6 @@ export function Home({ ...rest }: Props) {
 
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       const heroTop = heroSection.offsetTop;
-      const heroBottom = heroTop + heroSection.offsetHeight;
       const projectsTop = projectsSection.offsetTop;
 
       if (scrollPosition >= heroTop && scrollPosition < projectsTop) {
