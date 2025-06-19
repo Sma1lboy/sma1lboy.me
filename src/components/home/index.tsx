@@ -22,20 +22,20 @@ const featuredProjects = [
     id: 1,
     title: "FoxyChat",
     description:
-      "An intelligent AI chat platform with advanced conversation capabilities and seamless user experience.",
+      "A cross-platform desktop AI chat application built with Electron and TypeScript. Features intelligent conversation capabilities, RobotJS automation, and a modern interface designed for seamless AI interactions.",
     url: "https://foxychat.net",
     preview: "/images/foxychat-preview.png",
-    tech: "Next.js • TypeScript • AI/ML",
+    tech: "Electron • TypeScript • RobotJS • AI/ML",
     year: "2024",
   },
   {
     id: 2,
     title: "TaskForge",
     description:
-      "A powerful task management and productivity platform designed for modern teams and individuals.",
-    url: "https://gettaskforge.com",
+      "A comprehensive full-stack task management platform built with modern web technologies. Features a monorepo architecture with separate client and server packages, database migrations, and production-ready deployment workflows.",
+    url: "https://task-forge-website.vercel.app",
     preview: "/images/taskforge-preview.png",
-    tech: "React • Node.js • PostgreSQL",
+    tech: "TypeScript • Monorepo • Full-Stack • Database",
     year: "2024",
   },
   {
