@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Stage, Layer, Circle } from "react-konva";
+import { Circle, Layer, Stage } from "react-konva";
 
 interface CircleData {
   x: number;
@@ -15,9 +15,9 @@ interface InteractiveAvatarProps {
   className?: string;
 }
 
-export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({ 
-  imageSrc, 
-  className = "" 
+export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
+  imageSrc,
+  className = "",
 }) => {
   const [circles, setCircles] = useState<CircleData[]>([]);
   const [stageSize, setStageSize] = useState({ width: 800, height: 800 });
@@ -28,21 +28,21 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   React.useEffect(() => {
     const loadImage = async () => {
       const img = new Image();
-      
+
       img.onload = () => {
         const size = Math.min(window.innerWidth * 0.7, 800);
         setStageSize({ width: size, height: size });
-        
-        const canvas = document.createElement('canvas');
+
+        const canvas = document.createElement("canvas");
         canvas.width = size;
         canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        
+        const ctx = canvas.getContext("2d");
+
         if (ctx) {
           ctx.drawImage(img, 0, 0, size, size);
           const data = ctx.getImageData(0, 0, size, size);
           setImageData(data);
-          
+
           const mainCircle: CircleData = {
             x: size / 2,
             y: size / 2,
@@ -51,43 +51,45 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
             level: 0,
             id: generateCircleId(),
           };
-          
+
           const preSplitCircles = [mainCircle];
-          
-          for (let iteration = 0; iteration < 14; iteration++) {
+
+          for (let iteration = 0; iteration < 17; iteration++) {
             const currentCircles = [...preSplitCircles];
             preSplitCircles.length = 0;
-            
-            currentCircles.forEach(circle => {
+
+            currentCircles.forEach((circle) => {
               const normalizedX = circle.x / size;
               const normalizedY = circle.y / size;
-              
+
               // Distance from center (for radial effect)
-              const distanceFromCenter = Math.sqrt((normalizedX - 0.5) ** 2 + (normalizedY - 0.5) ** 2);
-              
+              const distanceFromCenter = Math.sqrt(
+                (normalizedX - 0.5) ** 2 + (normalizedY - 0.5) ** 2,
+              );
+
               // Distance from main diagonal (for diagonal emphasis)
               const distanceFromDiagonal = Math.abs(normalizedX - normalizedY);
-              
+
               // Combine center focus with diagonal emphasis
               const centerWeight = Math.exp(-distanceFromCenter * 3); // Focus on center
               const diagonalWeight = Math.exp(-distanceFromDiagonal * 1.5); // Emphasize diagonal
-              
+
               const baseProbability = 0.95 - iteration * 0.025;
               const combinedWeight = centerWeight * 0.6 + diagonalWeight * 0.4;
               const splitProbability = baseProbability * combinedWeight;
-              
+
               if (Math.random() < splitProbability && circle.radius > size / 128) {
                 const newRadius = circle.radius / 2;
                 const offset = newRadius; // Perfect fit without overlap
-                
+
                 const positions = [
                   { x: circle.x - offset, y: circle.y - offset },
                   { x: circle.x + offset, y: circle.y - offset },
                   { x: circle.x - offset, y: circle.y + offset },
-                  { x: circle.x + offset, y: circle.y + offset }
+                  { x: circle.x + offset, y: circle.y + offset },
                 ];
-                
-                positions.forEach(pos => {
+
+                positions.forEach((pos) => {
                   const color = getSampleColor(data, pos.x, pos.y);
                   preSplitCircles.push({
                     x: pos.x,
@@ -103,28 +105,28 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
               }
             });
           }
-          
+
           const finalCircles = [...preSplitCircles];
           const additionalCircles: CircleData[] = [];
-          
+
           for (let i = 0; i < finalCircles.length; i++) {
             const circle = finalCircles[i];
-            
+
             if (circle.radius > size / 32) {
               const shouldForceSplit = Math.random() < 0.8;
-              
+
               if (shouldForceSplit) {
                 const newRadius = circle.radius / 2;
                 const offset = newRadius; // Perfect fit without overlap
-                
+
                 const positions = [
                   { x: circle.x - offset, y: circle.y - offset },
                   { x: circle.x + offset, y: circle.y - offset },
                   { x: circle.x - offset, y: circle.y + offset },
-                  { x: circle.x + offset, y: circle.y + offset }
+                  { x: circle.x + offset, y: circle.y + offset },
                 ];
-                
-                positions.forEach(pos => {
+
+                positions.forEach((pos) => {
                   const color = getSampleColor(data, pos.x, pos.y);
                   additionalCircles.push({
                     x: pos.x,
@@ -135,23 +137,23 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
                     id: generateCircleId(),
                   });
                 });
-                
+
                 finalCircles.splice(i, 1);
                 i--;
               }
             }
           }
-          
+
           const allCircles = [...finalCircles, ...additionalCircles];
           setCircles(allCircles);
         }
       };
-      
+
       img.onerror = (error) => {
-        console.error('Failed to load image:', error);
+        console.error("Failed to load image:", error);
         const size = Math.min(window.innerWidth * 0.7, 800);
         setStageSize({ width: size, height: size });
-        
+
         const initialCircle: CircleData = {
           x: size / 2,
           y: size / 2,
@@ -160,13 +162,13 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
           level: 0,
           id: generateCircleId(),
         };
-        
+
         setCircles([initialCircle]);
       };
-      
+
       img.src = imageSrc;
     };
-    
+
     loadImage();
   }, [imageSrc]);
 
@@ -177,16 +179,16 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   const getSampleColor = (imageData: ImageData, x: number, y: number): string => {
     const px = Math.floor(x);
     const py = Math.floor(y);
-    
+
     if (px < 0 || px >= imageData.width || py < 0 || py >= imageData.height) {
-      return '#6366f1';
+      return "#6366f1";
     }
-    
+
     const index = (py * imageData.width + px) * 4;
     const r = imageData.data[index];
     const g = imageData.data[index + 1];
     const b = imageData.data[index + 2];
-    
+
     return `rgb(${r}, ${g}, ${b})`;
   };
 
@@ -195,17 +197,20 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     x: number,
     y: number,
     width: number,
-    height: number
+    height: number,
   ): string => {
     const data = imageData.data;
     const imageWidth = imageData.width;
-    let r = 0, g = 0, b = 0, count = 0;
-    
+    let r = 0,
+      g = 0,
+      b = 0,
+      count = 0;
+
     const startX = Math.max(0, Math.floor(x));
     const endX = Math.min(imageWidth, Math.floor(x + width));
     const startY = Math.max(0, Math.floor(y));
     const endY = Math.min(imageData.height, Math.floor(y + height));
-    
+
     for (let py = startY; py < endY; py += 2) {
       for (let px = startX; px < endX; px += 2) {
         const index = (py * imageWidth + px) * 4;
@@ -215,33 +220,33 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
         count++;
       }
     }
-    
-    if (count === 0) return '#6366f1';
-    
+
+    if (count === 0) return "#6366f1";
+
     r = Math.round(r / count);
     g = Math.round(g / count);
     b = Math.round(b / count);
-    
+
     return `rgb(${r}, ${g}, ${b})`;
   };
 
   const sampleColorFromImage = (x: number, y: number): string => {
     if (!imageData) {
-      return '#6366f1';
+      return "#6366f1";
     }
-    
+
     const px = Math.floor(x);
     const py = Math.floor(y);
-    
+
     if (px < 0 || px >= imageData.width || py < 0 || py >= imageData.height) {
-      return '#6366f1';
+      return "#6366f1";
     }
-    
+
     const index = (py * imageData.width + px) * 4;
     const r = imageData.data[index];
     const g = imageData.data[index + 1];
     const b = imageData.data[index + 2];
-    
+
     return `rgb(${r}, ${g}, ${b})`;
   };
 
@@ -296,8 +301,8 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   return (
     <div className={`flex w-full justify-center ${className}`}>
       <div className="relative">
-        <Stage 
-          width={stageSize.width} 
+        <Stage
+          width={stageSize.width}
           height={stageSize.height}
           className="cursor-crosshair"
           style={{ backgroundColor: "#ffffff" }}
@@ -332,4 +337,4 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
       </div>
     </div>
   );
-}; 
+};

@@ -8,5 +8,5 @@ These functions improve reusability, keep code clean, and ensure consistency acr
 // example:
 // helpers/envHelpers.ts
 export const getApiUrl = (): string => {
-  return process.env.NEXT_PUBLIC_HELP_SERVICE_URL || '';
+  return process.env.NEXT_PUBLIC_HELP_SERVICE_URL || "";
 };

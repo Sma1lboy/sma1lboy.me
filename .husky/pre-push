@@ -1,0 +1,52 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-push checks..."
+
+# Get list of files that will be pushed (different from main branch)
+CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -E '\.(js|jsx|ts|tsx|json|md|yml|yaml)$' || true)
+
+if [ -z "$CHANGED_FILES" ]; then
+  echo "✅ No relevant files to check"
+  exit 0
+fi
+
+echo "📝 Files to be checked:"
+echo "$CHANGED_FILES"
+echo ""
+
+# Run prettier check
+echo "🎨 Running Prettier check..."
+bun run prettier
+PRETTIER_EXIT_CODE=$?
+
+if [ $PRETTIER_EXIT_CODE -ne 0 ]; then
+  echo ""
+  echo "❌ Prettier check failed!"
+  echo "🔧 Please fix formatting issues:"
+  echo "   bun run prettier:fix"
+  echo "   git add ."
+  echo "   git commit -m \"fix: resolve formatting issues\""
+  echo "   git push"
+  echo ""
+  exit 1
+fi
+
+# Run ESLint check
+echo "🔍 Running ESLint check..."
+bun run lint
+LINT_EXIT_CODE=$?
+
+if [ $LINT_EXIT_CODE -ne 0 ]; then
+  echo ""
+  echo "❌ ESLint check failed!"
+  echo "🔧 Please fix linting issues:"
+  echo "   bun run lint:fix"
+  echo "   git add ."
+  echo "   git commit -m \"fix: resolve linting issues\""
+  echo "   git push"
+  echo ""
+  exit 1
+fi
+
+echo "✅ All pre-push checks passed!"

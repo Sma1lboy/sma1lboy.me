@@ -24,7 +24,7 @@ This plugin is used to generate SVG images from React components. You can use th
 Example:
 
 ```javascript
-import Logo from '@/assets/react.svg?react';
+import Logo from "@/assets/react.svg?react";
 // just add ?react query to get the svg component
 
 export const App = () => {

@@ -6,5 +6,5 @@ configuration values) directly in components or functions.
 */
 
 // example:
-export const API_BASE_URL = 'https://api.your-api.com';
-export const STORE_NAME = 'Your Store-Name';
+export const API_BASE_URL = "https://api.your-api.com";
+export const STORE_NAME = "Your Store-Name";

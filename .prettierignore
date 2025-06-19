@@ -1,1 +1,78 @@
+# Auto-generated files
 auto-imports.d.ts
+src/routeTree.gen.ts
+
+# Old project directory
+sma1lboy.me.old/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Cache directories
+.cache/
+.parcel-cache/
+.vite/
+.tanstack/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# Git files
+.git/
+.gitignore
+.gitmodules
+
+# Husky
+.husky/
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Temporary files
+*.tmp
+*.temp
