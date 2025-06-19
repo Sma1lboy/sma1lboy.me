@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
   FolderOpen,
   Github,
   Home as HomeIcon,
@@ -131,6 +129,7 @@ export function Home({ ...rest }: Props) {
   const [currentProject, setCurrentProject] = useState(0);
   const [direction, setDirection] = useState(1); // 1 for next, -1 for prev, default to right
   const [activeSection, setActiveSection] = useState("hero"); // Track current section
+  const [isHovered, setIsHovered] = useState(false); // Track hover state for auto-play pause
 
   // Scroll to section function
   const scrollToSection = (sectionId: string) => {
@@ -139,6 +138,18 @@ export function Home({ ...rest }: Props) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // Auto-play carousel functionality
+  React.useEffect(() => {
+    if (!isHovered) {
+      const interval = setInterval(() => {
+        setDirection(1);
+        setCurrentProject((prev) => (prev + 1) % featuredProjects.length);
+      }, 4000); // Change slide every 4 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isHovered]);
 
   // Scroll detection to highlight current section
   React.useEffect(() => {
@@ -165,26 +176,11 @@ export function Home({ ...rest }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const nextProject = () => {
-    setDirection(1);
-    setTimeout(() => {
-      setCurrentProject((prev) => (prev + 1) % featuredProjects.length);
-    }, 0);
-  };
-
-  const prevProject = () => {
-    setDirection(-1);
-    setTimeout(() => {
-      setCurrentProject((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
-    }, 0);
-  };
-
+  // Function to jump to a specific project (used by dots navigation)
   const jumpToProject = (index: number) => {
     const newDirection = index > currentProject ? 1 : -1;
     setDirection(newDirection);
-    setTimeout(() => {
-      setCurrentProject(index);
-    }, 0);
+    setCurrentProject(index);
   };
 
   return (
@@ -387,7 +383,11 @@ export function Home({ ...rest }: Props) {
 
                 {/* Project Preview with Safari Component */}
                 <div className="lg:w-3/5">
-                  <div className="relative">
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                  >
                     <AnimatePresence mode="wait" custom={direction}>
                       <motion.div
                         key={currentProject}
@@ -419,40 +419,22 @@ export function Home({ ...rest }: Props) {
                 </div>
               </div>
 
-              {/* Navigation Controls */}
-              <div className="mt-16 flex items-center justify-center gap-4">
-                <motion.button
-                  onClick={prevProject}
-                  className="rounded-full border border-gray-100 bg-white p-4 shadow-sm transition-colors duration-200 hover:bg-gray-50"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ChevronLeft size={20} className="text-gray-600" />
-                </motion.button>
-
-                {/* Dots Indicator */}
-                <div className="mx-8 flex gap-3">
+              {/* Dots Navigation */}
+              <div className="mt-16 mb-10 flex items-center justify-center">
+                <div className="flex gap-3">
                   {featuredProjects.map((_, index) => (
                     <motion.button
                       key={index}
                       onClick={() => jumpToProject(index)}
-                      className={`h-3 w-3 rounded-full transition-colors duration-200 ${
-                        index === currentProject ? "bg-gray-800" : "bg-gray-200"
+                      className={`h-3 w-3 rounded-full transition-colors duration-300 ${
+                        index === currentProject ? "bg-gray-800" : "bg-gray-300"
                       }`}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.3 }}
+                      whileTap={{ scale: 0.8 }}
+                      aria-label={`Go to project ${index + 1}`}
                     />
                   ))}
                 </div>
-
-                <motion.button
-                  onClick={nextProject}
-                  className="rounded-full border border-gray-100 bg-white p-4 shadow-sm transition-colors duration-200 hover:bg-gray-50"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ChevronRight size={20} className="text-gray-600" />
-                </motion.button>
               </div>
             </motion.div>
           </div>
