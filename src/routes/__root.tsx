@@ -1,9 +1,11 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { SmoothCursor } from '../components/ui/smooth-cursor'
 
 export const Route = createRootRoute({
   component: () => (
     <>
+      <SmoothCursor />
       <Outlet />
       <TanStackRouterDevtools />
     </>
