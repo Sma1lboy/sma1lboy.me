@@ -189,7 +189,6 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
             if (circle.radius > size / 64) {
               // Content-aware splitting decision
               const colorVariance = getColorVariance(data, circle.x, circle.y, circle.radius);
-              const varianceThreshold = 15; // Adjust based on image complexity
 
               // Higher probability for areas with more color variation
               const varianceBasedProbability = Math.min(colorVariance / 30, 1);
@@ -309,26 +308,10 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     };
 
     loadImage();
-  }, [imageSrc]);
+  }, [getCachedCircles, imageSrc, setCachedCircles, setLoading]);
 
   const generateCircleId = () => {
     return Math.random().toString(36).substr(2, 9);
-  };
-
-  const getSampleColor = (imageData: ImageData, x: number, y: number): string => {
-    const px = Math.floor(x);
-    const py = Math.floor(y);
-
-    if (px < 0 || px >= imageData.width || py < 0 || py >= imageData.height) {
-      return "#6366f1";
-    }
-
-    const index = (py * imageData.width + px) * 4;
-    const r = imageData.data[index];
-    const g = imageData.data[index + 1];
-    const b = imageData.data[index + 2];
-
-    return `rgb(${r}, ${g}, ${b})`;
   };
 
   const getAverageColor = (
@@ -471,26 +454,6 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     r = Math.round(r / count);
     g = Math.round(g / count);
     b = Math.round(b / count);
-
-    return `rgb(${r}, ${g}, ${b})`;
-  };
-
-  const sampleColorFromImage = (x: number, y: number): string => {
-    if (!imageData) {
-      return "#6366f1";
-    }
-
-    const px = Math.floor(x);
-    const py = Math.floor(y);
-
-    if (px < 0 || px >= imageData.width || py < 0 || py >= imageData.height) {
-      return "#6366f1";
-    }
-
-    const index = (py * imageData.width + px) * 4;
-    const r = imageData.data[index];
-    const g = imageData.data[index + 1];
-    const b = imageData.data[index + 2];
 
     return `rgb(${r}, ${g}, ${b})`;
   };
