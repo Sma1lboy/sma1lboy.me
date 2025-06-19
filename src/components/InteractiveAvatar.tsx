@@ -61,15 +61,24 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
             currentCircles.forEach(circle => {
               const normalizedX = circle.x / size;
               const normalizedY = circle.y / size;
+              
+              // Distance from center (for radial effect)
+              const distanceFromCenter = Math.sqrt((normalizedX - 0.5) ** 2 + (normalizedY - 0.5) ** 2);
+              
+              // Distance from main diagonal (for diagonal emphasis)
               const distanceFromDiagonal = Math.abs(normalizedX - normalizedY);
               
-              const baseProbability = 0.98 - iteration * 0.03;
-              const falloffRate = 1.0 + iteration * 0.2;
-              const splitProbability = baseProbability * Math.exp(-distanceFromDiagonal * falloffRate);
+              // Combine center focus with diagonal emphasis
+              const centerWeight = Math.exp(-distanceFromCenter * 3); // Focus on center
+              const diagonalWeight = Math.exp(-distanceFromDiagonal * 1.5); // Emphasize diagonal
+              
+              const baseProbability = 0.95 - iteration * 0.025;
+              const combinedWeight = centerWeight * 0.6 + diagonalWeight * 0.4;
+              const splitProbability = baseProbability * combinedWeight;
               
               if (Math.random() < splitProbability && circle.radius > size / 128) {
                 const newRadius = circle.radius / 2;
-                const offset = newRadius * 0.7;
+                const offset = newRadius; // Perfect fit without overlap
                 
                 const positions = [
                   { x: circle.x - offset, y: circle.y - offset },
@@ -106,7 +115,7 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
               
               if (shouldForceSplit) {
                 const newRadius = circle.radius / 2;
-                const offset = newRadius * 0.7;
+                const offset = newRadius; // Perfect fit without overlap
                 
                 const positions = [
                   { x: circle.x - offset, y: circle.y - offset },
@@ -253,7 +262,7 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
         newCircles.splice(circleIndex, 1);
 
         const newRadius = circle.radius / 2;
-        const offset = newRadius * 0.7;
+        const offset = newRadius; // Perfect fit without overlap
 
         const positions = [
           { x: circle.x - offset, y: circle.y - offset },
