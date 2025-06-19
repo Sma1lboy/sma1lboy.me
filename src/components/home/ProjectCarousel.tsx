@@ -55,23 +55,23 @@ export function ProjectCarousel({
               transition={{ duration: 0.3 }}
               custom={direction}
             >
-              <div className="mb-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:mb-3 sm:text-sm">
+              <div className="mb-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:mb-3 sm:text-sm dark:text-gray-500">
                 {featuredProjects[currentProject].year} • Selected Work
               </div>
-              <h3 className="mb-3 text-2xl font-bold text-gray-900 sm:text-3xl lg:mb-4 lg:text-4xl">
+              <h3 className="mb-3 text-2xl font-bold text-gray-900 sm:text-3xl lg:mb-4 lg:text-4xl dark:text-gray-100">
                 {featuredProjects[currentProject].title}
               </h3>
-              <p className="mb-4 text-base leading-relaxed font-light text-gray-600 sm:mb-6 sm:text-lg">
+              <p className="mb-4 text-base leading-relaxed font-light text-gray-600 sm:mb-6 sm:text-lg dark:text-gray-400">
                 {featuredProjects[currentProject].description}
               </p>
-              <div className="mb-4 text-xs font-medium text-gray-500 sm:mb-6 sm:text-sm">
+              <div className="mb-4 text-xs font-medium text-gray-500 sm:mb-6 sm:text-sm dark:text-gray-400">
                 {featuredProjects[currentProject].tech}
               </div>
               <motion.a
                 href={featuredProjects[currentProject].url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex touch-manipulation items-center gap-2 text-gray-900 transition-colors duration-200 hover:text-gray-600"
+                className="group inline-flex touch-manipulation items-center gap-2 text-gray-900 transition-colors duration-200 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
                 whileHover={{ x: 4 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -114,7 +114,7 @@ export function ProjectCarousel({
                     imageSrc={featuredProjects[currentProject].preview}
                     width={800}
                     height={500}
-                    className="h-full w-full overflow-hidden rounded-lg bg-transparent shadow-xl sm:shadow-2xl"
+                    className="h-full w-full overflow-hidden rounded-lg bg-transparent shadow-xl sm:shadow-2xl dark:shadow-gray-900/50"
                   />
                 </div>
               </motion.div>
@@ -131,7 +131,9 @@ export function ProjectCarousel({
               key={index}
               onClick={() => jumpToProject(index)}
               className={`h-3 w-3 touch-manipulation rounded-full transition-colors duration-300 sm:h-3 sm:w-3 ${
-                index === currentProject ? "bg-gray-800" : "bg-gray-300"
+                index === currentProject
+                  ? "bg-gray-800 dark:bg-gray-200"
+                  : "bg-gray-300 dark:bg-gray-600"
               }`}
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.8 }}

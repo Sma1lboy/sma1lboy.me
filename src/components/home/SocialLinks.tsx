@@ -26,14 +26,17 @@ export function SocialLinks({ className = "" }: SocialLinksProps) {
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="touch-manipulation rounded-full border border-gray-100 p-2.5 transition-colors duration-200 hover:bg-gray-50 active:bg-gray-100 sm:p-3"
+            className="touch-manipulation rounded-full border border-gray-100 p-2.5 transition-all duration-200 ease-out hover:bg-gray-50 focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:outline-none active:bg-gray-100 sm:p-3 dark:border-gray-700 dark:hover:bg-gray-800 dark:focus:ring-gray-600 dark:active:bg-gray-700"
             aria-label={link.label}
             variants={socialLinkVariants}
             initial="rest"
             whileHover="hover"
             whileTap={{ scale: 0.95 }}
           >
-            <IconComponent size={18} className="text-gray-700 sm:size-5" />
+            <IconComponent
+              size={18}
+              className="text-gray-700 transition-all duration-200 ease-out sm:size-5 dark:text-gray-300"
+            />
           </motion.a>
         );
       })}
