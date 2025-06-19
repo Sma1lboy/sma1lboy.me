@@ -17,6 +17,7 @@
     "@tanstack/react-router": "^1.121.24",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.18.1",
     "konva": "^9.3.20",
     "lucide-react": "^0.511.0",
     "react": "^19.0.0",

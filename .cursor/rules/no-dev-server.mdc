@@ -1,0 +1,50 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Development Server Policy
+
+## 🚫 Critical Rule: Never Start Development Servers
+
+The AI assistant must **NEVER** start, restart, or manage development servers under any circumstances.
+
+### Prohibited Commands
+- `bun run dev`
+- `npm run dev` 
+- `yarn dev`
+- `pnpm dev`
+- `vite`
+- `next dev`
+- `nuxt dev`
+- Any command that starts a development server
+
+### Why This Rule Exists
+- Development servers can cause system performance issues
+- Multiple server instances can conflict with each other
+- Server management should be handled by the user directly
+- Background processes can consume unnecessary resources
+
+### What the AI Can Do Instead
+- ✅ Read and analyze code files
+- ✅ Make code changes and edits
+- ✅ Install dependencies with package managers
+- ✅ Run build commands (`bun run build`)
+- ✅ Run tests (`bun test`)
+- ✅ Check server status with `curl` or similar tools
+- ✅ Kill existing processes if needed (`pkill`)
+
+### User Responsibility
+- The user will start and manage their own development servers
+- The user will verify that applications are running correctly
+- The user will handle port conflicts and server issues
+
+### Exception Handling
+If the user explicitly requests to start a development server, the AI should:
+1. Acknowledge the request
+2. Explain this policy
+3. Suggest that the user start the server manually
+4. Provide the correct command for them to run
+
+**Remember: Development server management is the user's responsibility, not the AI's.**
+
