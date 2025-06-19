@@ -2,9 +2,19 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { containerVariants, itemVariants } from "../../constants/home";
 
+type TechCategory =
+  | "Languages"
+  | "Frontend"
+  | "Backend"
+  | "DevOps"
+  | "Database"
+  | "Services"
+  | "AI/ML"
+  | "Graphics";
+
 interface TechItem {
   name: string;
-  category: string;
+  category: TechCategory;
   level: "Expert" | "Advanced" | "Intermediate" | "Familiar";
 }
 
