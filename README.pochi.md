@@ -48,7 +48,7 @@ This is a React + TypeScript + Vite project with:
 - Use TypeScript for all new files
 - Follow existing component patterns
 - Use Tailwind CSS for styling
-- **All page component development must follow our tailwind.config.ts settings to avoid creating components with specific colors**
+- **All page component development must follow our src/index.css tailwindcss settings to avoid creating components with specific colors**
 - Implement proper error handling
 - Write clean, readable code with appropriate comments
 
