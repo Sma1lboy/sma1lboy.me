@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Circle, Layer, Stage } from "react-konva";
+import { useAvatarCacheStore } from "../store/avatarCacheStore";
 
 interface CircleData {
   x: number;
@@ -23,15 +24,41 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   const [stageSize, setStageSize] = useState({ width: 800, height: 800 });
   const [imageData, setImageData] = useState<ImageData | null>(null);
   const minRadius = 2;
-  const maxLevel = 17;
+  const maxLevel = 25; // Increased for deeper detail
+
+  // Performance optimization: limit total circles to prevent memory issues
+  const maxCircles = 8000;
+
+  // Use Zustand store for cache management
+  const {
+    get: getCachedCircles,
+    set: setCachedCircles,
+    isLoading,
+    setLoading,
+  } = useAvatarCacheStore();
 
   React.useEffect(() => {
     const loadImage = async () => {
+      setLoading(true);
+
+      const size = Math.min(window.innerWidth * 0.7, 800);
+      const targetStageSize = { width: size, height: size };
+
+      // Check cache first
+      const cachedCircles = await getCachedCircles(imageSrc, targetStageSize);
+      if (cachedCircles) {
+        console.log("🎯 Using cached data");
+        setCircles(cachedCircles);
+        setStageSize(targetStageSize);
+        setLoading(false);
+        return;
+      }
+
+      console.log("🔄 Starting new circle calculation");
       const img = new Image();
 
-      img.onload = () => {
-        const size = Math.min(window.innerWidth * 0.7, 800);
-        setStageSize({ width: size, height: size });
+      img.onload = async () => {
+        setStageSize(targetStageSize);
 
         const canvas = document.createElement("canvas");
         canvas.width = size;
@@ -54,7 +81,13 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
 
           const preSplitCircles = [mainCircle];
 
-          for (let iteration = 0; iteration < 17; iteration++) {
+          // Enhanced pre-split algorithm with deeper subdivision
+          for (let iteration = 0; iteration < 25; iteration++) {
+            // Performance check: stop if we have too many circles
+            if (preSplitCircles.length > maxCircles * 0.8) {
+              break;
+            }
+
             const currentCircles = [...preSplitCircles];
             preSplitCircles.length = 0;
 
@@ -62,25 +95,63 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
               const normalizedX = circle.x / size;
               const normalizedY = circle.y / size;
 
-              // Distance from center (for radial effect)
+              // Enhanced distance calculations for better distribution
               const distanceFromCenter = Math.sqrt(
                 (normalizedX - 0.5) ** 2 + (normalizedY - 0.5) ** 2,
               );
 
-              // Distance from main diagonal (for diagonal emphasis)
+              // Multiple focal points for more interesting patterns
+              const distanceFromTopLeft = Math.sqrt(normalizedX ** 2 + normalizedY ** 2);
+              const distanceFromBottomRight = Math.sqrt(
+                (normalizedX - 1) ** 2 + (normalizedY - 1) ** 2,
+              );
               const distanceFromDiagonal = Math.abs(normalizedX - normalizedY);
+              const distanceFromAntiDiagonal = Math.abs(normalizedX + normalizedY - 1);
 
-              // Combine center focus with diagonal emphasis
-              const centerWeight = Math.exp(-distanceFromCenter * 3); // Focus on center
-              const diagonalWeight = Math.exp(-distanceFromDiagonal * 1.5); // Emphasize diagonal
+              // Enhanced weighting system for better visual distribution
+              const centerWeight = Math.exp(-distanceFromCenter * 2.5);
+              const cornerWeight = Math.max(
+                Math.exp(-distanceFromTopLeft * 2),
+                Math.exp(-distanceFromBottomRight * 2),
+              );
+              const diagonalWeight = Math.max(
+                Math.exp(-distanceFromDiagonal * 1.8),
+                Math.exp(-distanceFromAntiDiagonal * 1.8),
+              );
 
-              const baseProbability = 0.95 - iteration * 0.025;
-              const combinedWeight = centerWeight * 0.6 + diagonalWeight * 0.4;
+              // Color variance analysis for content-aware splitting
+              const colorVariance = getColorVariance(data, circle.x, circle.y, circle.radius);
+              const varianceWeight = Math.min(colorVariance / 50, 1); // Normalize variance
+
+              // Dynamic probability based on iteration, position, and content
+              let baseProbability;
+              if (iteration < 8) {
+                baseProbability = 0.98 - iteration * 0.02; // High initial probability
+              } else if (iteration < 16) {
+                baseProbability = 0.82 - (iteration - 8) * 0.04; // Medium probability
+              } else {
+                baseProbability = 0.5 - (iteration - 16) * 0.03; // Lower probability for fine details
+              }
+
+              // Combine all weights for intelligent splitting
+              const combinedWeight =
+                centerWeight * 0.3 +
+                cornerWeight * 0.2 +
+                diagonalWeight * 0.25 +
+                varianceWeight * 0.25;
+
               const splitProbability = baseProbability * combinedWeight;
 
-              if (Math.random() < splitProbability && circle.radius > size / 128) {
+              // More aggressive minimum radius for deeper detail
+              const minRadius = size / 256;
+
+              // Use deterministic pseudo-random number based on circle position and iteration
+              const seed = circle.x * 1000 + circle.y * 100 + iteration * 10;
+              const pseudoRandom = (Math.sin(seed) + 1) / 2; // Deterministic random number between 0-1
+
+              if (pseudoRandom < splitProbability && circle.radius > minRadius) {
                 const newRadius = circle.radius / 2;
-                const offset = newRadius; // Perfect fit without overlap
+                const offset = newRadius;
 
                 const positions = [
                   { x: circle.x - offset, y: circle.y - offset },
@@ -90,7 +161,8 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
                 ];
 
                 positions.forEach((pos) => {
-                  const color = getSampleColor(data, pos.x, pos.y);
+                  // Enhanced color sampling with area averaging
+                  const color = getEnhancedColor(data, pos.x, pos.y, newRadius);
                   preSplitCircles.push({
                     x: pos.x,
                     y: pos.y,
@@ -109,15 +181,29 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
           const finalCircles = [...preSplitCircles];
           const additionalCircles: CircleData[] = [];
 
+          // Enhanced final processing with content-aware splitting
           for (let i = 0; i < finalCircles.length; i++) {
             const circle = finalCircles[i];
 
-            if (circle.radius > size / 32) {
-              const shouldForceSplit = Math.random() < 0.8;
+            // More aggressive final splitting for better detail
+            if (circle.radius > size / 64) {
+              // Content-aware splitting decision
+              const colorVariance = getColorVariance(data, circle.x, circle.y, circle.radius);
+              const varianceThreshold = 15; // Adjust based on image complexity
+
+              // Higher probability for areas with more color variation
+              const varianceBasedProbability = Math.min(colorVariance / 30, 1);
+              const baseForceSplitProbability = 0.7;
+
+              // Use deterministic pseudo-random number
+              const seed = circle.x * 1000 + circle.y * 100 + circle.level * 10;
+              const pseudoRandom = (Math.sin(seed) + 1) / 2;
+              const shouldForceSplit =
+                pseudoRandom < baseForceSplitProbability + varianceBasedProbability * 0.3;
 
               if (shouldForceSplit) {
                 const newRadius = circle.radius / 2;
-                const offset = newRadius; // Perfect fit without overlap
+                const offset = newRadius;
 
                 const positions = [
                   { x: circle.x - offset, y: circle.y - offset },
@@ -127,7 +213,8 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
                 ];
 
                 positions.forEach((pos) => {
-                  const color = getSampleColor(data, pos.x, pos.y);
+                  // Use enhanced color sampling for final circles
+                  const color = getEnhancedColor(data, pos.x, pos.y, newRadius);
                   additionalCircles.push({
                     x: pos.x,
                     y: pos.y,
@@ -144,26 +231,78 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
             }
           }
 
-          const allCircles = [...finalCircles, ...additionalCircles];
-          setCircles(allCircles);
+          // Additional micro-detail pass for very small circles
+          const microDetailCircles: CircleData[] = [];
+          additionalCircles.forEach((circle) => {
+            if (circle.radius > size / 128 && circle.radius <= size / 64) {
+              const colorVariance = getColorVariance(data, circle.x, circle.y, circle.radius);
+
+              // Only split if there's significant color variation
+              // Use deterministic pseudo-random number
+              const seed = circle.x * 1000 + circle.y * 100 + circle.level * 10;
+              const pseudoRandom = (Math.sin(seed) + 1) / 2;
+              if (colorVariance > 20 && pseudoRandom < 0.4) {
+                const newRadius = circle.radius / 2;
+                const offset = newRadius;
+
+                const positions = [
+                  { x: circle.x - offset, y: circle.y - offset },
+                  { x: circle.x + offset, y: circle.y - offset },
+                  { x: circle.x - offset, y: circle.y + offset },
+                  { x: circle.x + offset, y: circle.y + offset },
+                ];
+
+                positions.forEach((pos) => {
+                  const color = getEnhancedColor(data, pos.x, pos.y, newRadius);
+                  microDetailCircles.push({
+                    x: pos.x,
+                    y: pos.y,
+                    radius: newRadius,
+                    color,
+                    level: circle.level + 1,
+                    id: generateCircleId(),
+                  });
+                });
+              }
+            }
+          });
+
+          const allCircles = [...finalCircles, ...additionalCircles, ...microDetailCircles];
+
+          // Performance optimization: limit total circles and sort by importance
+          const sortedCircles = allCircles
+            .sort((a, b) => {
+              // Prioritize circles with higher color variance (more interesting areas)
+              const varianceA = getColorVariance(data, a.x, a.y, a.radius);
+              const varianceB = getColorVariance(data, b.x, b.y, b.radius);
+              return varianceB - varianceA;
+            })
+            .slice(0, maxCircles);
+
+          setCircles(sortedCircles);
+
+          // Save to cache
+          await setCachedCircles(imageSrc, targetStageSize, sortedCircles);
+          console.log("💾 Saved to cache");
+          setLoading(false);
         }
       };
 
       img.onerror = (error) => {
         console.error("Failed to load image:", error);
-        const size = Math.min(window.innerWidth * 0.7, 800);
-        setStageSize({ width: size, height: size });
+        setStageSize(targetStageSize);
 
         const initialCircle: CircleData = {
-          x: size / 2,
-          y: size / 2,
-          radius: size / 2,
+          x: targetStageSize.width / 2,
+          y: targetStageSize.height / 2,
+          radius: targetStageSize.width / 2,
           color: "#6366f1",
           level: 0,
           id: generateCircleId(),
         };
 
         setCircles([initialCircle]);
+        setLoading(false);
       };
 
       img.src = imageSrc;
@@ -230,6 +369,112 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     return `rgb(${r}, ${g}, ${b})`;
   };
 
+  const getColorVariance = (
+    imageData: ImageData,
+    centerX: number,
+    centerY: number,
+    radius: number,
+  ): number => {
+    const data = imageData.data;
+    const imageWidth = imageData.width;
+    const imageHeight = imageData.height;
+
+    const samples: number[] = [];
+    const sampleRadius = Math.max(1, Math.floor(radius / 4));
+
+    // Sample colors in a grid pattern within the circle
+    for (let dy = -sampleRadius; dy <= sampleRadius; dy += 2) {
+      for (let dx = -sampleRadius; dx <= sampleRadius; dx += 2) {
+        const x = Math.floor(centerX + dx);
+        const y = Math.floor(centerY + dy);
+
+        if (x >= 0 && x < imageWidth && y >= 0 && y < imageHeight) {
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance <= sampleRadius) {
+            const index = (y * imageWidth + x) * 4;
+            const r = data[index];
+            const g = data[index + 1];
+            const b = data[index + 2];
+
+            // Calculate luminance as a simple color metric
+            const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+            samples.push(luminance);
+          }
+        }
+      }
+    }
+
+    if (samples.length < 2) return 0;
+
+    // Calculate variance
+    const mean = samples.reduce((sum, val) => sum + val, 0) / samples.length;
+    const variance = samples.reduce((sum, val) => sum + (val - mean) ** 2, 0) / samples.length;
+
+    return Math.sqrt(variance);
+  };
+
+  const getEnhancedColor = (
+    imageData: ImageData,
+    centerX: number,
+    centerY: number,
+    radius: number,
+  ): string => {
+    const data = imageData.data;
+    const imageWidth = imageData.width;
+    const imageHeight = imageData.height;
+
+    let r = 0,
+      g = 0,
+      b = 0,
+      count = 0;
+    const sampleRadius = Math.max(1, Math.floor(radius / 3));
+
+    // Sample in a circular pattern for better color representation
+    for (let dy = -sampleRadius; dy <= sampleRadius; dy++) {
+      for (let dx = -sampleRadius; dx <= sampleRadius; dx++) {
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance <= sampleRadius) {
+          const x = Math.floor(centerX + dx);
+          const y = Math.floor(centerY + dy);
+
+          if (x >= 0 && x < imageWidth && y >= 0 && y < imageHeight) {
+            const index = (y * imageWidth + x) * 4;
+
+            // Weight samples by distance (closer samples have more influence)
+            const weight = 1 - distance / sampleRadius;
+
+            r += data[index] * weight;
+            g += data[index + 1] * weight;
+            b += data[index + 2] * weight;
+            count += weight;
+          }
+        }
+      }
+    }
+
+    if (count === 0) {
+      // If no valid samples, try to get a single pixel color at the center
+      const px = Math.floor(centerX);
+      const py = Math.floor(centerY);
+
+      if (px >= 0 && px < imageWidth && py >= 0 && py < imageHeight) {
+        const index = (py * imageWidth + px) * 4;
+        const singleR = imageData.data[index];
+        const singleG = imageData.data[index + 1];
+        const singleB = imageData.data[index + 2];
+        return `rgb(${singleR}, ${singleG}, ${singleB})`;
+      }
+
+      return "#6366f1"; // Only fallback if completely out of bounds
+    }
+
+    r = Math.round(r / count);
+    g = Math.round(g / count);
+    b = Math.round(b / count);
+
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
   const sampleColorFromImage = (x: number, y: number): string => {
     if (!imageData) {
       return "#6366f1";
@@ -276,14 +521,28 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
           { x: circle.x + offset, y: circle.y + offset },
         ];
 
-        const newSubCircles: CircleData[] = positions.map((pos) => ({
-          x: pos.x,
-          y: pos.y,
-          radius: newRadius,
-          color: sampleColorFromImage(pos.x, pos.y),
-          level: circle.level + 1,
-          id: generateCircleId(),
-        }));
+        const newSubCircles: CircleData[] = positions.map((pos) => {
+          // Use enhanced color sampling if imageData is available, otherwise inherit parent color
+          let color = circle.color; // Default to parent color
+
+          if (imageData) {
+            // Try to get enhanced color from image
+            const sampledColor = getEnhancedColor(imageData, pos.x, pos.y, newRadius);
+            if (sampledColor !== "#6366f1") {
+              // Only use if not the fallback color
+              color = sampledColor;
+            }
+          }
+
+          return {
+            x: pos.x,
+            y: pos.y,
+            radius: newRadius,
+            color,
+            level: circle.level + 1,
+            id: generateCircleId(),
+          };
+        });
 
         return [...newCircles, ...newSubCircles];
       });
@@ -301,6 +560,16 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   return (
     <div className={`flex w-full justify-center ${className}`}>
       <div className="relative">
+        {/* Loading state display */}
+        {isLoading && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+              <p className="text-sm text-gray-600">Generating circles...</p>
+            </div>
+          </div>
+        )}
+
         <Stage
           width={stageSize.width}
           height={stageSize.height}

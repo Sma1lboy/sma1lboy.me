@@ -31,7 +31,8 @@
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "virtual": "^0.2.0",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.3.0",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.121.24",
