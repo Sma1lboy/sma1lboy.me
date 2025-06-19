@@ -3,7 +3,6 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
   FolderOpen,
   Github,
   Home as HomeIcon,
@@ -15,6 +14,7 @@ import {
 import React, { useState } from "react";
 import { InteractiveAvatar } from "../InteractiveAvatar";
 import { Dock, DockIcon } from "../magicui/dock";
+import { Safari } from "../magicui/safari";
 
 // Featured projects data
 const featuredProjects = [
@@ -365,7 +365,7 @@ export function Home({ ...rest }: Props) {
                   </AnimatePresence>
                 </div>
 
-                {/* Project Preview - Enlarged */}
+                {/* Project Preview with Safari Component */}
                 <div className="lg:w-3/5">
                   <div className="relative">
                     <AnimatePresence mode="wait" custom={direction}>
@@ -379,44 +379,20 @@ export function Home({ ...rest }: Props) {
                         className="w-full"
                         custom={direction}
                       >
-                        <motion.a
-                          href={featuredProjects[currentProject].url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group relative block cursor-pointer overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg"
-                          whileHover={{ scale: 1.02 }}
-                          transition={{ duration: 0.3 }}
+                        <div
+                          className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+                          onClick={() =>
+                            window.open(featuredProjects[currentProject].url, "_blank")
+                          }
                         >
-                          {/* Browser Header */}
-                          <div className="flex items-center gap-2 border-b border-gray-100 bg-gray-50 px-6 py-4">
-                            <div className="flex gap-2">
-                              <div className="h-3 w-3 rounded-full bg-red-500"></div>
-                              <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-                              <div className="h-3 w-3 rounded-full bg-green-500"></div>
-                            </div>
-                            <div className="flex-1 text-center">
-                              <div className="mx-auto max-w-md rounded border border-gray-100 bg-white px-4 py-2 text-sm text-gray-600">
-                                {featuredProjects[currentProject].url.replace("https://", "")}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Preview Content - Larger */}
-                          <div className="relative aspect-[16/10] overflow-hidden bg-gray-50">
-                            <img
-                              src={featuredProjects[currentProject].preview}
-                              alt={`${featuredProjects[currentProject].title} preview`}
-                              className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                            />
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/10">
-                              <div className="flex items-center gap-2 rounded-lg bg-white/90 px-4 py-2 font-medium text-gray-900 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                                <span>Visit Site</span>
-                                <ExternalLink size={16} />
-                              </div>
-                            </div>
-                          </div>
-                        </motion.a>
+                          <Safari
+                            url={featuredProjects[currentProject].url.replace("https://", "")}
+                            imageSrc={featuredProjects[currentProject].preview}
+                            width={800}
+                            height={500}
+                            className="h-full w-full overflow-hidden rounded-lg bg-transparent shadow-2xl"
+                          />
+                        </div>
                       </motion.div>
                     </AnimatePresence>
                   </div>
