@@ -1,81 +1,72 @@
-![Personal Website Banner](./assets/image.png)
+## React-ts Starter
 
-# Personal Website Portfolio
+#### This is a simple starter for a React project with TypeScript and vite. It includes a basic setup for a React project with TypeScript, ESLint, Prettier, shadcn/ui. and many more. This could be your perfect starter templates to initialize your new React project. you don't have to waste time in configuring everything. setup your project with this template withing a minute.
 
-This is a customizable personal website portfolio built with Next.js, React, and Tailwind CSS. It features a clean, modern design with easy customization options, GitHub information retrieval, and Markdown-based blog rendering.
+#### Don't forget to give a ⭐ `star` if you like it. and feel to contribute. Thank you.
 
-## Description
+### Features
 
-This personal website portfolio allows you to showcase your professional information, GitHub stats, and blog posts in a sleek, responsive design. It's built with modern web technologies and offers easy customization through configuration files.
+- Tailwindcss, shadcn-ui with Typescript configured
+- igniting vite with powerful plugins
+- husky hooks setup for pre-commit
+- docker setup
+- eslint, prettier setup for code formatting
+- standard folder structure
+- Custom import aliases (Example: @/components )
+- dependabot to keep notify to update dependencies
+- perfect workspace settings for single or team project.
 
-## Features
+## Vite Plugins That you must need to know for this starter.
 
-- 🎨 Easy theme customization
-- 📊 GitHub stats integration
-- 📝 Markdown-based blog
-- 🚀 Built with Next.js and React
-- 🎭 Dark mode support
-- 📱 Responsive design
+### vite-plugin-svgr
 
-## Configuration
+This plugin is used to generate SVG images from React components. You can use this plugin in your project.
+Example:
 
-### Site Configuration
+```javascript
+import Logo from '@/assets/react.svg?react';
+// just add ?react query to get the svg component
 
-To customize the site's basic information and links, edit the `config/site.ts` file:
+export const App = () => {
+  return (
+    <div {...props}>
+      <Logo />
+      {/* You can use svg components as like normal React components */}
+    </div>
+  );
+};
+```
 
-```typescript
-export const siteConfig = {
-  name: 'Your Name',
-  description: 'Your description',
-  links: {
-    github: 'https://github.com/yourusername',
-    linkedin: 'https://www.linkedin.com/in/yourusername',
-    // Add or remove social links as needed
+### unplugin-fonts
+
+This plugin is used to generate fonts from Google fonts. You can use this plugin in your project.
+
+How to use ? Open `/config/fonts.config.ts` file and add your fonts like this: name should be exactly same as in Google fonts. If you wan to add custom fonts you can check their doc. [link](https://github.com/cssninjaStudio/unplugin-fonts#readme)
+
+```javascript
+{
+    name: 'Space Grotesk',
+    styles: 'wght@300;400;500;700',
   },
-  // Other configurations...
+```
+
+### unplugin-auto-import/vite
+
+This plugin is used to auto import modules. You can use this plugin in your project.
+auto-import will handle all imports like react, react-router and also shadcn-ui's component in your @component/ui folder , etc. and you can add more.
+
+Example:
+
+```javascript
+export function Counter() {
+  const [count, setCount] = useState(0); // no need to import react and react-router, auto-import will handle it
+  return (
+    <div>
+      <Button onClick={() => setCount(count + 1)}>Count: {count}</Button>
+      {/*  also,  Button from @/components/ui but you don't need to import it.  */}
+    </div>
+  );
 }
 ```
 
-### Description
-
-To update the main description on the home page, edit the `config/description.md` file. This file supports Markdown formatting.
-
-### Theme Customization
-
-You can easily change the color scheme by modifying the `colors` object in `config/site.ts`:
-
-```typescript
-colors: {
-  dark: '#9366FF',
-  light: '#7C3AED',
-},
-```
-
-### Blog Posts
-
-To add or edit blog posts, simply add or modify Markdown files in the `public/blog` directory. The file name will be used as the URL slug, and you can add a date in the frontmatter:
-
-```markdown
----
-Date: 2023-04-01
----
-
-# Your Blog Post Title
-
-Your content here...
-```
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Deployment
-
-This project can be easily deployed to platforms like Vercel or Netlify. Refer to their respective documentation for detailed deployment instructions.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+#### Note: If you need SEO or Server Side Rendering you can use Next.js, Nuxtjs, Remix, Astro Etc SSR based framework. This template is just for vite-react.

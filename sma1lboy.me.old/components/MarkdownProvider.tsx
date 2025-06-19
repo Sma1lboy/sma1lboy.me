@@ -1,12 +1,13 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
+import parseMD from 'parse-md'
+import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import parseMD from 'parse-md'
-import { useTheme } from 'next-themes'
+
+import CodeBlock from './codeBlock'
 
 import { cn } from '@/lib/utils'
-import CodeBlock from './CodeBlock'
 
 export const MarkdownNote = ({ children }: { children: string }) => {
   const { theme } = useTheme()
@@ -39,20 +40,7 @@ export const MarkdownNote = ({ children }: { children: string }) => {
         'prose-td:text-muted-foreground prose-th:text-foreground',
         'prose-hr:border-border'
       )}
-      remarkPlugins={[remarkGfm]}
       components={{
-        // Add copy button to code blocks
-        pre: ({ node, className, children, ...props }) => {
-          // Extract language from className (if available)
-          const match = /language-(\w+)/.exec(className || '')
-          const language = match ? match[1] : undefined
-
-          return (
-            <CodeBlock className={className} language={language} {...props}>
-              {children}
-            </CodeBlock>
-          )
-        },
         // Custom renderer for inline code to handle math notation
         code: ({ node, className, children, ...props }) => {
           const text = String(children).replace(/\n$/, '')
@@ -82,7 +70,21 @@ export const MarkdownNote = ({ children }: { children: string }) => {
             </code>
           )
         },
+
+        // Add copy button to code blocks
+        pre: ({ node, className, children, ...props }) => {
+          // Extract language from className (if available)
+          const match = /language-(\w+)/.exec(className || '')
+          const language = match ? match[1] : undefined
+
+          return (
+            <CodeBlock className={className} language={language} {...props}>
+              {children}
+            </CodeBlock>
+          )
+        },
       }}
+      remarkPlugins={[remarkGfm]}
     >
       {content}
     </Markdown>

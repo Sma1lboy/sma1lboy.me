@@ -1,6 +1,7 @@
 'use client'
-import React, { useState } from 'react'
 import { Check, Copy } from 'lucide-react'
+import React, { useState } from 'react'
+
 import { cn } from '@/lib/utils'
 
 interface CodeBlockProps {
@@ -19,6 +20,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   const copyToClipboard = () => {
     // Extract text content from children
     let code = ''
+
     React.Children.forEach(children, child => {
       if (typeof child === 'string') {
         code += child
@@ -40,9 +42,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     <div className="group relative">
       <pre className={cn('relative', className)}>{children}</pre>
       <button
+        aria-label="Copy code to clipboard"
         className="absolute right-2 top-2 rounded-md bg-primary/10 p-1.5 text-primary opacity-0 transition-opacity hover:bg-primary/20 group-hover:opacity-100"
         onClick={copyToClipboard}
-        aria-label="Copy code to clipboard"
       >
         {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
       </button>
