@@ -17,7 +17,7 @@ echo ""
 
 # Run prettier check
 echo "🎨 Running Prettier check..."
-bun run prettier
+bun run prettier:fix
 PRETTIER_EXIT_CODE=$?
 
 if [ $PRETTIER_EXIT_CODE -ne 0 ]; then
