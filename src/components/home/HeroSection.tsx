@@ -14,9 +14,9 @@ export function HeroSection() {
     >
       {/* Main Layout - Two Columns */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-screen flex-col lg:flex-row">
+        <div className="flex min-h-screen flex-col lg:flex-row lg:gap-16 xl:gap-20">
           {/* Left Column - Personal Introduction */}
-          <div className="flex flex-col justify-center p-6 sm:p-8 lg:w-1/2 lg:p-16 xl:p-24">
+          <div className="flex flex-col justify-center p-6 sm:p-8 lg:w-1/2 lg:p-12 xl:p-16">
             {/* Header */}
             <motion.div className="max-w-md" variants={itemVariants}>
               <motion.h1
@@ -66,11 +66,13 @@ export function HeroSection() {
 
           {/* Right Column - Interactive Avatar */}
           <motion.div
-            className="flex flex-col items-center justify-center bg-white p-6 sm:p-8 lg:w-1/2 lg:p-16 xl:p-24"
+            className="relative flex flex-col items-center justify-center bg-white p-6 sm:p-8 lg:w-1/2 lg:p-12 xl:p-16"
             variants={avatarVariants}
             initial="hidden"
             animate="visible"
           >
+            {/* Subtle divider line for larger screens */}
+            <div className="absolute top-1/2 left-0 hidden h-32 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-gray-200 to-transparent lg:block"></div>
             <div className="w-full max-w-sm sm:max-w-md lg:max-w-none">
               <InteractiveAvatar imageSrc="/home-avatar.png" />
             </div>
