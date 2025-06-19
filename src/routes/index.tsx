@@ -1,10 +1,17 @@
+import { createFileRoute } from '@tanstack/react-router'
+
 import React from "react";
 import { Linkedin, Github, Mail, Play, Twitter } from "lucide-react";
 import { InteractiveAvatar } from "../components";
 
+export const Route = createFileRoute('/')({
+  component: Home,
+}) 
+
+
 interface Props extends React.ComponentProps<"div"> {}
 
-export const Home = ({ ...rest }: Props) => {
+export function Home({ ...rest }: Props) {
 
   return (
     <div className="min-h-screen bg-white text-gray-900" {...rest}>

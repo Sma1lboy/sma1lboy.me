@@ -1,19 +1,20 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
-import { Home, NotFound, RootErrorBoundary } from './page';
+import { createRouter, RouterProvider } from '@tanstack/react-router'
+
+// Import the generated route tree
+import { routeTree } from './routeTree.gen'
+
+// Create a new router instance
+const router = createRouter({ routeTree })
+
+// Register the router instance for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-          errorElement={<RootErrorBoundary />}
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+  return <RouterProvider router={router} />
+}
 
-export default App;
+export default App

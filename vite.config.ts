@@ -11,11 +11,13 @@ import imagemin from 'unplugin-imagemin/vite';
 import { compression } from 'vite-plugin-compression2';
 import Inspect from 'vite-plugin-inspect';
 import svgr from 'vite-plugin-svgr';
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 
 import { fonts } from './configs/fonts.config';
 
 export default defineConfig({
   plugins: [
+    TanStackRouterVite(),
     svgr(),
     react(),
     Inspect(),
@@ -24,7 +26,7 @@ export default defineConfig({
     tailwindcss(),
     Fonts({ google: { families: fonts } }),
     AutoImport({
-      imports: ['react', 'react-router'],
+      imports: ['react'],
       dts: './auto-imports.d.ts',
       eslintrc: { filepath: './eslint.config.js' },
       dirs: ['./src/components/ui'],
