@@ -20,12 +20,14 @@ This is the repository for my personal website, built with React, TypeScript, an
 To get started with this project, follow these steps:
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/sma1lboy/sma1lboy.me.git
    cd sma1lboy.me
    ```
 
 2. **Install dependencies using bun:**
+
    ```bash
    bun install
    ```
@@ -36,7 +38,7 @@ To get started with this project, follow these steps:
    ```
    The application will be available at `http://localhost:5173`.
 
-##  NPM Scripts
+## NPM Scripts
 
 - `bun run dev`: Starts the development server.
 - `bun run build`: Builds the application for production.
