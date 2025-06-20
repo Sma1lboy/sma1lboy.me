@@ -115,11 +115,6 @@ export const socialLinks = [
     icon: "Twitter",
   },
   {
-    href: "https://space.bilibili.com/72605744",
-    label: "Bilibili",
-    icon: "Play",
-  },
-  {
     href: "https://github.com/Sma1lboy",
     label: "GitHub",
     icon: "Github",
