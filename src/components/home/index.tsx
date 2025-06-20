@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { sortedExperiences } from "../../constants/experiences";
+import { ExperienceTimelineImproved } from "./ExperienceTimelineImproved";
 import { HeroSection } from "./HeroSection";
 import { NavigationDock } from "./NavigationDock";
 import { ProjectsSection } from "./ProjectsSection";
@@ -22,19 +24,23 @@ export function Home({ ...rest }: Props) {
     const handleScroll = () => {
       const heroSection = document.getElementById("hero");
       const projectsSection = document.getElementById("projects");
+      const experienceSection = document.getElementById("experience");
       const techStackSection = document.getElementById("tech-stack");
 
-      if (!heroSection || !projectsSection || !techStackSection) return;
+      if (!heroSection || !projectsSection || !experienceSection || !techStackSection) return;
 
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       const heroTop = heroSection.offsetTop;
       const projectsTop = projectsSection.offsetTop;
+      const experienceTop = experienceSection.offsetTop;
       const techStackTop = techStackSection.offsetTop;
 
       if (scrollPosition >= heroTop && scrollPosition < projectsTop) {
         setActiveSection("hero");
-      } else if (scrollPosition >= projectsTop && scrollPosition < techStackTop) {
+      } else if (scrollPosition >= projectsTop && scrollPosition < experienceTop) {
         setActiveSection("projects");
+      } else if (scrollPosition >= experienceTop && scrollPosition < techStackTop) {
+        setActiveSection("experience");
       } else if (scrollPosition >= techStackTop) {
         setActiveSection("tech-stack");
       }
@@ -54,6 +60,9 @@ export function Home({ ...rest }: Props) {
       >
         <HeroSection />
         <ProjectsSection />
+        <div id="experience">
+          <ExperienceTimelineImproved experiences={sortedExperiences} />
+        </div>
         <div id="tech-stack">
           <TechStackSection />
         </div>
