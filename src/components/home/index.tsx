@@ -50,9 +50,6 @@ export function Home({ ...rest }: Props) {
         setActiveSection("friends");
       }
     };
-        setActiveSection("tech-stack");
-      }
-    };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Check initial position
