@@ -28,6 +28,7 @@ This document contains specific rules and preferences for Pochi when working on 
 2. **Development**: Use `bun run dev` to start the development server (typically runs on port 5173)
 3. **Building**: Use `bun run build` for production builds
 4. **Adding packages**: Use `bun add <package-name>` for new dependencies
+5. **Before pushing**: Always run `bun run build` and test to ensure everything works correctly before pushing changes
 
 ### Development Server
 
@@ -51,6 +52,13 @@ This is a React + TypeScript + Vite project with:
 - **All page component development must follow our src/index.css tailwindcss settings to avoid creating components with specific colors**
 - Implement proper error handling
 - Write clean, readable code with appropriate comments
+
+## Live Deployment
+
+- **Live site**: https://sma1lboy.me
+- After making changes to the main branch, you can share this link to check the updated version
+- Vercel automatically deploys changes from the main branch
+- Wait for the deployment to complete before checking the live site
 
 ## Important Notes
 
