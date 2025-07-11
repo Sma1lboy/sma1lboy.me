@@ -4,6 +4,7 @@ import { ExperienceTimelineImproved } from "./ExperienceTimelineImproved";
 import { HeroSection } from "./HeroSection";
 import { NavigationDock } from "./NavigationDock";
 import { ProjectsSection } from "./ProjectsSection";
+import FriendsSection from "./FriendsSection";
 import TechStackSection from "./TechStackSection";
 
 interface Props extends React.ComponentProps<"div"> {}
@@ -26,14 +27,16 @@ export function Home({ ...rest }: Props) {
       const projectsSection = document.getElementById("projects");
       const experienceSection = document.getElementById("experience");
       const techStackSection = document.getElementById("tech-stack");
+      const friendsSection = document.getElementById("friends");
 
-      if (!heroSection || !projectsSection || !experienceSection || !techStackSection) return;
+      if (!heroSection || !projectsSection || !experienceSection || !techStackSection || !friendsSection) return;
 
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       const heroTop = heroSection.offsetTop;
       const projectsTop = projectsSection.offsetTop;
       const experienceTop = experienceSection.offsetTop;
       const techStackTop = techStackSection.offsetTop;
+      const friendsTop = friendsSection.offsetTop;
 
       if (scrollPosition >= heroTop && scrollPosition < projectsTop) {
         setActiveSection("hero");
@@ -41,7 +44,12 @@ export function Home({ ...rest }: Props) {
         setActiveSection("projects");
       } else if (scrollPosition >= experienceTop && scrollPosition < techStackTop) {
         setActiveSection("experience");
-      } else if (scrollPosition >= techStackTop) {
+      } else if (scrollPosition >= techStackTop && scrollPosition < friendsTop) {
+        setActiveSection("tech-stack");
+      } else if (scrollPosition >= friendsTop) {
+        setActiveSection("friends");
+      }
+    };
         setActiveSection("tech-stack");
       }
     };
@@ -65,6 +73,9 @@ export function Home({ ...rest }: Props) {
         </div>
         <div id="tech-stack">
           <TechStackSection />
+        </div>
+        <div id="friends">
+          <FriendsSection />
         </div>
       </div>
 
