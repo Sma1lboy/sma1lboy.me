@@ -34,14 +34,6 @@ export interface ExperienceCategory {
   icon?: string;
 }
 
-export interface Friend {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  avatar: string;
-}
-
 // Animation variants type
 export interface AnimationVariants {
   hidden: {

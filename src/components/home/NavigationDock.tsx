@@ -7,7 +7,6 @@ import {
   Mail,
   Twitter,
   User,
-  Users,
 } from "lucide-react";
 import { Dock, DockIcon } from "../magicui/dock";
 
@@ -90,25 +89,6 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
             size={18}
             className={`transition-colors duration-200 sm:size-5 ${
               activeSection === "tech-stack"
-                ? "text-gray-800 dark:text-gray-200"
-                : "text-gray-700 dark:text-gray-300"
-            }`}
-          />
-        </DockIcon>
-
-        {/* Friends */}
-        <DockIcon
-          onClick={() => scrollToSection("friends")}
-          className={`touch-manipulation ${
-            activeSection === "friends"
-              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
-              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
-          }`}
-        >
-          <Users
-            size={18}
-            className={`transition-colors duration-200 sm:size-5 ${
-              activeSection === "friends"
                 ? "text-gray-800 dark:text-gray-200"
                 : "text-gray-700 dark:text-gray-300"
             }`}
