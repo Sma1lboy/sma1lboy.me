@@ -72,5 +72,3 @@ To get started with this project, follow these steps:
 - **`src/store`**: Zustand stores for state management.
 
 ## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions or improvements.

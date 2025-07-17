@@ -214,7 +214,30 @@ export const experiences: Experience[] = [
       "Competed successfully against other talented developers",
     ],
   },
+  {
+    id: "google-summer-of-code",
+    title: "Google Summer of Code",
+    organization: "Google",
+    period: {
+      start: "2024-04",
+      end: "2024-08",
+    },
+    description:
+      "Contributed to open-source project under Google's mentorship, developing and implementing new features. Gained hands-on experience in collaborative software development and open-source best practices.",
+    type: "award",
+    technologies: ["Open Source", "Collaborative Development", "Software Engineering"],
+    achievements: [
+      "Successfully contributed to open-source project under Google mentorship",
+      "Developed and implemented new features in a real-world project",
+      "Gained practical experience in collaborative software development",
+      "Adhered to open-source best practices and community guidelines",
+    ],
+    url: "https://summerofcode.withgoogle.com/",
+  },
 ];
+
+// asdasd
+// sadasd
 
 // Sort by time (newest first)
 export const sortedExperiences = [...experiences].sort((a, b) => {
