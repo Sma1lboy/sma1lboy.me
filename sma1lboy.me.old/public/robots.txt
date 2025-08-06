@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://www.sma1lboy.me
-
-# Sitemaps
-Sitemap: https://www.sma1lboy.me/sitemap.xml
