@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { githubApiService, GitHubDataCache } from '../services/githubApi';
+import { useState, useEffect } from "react";
+import { githubApiService, GitHubDataCache } from "../services/githubApi";
 
 /**
  * Custom hook for accessing GitHub data with loading and error states
@@ -14,17 +14,17 @@ export function useGitHub() {
       try {
         setLoading(true);
         setError(null);
-        
+
         const githubData = await githubApiService.getGitHubData();
-        
+
         if (githubData) {
           setData(githubData);
         } else {
-          setError('Failed to fetch GitHub data');
+          setError("Failed to fetch GitHub data");
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred');
-        console.error('GitHub data fetch error:', err);
+        setError(err instanceof Error ? err.message : "Unknown error occurred");
+        console.error("GitHub data fetch error:", err);
       } finally {
         setLoading(false);
       }

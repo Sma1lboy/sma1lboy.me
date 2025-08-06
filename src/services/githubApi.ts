@@ -3,8 +3,10 @@ import { Octokit } from "@octokit/rest";
 /**
  * Octokit response types for GitHub API data
  */
-export type GitHubUserData = Awaited<ReturnType<Octokit['rest']['users']['getByUsername']>>['data'];
-export type GitHubRepo = Awaited<ReturnType<Octokit['rest']['repos']['listForUser']>>['data'][number];
+export type GitHubUserData = Awaited<ReturnType<Octokit["rest"]["users"]["getByUsername"]>>["data"];
+export type GitHubRepo = Awaited<
+  ReturnType<Octokit["rest"]["repos"]["listForUser"]>
+>["data"][number];
 
 /**
  * GitHub contribution data interface (custom since GitHub's contribution API requires GraphQL)
@@ -32,7 +34,7 @@ class GitHubApiService {
   private octokit: Octokit;
   private cache: GitHubDataCache | null = null;
   private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutes in milliseconds
-  private readonly USERNAME = import.meta.env.VITE_GITHUB_USERNAME || 'sma1lboy';
+  private readonly USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "sma1lboy";
   private intervalId: NodeJS.Timeout | null = null;
 
   constructor() {
@@ -55,7 +57,7 @@ class GitHubApiService {
       this.refreshCache();
     }, this.CACHE_DURATION);
 
-    console.log('GitHub API auto-refresh started (every 30 minutes)');
+    console.log("GitHub API auto-refresh started (every 30 minutes)");
   }
 
   /**
@@ -65,7 +67,7 @@ class GitHubApiService {
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
-      console.log('GitHub API auto-refresh stopped');
+      console.log("GitHub API auto-refresh stopped");
     }
   }
 
@@ -85,9 +87,9 @@ class GitHubApiService {
    */
   private isCacheValid(): boolean {
     if (!this.cache) return false;
-    
+
     const now = Date.now();
-    return (now - this.cache.lastUpdated) < this.CACHE_DURATION;
+    return now - this.cache.lastUpdated < this.CACHE_DURATION;
   }
 
   /**
@@ -95,7 +97,7 @@ class GitHubApiService {
    */
   private async refreshCache(): Promise<GitHubDataCache | null> {
     try {
-      console.log('Fetching fresh GitHub data...');
+      console.log("Fetching fresh GitHub data...");
 
       // Fetch user data
       const userResponse = await this.octokit.rest.users.getByUsername({
@@ -105,7 +107,7 @@ class GitHubApiService {
       // Fetch repositories (top 10 most starred)
       const reposResponse = await this.octokit.rest.repos.listForUser({
         username: this.USERNAME,
-        sort: 'updated',
+        sort: "updated",
         per_page: 10,
       });
 
@@ -126,16 +128,15 @@ class GitHubApiService {
 
       console.log(`GitHub data refreshed successfully. Total contributions: ${totalContributions}`);
       return this.cache;
-
     } catch (error) {
-      console.error('Failed to fetch GitHub data:', error);
-      
+      console.error("Failed to fetch GitHub data:", error);
+
       // Return existing cache if available, even if stale
       if (this.cache) {
-        console.log('Returning stale cache data due to API error');
+        console.log("Returning stale cache data due to API error");
         return this.cache;
       }
-      
+
       return null;
     }
   }
@@ -147,15 +148,15 @@ class GitHubApiService {
   private generateMockContributions(): GitHubContribution[] {
     const contributions: GitHubContribution[] = [];
     const today = new Date();
-    
+
     for (let i = 365; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
-      
+
       // Generate realistic contribution pattern
       const dayOfWeek = date.getDay();
       const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-      
+
       let contributionCount = 0;
       if (!isWeekend) {
         // Higher chance of contributions on weekdays
@@ -172,11 +173,11 @@ class GitHubApiService {
       }
 
       contributions.push({
-        date: date.toISOString().split('T')[0],
+        date: date.toISOString().split("T")[0],
         contributionCount,
       });
     }
-    
+
     return contributions;
   }
 

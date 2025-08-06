@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     // Start GitHub data synchronization on app startup
     startGitHubDataSync();
-    
+
     // Cleanup on app unmount
     return () => {
       stopGitHubDataSync();
