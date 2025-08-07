@@ -318,7 +318,7 @@ function CommitGraphWithData() {
  */
 function ProfileAvatar() {
   return (
-    <div className="col-span-4 row-span-2 flex justify-center">
+    <div className="justify-center2 col-span-4 row-span-2 flex">
       <motion.div
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300 }}
