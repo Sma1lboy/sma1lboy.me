@@ -286,4 +286,13 @@
   .gradient-subtle {
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   }
+
+  /* Custom scrollbar hiding utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
 }
