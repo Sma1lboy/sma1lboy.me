@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { Circle, Layer, Stage } from "react-konva";
 import { useAvatarCacheStore } from "../store/avatarCacheStore";
+import { useThemeStore } from "../store/themeStore";
 
 interface CircleData {
   x: number;
@@ -23,6 +24,7 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   const [circles, setCircles] = useState<CircleData[]>([]);
   const [stageSize, setStageSize] = useState({ width: 800, height: 800 });
   const [imageData, setImageData] = useState<ImageData | null>(null);
+  const { resolvedTheme } = useThemeStore();
   const minRadius = 2;
   const maxLevel = 25; // Increased for deeper detail
 
@@ -580,7 +582,7 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
             height={stageSize.height}
             className="max-w-full cursor-crosshair"
             style={{
-              backgroundColor: "#ffffff",
+              backgroundColor: resolvedTheme === "dark" ? "#0a0a0a" : "#ffffff",
               maxWidth: "100%",
               maxHeight: "100%",
               objectFit: "contain",

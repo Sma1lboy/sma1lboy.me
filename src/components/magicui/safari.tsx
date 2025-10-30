@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps, useEffect, useState } from "react";
 
 type SafariMode = "default" | "simple";
 
@@ -20,6 +20,23 @@ export function Safari({
   mode = "default",
   ...props
 }: SafariProps) {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    
+    checkDarkMode();
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <svg
       width={width}
@@ -91,15 +108,33 @@ export function Safari({
 
         {/* Website content area */}
         {imageSrc && (
-          <image
-            href={imageSrc}
-            width="1200"
-            height="700"
-            x="1"
-            y="52"
-            preserveAspectRatio="xMidYMid slice"
-            clipPath="url(#roundedBottom)"
-          />
+          <g>
+            <defs>
+              <filter id="darkImageFilter" colorInterpolationFilters="sRGB">
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="0.7" intercept="0"/>
+                  <feFuncG type="linear" slope="0.7" intercept="0"/>
+                  <feFuncB type="linear" slope="0.7" intercept="0"/>
+                </feComponentTransfer>
+                <feColorMatrix type="saturate" values="0.8"/>
+                <feComponentTransfer>
+                  <feFuncR type="linear" slope="0.9" intercept="0"/>
+                  <feFuncG type="linear" slope="0.9" intercept="0"/>
+                  <feFuncB type="linear" slope="0.9" intercept="0"/>
+                </feComponentTransfer>
+              </filter>
+            </defs>
+            <image
+              href={imageSrc}
+              width="1200"
+              height="700"
+              x="1"
+              y="52"
+              preserveAspectRatio="xMidYMid slice"
+              clipPath="url(#roundedBottom)"
+              filter={isDark ? "url(#darkImageFilter)" : undefined}
+            />
+          </g>
         )}
 
         {videoSrc && (
@@ -112,7 +147,7 @@ export function Safari({
             clipPath="url(#roundedBottom)"
           >
             <video
-              className="size-full overflow-hidden object-cover"
+              className="size-full overflow-hidden object-cover dark:brightness-[0.7] dark:contrast-[0.9] dark:saturate-[0.8]"
               src={videoSrc}
               autoPlay
               loop

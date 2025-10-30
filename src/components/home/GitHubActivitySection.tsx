@@ -38,7 +38,7 @@ function ContributionHeatmap({
   }, [contributions]);
 
   const getIntensity = (count: number) => {
-    if (count === 0) return "bg-gray-100 dark:bg-gray-800";
+    if (count === 0) return "bg-gray-100 dark:bg-[#0a0a0a]";
     if (count <= 2) return "bg-green-200 dark:bg-green-900";
     if (count <= 5) return "bg-green-400 dark:bg-green-700";
     if (count <= 10) return "bg-green-600 dark:bg-green-600";
@@ -80,7 +80,7 @@ function ContributionHeatmap({
       <div className="mt-2 flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
         <span>Less</span>
         <div className="flex gap-1">
-          <div className="h-3 w-3 rounded-sm bg-gray-100 dark:bg-gray-800" />
+          <div className="h-3 w-3 rounded-sm bg-gray-100 dark:bg-[#0a0a0a]" />
           <div className="h-3 w-3 rounded-sm bg-green-200 dark:bg-green-900" />
           <div className="h-3 w-3 rounded-sm bg-green-400 dark:bg-green-700" />
           <div className="h-3 w-3 rounded-sm bg-green-600 dark:bg-green-600" />
@@ -131,7 +131,7 @@ function PopularRepos({ repos }: { repos: GitHubRepo[] }) {
           href={repo.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-gray-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-800 dark:hover:border-gray-600"
+          className="group relative overflow-hidden rounded-lg border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-gray-300 hover:shadow-md dark:border-[#1a1a1a] dark:bg-[#0a0a0a] dark:hover:border-[#2a2a2a]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -163,7 +163,7 @@ function PopularRepos({ repos }: { repos: GitHubRepo[] }) {
               <span>{repo.forks_count || 0}</span>
             </div>
             {repo.language && (
-              <span className="ml-auto rounded-full bg-gray-100 px-2 py-0.5 text-xs dark:bg-gray-700">
+              <span className="ml-auto rounded-full bg-gray-100 px-2 py-0.5 text-xs dark:bg-[#151515]">
                 {repo.language}
               </span>
             )}
@@ -224,7 +224,7 @@ function GitHubStats({
         return (
           <motion.div
             key={stat.label}
-            className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+            className="rounded-lg border border-gray-200 bg-white p-4 dark:border-[#1a1a1a] dark:bg-[#0a0a0a]"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -251,16 +251,16 @@ export function GitHubActivitySection() {
     return (
       <motion.section
         id="github-activity"
-        className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-gray-900"
+        className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-black"
       >
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center sm:mb-16">
-            <div className="mb-4 h-8 w-64 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
-            <div className="mx-auto h-4 w-96 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+            <div className="mb-4 h-8 w-64 animate-pulse rounded bg-gray-200 dark:bg-[#151515]" />
+            <div className="mx-auto h-4 w-96 animate-pulse rounded bg-gray-200 dark:bg-[#151515]" />
           </div>
           <div className="space-y-8">
-            <div className="h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
-            <div className="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+            <div className="h-32 animate-pulse rounded-lg bg-gray-200 dark:bg-[#151515]" />
+            <div className="h-64 animate-pulse rounded-lg bg-gray-200 dark:bg-[#151515]" />
           </div>
         </div>
       </motion.section>
@@ -272,7 +272,7 @@ export function GitHubActivitySection() {
     return (
       <motion.section
         id="github-activity"
-        className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-gray-900"
+        className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-black"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
@@ -291,7 +291,7 @@ export function GitHubActivitySection() {
               href="https://github.com/Sma1lboy"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-gray-700"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 dark:border-[#1a1a1a] dark:bg-[#0a0a0a] dark:text-gray-300 dark:hover:border-[#2a2a2a] dark:hover:bg-[#151515]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -308,7 +308,7 @@ export function GitHubActivitySection() {
   return (
     <motion.section
       id="github-activity"
-      className="bg-white px-4 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-24 xl:px-24 dark:bg-gray-900"
+        className="bg-white px-4 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-24 xl:px-24 dark:bg-black"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -342,12 +342,12 @@ export function GitHubActivitySection() {
 
         {/* Contribution Heatmap */}
         <motion.div
-          className="mb-12"
+          className="mb-12 hidden md:block"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <div className="mx-auto w-fit rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+          <div className="mx-auto w-fit rounded-lg border border-gray-200 bg-white p-6 dark:border-[#1a1a1a] dark:bg-[#0a0a0a]">
             <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
               Contribution Activity
             </h3>

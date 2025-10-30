@@ -10,6 +10,7 @@ import {
   User,
 } from "lucide-react";
 import { Dock, DockIcon } from "../magicui/dock";
+import { ThemeToggle } from "../theme/ThemeToggle";
 
 interface NavigationDockProps {
   activeSection: string;
@@ -25,8 +26,8 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           onClick={() => scrollToSection("hero")}
           className={`touch-manipulation ${
             activeSection === "hero"
-              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
-              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-[#151515] dark:ring-[#2a2a2a]"
+              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
           }`}
         >
           <HomeIcon
@@ -44,8 +45,8 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           onClick={() => scrollToSection("projects")}
           className={`touch-manipulation ${
             activeSection === "projects"
-              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
-              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-[#151515] dark:ring-[#2a2a2a]"
+              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
           }`}
         >
           <FolderOpen
@@ -63,8 +64,8 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           onClick={() => scrollToSection("experience")}
           className={`touch-manipulation ${
             activeSection === "experience"
-              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
-              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-[#151515] dark:ring-[#2a2a2a]"
+              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
           }`}
         >
           <User
@@ -82,8 +83,8 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           onClick={() => scrollToSection("tech-stack")}
           className={`touch-manipulation ${
             activeSection === "tech-stack"
-              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
-              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-[#151515] dark:ring-[#2a2a2a]"
+              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
           }`}
         >
           <Code
@@ -101,8 +102,8 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           onClick={() => scrollToSection("github-activity")}
           className={`touch-manipulation ${
             activeSection === "github-activity"
-              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
-              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-[#151515] dark:ring-[#2a2a2a]"
+              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
           }`}
         >
           <Activity
@@ -116,35 +117,43 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
         </DockIcon>
 
         {/* Divider */}
-        <div className="mx-1 h-6 w-px bg-gray-300 sm:mx-2 sm:h-8 dark:bg-gray-600"></div>
+        <div className="mx-1 h-6 w-px bg-gray-300 sm:mx-2 sm:h-8 dark:bg-[#1a1a1a]"></div>
 
         {/* Social Media Section */}
         <DockIcon
           onClick={() => window.open("https://github.com/Sma1lboy", "_blank")}
-          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
         >
           <Github size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />
         </DockIcon>
 
         <DockIcon
           onClick={() => window.open("https://x.com/sma1lboy", "_blank")}
-          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
         >
           <Twitter size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />
         </DockIcon>
 
         <DockIcon
           onClick={() => window.open("https://www.linkedin.com/in/chong-chen-857214292/", "_blank")}
-          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
         >
           <Linkedin size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />
         </DockIcon>
 
         <DockIcon
           onClick={() => window.open("mailto:jackson@example.com")}
-          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
         >
           <Mail size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />
+        </DockIcon>
+
+        {/* Divider */}
+        <div className="mx-1 h-6 w-px bg-gray-300 sm:mx-2 sm:h-8 dark:bg-[#1a1a1a]"></div>
+
+        {/* Theme Toggle */}
+        <DockIcon className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700">
+          <ThemeToggle />
         </DockIcon>
       </Dock>
     </div>

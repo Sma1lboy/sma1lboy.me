@@ -1,0 +1,1 @@
+执行这个指令的时候帮我 summery 当前conversation完成的任务 然后进行commit 如果用要求可以merge到mainbranch

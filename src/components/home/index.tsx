@@ -60,7 +60,7 @@ export function Home({ ...rest }: Props) {
   return (
     <>
       <div
-        className="overflow-x-hidden bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100"
+        className="overflow-x-hidden bg-white text-gray-900 dark:bg-black dark:text-gray-100"
         {...rest}
       >
         <HeroSection />

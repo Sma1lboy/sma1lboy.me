@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <motion.div
       id="hero"
-      className="min-h-screen bg-white text-gray-900 transition-all duration-200 ease-out dark:bg-gray-900 dark:text-gray-100"
+      className="min-h-screen bg-white text-gray-900 transition-all duration-200 ease-out dark:bg-black dark:text-gray-100"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -83,7 +83,7 @@ export function HeroSection() {
 
           {/* Right Column - Interactive Avatar */}
           <motion.div
-            className="relative flex min-h-0 flex-col items-center justify-center bg-white p-6 transition-all duration-200 ease-out sm:p-8 lg:w-1/2 lg:p-12 xl:p-16 dark:bg-gray-900"
+            className="relative flex min-h-0 flex-col items-center justify-center bg-white p-6 transition-all duration-200 ease-out sm:p-8 lg:w-1/2 lg:p-12 xl:p-16 dark:bg-black"
             variants={avatarVariants}
             initial="hidden"
             animate="visible"

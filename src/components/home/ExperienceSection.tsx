@@ -164,7 +164,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden border-l border-gray-200 pl-4 dark:border-gray-800"
+              className="overflow-hidden border-l border-gray-200 pl-4 dark:border-[#1a1a1a]"
             >
               <ul className="space-y-2">
                 {experience.achievements.map((achievement, index) => (
@@ -197,7 +197,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
         )}
 
         {/* Divider */}
-        <div className="h-px w-full bg-gray-200 dark:bg-gray-800" />
+        <div className="h-px w-full bg-gray-200 dark:bg-[#1a1a1a]" />
       </div>
     </motion.div>
   );
@@ -237,7 +237,7 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
 
   return (
     <motion.section
-      className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-gray-900"
+      className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-black"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}

@@ -327,7 +327,7 @@ function ProfileAvatar() {
         <img
           src="/home-avatar.png"
           alt="Profile Avatar"
-          className="h-80 w-80 rounded-full shadow-2xl"
+          className="h-80 w-80 rounded-full shadow-2xl dark:brightness-[0.7] dark:contrast-[0.9] dark:saturate-[0.8]"
         />
       </motion.div>
     </div>

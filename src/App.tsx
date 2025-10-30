@@ -4,6 +4,7 @@ import { useEffect } from "react";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { startGitHubDataSync, stopGitHubDataSync } from "./services/githubApi";
+import { useThemeStore } from "./store/themeStore";
 
 // Create a new router instance
 const router = createRouter({ routeTree });
@@ -16,6 +17,9 @@ declare module "@tanstack/react-router" {
 }
 
 const App = () => {
+  // Initialize theme
+  useThemeStore.getState().setTheme(useThemeStore.getState().theme);
+
   useEffect(() => {
     // Start GitHub data synchronization on app startup
     startGitHubDataSync();

@@ -29,7 +29,7 @@ const MOBILE_SIZE = 36;
 const MOBILE_MAGNIFICATION = 48;
 
 const dockVariants = cva(
-  "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-6 flex h-[52px] w-max items-center justify-center gap-1.5 rounded-2xl border p-1.5 backdrop-blur-md sm:mt-8 sm:h-[58px] sm:gap-2 sm:p-2",
+  "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-[#151515]/90 mx-auto mt-6 flex h-[52px] w-max items-center justify-center gap-1.5 rounded-2xl border border-gray-200/20 dark:border-[#2a2a2a]/50 p-1.5 backdrop-blur-md sm:mt-8 sm:h-[58px] sm:gap-2 sm:p-2",
 );
 
 const Dock = React.forwardRef<HTMLDivElement, DockProps>(

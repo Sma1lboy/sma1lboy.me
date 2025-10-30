@@ -198,7 +198,7 @@ export default function TechStackSection() {
 
   return (
     <motion.section
-      className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-gray-900"
+      className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-black"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
@@ -249,7 +249,7 @@ export default function TechStackSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
                 viewport={{ once: true }}
-                className="border-b border-gray-200 pb-8 last:border-0 dark:border-gray-800"
+                className="border-b border-gray-200 pb-8 last:border-0 dark:border-[#1a1a1a]"
               >
                 <h3 className="mb-4 text-base font-light tracking-wider text-gray-400 uppercase dark:text-gray-600">
                   {category}
@@ -267,7 +267,7 @@ export default function TechStackSection() {
 
         {/* Legend */}
         <motion.div
-          className="mt-12 border-t border-gray-200 pt-8 sm:mt-16 dark:border-gray-800"
+          className="mt-12 border-t border-gray-200 pt-8 sm:mt-16 dark:border-[#1a1a1a]"
           variants={itemVariants}
         >
           <p className="mb-4 text-center text-xs font-light tracking-wider text-gray-400 uppercase dark:text-gray-600">
