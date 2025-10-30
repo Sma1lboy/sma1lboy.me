@@ -1,13 +1,8 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { containerVariants, itemVariants } from "../../constants/home";
 import { ProjectCarousel } from "./ProjectCarousel";
 
 export function ProjectsSection() {
-  const [currentProject, setCurrentProject] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 for next, -1 for prev, default to right
-  const [isHovered, setIsHovered] = useState(false); // Track hover state for auto-play pause
-
   return (
     <motion.section
       id="projects"
@@ -31,14 +26,7 @@ export function ProjectsSection() {
 
         {/* Project Carousel */}
         <motion.div className="relative" variants={itemVariants}>
-          <ProjectCarousel
-            currentProject={currentProject}
-            setCurrentProject={setCurrentProject}
-            direction={direction}
-            setDirection={setDirection}
-            isHovered={isHovered}
-            setIsHovered={setIsHovered}
-          />
+          <ProjectCarousel />
         </motion.div>
       </div>
     </motion.section>

@@ -1,127 +1,132 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import React from "react";
-import { featuredProjects, slideVariants } from "../../constants/home";
+import { featuredProjects } from "../../constants/home";
 import { Safari } from "../magicui/safari";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
-interface ProjectCarouselProps {
-  currentProject: number;
-  setCurrentProject: (index: number) => void;
-  direction: number;
-  setDirection: (direction: number) => void;
-  isHovered: boolean;
-  setIsHovered: (hovered: boolean) => void;
-}
+export function ProjectCarousel() {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+  const [isHovered, setIsHovered] = React.useState(false);
 
-export function ProjectCarousel({
-  currentProject,
-  setCurrentProject,
-  direction,
-  setDirection,
-  isHovered,
-  setIsHovered,
-}: ProjectCarouselProps) {
-  // Auto-play carousel functionality
+  const autoplayPlugin = React.useRef(
+    Autoplay({
+      delay: 4000,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+    })
+  );
+
   React.useEffect(() => {
-    if (!isHovered) {
-      const interval = setInterval(() => {
-        setDirection(1);
-        setCurrentProject((currentProject + 1) % featuredProjects.length);
-      }, 4000); // Change slide every 4 seconds
+    if (!api) return;
 
-      return () => clearInterval(interval);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  // Handle hover state for autoplay
+  React.useEffect(() => {
+    if (!api) return;
+
+    if (isHovered) {
+      autoplayPlugin.current.stop();
+    } else {
+      autoplayPlugin.current.play();
     }
-  }, [isHovered, currentProject, setCurrentProject, setDirection]);
+  }, [isHovered, api]);
 
-  // Function to jump to a specific project (used by dots navigation)
-  const jumpToProject = (index: number) => {
-    const newDirection = index > currentProject ? 1 : -1;
-    setDirection(newDirection);
-    setCurrentProject(index);
+  const scrollTo = (index: number) => {
+    api?.scrollTo(index);
   };
 
   return (
     <div className="relative">
-      <div className="flex flex-col items-center gap-8 sm:gap-12 lg:flex-row lg:gap-16">
-        {/* Project Info */}
-        <div className="space-y-4 sm:space-y-6 lg:w-2/5">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentProject}
-              variants={slideVariants}
-              initial={direction > 0 ? "enterFromRight" : "enterFromLeft"}
-              animate="center"
-              exit={direction > 0 ? "exitToLeft" : "exitToRight"}
-              transition={{ duration: 0.3 }}
-              custom={direction}
-            >
-              <div className="mb-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:mb-3 sm:text-sm dark:text-gray-500">
-                {featuredProjects[currentProject].year} • Selected Work
-              </div>
-              <h3 className="mb-3 text-2xl font-bold text-gray-900 sm:text-3xl lg:mb-4 lg:text-4xl dark:text-gray-100">
-                {featuredProjects[currentProject].title}
-              </h3>
-              <p className="mb-4 text-base leading-relaxed font-light text-gray-600 sm:mb-6 sm:text-lg dark:text-gray-400">
-                {featuredProjects[currentProject].description}
-              </p>
-              <div className="mb-4 text-xs font-medium text-gray-500 sm:mb-6 sm:text-sm dark:text-gray-400">
-                {featuredProjects[currentProject].tech}
-              </div>
-              <motion.a
-                href={featuredProjects[currentProject].url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex touch-manipulation items-center gap-2 text-gray-900 transition-colors duration-200 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
-                whileHover={{ x: 4 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="text-base font-medium sm:text-lg">Visit Project</span>
-                <ArrowUpRight
-                  size={18}
-                  className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-5"
-                />
-              </motion.a>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Project Preview with Safari Component */}
-        <div className="w-full lg:w-3/5">
-          <div
-            className="relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
-          >
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={currentProject}
-                variants={slideVariants}
-                initial={direction > 0 ? "enterFromRight" : "enterFromLeft"}
-                animate="center"
-                exit={direction > 0 ? "exitToLeft" : "exitToRight"}
-                transition={{ duration: 0.3 }}
-                className="w-full"
-                custom={direction}
-              >
-                <div
-                  className="cursor-pointer touch-manipulation transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
-                  onClick={() => window.open(featuredProjects[currentProject].url, "_blank")}
-                >
-                  <Safari
-                    url={featuredProjects[currentProject].url.replace("https://", "")}
-                    imageSrc={featuredProjects[currentProject].preview}
-                    width={800}
-                    height={500}
-                    className="h-full w-full overflow-hidden rounded-lg bg-transparent shadow-xl sm:shadow-2xl dark:shadow-gray-900/50"
-                  />
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        plugins={[autoplayPlugin.current]}
+        setApi={setApi}
+        className="w-full"
+      >
+        <CarouselContent className="ml-0">
+          {featuredProjects.map((project, index) => (
+            <CarouselItem key={index} className="pl-0">
+              <div className="flex flex-col items-center gap-8 sm:gap-12 lg:flex-row lg:gap-16">
+                {/* Project Info */}
+                <div className="space-y-4 sm:space-y-6 lg:w-2/5">
+                  <div className="mb-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:mb-3 sm:text-sm dark:text-gray-500">
+                    {project.year} • Selected Work
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-gray-900 sm:text-3xl lg:mb-4 lg:text-4xl dark:text-gray-100">
+                    {project.title}
+                  </h3>
+                  <p className="mb-4 text-base leading-relaxed font-light text-gray-600 sm:mb-6 sm:text-lg dark:text-gray-400">
+                    {project.description}
+                  </p>
+                  <div className="mb-4 text-xs font-medium text-gray-500 sm:mb-6 sm:text-sm dark:text-gray-400">
+                    {project.tech}
+                  </div>
+                  <motion.a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex touch-manipulation items-center gap-2 text-gray-900 transition-colors duration-200 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="text-base font-medium sm:text-lg">
+                      Visit Project
+                    </span>
+                    <ArrowUpRight
+                      size={18}
+                      className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-5"
+                    />
+                  </motion.a>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
+
+                {/* Project Preview with Safari Component */}
+                <div className="w-full lg:w-3/5">
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onTouchStart={() => setIsHovered(true)}
+                    onTouchEnd={() => setIsHovered(false)}
+                  >
+                    <motion.div
+                      className="cursor-pointer touch-manipulation"
+                      onClick={() => window.open(project.url, "_blank")}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Safari
+                        url={project.url.replace("https://", "")}
+                        imageSrc={project.preview}
+                        width={800}
+                        height={500}
+                        className="h-full w-full overflow-hidden rounded-lg bg-transparent"
+                      />
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
       {/* Dots Navigation */}
       <div className="mt-12 mb-8 flex items-center justify-center sm:mt-16 sm:mb-10">
@@ -129,9 +134,9 @@ export function ProjectCarousel({
           {featuredProjects.map((_, index) => (
             <motion.button
               key={index}
-              onClick={() => jumpToProject(index)}
+              onClick={() => scrollTo(index)}
               className={`h-3 w-3 touch-manipulation rounded-full transition-colors duration-300 sm:h-3 sm:w-3 ${
-                index === currentProject
+                index === current
                   ? "bg-gray-800 dark:bg-gray-200"
                   : "bg-gray-300 dark:bg-gray-600"
               }`}
