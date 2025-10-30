@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Award,
   Briefcase,
   Calendar,
   Code2,
