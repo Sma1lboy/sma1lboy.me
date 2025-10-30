@@ -9,7 +9,7 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { containerVariants, itemVariants } from "../../constants/home";
 import { Experience, ExperienceType } from "../../types";
 
@@ -205,6 +205,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
 
 export function ExperienceSection({ experiences }: ExperienceSectionProps) {
   const [selectedType, setSelectedType] = useState<ExperienceType | "all">("all");
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const filteredExperiences =
     selectedType === "all"
@@ -214,6 +215,16 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
         : selectedType === "award"
           ? experiences.filter((exp) => exp.type === "award" || exp.type === "certification")
           : experiences.filter((exp) => exp.type === selectedType);
+
+  const shouldShowExpand = filteredExperiences.length > 3;
+  const displayedExperiences = shouldShowExpand && !isExpanded 
+    ? filteredExperiences.slice(0, 3) 
+    : filteredExperiences;
+
+  // Reset expand state when filter changes
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [selectedType]);
 
   // Only show unique categories
   const categories: Array<"all" | "work" | "education" | "project" | "award"> = [
@@ -226,7 +237,7 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
 
   return (
     <motion.section
-      className="bg-white px-4 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-24 xl:px-24 dark:bg-gray-900"
+      className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-gray-900"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
@@ -282,10 +293,39 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
 
         {/* Experience List */}
         <motion.div className="space-y-0" variants={itemVariants}>
-          {filteredExperiences.map((experience) => (
-            <ExperienceCard key={experience.id} experience={experience} />
-          ))}
+          <AnimatePresence>
+            {displayedExperiences.map((experience, index) => (
+              <motion.div
+                key={experience.id}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, delay: Math.min(index * 0.03, 0.3) }}
+              >
+                <ExperienceCard experience={experience} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
+
+        {/* Expand More Button */}
+        {shouldShowExpand && (
+          <motion.div
+            className="mt-8 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-sm font-light text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-400"
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {isExpanded ? "Show less →" : `Show ${filteredExperiences.length - 3} more →`}
+            </motion.button>
+          </motion.div>
+        )}
 
         {/* Empty State */}
         {filteredExperiences.length === 0 && (

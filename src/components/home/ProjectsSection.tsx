@@ -6,7 +6,7 @@ export function ProjectsSection() {
   return (
     <motion.section
       id="projects"
-      className="bg-white px-4 py-12 sm:px-8 sm:py-16 lg:px-16 lg:py-24 xl:px-24 dark:bg-gray-900"
+      className="bg-white px-4 py-12 sm:px-8 sm:py-12 lg:px-16 lg:py-16 xl:px-24 dark:bg-gray-900"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
