@@ -22,7 +22,6 @@ export type ExperienceType =
   | "work"
   | "education"
   | "project"
-  | "volunteer"
   | "award"
   | "certification"
   | "internship";

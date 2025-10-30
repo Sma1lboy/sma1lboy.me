@@ -18,7 +18,13 @@ interface ExperienceSectionProps {
 }
 
 // Minimal color scheme matching the site's design
-const experienceTypeConfig = {
+const experienceTypeConfig: Record<
+  ExperienceType,
+  {
+    label: string;
+    icon: typeof Briefcase;
+  }
+> = {
   work: {
     label: "Work",
     icon: Briefcase,
