@@ -73,7 +73,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
           <div className="flex-1">
             <div className="mb-2 flex items-center gap-3">
               <Icon className="h-4 w-4 text-gray-400 dark:text-gray-600" />
-              <span className="text-xs font-light uppercase tracking-wider text-gray-400 dark:text-gray-600">
+              <span className="text-xs font-light tracking-wider text-gray-400 uppercase dark:text-gray-600">
                 {config.label}
               </span>
               {experience.featured && (
@@ -97,7 +97,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
               href={experience.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 opacity-0 transition-opacity duration-200 hover:text-gray-900 group-hover:opacity-100 dark:hover:text-gray-100"
+              className="text-gray-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:text-gray-900 dark:hover:text-gray-100"
               whileHover={{ x: 2, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -121,7 +121,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
         </div>
 
         {/* Description */}
-        <p className="text-sm font-light leading-relaxed text-gray-600 dark:text-gray-400">
+        <p className="text-sm leading-relaxed font-light text-gray-600 dark:text-gray-400">
           {isExpanded
             ? experience.description
             : `${experience.description.slice(0, 180)}${experience.description.length > 180 ? "..." : ""}`}
@@ -136,7 +136,11 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
                 className="text-xs font-light text-gray-500 dark:text-gray-500"
               >
                 {tech}
-                {index < (isExpanded ? experience.technologies!.length : Math.min(8, experience.technologies!.length)) - 1 && " •"}
+                {index <
+                  (isExpanded
+                    ? experience.technologies!.length
+                    : Math.min(8, experience.technologies!.length)) -
+                    1 && " •"}
               </span>
             ))}
             {!isExpanded && experience.technologies.length > 8 && (
@@ -164,7 +168,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="text-sm font-light leading-relaxed text-gray-600 dark:text-gray-400"
+                    className="text-sm leading-relaxed font-light text-gray-600 dark:text-gray-400"
                   >
                     • {achievement}
                   </motion.li>

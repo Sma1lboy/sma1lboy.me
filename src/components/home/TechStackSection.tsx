@@ -188,7 +188,9 @@ export default function TechStackSection() {
           className={`text-sm font-light ${getLevelStyle(tech.level)}`}
         >
           {tech.name}
-          {index < techs.length - 1 && <span className="ml-3 text-gray-300 dark:text-gray-700">•</span>}
+          {index < techs.length - 1 && (
+            <span className="ml-3 text-gray-300 dark:text-gray-700">•</span>
+          )}
         </motion.span>
       ))}
     </div>
@@ -249,7 +251,7 @@ export default function TechStackSection() {
                 viewport={{ once: true }}
                 className="border-b border-gray-200 pb-8 last:border-0 dark:border-gray-800"
               >
-                <h3 className="mb-4 text-base font-light uppercase tracking-wider text-gray-400 dark:text-gray-600">
+                <h3 className="mb-4 text-base font-light tracking-wider text-gray-400 uppercase dark:text-gray-600">
                   {category}
                 </h3>
                 {renderTechList(techs)}
@@ -268,7 +270,7 @@ export default function TechStackSection() {
           className="mt-12 border-t border-gray-200 pt-8 sm:mt-16 dark:border-gray-800"
           variants={itemVariants}
         >
-          <p className="mb-4 text-center text-xs font-light uppercase tracking-wider text-gray-400 dark:text-gray-600">
+          <p className="mb-4 text-center text-xs font-light tracking-wider text-gray-400 uppercase dark:text-gray-600">
             Proficiency Legend
           </p>
           <div className="flex flex-wrap justify-center gap-6">
@@ -292,7 +294,9 @@ export default function TechStackSection() {
             </div>
             <div className="flex items-center gap-2">
               <span className="text-gray-500 dark:text-gray-500">Familiar</span>
-              <span className="text-xs text-gray-500 dark:text-gray-500">— Basic understanding</span>
+              <span className="text-xs text-gray-500 dark:text-gray-500">
+                — Basic understanding
+              </span>
             </div>
           </div>
         </motion.div>

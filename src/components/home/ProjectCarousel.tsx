@@ -21,7 +21,7 @@ export function ProjectCarousel() {
       delay: 4000,
       stopOnInteraction: false,
       stopOnMouseEnter: true,
-    })
+    }),
   );
 
   React.useEffect(() => {
@@ -86,9 +86,7 @@ export function ProjectCarousel() {
                     whileHover={{ x: 4 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span className="text-base font-medium sm:text-lg">
-                      Visit Project
-                    </span>
+                    <span className="text-base font-medium sm:text-lg">Visit Project</span>
                     <ArrowUpRight
                       size={18}
                       className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 sm:size-5"
@@ -136,9 +134,7 @@ export function ProjectCarousel() {
               key={index}
               onClick={() => scrollTo(index)}
               className={`h-3 w-3 touch-manipulation rounded-full transition-colors duration-300 sm:h-3 sm:w-3 ${
-                index === current
-                  ? "bg-gray-800 dark:bg-gray-200"
-                  : "bg-gray-300 dark:bg-gray-600"
+                index === current ? "bg-gray-800 dark:bg-gray-200" : "bg-gray-300 dark:bg-gray-600"
               }`}
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.8 }}
