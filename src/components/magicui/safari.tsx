@@ -26,14 +26,14 @@ export function Safari({
     const checkDarkMode = () => {
       setIsDark(document.documentElement.classList.contains("dark"));
     };
-    
+
     checkDarkMode();
     const observer = new MutationObserver(checkDarkMode);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["class"],
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -112,15 +112,15 @@ export function Safari({
             <defs>
               <filter id="darkImageFilter" colorInterpolationFilters="sRGB">
                 <feComponentTransfer>
-                  <feFuncR type="linear" slope="0.7" intercept="0"/>
-                  <feFuncG type="linear" slope="0.7" intercept="0"/>
-                  <feFuncB type="linear" slope="0.7" intercept="0"/>
+                  <feFuncR type="linear" slope="0.7" intercept="0" />
+                  <feFuncG type="linear" slope="0.7" intercept="0" />
+                  <feFuncB type="linear" slope="0.7" intercept="0" />
                 </feComponentTransfer>
-                <feColorMatrix type="saturate" values="0.8"/>
+                <feColorMatrix type="saturate" values="0.8" />
                 <feComponentTransfer>
-                  <feFuncR type="linear" slope="0.9" intercept="0"/>
-                  <feFuncG type="linear" slope="0.9" intercept="0"/>
-                  <feFuncB type="linear" slope="0.9" intercept="0"/>
+                  <feFuncR type="linear" slope="0.9" intercept="0" />
+                  <feFuncG type="linear" slope="0.9" intercept="0" />
+                  <feFuncB type="linear" slope="0.9" intercept="0" />
                 </feComponentTransfer>
               </filter>
             </defs>

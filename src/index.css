@@ -196,7 +196,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
-  
+
   /* Dark mode image adjustments */
   .dark img:not(.no-dark-filter),
   .dark video:not(.no-dark-filter),

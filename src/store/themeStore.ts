@@ -17,7 +17,7 @@ const getSystemTheme = (): "light" | "dark" => {
 
 const applyTheme = (theme: "light" | "dark") => {
   if (typeof document === "undefined") return;
-  
+
   const root = document.documentElement;
   if (theme === "dark") {
     root.classList.add("dark");
@@ -31,7 +31,7 @@ export const useThemeStore = create<ThemeState>()(
     (set, get) => {
       // Initialize resolved theme
       const initResolvedTheme = getSystemTheme();
-      
+
       return {
         theme: "system",
         resolvedTheme: initResolvedTheme,
@@ -42,7 +42,8 @@ export const useThemeStore = create<ThemeState>()(
         },
         toggleTheme: () => {
           const current = get().theme;
-          const nextTheme: Theme = current === "light" ? "dark" : current === "dark" ? "system" : "light";
+          const nextTheme: Theme =
+            current === "light" ? "dark" : current === "dark" ? "system" : "light";
           const resolvedTheme = nextTheme === "system" ? getSystemTheme() : nextTheme;
           applyTheme(resolvedTheme);
           set({ theme: nextTheme, resolvedTheme });
@@ -57,7 +58,7 @@ export const useThemeStore = create<ThemeState>()(
           const resolvedTheme = state.theme === "system" ? getSystemTheme() : state.theme;
           applyTheme(resolvedTheme);
           state.resolvedTheme = resolvedTheme;
-          
+
           // Listen for system theme changes
           const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
           const handleChange = () => {
@@ -71,8 +72,8 @@ export const useThemeStore = create<ThemeState>()(
           mediaQuery.addEventListener("change", handleChange);
         }
       },
-    }
-  )
+    },
+  ),
 );
 
 // Initialize theme and listen for system changes
@@ -86,10 +87,10 @@ if (typeof window !== "undefined") {
       useThemeStore.setState({ resolvedTheme });
     }
   };
-  
+
   // Apply theme immediately
   initTheme();
-  
+
   // Listen for system theme changes
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const handleSystemThemeChange = () => {
@@ -102,4 +103,3 @@ if (typeof window !== "undefined") {
   };
   mediaQuery.addEventListener("change", handleSystemThemeChange);
 }
-

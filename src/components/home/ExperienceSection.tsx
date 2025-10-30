@@ -217,9 +217,8 @@ export function ExperienceSection({ experiences }: ExperienceSectionProps) {
           : experiences.filter((exp) => exp.type === selectedType);
 
   const shouldShowExpand = filteredExperiences.length > 3;
-  const displayedExperiences = shouldShowExpand && !isExpanded 
-    ? filteredExperiences.slice(0, 3) 
-    : filteredExperiences;
+  const displayedExperiences =
+    shouldShowExpand && !isExpanded ? filteredExperiences.slice(0, 3) : filteredExperiences;
 
   // Reset expand state when filter changes
   useEffect(() => {

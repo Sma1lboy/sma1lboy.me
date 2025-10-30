@@ -17,6 +17,23 @@ export interface GitHubContribution {
 }
 
 /**
+ * GraphQL pinned repository node type
+ */
+interface GraphQLPinnedRepoNode {
+  id: string;
+  name: string;
+  description: string | null;
+  url: string;
+  stargazerCount: number;
+  forkCount: number;
+  primaryLanguage: {
+    name: string;
+  } | null;
+  updatedAt: string;
+  isFork: boolean;
+}
+
+/**
  * Complete GitHub data cache interface using Octokit native types
  */
 export interface GitHubDataCache {
@@ -146,10 +163,10 @@ class GitHubApiService {
         return this.getTopStarredRepos();
       }
 
-      const pinnedRepos = data.data?.user?.pinnedItems?.nodes || [];
+      const pinnedRepos = (data.data?.user?.pinnedItems?.nodes || []) as GraphQLPinnedRepoNode[];
       if (pinnedRepos.length > 0) {
         // Transform GraphQL response to match REST API format
-        return pinnedRepos.map((repo: any) => ({
+        return pinnedRepos.map((repo) => ({
           id: parseInt(repo.id.replace(/\D/g, "")) || 0,
           name: repo.name,
           description: repo.description,
