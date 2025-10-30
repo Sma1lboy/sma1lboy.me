@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { sortedExperiences } from "../../constants/experiences";
-import { ExperienceTimelineImproved } from "./ExperienceTimelineImproved";
+import { ExperienceSection } from "./ExperienceSection";
 import { HeroSection } from "./HeroSection";
 import { NavigationDock } from "./NavigationDock";
 import { ProjectsSection } from "./ProjectsSection";
@@ -61,7 +61,7 @@ export function Home({ ...rest }: Props) {
         <HeroSection />
         <ProjectsSection />
         <div id="experience">
-          <ExperienceTimelineImproved experiences={sortedExperiences} />
+          <ExperienceSection experiences={sortedExperiences} />
         </div>
         <div id="tech-stack">
           <TechStackSection />

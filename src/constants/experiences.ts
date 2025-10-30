@@ -3,11 +3,31 @@ import { Experience } from "../types";
 // Experience data constants
 export const experiences: Experience[] = [
   {
+    id: "tiktok-sde",
+    title: "Software Development Engineer",
+    company: "TikTok",
+    period: {
+      start: "2025-10",
+    },
+    description:
+      "Working as a Software Development Engineer at TikTok, contributing to large-scale distributed systems and building innovative features for millions of users worldwide. Developing high-performance backend services and collaborating with cross-functional teams to deliver impactful solutions.",
+    type: "work",
+    technologies: ["Java", "Python", "Go", "Microservices", "Distributed Systems", "Cloud"],
+    achievements: [
+      "Building scalable backend services for TikTok's platform",
+      "Contributing to high-performance distributed systems",
+      "Collaborating with global engineering teams",
+    ],
+    location: "San Jose, CA",
+    featured: true,
+  },
+  {
     id: "tabbyml-engineer",
     title: "Software Engineer",
     company: "TabbyML, Inc.",
     period: {
       start: "2025-05",
+      end: "2025-10",
     },
     description:
       "Developing Pochi, a full-stack AI teammate platform using TypeScript and Rust in a monorepo architecture, enabling seamless developer collaboration. Designed and implemented Cloud system for parallel task execution, integrated with VSCode environment and CLI agent, improving development workflow efficiency by 60%. Implemented Agent Mode with leveraging IDE capabilities to deliver smooth UX experience and increasing user engagement by 35%. Refactored frontend-backend Task Event architecture with complete decoupling, enabling multi-entry task creation.",
