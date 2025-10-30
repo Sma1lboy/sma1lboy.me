@@ -1,4 +1,5 @@
 import {
+  Activity,
   Code,
   FolderOpen,
   Github,
@@ -89,6 +90,25 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
             size={18}
             className={`transition-colors duration-200 sm:size-5 ${
               activeSection === "tech-stack"
+                ? "text-gray-800 dark:text-gray-200"
+                : "text-gray-700 dark:text-gray-300"
+            }`}
+          />
+        </DockIcon>
+
+        {/* GitHub Activity */}
+        <DockIcon
+          onClick={() => scrollToSection("github-activity")}
+          className={`touch-manipulation ${
+            activeSection === "github-activity"
+              ? "bg-gray-200 shadow-lg ring-2 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600"
+              : "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700"
+          }`}
+        >
+          <Activity
+            size={18}
+            className={`transition-colors duration-200 sm:size-5 ${
+              activeSection === "github-activity"
                 ? "text-gray-800 dark:text-gray-200"
                 : "text-gray-700 dark:text-gray-300"
             }`}

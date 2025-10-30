@@ -37,11 +37,32 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     setLoading,
   } = useAvatarCacheStore();
 
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const calculateSize = React.useCallback(() => {
+    let size = 800; // Default max size
+    if (containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth || containerRef.current.clientWidth;
+      const containerHeight =
+        containerRef.current.offsetHeight || containerRef.current.clientHeight;
+      // Use 100% of container, use the smaller dimension to ensure it fits
+      size = Math.min(containerWidth, containerHeight, 800);
+    } else {
+      // Fallback to window-based calculation
+      size = Math.min(window.innerWidth * 0.5, window.innerHeight * 0.75, 800);
+    }
+    // Ensure minimum size
+    return Math.max(size, 400);
+  }, []);
+
   React.useEffect(() => {
     const loadImage = async () => {
       setLoading(true);
 
-      const size = Math.min(window.innerWidth * 0.7, 800);
+      // Wait a bit for container to be rendered
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      const size = calculateSize();
       const targetStageSize = { width: size, height: size };
 
       // Check cache first
@@ -308,7 +329,24 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
     };
 
     loadImage();
-  }, [getCachedCircles, imageSrc, setCachedCircles, setLoading]);
+
+    // Set up resize observer to recalculate size when container changes
+    const resizeObserver = new ResizeObserver(() => {
+      const newSize = calculateSize();
+      if (Math.abs(newSize - stageSize.width) > 50) {
+        // Only reload if size changed significantly
+        loadImage();
+      }
+    });
+
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [getCachedCircles, imageSrc, setCachedCircles, setLoading, calculateSize, stageSize.width]);
 
   const generateCircleId = () => {
     return Math.random().toString(36).substr(2, 9);
@@ -521,8 +559,11 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
   );
 
   return (
-    <div className={`flex w-full justify-center ${className}`}>
-      <div className="relative">
+    <div
+      ref={containerRef}
+      className={`flex h-full w-full max-w-full items-center justify-center ${className}`}
+    >
+      <div className="relative flex h-full w-full items-center justify-center">
         {/* Loading state display */}
         {isLoading && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm">
@@ -533,39 +574,46 @@ export const InteractiveAvatar: React.FC<InteractiveAvatarProps> = ({
           </div>
         )}
 
-        <Stage
-          width={stageSize.width}
-          height={stageSize.height}
-          className="cursor-crosshair"
-          style={{ backgroundColor: "#ffffff" }}
-        >
-          <Layer>
-            {circles.map((circle, index) => (
-              <Circle
-                key={circle.id}
-                x={circle.x}
-                y={circle.y}
-                radius={circle.radius}
-                fill={circle.color}
-                onClick={() => handleCircleClick(index)}
-                onTap={() => handleCircleClick(index)}
-                onMouseEnter={(e) => {
-                  const stage = e.target.getStage();
-                  if (stage) {
-                    stage.container().style.cursor = "pointer";
-                  }
-                  splitCircle(index);
-                }}
-                onMouseLeave={(e) => {
-                  const stage = e.target.getStage();
-                  if (stage) {
-                    stage.container().style.cursor = "crosshair";
-                  }
-                }}
-              />
-            ))}
-          </Layer>
-        </Stage>
+        <div className="flex h-full w-full items-center justify-center">
+          <Stage
+            width={stageSize.width}
+            height={stageSize.height}
+            className="max-w-full cursor-crosshair"
+            style={{
+              backgroundColor: "#ffffff",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
+            }}
+          >
+            <Layer>
+              {circles.map((circle, index) => (
+                <Circle
+                  key={circle.id}
+                  x={circle.x}
+                  y={circle.y}
+                  radius={circle.radius}
+                  fill={circle.color}
+                  onClick={() => handleCircleClick(index)}
+                  onTap={() => handleCircleClick(index)}
+                  onMouseEnter={(e) => {
+                    const stage = e.target.getStage();
+                    if (stage) {
+                      stage.container().style.cursor = "pointer";
+                    }
+                    splitCircle(index);
+                  }}
+                  onMouseLeave={(e) => {
+                    const stage = e.target.getStage();
+                    if (stage) {
+                      stage.container().style.cursor = "crosshair";
+                    }
+                  }}
+                />
+              ))}
+            </Layer>
+          </Stage>
+        </div>
       </div>
     </div>
   );

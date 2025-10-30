@@ -93,6 +93,96 @@ class GitHubApiService {
   }
 
   /**
+   * Try to fetch pinned repositories using GraphQL API
+   * Falls back to REST API if GraphQL fails or no token is available
+   */
+  private async getPinnedRepos(): Promise<GitHubRepo[]> {
+    const token = import.meta.env.VITE_GITHUB_TOKEN;
+    if (!token) {
+      // No token, use REST API fallback
+      return this.getTopStarredRepos();
+    }
+
+    try {
+      const query = `
+        query($username: String!) {
+          user(login: $username) {
+            pinnedItems(first: 6, types: REPOSITORY) {
+              nodes {
+                ... on Repository {
+                  id
+                  name
+                  description
+                  url
+                  stargazerCount
+                  forkCount
+                  primaryLanguage {
+                    name
+                  }
+                  updatedAt
+                  isFork
+                }
+              }
+            }
+          }
+        }
+      `;
+
+      const response = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          query,
+          variables: { username: this.USERNAME },
+        }),
+      });
+
+      const data = await response.json();
+      if (data.errors) {
+        console.warn("GraphQL error, falling back to REST API:", data.errors);
+        return this.getTopStarredRepos();
+      }
+
+      const pinnedRepos = data.data?.user?.pinnedItems?.nodes || [];
+      if (pinnedRepos.length > 0) {
+        // Transform GraphQL response to match REST API format
+        return pinnedRepos.map((repo: any) => ({
+          id: parseInt(repo.id.replace(/\D/g, "")) || 0,
+          name: repo.name,
+          description: repo.description,
+          html_url: repo.url,
+          stargazers_count: repo.stargazerCount,
+          forks_count: repo.forkCount,
+          language: repo.primaryLanguage?.name || null,
+          updated_at: repo.updatedAt,
+          fork: repo.isFork,
+        })) as GitHubRepo[];
+      }
+
+      return this.getTopStarredRepos();
+    } catch (error) {
+      console.warn("Failed to fetch pinned repos via GraphQL, falling back to REST API:", error);
+      return this.getTopStarredRepos();
+    }
+  }
+
+  /**
+   * Get top starred repositories as fallback
+   */
+  private async getTopStarredRepos(): Promise<GitHubRepo[]> {
+    const reposResponse = await this.octokit.rest.repos.listForUser({
+      username: this.USERNAME,
+      sort: "stars",
+      per_page: 30,
+      direction: "desc",
+    });
+    return reposResponse.data;
+  }
+
+  /**
    * Fetch fresh data from GitHub API and update cache
    */
   private async refreshCache(): Promise<GitHubDataCache | null> {
@@ -104,12 +194,8 @@ class GitHubApiService {
         username: this.USERNAME,
       });
 
-      // Fetch repositories (top 10 most starred)
-      const reposResponse = await this.octokit.rest.repos.listForUser({
-        username: this.USERNAME,
-        sort: "updated",
-        per_page: 10,
-      });
+      // Fetch repositories - try pinned repos first, fallback to top starred
+      const repos = await this.getPinnedRepos();
 
       // Generate mock contribution data (GitHub's contribution API requires GraphQL and authentication)
       const contributions = this.generateMockContributions();
@@ -120,7 +206,7 @@ class GitHubApiService {
       // Update cache
       this.cache = {
         user: userResponse.data,
-        repos: reposResponse.data,
+        repos: repos,
         contributions,
         totalContributions,
         lastUpdated: Date.now(),

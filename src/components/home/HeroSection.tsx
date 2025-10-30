@@ -20,7 +20,7 @@ export function HeroSection() {
             {/* Header */}
             <motion.div className="max-w-md" variants={itemVariants}>
               <motion.h1
-                className="mb-4 text-3xl font-bold text-gray-900 transition-all duration-200 ease-out sm:text-4xl lg:text-6xl dark:text-gray-100"
+                className="mb-4 text-3xl font-bold whitespace-nowrap text-gray-900 transition-all duration-200 ease-out sm:text-4xl lg:text-6xl dark:text-gray-100"
                 variants={itemVariants}
               >
                 Jackson Chen
@@ -83,15 +83,15 @@ export function HeroSection() {
 
           {/* Right Column - Interactive Avatar */}
           <motion.div
-            className="relative flex flex-col items-center justify-center bg-white p-6 transition-all duration-200 ease-out sm:p-8 lg:w-1/2 lg:p-12 xl:p-16 dark:bg-gray-900"
+            className="relative flex min-h-0 flex-col items-center justify-center bg-white p-6 transition-all duration-200 ease-out sm:p-8 lg:w-1/2 lg:p-12 xl:p-16 dark:bg-gray-900"
             variants={avatarVariants}
             initial="hidden"
             animate="visible"
           >
-            {/* Subtle divider line for larger screens */}
-            <div className="absolute top-1/2 left-0 hidden h-32 w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-gray-200 to-transparent transition-all duration-200 ease-out lg:block dark:via-gray-700"></div>
-            <div className="w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <InteractiveAvatar imageSrc="/home-avatar.png" />
+            <div className="flex h-full w-full items-center justify-center overflow-hidden">
+              <div className="flex h-full w-full max-w-full items-center justify-center">
+                <InteractiveAvatar imageSrc="/home-avatar.png" />
+              </div>
             </div>
           </motion.div>
         </div>

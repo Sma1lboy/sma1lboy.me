@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { sortedExperiences } from "../../constants/experiences";
 import { ExperienceSection } from "./ExperienceSection";
+import { GitHubActivitySection } from "./GitHubActivitySection";
 import { HeroSection } from "./HeroSection";
 import { NavigationDock } from "./NavigationDock";
 import { ProjectsSection } from "./ProjectsSection";
@@ -26,6 +27,7 @@ export function Home({ ...rest }: Props) {
       const projectsSection = document.getElementById("projects");
       const experienceSection = document.getElementById("experience");
       const techStackSection = document.getElementById("tech-stack");
+      const githubActivitySection = document.getElementById("github-activity");
 
       if (!heroSection || !projectsSection || !experienceSection || !techStackSection) return;
 
@@ -34,6 +36,7 @@ export function Home({ ...rest }: Props) {
       const projectsTop = projectsSection.offsetTop;
       const experienceTop = experienceSection.offsetTop;
       const techStackTop = techStackSection.offsetTop;
+      const githubActivityTop = githubActivitySection?.offsetTop || Infinity;
 
       if (scrollPosition >= heroTop && scrollPosition < projectsTop) {
         setActiveSection("hero");
@@ -41,8 +44,10 @@ export function Home({ ...rest }: Props) {
         setActiveSection("projects");
       } else if (scrollPosition >= experienceTop && scrollPosition < techStackTop) {
         setActiveSection("experience");
-      } else if (scrollPosition >= techStackTop) {
+      } else if (scrollPosition >= techStackTop && scrollPosition < githubActivityTop) {
         setActiveSection("tech-stack");
+      } else if (scrollPosition >= githubActivityTop) {
+        setActiveSection("github-activity");
       }
     };
 
@@ -66,6 +71,7 @@ export function Home({ ...rest }: Props) {
         <div id="tech-stack">
           <TechStackSection />
         </div>
+        <GitHubActivitySection />
       </div>
 
       <NavigationDock activeSection={activeSection} scrollToSection={scrollToSection} />
