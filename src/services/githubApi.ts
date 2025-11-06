@@ -192,11 +192,12 @@ class GitHubApiService {
   private async getTopStarredRepos(): Promise<GitHubRepo[]> {
     const reposResponse = await this.octokit.rest.repos.listForUser({
       username: this.USERNAME,
-      sort: "stars",
-      per_page: 30,
-      direction: "desc",
+      per_page: 100,
     });
-    return reposResponse.data;
+    // Sort by stars in descending order and take top 30
+    return reposResponse.data
+      .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+      .slice(0, 30);
   }
 
   /**
