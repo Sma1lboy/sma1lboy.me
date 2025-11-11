@@ -52,6 +52,8 @@ class GitHubApiService {
   private cache: GitHubDataCache | null = null;
   private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutes in milliseconds
   private readonly USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "sma1lboy";
+  private readonly REPOS_FETCH_LIMIT = 100; // Fetch up to 100 repos to ensure good selection
+  private readonly REPOS_RESULT_LIMIT = 30; // Return top 30 starred repos
   private intervalId: NodeJS.Timeout | null = null;
 
   constructor() {
@@ -192,11 +194,12 @@ class GitHubApiService {
   private async getTopStarredRepos(): Promise<GitHubRepo[]> {
     const reposResponse = await this.octokit.rest.repos.listForUser({
       username: this.USERNAME,
-      sort: "stars",
-      per_page: 30,
-      direction: "desc",
+      per_page: this.REPOS_FETCH_LIMIT,
     });
-    return reposResponse.data;
+    // Sort by stars in descending order and take top repos
+    return reposResponse.data
+      .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
+      .slice(0, this.REPOS_RESULT_LIMIT);
   }
 
   /**
