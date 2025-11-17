@@ -306,4 +306,14 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
   }
+
+  /* Brutalist design utilities */
+  .brutalist-container {
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Brutalist border utility */
+  .border-6 {
+    border-width: 6px;
+  }
 }

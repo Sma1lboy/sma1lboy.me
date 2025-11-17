@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { sortedExperiences } from "../../constants/experiences";
 import { ExperienceSection } from "./ExperienceSection";
 import { GitHubActivitySection } from "./GitHubActivitySection";
@@ -75,6 +76,14 @@ export function Home({ ...rest }: Props) {
       </div>
 
       <NavigationDock activeSection={activeSection} scrollToSection={scrollToSection} />
+
+      {/* Brutalist Version Link */}
+      <Link
+        to="/new"
+        className="fixed bottom-24 right-6 z-40 bg-yellow-400 text-black px-6 py-3 font-black text-sm uppercase border-4 border-black dark:border-white hover:translate-x-1 hover:translate-y-1 transition-transform shadow-lg"
+      >
+        🎨 BRUTALIST
+      </Link>
     </>
   );
 }
