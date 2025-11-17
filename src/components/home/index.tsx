@@ -80,7 +80,7 @@ export function Home({ ...rest }: Props) {
       {/* Brutalist Version Link */}
       <Link
         to="/new"
-        className="fixed bottom-24 right-6 z-40 bg-yellow-400 text-black px-6 py-3 font-black text-sm uppercase border-4 border-black dark:border-white hover:translate-x-1 hover:translate-y-1 transition-transform shadow-lg"
+        className="fixed right-6 bottom-24 z-40 border-4 border-black bg-yellow-400 px-6 py-3 text-sm font-black text-black uppercase shadow-lg transition-transform hover:translate-x-1 hover:translate-y-1 dark:border-white"
       >
         🎨 BRUTALIST
       </Link>
