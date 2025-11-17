@@ -4,7 +4,7 @@ export function BrutalistHero() {
   return (
     <section
       id="hero"
-      className="min-h-screen pt-24 pb-12 px-4 border-b-8 border-black dark:border-white"
+      className="min-h-screen pt-32 md:pt-40 pb-12 px-4 border-b-8 border-black dark:border-white"
     >
       <div className="max-w-7xl mx-auto">
         {/* Grid Layout */}
