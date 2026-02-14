@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { avatarVariants, containerVariants, itemVariants } from "../../constants/home";
-import { InteractiveAvatar } from "../InteractiveAvatar";
+import { avatarVariants, containerVariants, itemVariants } from "../../../constants/home";
+import { InteractiveAvatar } from "../../InteractiveAvatar";
 import { SocialLinks } from "./SocialLinks";
 
 export function HeroSection() {

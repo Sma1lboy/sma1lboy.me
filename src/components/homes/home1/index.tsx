@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sortedExperiences } from "../../constants/experiences";
+import { sortedExperiences } from "../../../constants/experiences";
 import { ExperienceSection } from "./ExperienceSection";
 import { GitHubActivitySection } from "./GitHubActivitySection";
 import { HeroSection } from "./HeroSection";

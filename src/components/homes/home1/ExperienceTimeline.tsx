@@ -1,18 +1,10 @@
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  Calendar,
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-  MapPin,
-  Trophy,
-  Users,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { Calendar, ExternalLink, MapPin, Trophy, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { containerVariants, itemVariants } from "../../constants/home";
-import { Experience, ExperienceType } from "../../types";
+import { containerVariants, itemVariants } from "../../../constants/home";
+import { Experience, ExperienceType } from "../../../types";
 
-interface ExperienceTimelineImprovedProps {
+interface ExperienceTimelineProps {
   experiences: Experience[];
 }
 
@@ -27,18 +19,13 @@ const experienceTypeConfig = {
   },
   award: { label: "Awards", icon: Trophy, color: "bg-muted text-muted-foreground" },
   certification: { label: "Certifications", icon: Trophy, color: "bg-muted text-muted-foreground" },
-  internship: {
-    label: "Internships",
-    icon: Users,
-    color: "bg-muted text-muted-foreground",
-  },
+  internship: { label: "Internships", icon: Users, color: "bg-muted text-muted-foreground" },
 };
 
 const TimelineItem = ({ experience, index }: { experience: Experience; index: number }) => {
   const config = experienceTypeConfig[experience.type];
   const Icon = config.icon;
   const [isInView, setIsInView] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,28 +61,27 @@ const TimelineItem = ({ experience, index }: { experience: Experience; index: nu
   return (
     <motion.div
       ref={itemRef}
-      className="relative flex w-full items-start"
+      className="relative flex w-full items-center"
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
       {/* Timeline Line */}
       <div className="bg-border absolute left-1/2 w-0.5 -translate-x-1/2 transform">
-        <motion.div
-          className="from-primary to-muted-foreground w-full bg-gradient-to-b"
-          initial={{ height: 0 }}
-          animate={isInView ? { height: "100%" } : { height: 0 }}
-          transition={{
-            duration: 1,
-            delay: index * 0.1,
-            ease: "easeOut",
+        <div
+          className={`from-primary to-chart-1 w-full bg-gradient-to-b transition-all duration-1000 ease-out ${
+            isInView ? "h-full" : "h-0"
+          }`}
+          style={{
+            transitionDelay: `${index * 100}ms`,
+            height: isInView ? "100%" : "0%",
           }}
         />
       </div>
 
       {/* Timeline Node */}
       <motion.div
-        className="absolute top-6 left-1/2 z-10 -translate-x-1/2 transform"
+        className="absolute left-1/2 z-10 -translate-x-1/2 transform"
         initial={{ scale: 0, rotate: -180 }}
         animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
         transition={{
@@ -105,14 +91,11 @@ const TimelineItem = ({ experience, index }: { experience: Experience; index: nu
           stiffness: 200,
         }}
       >
-        <motion.div
-          className={`h-12 w-12 rounded-full ${config.color} border-background shadow-custom-md transition-smooth hover:shadow-custom-lg flex cursor-pointer items-center justify-center border-4`}
-          onClick={() => setIsExpanded(!isExpanded)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <div
+          className={`h-12 w-12 rounded-full ${config.color} border-background flex items-center justify-center border-4 shadow-lg`}
         >
           <Icon className="h-5 w-5" />
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Content Card */}
@@ -142,11 +125,11 @@ const TimelineItem = ({ experience, index }: { experience: Experience; index: nu
           ease: "easeOut",
         }}
         whileHover={{
-          y: -4,
+          y: -8,
           transition: { duration: 0.2 },
         }}
       >
-        <div className="group border-border bg-card shadow-custom-sm transition-smooth hover:shadow-custom-md rounded-xl border p-6">
+        <div className="bg-card border-border shadow-custom-md hover:shadow-custom-lg group rounded-xl border p-6 transition-all duration-300">
           {/* Header */}
           <div className="mb-4 flex items-start justify-between">
             <div className="flex items-center space-x-3">
@@ -167,32 +150,18 @@ const TimelineItem = ({ experience, index }: { experience: Experience; index: nu
                 )}
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              {experience.url && (
-                <motion.a
-                  href={experience.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-muted hover:bg-accent focus-ring rounded-lg p-2 transition-colors duration-200"
-                >
-                  <ExternalLink className="text-muted-foreground h-4 w-4" />
-                </motion.a>
-              )}
-              <motion.button
-                onClick={() => setIsExpanded(!isExpanded)}
+            {experience.url && (
+              <motion.a
+                href={experience.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-muted hover:bg-accent focus-ring rounded-lg p-2 transition-colors duration-200"
+                className="bg-muted hover:bg-accent rounded-lg p-2 transition-colors duration-200"
               >
-                {isExpanded ? (
-                  <ChevronUp className="text-muted-foreground h-4 w-4" />
-                ) : (
-                  <ChevronDown className="text-muted-foreground h-4 w-4" />
-                )}
-              </motion.button>
-            </div>
+                <ExternalLink className="text-muted-foreground h-4 w-4" />
+              </motion.a>
+            )}
           </div>
 
           {/* Title and Organization */}
@@ -221,65 +190,69 @@ const TimelineItem = ({ experience, index }: { experience: Experience; index: nu
             )}
           </div>
 
-          {/* Description - Always visible but truncated */}
+          {/* Description */}
           <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-            {isExpanded ? experience.description : `${experience.description.slice(0, 120)}...`}
+            {experience.description}
           </p>
 
-          {/* Expandable Content */}
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                {/* Technologies */}
-                {experience.technologies && experience.technologies.length > 0 && (
-                  <div className="mb-4">
-                    <h4 className="text-foreground mb-2 text-sm font-medium">技术栈</h4>
-                    <div className="flex flex-wrap gap-1">
-                      {experience.technologies.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="bg-secondary text-secondary-foreground inline-flex items-center rounded-md px-2 py-1 text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+          {/* Technologies */}
+          {experience.technologies && experience.technologies.length > 0 && (
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-1">
+                {experience.technologies.slice(0, 6).map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="bg-secondary text-secondary-foreground inline-flex items-center rounded-md px-2 py-1 text-xs font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+                {experience.technologies.length > 6 && (
+                  <span className="text-muted-foreground inline-flex items-center rounded-md px-2 py-1 text-xs font-medium">
+                    +{experience.technologies.length - 6}
+                  </span>
                 )}
+              </div>
+            </div>
+          )}
 
-                {/* Achievements */}
-                {experience.achievements && experience.achievements.length > 0 && (
-                  <div className="space-y-2">
-                    <h4 className="text-foreground text-sm font-medium">主要成就</h4>
-                    <ul className="space-y-1">
-                      {experience.achievements.map((achievement, achievementIndex) => (
-                        <li
-                          key={achievementIndex}
-                          className="text-muted-foreground flex items-start text-sm"
-                        >
-                          <div className="bg-primary mt-2 mr-2 h-1 w-1 flex-shrink-0 rounded-full" />
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Achievements */}
+          {experience.achievements && experience.achievements.length > 0 && (
+            <div className="space-y-2">
+              <h4 className="text-foreground text-sm font-medium">主要成就</h4>
+              <ul className="space-y-1">
+                {experience.achievements.slice(0, 3).map((achievement, achievementIndex) => (
+                  <li
+                    key={achievementIndex}
+                    className="text-muted-foreground flex items-start text-sm"
+                  >
+                    <div className="bg-muted-foreground mt-2 mr-2 h-1 w-1 flex-shrink-0 rounded-full" />
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </motion.div>
+
+      {/* Mobile Timeline Connector */}
+      <div className="bg-border absolute top-0 left-6 h-full w-0.5 md:hidden">
+        <div
+          className={`from-primary to-chart-1 w-full bg-gradient-to-b transition-all duration-1000 ease-out ${
+            isInView ? "h-full" : "h-0"
+          }`}
+          style={{
+            transitionDelay: `${index * 100}ms`,
+            height: isInView ? "100%" : "0%",
+          }}
+        />
+      </div>
     </motion.div>
   );
 };
 
-export function ExperienceTimelineImproved({ experiences }: ExperienceTimelineImprovedProps) {
+export function ExperienceTimeline({ experiences }: ExperienceTimelineProps) {
   const [selectedType, setSelectedType] = useState<ExperienceType | "all">("all");
 
   const filteredExperiences =
@@ -323,12 +296,12 @@ export function ExperienceTimelineImproved({ experiences }: ExperienceTimelineIm
               <motion.button
                 key={category}
                 onClick={() => setSelectedType(category as ExperienceType | "all")}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`transition-smooth focus-ring rounded-full px-4 py-2 text-sm font-medium ${
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
                   isSelected
                     ? config.color
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 {config.label}
@@ -338,25 +311,11 @@ export function ExperienceTimelineImproved({ experiences }: ExperienceTimelineIm
         </motion.div>
 
         {/* Timeline */}
-        <motion.div className="relative space-y-16 md:space-y-20" variants={itemVariants}>
-          {/* Desktop Layout */}
-          <div className="hidden md:block">
-            {filteredExperiences.map((experience, index) => (
-              <TimelineItem key={experience.id} experience={experience} index={index} />
-            ))}
-          </div>
-
+        <motion.div className="relative space-y-12 md:space-y-16" variants={itemVariants}>
           {/* Mobile Layout */}
-          <div className="space-y-8 md:hidden">
+          <div className="md:hidden">
             {filteredExperiences.map((experience, index) => (
-              <motion.div
-                key={experience.id}
-                className="relative pl-12"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
+              <div key={experience.id} className="relative pl-12">
                 {/* Mobile Timeline Node */}
                 <motion.div
                   className="absolute left-6 z-10 -translate-x-1/2 transform"
@@ -371,7 +330,7 @@ export function ExperienceTimelineImproved({ experiences }: ExperienceTimelineIm
                   viewport={{ once: true }}
                 >
                   <div
-                    className={`h-8 w-8 rounded-full ${experienceTypeConfig[experience.type].color} border-background shadow-custom-sm flex items-center justify-center border-2`}
+                    className={`h-8 w-8 rounded-full ${experienceTypeConfig[experience.type].color} border-background flex items-center justify-center border-2 shadow-lg`}
                   >
                     {(() => {
                       const Icon = experienceTypeConfig[experience.type].icon;
@@ -381,27 +340,23 @@ export function ExperienceTimelineImproved({ experiences }: ExperienceTimelineIm
                 </motion.div>
 
                 {/* Mobile Content */}
-                <div className="border-border bg-card shadow-custom-sm rounded-xl border p-4">
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-card border-border shadow-custom-md rounded-xl border p-4"
+                >
                   <TimelineItem experience={experience} index={index} />
-                </div>
+                </motion.div>
+              </div>
+            ))}
+          </div>
 
-                {/* Mobile Timeline Line */}
-                {index < filteredExperiences.length - 1 && (
-                  <div className="bg-border absolute top-8 left-6 h-8 w-0.5 -translate-x-1/2 transform">
-                    <motion.div
-                      className="from-primary to-muted-foreground w-full bg-gradient-to-b"
-                      initial={{ height: 0 }}
-                      whileInView={{ height: "100%" }}
-                      transition={{
-                        duration: 0.8,
-                        delay: index * 0.1,
-                        ease: "easeOut",
-                      }}
-                      viewport={{ once: true }}
-                    />
-                  </div>
-                )}
-              </motion.div>
+          {/* Desktop Layout */}
+          <div className="hidden md:block">
+            {filteredExperiences.map((experience, index) => (
+              <TimelineItem key={experience.id} experience={experience} index={index} />
             ))}
           </div>
         </motion.div>

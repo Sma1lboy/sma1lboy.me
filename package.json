@@ -27,6 +27,7 @@
     "framer-motion": "^12.18.1",
     "konva": "^9.3.20",
     "lucide-react": "^0.511.0",
+    "matter-js": "^0.20.0",
     "motion": "^12.18.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@tanstack/router-devtools": "^1.121.24",
     "@tanstack/router-vite-plugin": "^1.121.25",
+    "@types/matter-js": "^0.20.2",
     "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",

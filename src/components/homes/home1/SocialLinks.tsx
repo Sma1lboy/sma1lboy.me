@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Play, Twitter } from "lucide-react";
-import { socialLinks, socialLinkVariants } from "../../constants/home";
+import { socialLinks, socialLinkVariants } from "../../../constants/home";
 
 const iconMap = {
   Twitter,

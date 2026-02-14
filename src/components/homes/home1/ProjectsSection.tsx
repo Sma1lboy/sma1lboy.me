@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { containerVariants, itemVariants } from "../../constants/home";
+import { containerVariants, itemVariants } from "../../../constants/home";
 import { ProjectCarousel } from "./ProjectCarousel";
 
 export function ProjectsSection() {

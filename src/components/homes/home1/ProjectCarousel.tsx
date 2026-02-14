@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import React from "react";
-import { featuredProjects } from "../../constants/home";
-import { Safari } from "../magicui/safari";
+import { featuredProjects } from "../../../constants/home";
+import { Safari } from "../../magicui/safari";
 import {
   Carousel,
   CarouselContent,

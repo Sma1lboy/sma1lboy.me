@@ -130,7 +130,7 @@ export const socialLinks = [
     icon: "Linkedin",
   },
   {
-    href: "mailto:jackson@example.com",
+    href: "mailto:541898146chen@gmail.com",
     label: "Email",
     icon: "Mail",
   },

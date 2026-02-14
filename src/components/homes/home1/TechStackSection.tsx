@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { containerVariants, itemVariants } from "../../constants/home";
+import { containerVariants, itemVariants } from "../../../constants/home";
 
 type TechCategory =
   | "Languages"
