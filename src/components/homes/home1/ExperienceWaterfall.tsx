@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Calendar, ExternalLink, MapPin, Trophy, Users } from "lucide-react";
 import { useState } from "react";
-import { containerVariants, itemVariants } from "../../constants/home";
-import { Experience, ExperienceType } from "../../types";
+import { containerVariants, itemVariants } from "../../../constants/home";
+import { Experience, ExperienceType } from "../../../types";
 
 interface ExperienceWaterfallProps {
   experiences: Experience[];
