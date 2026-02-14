@@ -90,18 +90,24 @@ export function Home2() {
     // Walls (bottom, left, right)
     const wallThickness = 40;
     const ground = Matter.Bodies.rectangle(
-      cellRect.width / 2, cellRect.height + wallThickness / 2,
-      cellRect.width, wallThickness,
+      cellRect.width / 2,
+      cellRect.height + wallThickness / 2,
+      cellRect.width,
+      wallThickness,
       { isStatic: true },
     );
     const leftWall = Matter.Bodies.rectangle(
-      -wallThickness / 2, cellRect.height / 2,
-      wallThickness, cellRect.height * 2,
+      -wallThickness / 2,
+      cellRect.height / 2,
+      wallThickness,
+      cellRect.height * 2,
       { isStatic: true },
     );
     const rightWall = Matter.Bodies.rectangle(
-      cellRect.width + wallThickness / 2, cellRect.height / 2,
-      wallThickness, cellRect.height * 2,
+      cellRect.width + wallThickness / 2,
+      cellRect.height / 2,
+      wallThickness,
+      cellRect.height * 2,
       { isStatic: true },
     );
     Matter.Composite.add(engine.world, [ground, leftWall, rightWall]);
@@ -217,7 +223,10 @@ export function Home2() {
         className="absolute overflow-hidden"
         style={{ top: 0, left: 0, width: `${col0}%`, height: `${rowH[0]}%` }}
       >
-        <motion.div className="flex h-full flex-col justify-between p-8 sm:p-10 lg:p-14" {...fadeIn(0)}>
+        <motion.div
+          className="flex h-full flex-col justify-between p-8 sm:p-10 lg:p-14"
+          {...fadeIn(0)}
+        >
           <p className="text-[10px] tracking-[0.3em] text-gray-400 uppercase dark:text-gray-600">
             Portfolio
           </p>
@@ -262,7 +271,9 @@ export function Home2() {
             {topSkills.map((skill, i) => (
               <span
                 key={skill}
-                ref={(el) => { skillTagRefs.current[i] = el; }}
+                ref={(el) => {
+                  skillTagRefs.current[i] = el;
+                }}
                 className={`rounded-full border px-3 py-1.5 text-xs font-medium text-gray-600 hover:border-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:border-[#444] dark:hover:text-gray-200 ${border}`}
                 style={{
                   transform: `translate(${skillPositions.current[i]?.x ?? 0}px, ${skillPositions.current[i]?.y ?? 0}px) rotate(${skillPositions.current[i]?.angle ?? 0}rad)`,
@@ -329,7 +340,10 @@ export function Home2() {
           height: `${rowH[1] - rowH[0]}%`,
         }}
       >
-        <motion.div className="flex h-full flex-col items-center justify-center gap-4 p-8" {...fadeIn(0.24)}>
+        <motion.div
+          className="flex h-full flex-col items-center justify-center gap-4 p-8"
+          {...fadeIn(0.24)}
+        >
           <img
             src="/home-avatar.png"
             alt="Jackson Chen"
@@ -377,7 +391,7 @@ export function Home2() {
               View project{" "}
               <ArrowUpRight
                 size={11}
-                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               />
             </span>
           </motion.a>
