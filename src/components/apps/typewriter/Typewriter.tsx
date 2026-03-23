@@ -41,7 +41,8 @@ export default function Typewriter() {
     try {
       const AudioContext =
         window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof window.AudioContext }).webkitAudioContext;
+        (window as unknown as { webkitAudioContext: typeof window.AudioContext })
+          .webkitAudioContext;
       if (!AudioContext) return;
 
       const ctx = new AudioContext();

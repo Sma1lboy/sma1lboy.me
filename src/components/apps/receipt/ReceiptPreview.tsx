@@ -4,8 +4,8 @@ export default function ReceiptPreview() {
       <div
         className="relative h-36 w-20 rounded-sm bg-[#faf8f2] p-2 font-mono text-[5px] leading-[7px] text-gray-800"
         style={{
-          boxShadow: '2px 4px 12px rgba(0,0,0,0.15)',
-          transform: 'rotate(-2deg)',
+          boxShadow: "2px 4px 12px rgba(0,0,0,0.15)",
+          transform: "rotate(-2deg)",
         }}
       >
         <div className="mb-1 text-center text-[6px] font-bold">★ PIXEL MART ★</div>
@@ -52,5 +52,5 @@ export default function ReceiptPreview() {
         </div>
       </div>
     </div>
-  )
+  );
 }
