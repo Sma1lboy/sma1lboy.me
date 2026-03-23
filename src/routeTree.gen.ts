@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as CmtRouteImport } from './routes/cmt'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
@@ -19,6 +20,11 @@ import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CmtRoute = CmtRouteImport.update({
+  id: '/cmt',
+  path: '/cmt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -50,6 +56,7 @@ const AppsReceiptRoute = AppsReceiptRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
@@ -77,16 +86,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
+    | '/cmt'
     | '/profile'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/apps'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/profile' | '/apps/receipt' | '/apps/typewriter' | '/apps'
+  to:
+    | '/'
+    | '/$'
+    | '/cmt'
+    | '/profile'
+    | '/apps/receipt'
+    | '/apps/typewriter'
+    | '/apps'
   id:
     | '__root__'
     | '/'
     | '/$'
+    | '/cmt'
     | '/profile'
     | '/apps/receipt'
     | '/apps/typewriter'
@@ -96,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  CmtRoute: typeof CmtRoute
   ProfileRoute: typeof ProfileRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
@@ -109,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cmt': {
+      id: '/cmt'
+      path: '/cmt'
+      fullPath: '/cmt'
+      preLoaderRoute: typeof CmtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -152,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  CmtRoute: CmtRoute,
   ProfileRoute: ProfileRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,

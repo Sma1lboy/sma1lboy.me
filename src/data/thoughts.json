@@ -1,0 +1,30 @@
+[
+  {
+    "id": "4",
+    "content": "刚给网站加了 3D Receipt 物理模拟，Verlet integration 写起来比想象中简单。下一步想试试 soft body。",
+    "date": "2026-03-23",
+    "tags": ["dev", "physics"],
+    "mood": "🔬"
+  },
+  {
+    "id": "3",
+    "content": "AI coding 的核心不是让 AI 写代码，是让 AI 理解你的 codebase context 然后做出符合整体架构的决策。",
+    "date": "2026-03-22",
+    "tags": ["ai", "thinking"],
+    "mood": "🧠"
+  },
+  {
+    "id": "2",
+    "content": "好的 DX 就是让开发者忘记工具的存在，直接进入心流。",
+    "date": "2026-03-20",
+    "tags": ["dx", "thinking"],
+    "mood": "💭"
+  },
+  {
+    "id": "1",
+    "content": "Started building this site. Goal: not just a portfolio, but a living ecosystem that reflects how I think and build.",
+    "date": "2026-03-18",
+    "tags": ["meta"],
+    "mood": "🚀"
+  }
+]
