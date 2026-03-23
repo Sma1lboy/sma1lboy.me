@@ -151,13 +151,9 @@ const DockIcon = ({
       {label && (
         <motion.span
           initial={{ opacity: 0, y: 4, scale: 0.95 }}
-          animate={
-            hovered
-              ? { opacity: 1, y: 0, scale: 1 }
-              : { opacity: 0, y: 4, scale: 0.95 }
-          }
+          animate={hovered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 4, scale: 0.95 }}
           transition={{ duration: 0.15 }}
-          className="pointer-events-none absolute -top-8 left-1/2 z-50 -translate-x-1/2 whitespace-nowrap rounded-md bg-gray-900 px-2 py-0.5 text-[11px] font-medium text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
+          className="pointer-events-none absolute -top-8 left-1/2 z-50 -translate-x-1/2 rounded-md bg-gray-900 px-2 py-0.5 text-[11px] font-medium whitespace-nowrap text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
         >
           {label}
         </motion.span>

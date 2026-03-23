@@ -11,13 +11,15 @@ const experiments = [
   {
     to: "/apps/typewriter" as const,
     title: "Motorola Fix Beeper",
-    description: "A retro typewriter experience. Compose, polish, and print on vintage paper cards.",
+    description:
+      "A retro typewriter experience. Compose, polish, and print on vintage paper cards.",
     preview: <TypewriterPreview />,
   },
   {
     to: "/apps/receipt" as const,
     title: "3D Receipt",
-    description: "Interactive receipt with Verlet cloth physics. Grab, drag, and fold thermal paper.",
+    description:
+      "Interactive receipt with Verlet cloth physics. Grab, drag, and fold thermal paper.",
     preview: <ReceiptPreview />,
   },
 ];

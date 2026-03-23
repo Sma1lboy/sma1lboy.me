@@ -25,9 +25,7 @@ const inactiveClass =
   "hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]";
 
 function iconColor(active: boolean) {
-  return active
-    ? "text-gray-800 dark:text-gray-200"
-    : "text-gray-700 dark:text-gray-300";
+  return active ? "text-gray-800 dark:text-gray-200" : "text-gray-700 dark:text-gray-300";
 }
 
 export function NavigationDock({ activeSection, scrollToSection }: NavigationDockProps) {
@@ -122,9 +120,7 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
 
         <DockIcon
           label="LinkedIn"
-          onClick={() =>
-            window.open("https://www.linkedin.com/in/chong-chen-857214292/", "_blank")
-          }
+          onClick={() => window.open("https://www.linkedin.com/in/chong-chen-857214292/", "_blank")}
           className={`touch-manipulation ${inactiveClass}`}
         >
           <Linkedin size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />
