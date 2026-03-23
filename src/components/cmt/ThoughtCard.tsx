@@ -27,9 +27,7 @@ export default function ThoughtCard({ thought, index }: ThoughtCardProps) {
         {/* Top row: mood + date */}
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {thought.mood && (
-              <span className="text-lg leading-none">{thought.mood}</span>
-            )}
+            {thought.mood && <span className="text-lg leading-none">{thought.mood}</span>}
             <time className="text-xs text-gray-400 dark:text-gray-500">
               {formatDate(thought.date)}
             </time>
