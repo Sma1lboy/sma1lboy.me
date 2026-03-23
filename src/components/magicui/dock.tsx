@@ -85,16 +85,15 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 
 Dock.displayName = "Dock";
 
-export interface DockIconProps extends Omit<
-  MotionProps & React.HTMLAttributes<HTMLDivElement>,
-  "children"
-> {
+export interface DockIconProps
+  extends Omit<MotionProps & React.HTMLAttributes<HTMLDivElement>, "children"> {
   size?: number;
   magnification?: number;
   distance?: number;
   mouseX?: MotionValue<number>;
   className?: string;
   children?: React.ReactNode;
+  label?: string;
   props?: PropsWithChildren;
 }
 
@@ -105,9 +104,11 @@ const DockIcon = ({
   mouseX,
   className,
   children,
+  label,
   ...props
 }: DockIconProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [hovered, setHovered] = React.useState(false);
 
   // Use smaller sizes on mobile
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
@@ -140,11 +141,23 @@ const DockIcon = ({
       ref={ref}
       style={{ width: scaleSize, height: scaleSize, padding }}
       className={cn(
-        "flex aspect-square cursor-pointer touch-manipulation items-center justify-center rounded-full",
+        "relative flex aspect-square cursor-pointer touch-manipulation items-center justify-center rounded-full",
         className,
       )}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       {...props}
     >
+      {label && (
+        <motion.span
+          initial={{ opacity: 0, y: 4, scale: 0.95 }}
+          animate={hovered ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 4, scale: 0.95 }}
+          transition={{ duration: 0.15 }}
+          className="pointer-events-none absolute -top-8 left-1/2 z-50 -translate-x-1/2 rounded-md bg-gray-900 px-2 py-0.5 text-[11px] font-medium whitespace-nowrap text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
+        >
+          {label}
+        </motion.span>
+      )}
       {children}
     </motion.div>
   );
