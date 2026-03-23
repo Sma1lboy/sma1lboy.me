@@ -1,4 +1,3 @@
-import React from "react";
 import PaperCard from "./PaperCard";
 
 export default function TypewriterPreview() {
