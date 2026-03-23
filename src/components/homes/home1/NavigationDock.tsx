@@ -4,11 +4,13 @@ import {
   FolderOpen,
   Github,
   Home as HomeIcon,
+  LayoutGrid,
   Linkedin,
   Mail,
   Twitter,
   User,
 } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 import { Dock, DockIcon } from "../../magicui/dock";
 import { ThemeToggle } from "../../theme/ThemeToggle";
 
@@ -18,6 +20,7 @@ interface NavigationDockProps {
 }
 
 export function NavigationDock({ activeSection, scrollToSection }: NavigationDockProps) {
+  const navigate = useNavigate();
   return (
     <div className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 transform sm:bottom-4">
       <Dock className="px-2 py-1 sm:px-3 sm:py-2">
@@ -113,6 +116,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
                 ? "text-gray-800 dark:text-gray-200"
                 : "text-gray-700 dark:text-gray-300"
             }`}
+          />
+        </DockIcon>
+
+        {/* Apps */}
+        <DockIcon
+          onClick={() => navigate({ to: "/apps" })}
+          className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
+        >
+          <LayoutGrid
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />
         </DockIcon>
 
