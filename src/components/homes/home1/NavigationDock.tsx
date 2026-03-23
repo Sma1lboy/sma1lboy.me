@@ -11,8 +11,8 @@ import {
   User,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { Dock, DockIcon } from "../magicui/dock";
-import { ThemeToggle } from "../theme/ThemeToggle";
+import { Dock, DockIcon } from "../../magicui/dock";
+import { ThemeToggle } from "../../theme/ThemeToggle";
 
 interface NavigationDockProps {
   activeSection: string;
@@ -156,7 +156,7 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
         </DockIcon>
 
         <DockIcon
-          onClick={() => window.open("mailto:jackson@example.com")}
+          onClick={() => window.open("mailto:541898146chen@gmail.com")}
           className="touch-manipulation hover:bg-gray-100 active:bg-gray-200 dark:hover:bg-[#0a0a0a] dark:active:bg-[#151515]"
         >
           <Mail size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />

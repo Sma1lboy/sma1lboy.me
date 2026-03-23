@@ -10,8 +10,8 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { containerVariants, itemVariants } from "../../constants/home";
-import { Experience, ExperienceType } from "../../types";
+import { containerVariants, itemVariants } from "../../../constants/home";
+import { Experience, ExperienceType } from "../../../types";
 
 interface ExperienceSectionProps {
   experiences: Experience[];

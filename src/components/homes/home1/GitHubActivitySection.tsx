@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { ExternalLink, GitBranch, Github, Star, TrendingUp } from "lucide-react";
 import { useMemo } from "react";
-import { containerVariants, itemVariants } from "../../constants/home";
-import { useGitHub } from "../../hooks/useGitHub";
-import type { GitHubRepo } from "../../services/githubApi";
+import { containerVariants, itemVariants } from "../../../constants/home";
+import { useGitHub } from "../../../hooks/useGitHub";
+import type { GitHubRepo } from "../../../services/githubApi";
 
 // Contribution heatmap component
 function ContributionHeatmap({
