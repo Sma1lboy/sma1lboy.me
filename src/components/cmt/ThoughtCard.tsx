@@ -40,9 +40,7 @@ export default function ThoughtCard({ thought, index }: ThoughtCardProps) {
       <div className="mb-8 flex-1 pb-1">
         {/* Date row */}
         <div className="mb-2 flex items-center gap-2">
-          {thought.mood && (
-            <span className="text-base leading-none">{thought.mood}</span>
-          )}
+          {thought.mood && <span className="text-base leading-none">{thought.mood}</span>}
           <time className="text-xs font-medium tracking-wide text-gray-400 dark:text-gray-500">
             {formatDate(thought.date)}, {formatYear(thought.date)}
           </time>

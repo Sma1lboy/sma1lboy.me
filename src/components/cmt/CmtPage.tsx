@@ -62,9 +62,7 @@ export default function CmtPage() {
             <div className="flex flex-col items-center">
               <div className="h-2 w-2 rounded-full bg-gray-200 dark:bg-gray-700" />
             </div>
-            <span className="text-xs text-gray-400 dark:text-gray-600">
-              End of stream
-            </span>
+            <span className="text-xs text-gray-400 dark:text-gray-600">End of stream</span>
           </div>
         </motion.div>
       </div>
