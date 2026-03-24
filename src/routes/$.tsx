@@ -137,10 +137,7 @@ export function NotFound() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white dark:bg-black">
       {/* Particle canvas */}
-      <canvas
-        ref={canvasRef}
-        className="pointer-events-none absolute inset-0 h-full w-full"
-      />
+      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />
 
       {/* Content overlay — fades in after scatter */}
       <motion.div
