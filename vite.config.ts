@@ -25,7 +25,14 @@ function jsonApiPlugin(): Plugin {
   const DATA_DIR = path.resolve(__dirname, "src/data");
 
   function serveJson(filename: string) {
-    return (_req: unknown, res: { setHeader: (k: string, v: string) => void; statusCode: number; end: (s: string) => void }) => {
+    return (
+      _req: unknown,
+      res: {
+        setHeader: (k: string, v: string) => void;
+        statusCode: number;
+        end: (s: string) => void;
+      },
+    ) => {
       try {
         const json = fs.readFileSync(path.join(DATA_DIR, filename), "utf-8");
         res.setHeader("Content-Type", "application/json");

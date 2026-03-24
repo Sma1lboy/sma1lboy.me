@@ -41,7 +41,7 @@ function EndpointCard({ ep, index }: { ep: Endpoint; index: number }) {
       const json = await res.json();
       setResponse(JSON.stringify(json, null, 2));
     } catch {
-      setResponse('// Error fetching endpoint');
+      setResponse("// Error fetching endpoint");
     }
     setLoading(false);
   }, [ep.path]);
@@ -69,9 +69,7 @@ function EndpointCard({ ep, index }: { ep: Endpoint; index: number }) {
           <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
             {ep.method}
           </span>
-          <code className="text-sm font-medium text-gray-800 dark:text-gray-200">
-            {ep.path}
-          </code>
+          <code className="text-sm font-medium text-gray-800 dark:text-gray-200">{ep.path}</code>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -95,9 +93,7 @@ function EndpointCard({ ep, index }: { ep: Endpoint; index: number }) {
 
       {/* Body */}
       <div className="px-5 py-4">
-        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-          {ep.description}
-        </p>
+        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">{ep.description}</p>
 
         <button
           onClick={tryIt}
@@ -136,11 +132,7 @@ function StatusDot() {
     <span className="inline-flex items-center gap-1.5 text-xs">
       <span
         className={`inline-block h-1.5 w-1.5 rounded-full ${
-          live === null
-            ? "bg-gray-300 dark:bg-gray-600"
-            : live
-              ? "bg-emerald-500"
-              : "bg-red-500"
+          live === null ? "bg-gray-300 dark:bg-gray-600" : live ? "bg-emerald-500" : "bg-red-500"
         }`}
       />
       <span className="text-gray-400 dark:text-gray-500">
@@ -178,9 +170,7 @@ export default function ApiPage() {
         >
           <div className="flex items-center gap-3">
             <Globe size={24} className="text-gray-700 dark:text-gray-300" />
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              API
-            </h1>
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">API</h1>
           </div>
           <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
             Public JSON endpoints for sma1lboy.me data. No auth required. CORS enabled.
@@ -197,7 +187,7 @@ export default function ApiPage() {
           transition={{ duration: 0.45, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-8 rounded-lg border border-gray-100 bg-gray-50 px-5 py-3 dark:border-gray-800 dark:bg-gray-900"
         >
-          <span className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+          <span className="text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
             Base URL
           </span>
           <code className="mt-1 block text-sm text-gray-800 dark:text-gray-200">
