@@ -73,9 +73,7 @@ function EndpointRow({ ep, index }: { ep: Endpoint; index: number }) {
       </div>
 
       {/* Description */}
-      <p className="mt-1.5 text-[13px] text-gray-500 dark:text-gray-400">
-        {ep.description}
-      </p>
+      <p className="mt-1.5 text-[13px] text-gray-500 dark:text-gray-400">{ep.description}</p>
 
       {/* Actions */}
       <div className="mt-3 flex items-center gap-3">
@@ -132,11 +130,7 @@ function StatusDot() {
     <span className="inline-flex items-center gap-1.5 text-xs">
       <span
         className={`inline-block h-1.5 w-1.5 rounded-full ${
-          live === null
-            ? "bg-gray-300 dark:bg-gray-600"
-            : live
-              ? "bg-emerald-500"
-              : "bg-red-500"
+          live === null ? "bg-gray-300 dark:bg-gray-600" : live ? "bg-emerald-500" : "bg-red-500"
         }`}
       />
       <span className="text-gray-400 dark:text-gray-500">
