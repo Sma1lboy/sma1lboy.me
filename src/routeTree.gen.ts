@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as CmtRouteImport } from './routes/cmt'
+import { Route as ApiRouteImport } from './routes/api'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
@@ -25,6 +26,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const CmtRoute = CmtRouteImport.update({
   id: '/cmt',
   path: '/cmt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRoute = ApiRouteImport.update({
+  id: '/api',
+  path: '/api',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -56,6 +62,7 @@ const AppsReceiptRoute = AppsReceiptRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
+    | '/api'
     | '/cmt'
     | '/profile'
     | '/apps/receipt'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$'
+    | '/api'
     | '/cmt'
     | '/profile'
     | '/apps/receipt'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$'
+    | '/api'
     | '/cmt'
     | '/profile'
     | '/apps/receipt'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  ApiRoute: typeof ApiRoute
   CmtRoute: typeof CmtRoute
   ProfileRoute: typeof ProfileRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/cmt'
       fullPath: '/cmt'
       preLoaderRoute: typeof CmtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api': {
+      id: '/api'
+      path: '/api'
+      fullPath: '/api'
+      preLoaderRoute: typeof ApiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  ApiRoute: ApiRoute,
   CmtRoute: CmtRoute,
   ProfileRoute: ProfileRoute,
   AppsReceiptRoute: AppsReceiptRoute,
