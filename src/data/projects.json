@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Pochi",
+    "description": "Your AI-powered teammate that actually gets it. Pochi reads your full codebase, remembers your patterns, turns Figma screenshots into real React components, traces bugs with full project context, and builds full features so you can focus on core architecture.",
+    "url": "https://app.getpochi.com",
+    "tech": "AI/ML • Full-Stack • React • TypeScript",
+    "year": "2025"
+  },
+  {
+    "id": 2,
+    "title": "TabbyML",
+    "description": "A self-hosted AI coding assistant offering an open-source alternative to GitHub Copilot. Features consumer-grade GPU support, OpenAPI integration, and seamless IDE extensions.",
+    "url": "https://github.com/TabbyML/tabby",
+    "tech": "Rust • AI/ML • Open Source • Self-Hosted",
+    "year": "2024"
+  },
+  {
+    "id": 3,
+    "title": "FoxyChat",
+    "description": "A cross-platform desktop AI chat application built with Electron and TypeScript. Features intelligent conversation capabilities, RobotJS automation, and a modern interface.",
+    "url": "https://foxychat.net",
+    "tech": "Electron • TypeScript • RobotJS • AI/ML",
+    "year": "2024"
+  },
+  {
+    "id": 4,
+    "title": "TaskForge",
+    "description": "A comprehensive full-stack task management platform with monorepo architecture, database migrations, and production-ready deployment workflows.",
+    "url": "https://task-forge-website.vercel.app",
+    "tech": "TypeScript • Monorepo • Full-Stack • Database",
+    "year": "2024"
+  },
+  {
+    "id": 5,
+    "title": "CodeFox",
+    "description": "Next-generation AI project generation tools with sophisticated build system, dependency resolution, and virtual filesystem.",
+    "url": "https://github.com/CodeFox-Repo/codefox",
+    "tech": "TypeScript • Next.js • PostgreSQL • GraphQL • AI/ML",
+    "year": "2024"
+  }
+]

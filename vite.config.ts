@@ -17,35 +17,44 @@ import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 import { fonts } from "./configs/fonts.config";
 
 /**
- * Vite plugin: serves & builds /api/thoughts.json from src/data/thoughts.json.
- * - Dev: serves fresh file via middleware
- * - Build: copies into dist/api/thoughts.json
+ * Vite plugin: serves & builds /api/*.json from src/data/*.json.
+ * - Dev: serves fresh files via middleware
+ * - Build: copies into dist/api/
  */
-function thoughtsJsonPlugin(): Plugin {
-  const JSON_PATH = path.resolve(__dirname, "src/data/thoughts.json");
+function jsonApiPlugin(): Plugin {
+  const DATA_DIR = path.resolve(__dirname, "src/data");
+
+  function serveJson(filename: string) {
+    return (_req: unknown, res: { setHeader: (k: string, v: string) => void; statusCode: number; end: (s: string) => void }) => {
+      try {
+        const json = fs.readFileSync(path.join(DATA_DIR, filename), "utf-8");
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.end(json);
+      } catch {
+        res.statusCode = 500;
+        res.end("[]");
+      }
+    };
+  }
 
   return {
-    name: "thoughts-json",
+    name: "json-api",
 
     configureServer(server) {
-      server.middlewares.use("/api/thoughts.json", (_req, res) => {
-        try {
-          const json = fs.readFileSync(JSON_PATH, "utf-8");
-          res.setHeader("Content-Type", "application/json");
-          res.setHeader("Access-Control-Allow-Origin", "*");
-          res.end(json);
-        } catch {
-          res.statusCode = 500;
-          res.end("[]");
-        }
-      });
+      server.middlewares.use("/api/thoughts.json", serveJson("thoughts.json"));
+      server.middlewares.use("/api/projects.json", serveJson("projects.json"));
     },
 
     writeBundle() {
-      const json = fs.readFileSync(JSON_PATH, "utf-8");
       const outDir = path.resolve(__dirname, "dist/api");
       fs.mkdirSync(outDir, { recursive: true });
-      fs.writeFileSync(path.join(outDir, "thoughts.json"), json);
+      for (const file of ["thoughts.json", "projects.json"]) {
+        const src = path.join(DATA_DIR, file);
+        if (fs.existsSync(src)) {
+          fs.writeFileSync(path.join(outDir, file), fs.readFileSync(src, "utf-8"));
+        }
+      }
     },
   };
 }
@@ -66,7 +75,7 @@ export default defineConfig({
       eslintrc: { filepath: "./eslint.config.js" },
       dirs: ["./src/components/ui"],
     }),
-    thoughtsJsonPlugin(),
+    jsonApiPlugin(),
   ],
   resolve: {
     alias: {
