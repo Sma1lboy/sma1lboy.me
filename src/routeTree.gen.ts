@@ -22,17 +22,17 @@ const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/profile.lazy').then((d) => d.Route))
 const CmtRoute = CmtRouteImport.update({
   id: '/cmt',
   path: '/cmt',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/cmt.lazy').then((d) => d.Route))
 const ApiRoute = ApiRouteImport.update({
   id: '/api',
   path: '/api',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/api.lazy').then((d) => d.Route))
 const SplatRoute = SplatRouteImport.update({
   id: '/$',
   path: '/$',
@@ -52,12 +52,14 @@ const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
   id: '/apps/typewriter',
   path: '/apps/typewriter',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/apps/typewriter.lazy').then((d) => d.Route),
+)
 const AppsReceiptRoute = AppsReceiptRouteImport.update({
   id: '/apps/receipt',
   path: '/apps/receipt',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/apps/receipt.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
