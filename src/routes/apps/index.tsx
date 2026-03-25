@@ -26,7 +26,7 @@ const experiments = [
 
 function AppsIndex() {
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a]">
+    <div className="min-h-screen bg-white dark:bg-black">
       <div className="container mx-auto px-6 py-10 sm:px-8 sm:py-14">
         {/* Header */}
         <div className="mb-10">
@@ -56,9 +56,9 @@ function AppsIndex() {
             <Link
               key={exp.to}
               to={exp.to}
-              className="group relative block overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-[#222] dark:bg-[#141414] dark:hover:border-[#333]"
+              className="group relative block overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-950 dark:hover:border-gray-700"
             >
-              <div className="relative flex h-48 items-center justify-center overflow-hidden border-b border-gray-100 bg-[#111] dark:border-[#222]">
+              <div className="relative flex h-48 items-center justify-center overflow-hidden border-b border-gray-100 bg-gray-950 dark:border-gray-800">
                 {exp.preview}
               </div>
               <div className="p-5">

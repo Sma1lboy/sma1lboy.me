@@ -1,2 +1,2 @@
 export { Home as Home1 } from "./home1";
-export { Home2 } from "./home2";
+// Home2 is lazy-loaded in routes/index.tsx — do not statically export
