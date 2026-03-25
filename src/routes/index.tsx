@@ -2,9 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo } from "react";
 import { Home1 } from "../components";
 
-const Home2 = lazy(() =>
-  import("../components/homes/home2").then((m) => ({ default: m.Home2 })),
-);
+const Home2 = lazy(() => import("../components/homes/home2").then((m) => ({ default: m.Home2 })));
 
 const homeVariants = [Home1, Home2] as const;
 
