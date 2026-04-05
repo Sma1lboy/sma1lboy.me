@@ -32,6 +32,7 @@ import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
+import { Route as AppsRegexRouteImport } from './routes/apps/regex'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
@@ -158,6 +159,11 @@ const AppsTerminalRoute = AppsTerminalRouteImport.update({
   path: '/apps/terminal',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/terminal.lazy').then((d) => d.Route))
+const AppsRegexRoute = AppsRegexRouteImport.update({
+  id: '/apps/regex',
+  path: '/apps/regex',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/regex.lazy').then((d) => d.Route))
 const AppsReceiptRoute = AppsReceiptRouteImport.update({
   id: '/apps/receipt',
   path: '/apps/receipt',
@@ -225,6 +231,7 @@ export interface FileRoutesByFullPath {
   '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
+  '/apps/regex': typeof AppsRegexRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
+  '/apps/regex': typeof AppsRegexRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
+  '/apps/regex': typeof AppsRegexRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
@@ -327,6 +336,7 @@ export interface FileRouteTypes {
     | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
+    | '/apps/regex'
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
@@ -360,6 +370,7 @@ export interface FileRouteTypes {
     | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
+    | '/apps/regex'
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
+    | '/apps/regex'
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
@@ -427,6 +439,7 @@ export interface RootRouteChildren {
   AppsLifeRoute: typeof AppsLifeRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
+  AppsRegexRoute: typeof AppsRegexRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
@@ -598,6 +611,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsTerminalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/regex': {
+      id: '/apps/regex'
+      path: '/apps/regex'
+      fullPath: '/apps/regex'
+      preLoaderRoute: typeof AppsRegexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/receipt': {
       id: '/apps/receipt'
       path: '/apps/receipt'
@@ -683,6 +703,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsLifeRoute: AppsLifeRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsReceiptRoute: AppsReceiptRoute,
+  AppsRegexRoute: AppsRegexRoute,
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,

@@ -11,6 +11,7 @@ import DiffPreview from "../../components/apps/diff/DiffPreview";
 import JsonPreview from "../../components/apps/json/JsonPreview";
 import EncodePreview from "../../components/apps/encode/EncodePreview";
 import ColorsPreview from "../../components/apps/colors/ColorsPreview";
+import RegexPreview from "../../components/apps/regex/RegexPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -93,6 +94,13 @@ const experiments = [
     description:
       "Pick colors, generate harmonious palettes, check WCAG contrast ratios, and save your favorites.",
     preview: <ColorsPreview />,
+  },
+  {
+    to: "/apps/regex" as const,
+    title: "Regex Tester",
+    description:
+      "Test regular expressions in real-time with live match highlighting, capture groups, and a handy cheat sheet.",
+    preview: <RegexPreview />,
   },
 ];
 
