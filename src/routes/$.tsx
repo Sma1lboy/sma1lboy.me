@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { RouteErrorBoundary } from "@/components/ErrorBoundary";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -6,6 +7,7 @@ import { MazeGame } from "../components/MazeGame";
 
 export const Route = createFileRoute("/$")({
   component: NotFound,
+  errorComponent: RouteErrorBoundary,
 });
 
 /** A single falling digit particle */

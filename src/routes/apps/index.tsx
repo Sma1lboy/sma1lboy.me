@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { RouteErrorBoundary } from "@/components/ErrorBoundary";
 import {
   ArrowLeft,
   FlaskConical,
@@ -33,6 +34,7 @@ import PixelPreview from "../../components/apps/pixel/PixelPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
+  errorComponent: RouteErrorBoundary,
 });
 
 interface AppEntry {

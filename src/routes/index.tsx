@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { RouteErrorBoundary } from "@/components/ErrorBoundary";
 import { lazy, Suspense, useMemo, useRef } from "react";
 import { Home1 } from "../components";
 import { useCursorTrail } from "../hooks/useCursorTrail";
@@ -26,4 +27,5 @@ function RandomHome() {
 
 export const Route = createFileRoute("/")({
   component: RandomHome,
+  errorComponent: RouteErrorBoundary,
 });

@@ -8,6 +8,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { AmbientPlayer } from "@/components/AmbientPlayer";
 import { Footer } from "@/components/Footer";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { RouteErrorBoundary } from "@/components/ErrorBoundary";
 
 function RootComponent() {
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -37,16 +38,5 @@ function RootComponent() {
 
 export const Route = createRootRoute({
   component: RootComponent,
-  errorComponent: RootErrorBoundary,
+  errorComponent: RouteErrorBoundary,
 });
-
-interface Props extends React.ComponentProps<"div"> {}
-
-export function RootErrorBoundary({ ...rest }: Props) {
-  return (
-    <div {...rest}>
-      <h1 className="text-center text-4xl font-bold">Error</h1>
-      <p className="text-center text-2xl">An error occurred. Please try again later.</p>
-    </div>
-  );
-}
