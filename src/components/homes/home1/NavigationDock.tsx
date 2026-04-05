@@ -13,6 +13,7 @@ import {
   Languages,
   Linkedin,
   ListOrdered,
+  BookMarked,
   Mail,
   MessageSquare,
   MessageCircle,
@@ -209,6 +210,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <Image
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label={t("nav.guestbook")}
+          onClick={() => navigate({ to: "/guestbook" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <BookMarked
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />

@@ -10,6 +10,7 @@ import {
   Github,
   Home,
   ListOrdered,
+  BookMarked,
   Mail,
   Monitor,
   TerminalSquare,
@@ -125,6 +126,15 @@ export function CommandPalette() {
         categoryKey: "commandPalette.categories.pages",
         icon: Mail,
         action: () => navigate({ to: "/contact" }),
+      },
+      {
+        id: "page-guestbook",
+        title: t("commandPalette.pages.guestbook"),
+        description: t("commandPalette.pages.guestbookDesc"),
+        category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
+        icon: BookMarked,
+        action: () => navigate({ to: "/guestbook" }),
       },
       {
         id: "page-uses",

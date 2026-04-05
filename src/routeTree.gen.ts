@@ -17,6 +17,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ReadingRouteImport } from './routes/reading'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as GuestbookRouteImport } from './routes/guestbook'
 import { Route as GithubRouteImport } from './routes/github'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -28,6 +29,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
@@ -72,6 +74,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/profile.lazy').then((d) => d.Route))
+const GuestbookRoute = GuestbookRouteImport.update({
+  id: '/guestbook',
+  path: '/guestbook',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/guestbook.lazy').then((d) => d.Route))
 const GithubRoute = GithubRouteImport.update({
   id: '/github',
   path: '/github',
@@ -127,6 +134,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/blog/$slug.lazy').then((d) => d.Route))
+const AppsTypingRoute = AppsTypingRouteImport.update({
+  id: '/apps/typing',
+  path: '/apps/typing',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/typing.lazy').then((d) => d.Route))
 const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
   id: '/apps/typewriter',
   path: '/apps/typewriter',
@@ -154,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
+  '/guestbook': typeof GuestbookRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
@@ -165,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
+  '/apps/typing': typeof AppsTypingRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -178,6 +192,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
+  '/guestbook': typeof GuestbookRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
@@ -189,6 +204,7 @@ export interface FileRoutesByTo {
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
+  '/apps/typing': typeof AppsTypingRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -203,6 +219,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
+  '/guestbook': typeof GuestbookRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
@@ -214,6 +231,7 @@ export interface FileRoutesById {
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
+  '/apps/typing': typeof AppsTypingRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -229,6 +247,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/github'
+    | '/guestbook'
     | '/profile'
     | '/projects'
     | '/reading'
@@ -240,6 +259,7 @@ export interface FileRouteTypes {
     | '/apps/receipt'
     | '/apps/terminal'
     | '/apps/typewriter'
+    | '/apps/typing'
     | '/blog/$slug'
     | '/apps'
     | '/blog'
@@ -253,6 +273,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/github'
+    | '/guestbook'
     | '/profile'
     | '/projects'
     | '/reading'
@@ -264,6 +285,7 @@ export interface FileRouteTypes {
     | '/apps/receipt'
     | '/apps/terminal'
     | '/apps/typewriter'
+    | '/apps/typing'
     | '/blog/$slug'
     | '/apps'
     | '/blog'
@@ -277,6 +299,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/gallery'
     | '/github'
+    | '/guestbook'
     | '/profile'
     | '/projects'
     | '/reading'
@@ -288,6 +311,7 @@ export interface FileRouteTypes {
     | '/apps/receipt'
     | '/apps/terminal'
     | '/apps/typewriter'
+    | '/apps/typing'
     | '/blog/$slug'
     | '/apps/'
     | '/blog/'
@@ -302,6 +326,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
   GithubRoute: typeof GithubRoute
+  GuestbookRoute: typeof GuestbookRoute
   ProfileRoute: typeof ProfileRoute
   ProjectsRoute: typeof ProjectsRoute
   ReadingRoute: typeof ReadingRoute
@@ -313,6 +338,7 @@ export interface RootRouteChildren {
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
+  AppsTypingRoute: typeof AppsTypingRoute
   BlogSlugRoute: typeof BlogSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -374,6 +400,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guestbook': {
+      id: '/guestbook'
+      path: '/guestbook'
+      fullPath: '/guestbook'
+      preLoaderRoute: typeof GuestbookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/github': {
@@ -453,6 +486,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/typing': {
+      id: '/apps/typing'
+      path: '/apps/typing'
+      fullPath: '/apps/typing'
+      preLoaderRoute: typeof AppsTypingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/typewriter': {
       id: '/apps/typewriter'
       path: '/apps/typewriter'
@@ -486,6 +526,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
   GithubRoute: GithubRoute,
+  GuestbookRoute: GuestbookRoute,
   ProfileRoute: ProfileRoute,
   ProjectsRoute: ProjectsRoute,
   ReadingRoute: ReadingRoute,
@@ -497,6 +538,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
+  AppsTypingRoute: AppsTypingRoute,
   BlogSlugRoute: BlogSlugRoute,
   AppsIndexRoute: AppsIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
