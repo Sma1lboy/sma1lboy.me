@@ -42,7 +42,7 @@ export default function UsesPage() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0a0a0a] dark:text-gray-100">
-      <div className="mx-auto max-w-4xl px-6 py-12 sm:py-20">
+      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-20">
         {/* Back */}
         <motion.div
           initial={{ opacity: 0, x: -8 }}

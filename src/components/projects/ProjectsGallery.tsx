@@ -29,7 +29,7 @@ export function ProjectsGallery() {
     <div className="min-h-screen bg-white transition-colors duration-300 dark:bg-[#0a0a0a]">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md transition-colors duration-300 dark:border-[#1a1a1a] dark:bg-[#0a0a0a]/80">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-4">
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-4 sm:px-6">
           <Link
             to="/"
             className="flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-200"
@@ -44,7 +44,7 @@ export function ProjectsGallery() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         {/* Featured Hero Section */}
         <FeaturedHero projects={featuredItems} />
 

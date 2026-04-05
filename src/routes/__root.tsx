@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { createRootRoute } from "@tanstack/react-router";
 import { CommandPalette } from "@/components/CommandPalette";
 import { KeyboardShortcutsModal } from "@/components/KeyboardShortcutsModal";
+import { MobileNav } from "@/components/MobileNav";
 import { PageTransition } from "@/components/PageTransition";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { AmbientPlayer } from "@/components/AmbientPlayer";
@@ -24,6 +25,7 @@ function RootComponent() {
       </a>
       <CommandPalette />
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={closeShortcuts} />
+      <MobileNav />
       <PageTransition />
       <ScrollToTop />
       <AmbientPlayer />

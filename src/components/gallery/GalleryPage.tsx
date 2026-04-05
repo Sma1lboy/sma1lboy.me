@@ -274,7 +274,7 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
-      <div className="mx-auto max-w-5xl px-6 py-12 sm:py-20">
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-20">
         {/* Back button */}
         <motion.div
           initial={{ opacity: 0, x: -8 }}
