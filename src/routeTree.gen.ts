@@ -35,6 +35,7 @@ import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsRegexRouteImport } from './routes/apps/regex'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
+import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
 import { Route as AppsJsonRouteImport } from './routes/apps/json'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
@@ -174,6 +175,11 @@ const AppsPomodoroRoute = AppsPomodoroRouteImport.update({
   path: '/apps/pomodoro',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/pomodoro.lazy').then((d) => d.Route))
+const AppsMarkdownRoute = AppsMarkdownRouteImport.update({
+  id: '/apps/markdown',
+  path: '/apps/markdown',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/markdown.lazy').then((d) => d.Route))
 const AppsLifeRoute = AppsLifeRouteImport.update({
   id: '/apps/life',
   path: '/apps/life',
@@ -229,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/json': typeof AppsJsonRoute
   '/apps/life': typeof AppsLifeRoute
+  '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/json': typeof AppsJsonRoute
   '/apps/life': typeof AppsLifeRoute
+  '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
@@ -298,6 +306,7 @@ export interface FileRoutesById {
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/json': typeof AppsJsonRoute
   '/apps/life': typeof AppsLifeRoute
+  '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
@@ -334,6 +343,7 @@ export interface FileRouteTypes {
     | '/apps/encode'
     | '/apps/json'
     | '/apps/life'
+    | '/apps/markdown'
     | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/regex'
@@ -368,6 +378,7 @@ export interface FileRouteTypes {
     | '/apps/encode'
     | '/apps/json'
     | '/apps/life'
+    | '/apps/markdown'
     | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/regex'
@@ -402,6 +413,7 @@ export interface FileRouteTypes {
     | '/apps/encode'
     | '/apps/json'
     | '/apps/life'
+    | '/apps/markdown'
     | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/regex'
@@ -437,6 +449,7 @@ export interface RootRouteChildren {
   AppsEncodeRoute: typeof AppsEncodeRoute
   AppsJsonRoute: typeof AppsJsonRoute
   AppsLifeRoute: typeof AppsLifeRoute
+  AppsMarkdownRoute: typeof AppsMarkdownRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsRegexRoute: typeof AppsRegexRoute
@@ -632,6 +645,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsPomodoroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/markdown': {
+      id: '/apps/markdown'
+      path: '/apps/markdown'
+      fullPath: '/apps/markdown'
+      preLoaderRoute: typeof AppsMarkdownRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/life': {
       id: '/apps/life'
       path: '/apps/life'
@@ -701,6 +721,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsEncodeRoute: AppsEncodeRoute,
   AppsJsonRoute: AppsJsonRoute,
   AppsLifeRoute: AppsLifeRoute,
+  AppsMarkdownRoute: AppsMarkdownRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsRegexRoute: AppsRegexRoute,

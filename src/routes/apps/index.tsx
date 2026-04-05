@@ -12,6 +12,7 @@ import JsonPreview from "../../components/apps/json/JsonPreview";
 import EncodePreview from "../../components/apps/encode/EncodePreview";
 import ColorsPreview from "../../components/apps/colors/ColorsPreview";
 import RegexPreview from "../../components/apps/regex/RegexPreview";
+import MarkdownPreview from "../../components/apps/markdown/MarkdownPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -101,6 +102,13 @@ const experiments = [
     description:
       "Test regular expressions in real-time with live match highlighting, capture groups, and a handy cheat sheet.",
     preview: <RegexPreview />,
+  },
+  {
+    to: "/apps/markdown" as const,
+    title: "Markdown Editor",
+    description:
+      "Write markdown with live preview, formatting toolbar, auto-save, and HTML export.",
+    preview: <MarkdownPreview />,
   },
 ];
 
