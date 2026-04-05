@@ -121,6 +121,14 @@ export function CommandPalette() {
         icon: Monitor,
         action: () => navigate({ to: "/uses" }),
       },
+      {
+        id: "page-snippets",
+        title: "Snippets",
+        description: "Code patterns & tricks",
+        category: "Pages",
+        icon: Code2,
+        action: () => navigate({ to: "/snippets" }),
+      },
     ];
 
     const blogItems: SearchItem[] = blogPosts.map((post) => ({

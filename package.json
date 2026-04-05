@@ -29,6 +29,7 @@
     "lucide-react": "^0.511.0",
     "matter-js": "^0.20.0",
     "motion": "^12.18.1",
+    "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-konva": "^19.0.6",

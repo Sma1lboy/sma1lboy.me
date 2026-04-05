@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsesRouteImport } from './routes/uses'
 import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as SnippetsRouteImport } from './routes/snippets'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ReadingRouteImport } from './routes/reading'
 import { Route as ProjectsRouteImport } from './routes/projects'
@@ -37,6 +38,11 @@ const TimelineRoute = TimelineRouteImport.update({
   path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/timeline.lazy').then((d) => d.Route))
+const SnippetsRoute = SnippetsRouteImport.update({
+  id: '/snippets',
+  path: '/snippets',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/snippets.lazy').then((d) => d.Route))
 const ResumeRoute = ResumeRouteImport.update({
   id: '/resume',
   path: '/resume',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
+  '/snippets': typeof SnippetsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
+  '/snippets': typeof SnippetsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
+  '/snippets': typeof SnippetsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/reading'
     | '/resume'
+    | '/snippets'
     | '/timeline'
     | '/uses'
     | '/apps/receipt'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/reading'
     | '/resume'
+    | '/snippets'
     | '/timeline'
     | '/uses'
     | '/apps/receipt'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/reading'
     | '/resume'
+    | '/snippets'
     | '/timeline'
     | '/uses'
     | '/apps/receipt'
@@ -244,6 +256,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRoute
   ReadingRoute: typeof ReadingRoute
   ResumeRoute: typeof ResumeRoute
+  SnippetsRoute: typeof SnippetsRoute
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/timeline'
       fullPath: '/timeline'
       preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/snippets': {
+      id: '/snippets'
+      path: '/snippets'
+      fullPath: '/snippets'
+      preLoaderRoute: typeof SnippetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resume': {
@@ -388,6 +408,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRoute,
   ReadingRoute: ReadingRoute,
   ResumeRoute: ResumeRoute,
+  SnippetsRoute: SnippetsRoute,
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
   AppsReceiptRoute: AppsReceiptRoute,
