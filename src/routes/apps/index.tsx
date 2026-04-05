@@ -38,6 +38,7 @@ import WeatherPreview from "../../components/apps/weather/WeatherPreview";
 import TetrisPreview from "../../components/apps/tetris/TetrisPreview";
 import CurrencyPreview from "../../components/apps/currency/CurrencyPreview";
 import PasswordPreview from "../../components/apps/password/PasswordPreview";
+import UnitsPreview from "../../components/apps/units/UnitsPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -71,6 +72,7 @@ const newAppPaths = new Set([
   "/apps/tetris",
   "/apps/currency",
   "/apps/password",
+  "/apps/units",
 ]);
 
 const categories: {
@@ -192,6 +194,13 @@ const categories: {
         description:
           "Convert currencies in real-time with live exchange rates and a 30-day historical rate chart.",
         preview: <CurrencyPreview />,
+      },
+      {
+        to: "/apps/units",
+        title: "Unit Converter",
+        description:
+          "Convert between units across Length, Weight, Temperature, Volume, and Data categories with real-time bidirectional conversion.",
+        preview: <UnitsPreview />,
       },
     ],
   },
