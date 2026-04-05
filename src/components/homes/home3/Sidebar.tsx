@@ -19,6 +19,7 @@ const artifacts = [
   { label: "tabby", id: "tabby" },
   { label: "pochi", id: "pochi" },
   { label: "foxychat", id: "foxychat" },
+  { label: "all projects →", id: "projects", route: "/projects" },
 ];
 
 const labs = [
@@ -85,7 +86,11 @@ export function Sidebar() {
           {artifacts.map((item) => (
             <li key={item.id}>
               <button
-                onClick={() => randomNav(navigate)}
+                onClick={() =>
+                  "route" in item && item.route
+                    ? navigate({ to: item.route })
+                    : randomNav(navigate)
+                }
                 className="text-[13px] transition-colors duration-150 hover:cursor-pointer"
                 style={{ color: "#b0b0b0" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}

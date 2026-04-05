@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as CmtRouteImport } from './routes/cmt'
 import { Route as ApiRouteImport } from './routes/api'
@@ -20,6 +21,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/projects.lazy').then((d) => d.Route))
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
+  '/projects': typeof ProjectsRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
+  '/projects': typeof ProjectsRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
   '/profile': typeof ProfileRoute
+  '/projects': typeof ProjectsRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/api'
     | '/cmt'
     | '/profile'
+    | '/projects'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/blog/$slug'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/api'
     | '/cmt'
     | '/profile'
+    | '/projects'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/blog/$slug'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/api'
     | '/cmt'
     | '/profile'
+    | '/projects'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/blog/$slug'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   ApiRoute: typeof ApiRoute
   CmtRoute: typeof CmtRoute
   ProfileRoute: typeof ProfileRoute
+  ProjectsRoute: typeof ProjectsRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -164,6 +177,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiRoute: ApiRoute,
   CmtRoute: CmtRoute,
   ProfileRoute: ProfileRoute,
+  ProjectsRoute: ProjectsRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   BlogSlugRoute: BlogSlugRoute,

@@ -126,6 +126,7 @@ function useParticles() {
 
 const links = [
   { to: "/" as const, label: "Home" },
+  { to: "/projects" as const, label: "Projects" },
   { to: "/apps" as const, label: "Lab" },
   { to: "/blog" as const, label: "Writing" },
   { to: "/cmt" as const, label: "Thoughts" },
