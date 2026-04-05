@@ -404,7 +404,7 @@ export function Home2() {
         style={{ top: `${rowH[1]}%`, left: 0, width: "100%", height: `${100 - rowH[1]}%` }}
       >
         <motion.div
-          className="flex h-full items-center justify-between p-8 sm:p-10"
+          className="flex h-full flex-col items-start justify-center gap-3 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-10"
           {...fadeIn(0.4)}
         >
           <div>

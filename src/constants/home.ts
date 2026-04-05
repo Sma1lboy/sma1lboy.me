@@ -1,3 +1,8 @@
+// Project categories
+export type ProjectCategory = "AI/ML" | "Web" | "Tools" | "Open Source";
+
+export const projectCategories: ProjectCategory[] = ["AI/ML", "Web", "Tools", "Open Source"];
+
 // Featured projects data
 export const featuredProjects = [
   {
@@ -8,6 +13,9 @@ export const featuredProjects = [
     url: "https://app.getpochi.com",
     preview: "/images/pochi-preview.png",
     tech: "AI/ML • Full-Stack • React • TypeScript",
+    techTags: ["AI/ML", "React", "TypeScript", "Full-Stack"],
+    category: "AI/ML" as ProjectCategory,
+    featured: true,
     year: "2025",
   },
   {
@@ -18,6 +26,9 @@ export const featuredProjects = [
     url: "https://github.com/TabbyML/tabby",
     preview: "/images/tabby-preview.png",
     tech: "Rust • AI/ML • Open Source • Self-Hosted",
+    techTags: ["Rust", "AI/ML", "Open Source"],
+    category: "Open Source" as ProjectCategory,
+    featured: true,
     year: "2024",
   },
   {
@@ -28,6 +39,9 @@ export const featuredProjects = [
     url: "https://foxychat.net",
     preview: "/images/foxychat-preview.png",
     tech: "Electron • TypeScript • RobotJS • AI/ML",
+    techTags: ["Electron", "TypeScript", "AI/ML"],
+    category: "AI/ML" as ProjectCategory,
+    featured: false,
     year: "2024",
   },
   {
@@ -38,16 +52,74 @@ export const featuredProjects = [
     url: "https://task-forge-website.vercel.app",
     preview: "/images/taskforge-preview.png",
     tech: "TypeScript • Monorepo • Full-Stack • Database",
+    techTags: ["TypeScript", "React", "PostgreSQL"],
+    category: "Web" as ProjectCategory,
+    featured: false,
     year: "2024",
   },
   {
     id: 5,
-    title: "Personal Portfolio",
+    title: "CodeFox",
     description:
-      "A minimalist portfolio website showcasing my work and experiences with modern web technologies.",
+      "Next-generation AI project generation tools with sophisticated build system, dependency resolution, and virtual filesystem. Generates full-stack applications from natural language descriptions.",
+    url: "https://github.com/CodeFox-Repo/codefox",
+    preview: "/images/personal-preview.png",
+    tech: "TypeScript • Next.js • PostgreSQL • GraphQL • AI/ML",
+    techTags: ["TypeScript", "Next.js", "GraphQL", "AI/ML"],
+    category: "AI/ML" as ProjectCategory,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 6,
+    title: "sma1lboy.me",
+    description:
+      "A minimalist portfolio website with multiple homepage variants, dark aesthetic, Framer Motion animations, and interactive experiments. Built with React 19 and TanStack Router.",
     url: "https://sma1lboy.me",
     preview: "/images/personal-preview.png",
     tech: "React • TanStack Router • Framer Motion",
+    techTags: ["React", "TypeScript", "Framer Motion"],
+    category: "Web" as ProjectCategory,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 7,
+    title: "Story Reply",
+    description:
+      "An AI-powered social storytelling platform that generates interactive narrative responses. Combines natural language processing with creative writing to produce engaging story continuations.",
+    url: "https://github.com/Sma1lboy/story-reply",
+    preview: "/images/personal-preview.png",
+    tech: "TypeScript • AI/ML • NLP",
+    techTags: ["TypeScript", "AI/ML", "NLP"],
+    category: "AI/ML" as ProjectCategory,
+    featured: false,
+    year: "2024",
+  },
+  {
+    id: 8,
+    title: "Agent Universe",
+    description:
+      "A framework for building and orchestrating multi-agent AI systems. Provides infrastructure for agent communication, task delegation, and collaborative problem-solving across distributed environments.",
+    url: "https://github.com/Sma1lboy/sma1l-agent-universe",
+    preview: "/images/personal-preview.png",
+    tech: "TypeScript • AI/ML • Multi-Agent • Distributed Systems",
+    techTags: ["TypeScript", "AI/ML", "Distributed Systems"],
+    category: "Tools" as ProjectCategory,
+    featured: false,
+    year: "2025",
+  },
+  {
+    id: 9,
+    title: "Tabby",
+    description:
+      "A terminal-based productivity tool for managing development workflows. Features smart tab management, session persistence, and customizable workspace configurations.",
+    url: "https://github.com/Sma1lboy/tabby",
+    preview: "/images/personal-preview.png",
+    tech: "TypeScript • CLI • Developer Tools",
+    techTags: ["TypeScript", "CLI", "Developer Tools"],
+    category: "Tools" as ProjectCategory,
+    featured: false,
     year: "2024",
   },
 ];

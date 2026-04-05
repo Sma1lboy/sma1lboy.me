@@ -76,30 +76,15 @@ export const useThemeStore = create<ThemeState>()(
   ),
 );
 
-// Initialize theme and listen for system changes
+// Listen for system theme changes (theme is already applied by inline script in index.html)
 if (typeof window !== "undefined") {
-  // Apply initial theme
-  const initTheme = () => {
-    const store = useThemeStore.getState();
-    const resolvedTheme = store.theme === "system" ? getSystemTheme() : store.theme;
-    applyTheme(resolvedTheme);
-    if (store.resolvedTheme !== resolvedTheme) {
-      useThemeStore.setState({ resolvedTheme });
-    }
-  };
-
-  // Apply theme immediately
-  initTheme();
-
-  // Listen for system theme changes
   const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  const handleSystemThemeChange = () => {
+  mediaQuery.addEventListener("change", () => {
     const currentState = useThemeStore.getState();
     if (currentState.theme === "system") {
       const newResolvedTheme = mediaQuery.matches ? "dark" : "light";
       applyTheme(newResolvedTheme);
       useThemeStore.setState({ resolvedTheme: newResolvedTheme });
     }
-  };
-  mediaQuery.addEventListener("change", handleSystemThemeChange);
+  });
 }

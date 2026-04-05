@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, GraduationCap, Award, Code2 } from "lucide-react";
 import { useGitHub } from "../../hooks/useGitHub";
+import { useSEO } from "@/hooks/useSEO";
 import { sortedExperiences } from "../../constants/experiences";
 import { ExperienceType } from "../../types";
 
@@ -814,6 +815,12 @@ function NavigationCard() {
  * Features: Avatar, description, status cards, GitHub activity, skills, experience, navigation
  */
 export function ProfilePage() {
+  useSEO({
+    title: "Profile",
+    description: "About Jackson Chen.",
+    path: "/profile",
+  });
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <ProfileBackground />

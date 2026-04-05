@@ -15,7 +15,7 @@
     <meta property="og:description" content="Full Stack Developer & CS graduate. Building AI tooling, open-source projects, and interactive web experiences." />
     <meta property="og:url" content="https://sma1lboy.me/" />
     <meta property="og:site_name" content="sma1lboy.me" />
-    <meta property="og:image" content="https://sma1lboy.me/home-avatar.png" />
+    <meta property="og:image" content="https://sma1lboy.me/og/default.svg" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
@@ -23,9 +23,26 @@
     <meta name="twitter:title" content="Jackson Chen - Full Stack Developer" />
     <meta name="twitter:description" content="Full Stack Developer & CS graduate. Building AI tooling, open-source projects, and interactive web experiences." />
 
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#1e1b4b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.svg" />
   </head>
   <body>
+    <script>
+      // Apply theme before React loads to prevent flash
+      (function() {
+        try {
+          var stored = JSON.parse(localStorage.getItem('theme-storage') || '{}');
+          var theme = (stored.state && stored.state.theme) || 'system';
+          var dark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch(e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

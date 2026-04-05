@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sma1lboy.me/sitemap.xml

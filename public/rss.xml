@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jackson Chen's Blog</title>
+    <description>Thoughts on software engineering, AI, and building things</description>
+    <link>https://sma1lboy.me/blog</link>
+    <language>en-us</language>
+    <atom:link href="https://sma1lboy.me/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>The Demo-to-Production Gap in AI Products</title>
+      <link>https://sma1lboy.me/blog/demo-to-production-gap</link>
+      <description>The gap between &apos;demo&apos; and &apos;production&apos; is where most AI startups die. It&apos;s not the model — it&apos;s the 10,000 edge cases around it.</description>
+      <pubDate>Wed, 01 Apr 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://sma1lboy.me/blog/demo-to-production-gap</guid>
+    </item>
+    <item>
+      <title>WebGPU for Browser-Based ML Inference</title>
+      <link>https://sma1lboy.me/blog/webgpu-browser-ml-inference</link>
+      <description>Early experiments running a small transformer entirely client-side — what worked, what didn&apos;t, and why this changes everything.</description>
+      <pubDate>Mon, 30 Mar 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://sma1lboy.me/blog/webgpu-browser-ml-inference</guid>
+    </item>
+    <item>
+      <title>What TikTok Scale Teaches You About Systems</title>
+      <link>https://sma1lboy.me/blog/distributed-systems-at-scale</link>
+      <description>When your &apos;edge case&apos; affects 50 million users, there are no edge cases. Working on distributed systems at this scale changes how you think about everything.</description>
+      <pubDate>Sat, 28 Mar 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://sma1lboy.me/blog/distributed-systems-at-scale</guid>
+    </item>
+    <item>
+      <title>How Rust&apos;s Ownership Model Rewired My Brain</title>
+      <link>https://sma1lboy.me/blog/rust-ownership-mental-model</link>
+      <description>Even in TypeScript now, I instinctively think about who &apos;owns&apos; a piece of data. Rust didn&apos;t just teach me a language — it changed how I reason about state.</description>
+      <pubDate>Wed, 25 Mar 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://sma1lboy.me/blog/rust-ownership-mental-model</guid>
+    </item>
+    <item>
+      <title>AI Coding: Context Is Everything</title>
+      <link>https://sma1lboy.me/blog/ai-coding-context-is-king</link>
+      <description>The core of AI-assisted coding isn&apos;t letting AI write code — it&apos;s letting AI understand your codebase context to make decisions that fit the architecture.</description>
+      <pubDate>Sun, 22 Mar 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://sma1lboy.me/blog/ai-coding-context-is-king</guid>
+    </item>
+    <item>
+      <title>Open Source Is About Trust, Not Code</title>
+      <link>https://sma1lboy.me/blog/open-source-trust</link>
+      <description>GSoC taught me that open source isn&apos;t about code — it&apos;s about building trust with a community of strangers through consistent, transparent work.</description>
+      <pubDate>Sun, 15 Mar 2026 12:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://sma1lboy.me/blog/open-source-trust</guid>
+    </item>
+  </channel>
+</rss>

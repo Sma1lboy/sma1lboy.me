@@ -51,12 +51,13 @@ function jsonApiPlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use("/api/thoughts.json", serveJson("thoughts.json"));
       server.middlewares.use("/api/projects.json", serveJson("projects.json"));
+      server.middlewares.use("/api/blog-posts.json", serveJson("blog-posts.json"));
     },
 
     writeBundle() {
       const outDir = path.resolve(__dirname, "dist/api");
       fs.mkdirSync(outDir, { recursive: true });
-      for (const file of ["thoughts.json", "projects.json"]) {
+      for (const file of ["thoughts.json", "projects.json", "blog-posts.json"]) {
         const src = path.join(DATA_DIR, file);
         if (fs.existsSync(src)) {
           fs.writeFileSync(path.join(outDir, file), fs.readFileSync(src, "utf-8"));
@@ -84,6 +85,63 @@ export default defineConfig({
     }),
     jsonApiPlugin(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+
+          // Core vendor: React, router, state, styling utilities
+          if (
+            id.includes("/react/") ||
+            id.includes("/react-dom/") ||
+            id.includes("/framer-motion/") ||
+            id.includes("/motion/") ||
+            id.includes("/@tanstack/react-router/") ||
+            id.includes("/zustand/") ||
+            id.includes("/clsx/") ||
+            id.includes("/class-variance-authority/") ||
+            id.includes("/tailwind-merge/")
+          ) {
+            return "vendor";
+          }
+
+          // Markdown rendering
+          if (
+            id.includes("/react-markdown/") ||
+            id.includes("/remark-gfm/") ||
+            id.includes("/prism-react-renderer/")
+          ) {
+            return "markdown";
+          }
+
+          // Three.js (heavy, lazy-loaded)
+          if (id.includes("/three/")) {
+            return "three-d";
+          }
+
+          // Canvas libs
+          if (
+            id.includes("/konva/") ||
+            id.includes("/react-konva/") ||
+            id.includes("/matter-js/")
+          ) {
+            return "canvas";
+          }
+
+          // Carousel
+          if (id.includes("/embla-carousel")) {
+            return "embla";
+          }
+
+          // QR code
+          if (id.includes("/qrcode/")) {
+            return "qrcode";
+          }
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

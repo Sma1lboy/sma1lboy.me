@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { RouteErrorBoundary } from "@/components/ErrorBoundary";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
+import { MazeGame } from "../components/MazeGame";
+
 export const Route = createFileRoute("/$")({
   component: NotFound,
+  errorComponent: RouteErrorBoundary,
 });
 
 /** A single falling digit particle */
@@ -126,7 +130,9 @@ function useParticles() {
 
 const links = [
   { to: "/" as const, label: "Home" },
+  { to: "/projects" as const, label: "Projects" },
   { to: "/apps" as const, label: "Lab" },
+  { to: "/blog" as const, label: "Writing" },
   { to: "/cmt" as const, label: "Thoughts" },
   { to: "/profile" as const, label: "Profile" },
 ];
@@ -135,33 +141,47 @@ export function NotFound() {
   const { canvasRef, scattered } = useParticles();
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-white dark:bg-black">
-      {/* Particle canvas */}
-      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />
+    <div className="bg-white dark:bg-black">
+      {/* Hero section — keeps the original full-screen 404 experience */}
+      <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
+        {/* Particle canvas */}
+        <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />
 
-      {/* Content overlay — fades in after scatter */}
+        {/* Content overlay — fades in after scatter */}
+        <motion.div
+          className="relative z-10 flex flex-col items-center gap-6 px-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={scattered ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <p className="text-lg font-light text-gray-500 dark:text-gray-400">
+            This page doesn&apos;t exist.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-3">
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:text-gray-900 dark:border-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-100"
+              >
+                {link.to === "/" ? "← " : ""}
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Maze mini-game section */}
       <motion.div
-        className="relative z-10 flex flex-col items-center gap-6 px-6 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={scattered ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="flex flex-col items-center py-16"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
       >
-        <p className="text-lg font-light text-gray-500 dark:text-gray-400">
-          This page doesn&apos;t exist.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-3">
-          {links.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:text-gray-900 dark:border-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-100"
-            >
-              {link.to === "/" ? "← " : ""}
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        <MazeGame />
       </motion.div>
     </div>
   );

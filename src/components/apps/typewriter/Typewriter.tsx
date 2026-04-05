@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import PaperCard from "./PaperCard";
+import { useSEO } from "@/hooks/useSEO";
 
 interface CardData {
   id: number;
@@ -31,6 +32,12 @@ const MOCK_1920S_DICTIONARY: Record<string, string> = {
 };
 
 export default function Typewriter() {
+  useSEO({
+    title: "Typewriter",
+    description: "Interactive typewriter with paper card output.",
+    path: "/apps/typewriter",
+  });
+
   const [inputText, setInputText] = useState("");
   const [cards, setCards] = useState<CardData[]>([]);
   const [isPolished, setIsPolished] = useState(false);

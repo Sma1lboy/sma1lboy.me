@@ -1,10 +1,37 @@
 import App from "@/App";
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+// ── DevTools Easter Egg ──
+if (typeof window !== "undefined") {
+  const banner = `
+  ███████╗███╗   ███╗ █████╗  ██╗██╗     ██████╗  ██████╗ ██╗   ██╗
+  ██╔════╝████╗ ████║██╔══██╗███║██║     ██╔══██╗██╔═══██╗╚██╗ ██╔╝
+  ███████╗██╔████╔██║███████║╚██║██║     ██████╔╝██║   ██║ ╚████╔╝
+  ╚════██║██║╚██╔╝██║██╔══██║ ██║██║     ██╔══██╗██║   ██║  ╚██╔╝
+  ███████║██║ ╚═╝ ██║██║  ██║ ██║███████╗██████╔╝╚██████╔╝   ██║
+  ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═╝╚══════╝╚═════╝  ╚═════╝    ╚═╝
+  `;
+
+  console.log(
+    `%c${banner}`,
+    "color: #a78bfa; font-family: monospace; font-size: 10px; line-height: 1.2;",
+  );
+  console.log(
+    "%c Hey, you found the secret console! 👀 ",
+    "background: #7c3aed; color: #fff; font-size: 14px; padding: 6px 12px; border-radius: 4px; font-weight: bold;",
+  );
+  console.log(
+    "%c 🚀 Check out my work → https://github.com/Sma1lboy ",
+    "color: #a78bfa; font-size: 12px; padding: 4px 0;",
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
+
+// Register service worker in production
+if ("serviceWorker" in navigator && import.meta.env.PROD) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}

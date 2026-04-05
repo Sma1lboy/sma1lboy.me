@@ -1,0 +1,178 @@
+export interface GalleryPhoto {
+  id: string;
+  src: string;
+  alt: string;
+  caption: string;
+  category: GalleryCategory;
+  width: number;
+  height: number;
+}
+
+export type GalleryCategory = "Workspace" | "Events" | "Travel" | "Code";
+
+export const galleryCategories: GalleryCategory[] = ["Workspace", "Events", "Travel", "Code"];
+
+export const galleryPhotos: GalleryPhoto[] = [
+  {
+    id: "workspace-1",
+    src: "https://picsum.photos/seed/desk-setup/800/600",
+    alt: "Dual monitor desk setup",
+    caption: "The command center — where bugs go to die",
+    category: "Workspace",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "code-1",
+    src: "https://picsum.photos/seed/terminal-green/600/900",
+    alt: "Terminal with green text",
+    caption: "3 AM debugging session, fueled by coffee",
+    category: "Code",
+    width: 600,
+    height: 900,
+  },
+  {
+    id: "events-1",
+    src: "https://picsum.photos/seed/hackathon-team/800/500",
+    alt: "Hackathon team photo",
+    caption: "36 hours, 4 developers, 1 working demo",
+    category: "Events",
+    width: 800,
+    height: 500,
+  },
+  {
+    id: "travel-1",
+    src: "https://picsum.photos/seed/mountain-view/700/700",
+    alt: "Mountain view from hiking trail",
+    caption: "Touch grass protocol — executed successfully",
+    category: "Travel",
+    width: 700,
+    height: 700,
+  },
+  {
+    id: "workspace-2",
+    src: "https://picsum.photos/seed/coffee-code/600/800",
+    alt: "Coffee and laptop",
+    caption: "Essential fuel for git push --force (just kidding)",
+    category: "Workspace",
+    width: 600,
+    height: 800,
+  },
+  {
+    id: "code-2",
+    src: "https://picsum.photos/seed/vscode-dark/800/600",
+    alt: "VS Code editor with dark theme",
+    caption: "Dark mode everything — my retinas thank me",
+    category: "Code",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "events-2",
+    src: "https://picsum.photos/seed/tech-talk/800/450",
+    alt: "Tech conference stage",
+    caption: "First tech talk — slides crashed, demo worked",
+    category: "Events",
+    width: 800,
+    height: 450,
+  },
+  {
+    id: "travel-2",
+    src: "https://picsum.photos/seed/sunset-city/600/900",
+    alt: "City sunset view",
+    caption: "Golden hour over the skyline — SSH'd in from the rooftop",
+    category: "Travel",
+    width: 600,
+    height: 900,
+  },
+  {
+    id: "workspace-3",
+    src: "https://picsum.photos/seed/mech-keyboard/800/500",
+    alt: "Mechanical keyboard close-up",
+    caption: "Cherry MX Blues — annoying everyone in the office",
+    category: "Workspace",
+    width: 800,
+    height: 500,
+  },
+  {
+    id: "code-3",
+    src: "https://picsum.photos/seed/git-graph/700/700",
+    alt: "Git branch visualization",
+    caption: "This git history is modern art, actually",
+    category: "Code",
+    width: 700,
+    height: 700,
+  },
+  {
+    id: "travel-3",
+    src: "https://picsum.photos/seed/beach-laptop/800/600",
+    alt: "Laptop on beach",
+    caption: "Working remotely — sand in the keyboard edition",
+    category: "Travel",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "events-3",
+    src: "https://picsum.photos/seed/workshop-crowd/800/550",
+    alt: "Workshop with attendees",
+    caption: "Teaching React hooks — watching minds get hooked",
+    category: "Events",
+    width: 800,
+    height: 550,
+  },
+  {
+    id: "workspace-4",
+    src: "https://picsum.photos/seed/plant-desk/700/900",
+    alt: "Desk with plant",
+    caption: "The plant outlived three side projects",
+    category: "Workspace",
+    width: 700,
+    height: 900,
+  },
+  {
+    id: "code-4",
+    src: "https://picsum.photos/seed/whiteboard-arch/800/600",
+    alt: "Whiteboard architecture diagram",
+    caption: "System design: where rectangles become microservices",
+    category: "Code",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "travel-4",
+    src: "https://picsum.photos/seed/train-window/600/800",
+    alt: "View from train window",
+    caption: "Deploying to prod from the bullet train",
+    category: "Travel",
+    width: 600,
+    height: 800,
+  },
+  {
+    id: "events-4",
+    src: "https://picsum.photos/seed/demo-day/800/500",
+    alt: "Demo day presentation",
+    caption: "Demo day — everything worked on the first try (lie)",
+    category: "Events",
+    width: 800,
+    height: 500,
+  },
+  {
+    id: "workspace-5",
+    src: "https://picsum.photos/seed/night-coding/800/600",
+    alt: "Late night coding setup",
+    caption: "Lo-fi beats + dark mode = flow state unlocked",
+    category: "Workspace",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "code-5",
+    src: "https://picsum.photos/seed/pr-merged/700/700",
+    alt: "Pull request merged notification",
+    caption: "All checks passed — the dopamine hit",
+    category: "Code",
+    width: 700,
+    height: 700,
+  },
+];
