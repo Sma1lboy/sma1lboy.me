@@ -2,12 +2,12 @@ import { useState, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Copy,
-  Check,
   ArrowRightLeft,
   Lock,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 
 // --- Helpers ---
 
@@ -134,8 +134,6 @@ export default function EncoderDecoder() {
   const [activeTab, setActiveTab] = useState<TabId>("base64");
   const [mode, setMode] = useState<"encode" | "decode">("encode");
   const [input, setInput] = useState("");
-  const [copied, setCopied] = useState(false);
-
   const tab = tabs.find((t) => t.id === activeTab)!;
 
   // Force decode mode for JWT
@@ -156,8 +154,7 @@ export default function EncoderDecoder() {
   const handleCopy = useCallback(() => {
     if (!output) return;
     navigator.clipboard.writeText(output).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      useToastStore.getState().addToast("Copied to clipboard!");
     });
   }, [output]);
 
@@ -275,12 +272,8 @@ export default function EncoderDecoder() {
                         disabled={!output}
                         className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 disabled:opacity-40 disabled:cursor-not-allowed dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                       >
-                        {copied ? (
-                          <Check size={12} className="text-green-500" />
-                        ) : (
-                          <Copy size={12} />
-                        )}
-                        {copied ? "Copied" : "Copy"}
+                        <Copy size={12} />
+                        Copy
                       </button>
                     </div>
                   </div>

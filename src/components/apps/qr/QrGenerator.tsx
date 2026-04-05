@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
-import { Download, Copy, Check, QrCode } from "lucide-react";
+import { Download, Copy, QrCode } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import QRCode from "qrcode";
 
@@ -19,7 +20,6 @@ export default function QrGenerator() {
   const [fgColor, setFgColor] = useState("#000000");
   const [bgColor, setBgColor] = useState("#ffffff");
   const [ecLevel, setEcLevel] = useState<ErrorCorrectionLevel>("M");
-  const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Render QR code to canvas
@@ -77,8 +77,7 @@ export default function QrGenerator() {
         await navigator.clipboard.write([
           new ClipboardItem({ "image/png": blob }),
         ]);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        useToastStore.getState().addToast("Copied to clipboard!");
       }
     } catch {
       // Clipboard API not supported or denied
@@ -229,17 +228,8 @@ export default function QrGenerator() {
                   disabled={!input.trim()}
                   className="flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:hover:bg-gray-900"
                 >
-                  {copied ? (
-                    <>
-                      <Check size={14} className="text-green-500" />
-                      Copied
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={14} />
-                      Copy
-                    </>
-                  )}
+                  <Copy size={14} />
+                  Copy
                 </button>
               </div>
             </div>

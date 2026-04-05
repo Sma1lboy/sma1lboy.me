@@ -9,6 +9,7 @@ import { AmbientPlayer } from "@/components/AmbientPlayer";
 import { Footer } from "@/components/Footer";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { RouteErrorBoundary } from "@/components/ErrorBoundary";
+import { Toast } from "@/components/Toast";
 
 function RootComponent() {
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -32,6 +33,7 @@ function RootComponent() {
       <Footer />
       <ScrollToTop />
       <AmbientPlayer />
+      <Toast />
     </>
   );
 }

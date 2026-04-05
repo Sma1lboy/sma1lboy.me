@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Copy } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { useToastStore } from "@/store/toastStore";
 
 const BASE = typeof window !== "undefined" ? window.location.origin : "";
 
@@ -27,8 +28,6 @@ const endpoints: Endpoint[] = [
 function EndpointRow({ ep, index }: { ep: Endpoint; index: number }) {
   const [response, setResponse] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
   const fullUrl = `${BASE}${ep.path}`;
 
   const tryIt = useCallback(async () => {
@@ -48,9 +47,9 @@ function EndpointRow({ ep, index }: { ep: Endpoint; index: number }) {
   }, [ep.path, response]);
 
   const copyUrl = useCallback(() => {
-    navigator.clipboard.writeText(fullUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      useToastStore.getState().addToast("Copied to clipboard!");
+    });
   }, [fullUrl]);
 
   return (
@@ -88,8 +87,8 @@ function EndpointRow({ ep, index }: { ep: Endpoint; index: number }) {
           onClick={copyUrl}
           className="flex items-center gap-1 text-xs text-gray-400 transition-colors hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300"
         >
-          {copied ? <Check size={10} /> : <Copy size={10} />}
-          {copied ? "Copied" : "Copy"}
+          <Copy size={10} />
+          Copy
         </button>
         <a
           href={ep.path}

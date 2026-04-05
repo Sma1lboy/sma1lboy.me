@@ -9,6 +9,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import {
   clamp,
@@ -142,11 +143,9 @@ const tabDefs: { id: TabId; label: string }[] = [
 // ---------------------------------------------------------------------------
 
 function CopyButton({ text, className }: { text: string; className?: string }) {
-  const [copied, setCopied] = useState(false);
   const copy = useCallback(() => {
     navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      useToastStore.getState().addToast("Copied to clipboard!");
     });
   }, [text]);
   return (
@@ -155,12 +154,8 @@ function CopyButton({ text, className }: { text: string; className?: string }) {
       className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs transition-colors hover:bg-gray-200 dark:hover:bg-gray-800 ${className ?? ""}`}
       title="Copy to clipboard"
     >
-      {copied ? (
-        <Check size={12} className="text-green-500" />
-      ) : (
-        <Copy size={12} />
-      )}
-      {copied ? "Copied" : "Copy"}
+      <Copy size={12} />
+      Copy
     </button>
   );
 }
@@ -174,33 +169,19 @@ function Swatch({
   label?: string;
   size?: "sm" | "md" | "lg";
 }) {
-  const [copied, setCopied] = useState(false);
   const dims = size === "sm" ? "h-10 w-10" : size === "lg" ? "h-20 w-full" : "h-14 w-14";
   return (
     <div className="flex flex-col items-center gap-1.5">
       <button
         onClick={() => {
           navigator.clipboard.writeText(color).then(() => {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
+            useToastStore.getState().addToast("Copied to clipboard!");
           });
         }}
         className={`${dims} relative rounded-lg border border-gray-200 transition-transform hover:scale-105 active:scale-95 dark:border-gray-700`}
         style={{ backgroundColor: color }}
         title={`Click to copy ${color}`}
       >
-        <AnimatePresence>
-          {copied && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50"
-            >
-              <Check size={16} className="text-white" />
-            </motion.div>
-          )}
-        </AnimatePresence>
       </button>
       {label && (
         <span className="text-[10px] text-gray-500 dark:text-gray-400">

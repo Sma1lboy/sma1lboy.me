@@ -2,7 +2,6 @@ import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Copy,
-  Check,
   Code2,
   User,
   Hash,
@@ -10,6 +9,7 @@ import {
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -368,30 +368,6 @@ function ColorInput({
 }
 
 // ---------------------------------------------------------------------------
-// Toast
-// ---------------------------------------------------------------------------
-
-function Toast({ message, visible }: { message: string; visible: boolean }) {
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-gray-900 px-4 py-2 text-sm text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
-        >
-          <div className="flex items-center gap-2">
-            <Check size={14} />
-            {message}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // Main Component
 // ---------------------------------------------------------------------------
 
@@ -404,7 +380,6 @@ export default function WidgetGenerator() {
   });
 
   const [activeTab, setActiveTab] = useState<WidgetType>("github");
-  const [toast, setToast] = useState<string | null>(null);
 
   // Configs
   const [githubConfig, setGithubConfig] =
@@ -420,18 +395,13 @@ export default function WidgetGenerator() {
   // Counter reset key
   const [counterKey, setCounterKey] = useState(0);
 
-  const showToast = useCallback((msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2000);
-  }, []);
-
   const copyToClipboard = useCallback(
     (text: string, label: string) => {
       navigator.clipboard.writeText(text).then(() => {
-        showToast(`${label} copied to clipboard`);
+        useToastStore.getState().addToast(`${label} copied to clipboard`);
       });
     },
-    [showToast],
+    [],
   );
 
   // Generate widget HTML
@@ -614,7 +584,6 @@ export default function WidgetGenerator() {
         </div>
       </div>
 
-      <Toast message={toast ?? ""} visible={toast !== null} />
     </div>
   );
 }

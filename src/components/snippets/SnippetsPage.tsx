@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Check, Copy, Search } from "lucide-react";
-import { useState, useMemo, useCallback } from "react";
+import { ArrowLeft, Copy, Search } from "lucide-react";
+import { useState, useMemo } from "react";
 import { Highlight, themes } from "prism-react-renderer";
 import {
   snippets,
@@ -11,6 +11,7 @@ import {
   type SnippetCategory,
 } from "../../constants/snippets";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -42,30 +43,16 @@ const itemVariants = {
 };
 
 function CopyButton({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = useCallback(async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [code]);
-
   return (
     <button
-      onClick={handleCopy}
+      onClick={async () => {
+        await navigator.clipboard.writeText(code);
+        useToastStore.getState().addToast("Copied to clipboard!");
+      }}
       className="absolute top-3 right-3 flex items-center gap-1.5 rounded-md bg-white/10 px-2 py-1 text-xs text-gray-400 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-gray-200"
     >
-      {copied ? (
-        <>
-          <Check size={12} />
-          Copied!
-        </>
-      ) : (
-        <>
-          <Copy size={12} />
-          Copy
-        </>
-      )}
+      <Copy size={12} />
+      Copy
     </button>
   );
 }

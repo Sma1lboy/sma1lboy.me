@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Copy,
-  Check,
   Upload,
   FileText,
   X,
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 
 // --- MD5 Implementation (RFC 1321) ---
 
@@ -139,13 +139,10 @@ type Mode = "generate" | "compare";
 // --- CopyButton ---
 
 function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-
   const handleCopy = useCallback(() => {
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      useToastStore.getState().addToast("Copied to clipboard!");
     }).catch(() => {
       // clipboard denied — ignore
     });
@@ -157,12 +154,8 @@ function CopyButton({ text }: { text: string }) {
       disabled={!text}
       className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
     >
-      {copied ? (
-        <Check size={12} className="text-green-500" />
-      ) : (
-        <Copy size={12} />
-      )}
-      {copied ? "Copied" : "Copy"}
+      <Copy size={12} />
+      Copy
     </button>
   );
 }

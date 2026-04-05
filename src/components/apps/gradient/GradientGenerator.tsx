@@ -1,13 +1,13 @@
 import { useState, useCallback, useMemo } from "react";
 import {
   Copy,
-  Check,
   Plus,
   Trash2,
   RotateCcw,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -181,8 +181,6 @@ export default function GradientGenerator() {
     { id: 2, color: "#ec4899", position: 50 },
     { id: 3, color: "#f59e0b", position: 100 },
   ]);
-  const [copied, setCopied] = useState(false);
-
   const cssValue = useMemo(
     () => buildCss(gradientType, angle, stops),
     [gradientType, angle, stops],
@@ -192,8 +190,7 @@ export default function GradientGenerator() {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(fullCss).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      useToastStore.getState().addToast("Copied to clipboard!");
     });
   }, [fullCss]);
 
@@ -453,7 +450,7 @@ export default function GradientGenerator() {
                   onClick={handleCopy}
                   className="absolute right-2 top-2 rounded-md border border-gray-200 bg-white p-1.5 text-gray-500 transition-colors hover:text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
                 >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  <Copy size={14} />
                 </button>
               </div>
             </div>

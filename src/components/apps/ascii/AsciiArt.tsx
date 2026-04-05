@@ -1,7 +1,8 @@
 import { useState, useMemo, useCallback } from "react";
-import { Copy, Check, Type } from "lucide-react";
+import { Copy, Type } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { renderAscii, FONTS, type FontStyle } from "./fonts";
 
@@ -20,16 +21,13 @@ export default function AsciiArt() {
 
   const [text, setText] = useState("HELLO");
   const [font, setFont] = useState<FontStyle>("block");
-  const [copied, setCopied] = useState(false);
-
   const output = useMemo(() => renderAscii(text, font), [text, font]);
 
   const handleCopy = useCallback(() => {
     if (!output) return;
     navigator.clipboard.writeText(output).then(
       () => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        useToastStore.getState().addToast("Copied to clipboard!");
       },
       () => {},
     );
@@ -108,17 +106,8 @@ export default function AsciiArt() {
               disabled={!output}
               className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:border-gray-800 dark:text-gray-400 dark:hover:border-gray-700 dark:hover:text-gray-200"
             >
-              {copied ? (
-                <>
-                  <Check size={12} />
-                  Copied!
-                </>
-              ) : (
-                <>
-                  <Copy size={12} />
-                  Copy
-                </>
-              )}
+              <Copy size={12} />
+              Copy
             </button>
           </div>
 
@@ -142,19 +131,6 @@ export default function AsciiArt() {
           </div>
         </div>
 
-        {/* Copied toast */}
-        <AnimatePresence>
-          {copied && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white shadow-lg dark:bg-gray-100 dark:text-gray-900"
-            >
-              Copied to clipboard!
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </div>
   );

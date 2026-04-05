@@ -1,16 +1,14 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Highlight, themes } from "prism-react-renderer";
-import { Check, Copy } from "lucide-react";
+import { Copy } from "lucide-react";
+import { useToastStore } from "@/store/toastStore";
 
 function CopyButton({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false);
-
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    useToastStore.getState().addToast("Copied to clipboard!");
   }, [code]);
 
   return (
@@ -18,17 +16,8 @@ function CopyButton({ code }: { code: string }) {
       onClick={handleCopy}
       className="absolute top-3 right-3 flex items-center gap-1.5 rounded-md bg-white/10 px-2 py-1 text-xs text-gray-400 backdrop-blur-sm transition-colors hover:bg-white/20 hover:text-gray-200"
     >
-      {copied ? (
-        <>
-          <Check size={12} />
-          Copied!
-        </>
-      ) : (
-        <>
-          <Copy size={12} />
-          Copy
-        </>
-      )}
+      <Copy size={12} />
+      Copy
     </button>
   );
 }

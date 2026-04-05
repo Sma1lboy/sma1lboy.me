@@ -1,7 +1,6 @@
 import { useState, useMemo, useCallback, useRef } from "react";
 import {
   Copy,
-  Check,
   Braces,
   TreePine,
   Minimize2,
@@ -13,6 +12,7 @@ import {
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Highlight, themes } from "prism-react-renderer";
 import { useSEO } from "@/hooks/useSEO";
+import { useToastStore } from "@/store/toastStore";
 
 // --- Helpers ---
 
@@ -219,7 +219,6 @@ export default function JsonFormatter() {
 
   const [input, setInput] = useState(SAMPLE_JSON);
   const [viewMode, setViewMode] = useState<ViewMode>("editor");
-  const [copied, setCopied] = useState(false);
   const [sizeInfo, setSizeInfo] = useState<{ before: number; after: number } | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -279,8 +278,7 @@ export default function JsonFormatter() {
   const handleCopy = useCallback(() => {
     const text = parseResult.valid ? parseResult.formatted : input;
     navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      useToastStore.getState().addToast("Copied to clipboard!");
     });
   }, [parseResult, input]);
 
@@ -338,8 +336,8 @@ export default function JsonFormatter() {
             onClick={handleCopy}
             className="inline-flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
           >
-            {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-            {copied ? "Copied" : "Copy"}
+            <Copy size={14} />
+            Copy
           </button>
 
           {/* Spacer */}
