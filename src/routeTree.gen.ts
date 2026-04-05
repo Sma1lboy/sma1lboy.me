@@ -17,6 +17,7 @@ import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ReadingRouteImport } from './routes/reading'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PerfRouteImport } from './routes/perf'
 import { Route as GuestbookRouteImport } from './routes/guestbook'
 import { Route as GithubRouteImport } from './routes/github'
 import { Route as GalleryRouteImport } from './routes/gallery'
@@ -84,6 +85,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/profile.lazy').then((d) => d.Route))
+const PerfRoute = PerfRouteImport.update({
+  id: '/perf',
+  path: '/perf',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/perf.lazy').then((d) => d.Route))
 const GuestbookRoute = GuestbookRouteImport.update({
   id: '/guestbook',
   path: '/guestbook',
@@ -227,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
   '/guestbook': typeof GuestbookRoute
+  '/perf': typeof PerfRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
   '/guestbook': typeof GuestbookRoute
+  '/perf': typeof PerfRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
@@ -300,6 +308,7 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
   '/guestbook': typeof GuestbookRoute
+  '/perf': typeof PerfRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/reading': typeof ReadingRoute
@@ -338,6 +347,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/github'
     | '/guestbook'
+    | '/perf'
     | '/profile'
     | '/projects'
     | '/reading'
@@ -374,6 +384,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/github'
     | '/guestbook'
+    | '/perf'
     | '/profile'
     | '/projects'
     | '/reading'
@@ -410,6 +421,7 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/github'
     | '/guestbook'
+    | '/perf'
     | '/profile'
     | '/projects'
     | '/reading'
@@ -447,6 +459,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   GithubRoute: typeof GithubRoute
   GuestbookRoute: typeof GuestbookRoute
+  PerfRoute: typeof PerfRoute
   ProfileRoute: typeof ProfileRoute
   ProjectsRoute: typeof ProjectsRoute
   ReadingRoute: typeof ReadingRoute
@@ -530,6 +543,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perf': {
+      id: '/perf'
+      path: '/perf'
+      fullPath: '/perf'
+      preLoaderRoute: typeof PerfRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guestbook': {
@@ -727,6 +747,7 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   GithubRoute: GithubRoute,
   GuestbookRoute: GuestbookRoute,
+  PerfRoute: PerfRoute,
   ProfileRoute: ProfileRoute,
   ProjectsRoute: ProjectsRoute,
   ReadingRoute: ReadingRoute,
