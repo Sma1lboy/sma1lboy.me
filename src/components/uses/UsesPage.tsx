@@ -1,11 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import {
-  usesItems,
-  categoryMeta,
-  categoryOrder,
-} from "../../constants/uses";
+import { usesItems, categoryMeta, categoryOrder } from "../../constants/uses";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -37,6 +34,12 @@ const sectionVariants = {
 };
 
 export default function UsesPage() {
+  useSEO({
+    title: "Uses",
+    description: "Tools, hardware, and software I use daily.",
+    path: "/uses",
+  });
+
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0a0a0a] dark:text-gray-100">
       <div className="mx-auto max-w-4xl px-6 py-12 sm:py-20">
@@ -100,7 +103,7 @@ export default function UsesPage() {
                         key={item.id}
                         variants={itemVariants}
                         whileHover={{ y: -2, transition: { duration: 0.2 } }}
-                        className={`group flex items-center justify-between rounded-xl border border-gray-100 bg-white px-5 py-4 transition-colors duration-200 hover:border-gray-200 dark:border-[#1a1a1a] dark:bg-[#0f0f0f] dark:hover:border-[#2a2a2a] dark:hover:bg-[#111]${item.url ? " cursor-pointer" : ""}`}
+                        className={`group flex items-center justify-between rounded-xl border border-gray-100 bg-white px-5 py-4 transition-colors duration-200 hover:border-gray-200 dark:border-[#1a1a1a] dark:bg-[#0f0f0f] dark:hover:border-[#2a2a2a] dark:hover:bg-[#111]${item.url ? "cursor-pointer" : ""}`}
                       >
                         <div className="min-w-0 flex-1">
                           <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
@@ -121,12 +124,7 @@ export default function UsesPage() {
 
                     if (item.url) {
                       return (
-                        <a
-                          key={item.id}
-                          href={item.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer">
                           {content}
                         </a>
                       );

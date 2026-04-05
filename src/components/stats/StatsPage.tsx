@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, GitCommit, Clock, FolderGit2, Code2, Coffee, FileCode } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -151,6 +152,12 @@ const funStats = [
 /* ── Page ── */
 
 export default function StatsPage() {
+  useSEO({
+    title: "Stats",
+    description: "Developer stats and metrics.",
+    path: "/stats",
+  });
+
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0a0a0a] dark:text-gray-100">
       <div className="mx-auto max-w-4xl px-6 py-12 sm:py-20">

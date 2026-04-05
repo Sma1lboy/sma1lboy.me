@@ -7,6 +7,7 @@ import {
   typeColors,
   type ChangelogEntry,
 } from "../../constants/changelog";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -54,6 +55,12 @@ function formatDate(dateStr: string) {
 }
 
 export default function ChangelogPage() {
+  useSEO({
+    title: "Changelog",
+    description: "Site updates and changes.",
+    path: "/changelog",
+  });
+
   const groups = groupByMonth(changelogEntries);
 
   return (

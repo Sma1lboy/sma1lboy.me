@@ -10,6 +10,7 @@ import {
   languageLabels,
   type SnippetCategory,
 } from "../../constants/snippets";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -70,9 +71,13 @@ function CopyButton({ code }: { code: string }) {
 }
 
 export default function SnippetsPage() {
-  const [activeFilter, setActiveFilter] = useState<SnippetCategory | "all">(
-    "all"
-  );
+  useSEO({
+    title: "Snippets",
+    description: "Useful code snippets and patterns.",
+    path: "/snippets",
+  });
+
+  const [activeFilter, setActiveFilter] = useState<SnippetCategory | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const filtered = useMemo(() => {
@@ -88,7 +93,7 @@ export default function SnippetsPage() {
         (s) =>
           s.title.toLowerCase().includes(q) ||
           s.description.toLowerCase().includes(q) ||
-          s.tags.some((t) => t.toLowerCase().includes(q))
+          s.tags.some((t) => t.toLowerCase().includes(q)),
       );
     }
 
@@ -145,7 +150,7 @@ export default function SnippetsPage() {
               placeholder="Search snippets by title, description, or tag..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-gray-300 focus:outline-none dark:border-[#1a1a1a] dark:bg-[#0f0f0f] dark:text-gray-100 dark:placeholder:text-gray-600 dark:focus:border-[#2a2a2a]"
+              className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-4 pl-10 text-sm text-gray-900 transition-colors placeholder:text-gray-400 focus:border-gray-300 focus:outline-none dark:border-[#1a1a1a] dark:bg-[#0f0f0f] dark:text-gray-100 dark:placeholder:text-gray-600 dark:focus:border-[#2a2a2a]"
             />
           </div>
         </motion.div>
@@ -222,13 +227,7 @@ export default function SnippetsPage() {
                     code={snippet.code}
                     language={snippet.language}
                   >
-                    {({
-                      className,
-                      style,
-                      tokens,
-                      getLineProps,
-                      getTokenProps,
-                    }) => (
+                    {({ className, style, tokens, getLineProps, getTokenProps }) => (
                       <pre
                         className={`${className} overflow-x-auto px-5 py-4 text-[13px] leading-relaxed`}
                         style={{

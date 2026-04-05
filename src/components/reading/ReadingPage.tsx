@@ -8,6 +8,7 @@ import {
   categoryColors,
   type ReadingCategory,
 } from "../../constants/reading";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -38,6 +39,12 @@ const itemVariants = {
 };
 
 export default function ReadingPage() {
+  useSEO({
+    title: "Reading",
+    description: "Books and articles I recommend.",
+    path: "/reading",
+  });
+
   const [activeFilter, setActiveFilter] = useState<ReadingCategory | "all">("all");
 
   const filtered =

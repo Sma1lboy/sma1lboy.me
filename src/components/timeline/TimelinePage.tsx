@@ -1,5 +1,6 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Link } from "@tanstack/react-router";
+import { useSEO } from "@/hooks/useSEO";
 import {
   ArrowLeft,
   Award,
@@ -78,16 +79,18 @@ const typeColors: Record<
   },
 };
 
-const typeIcons: Record<ExperienceType | "milestone", React.ComponentType<{ className?: string }>> =
-  {
-    education: GraduationCap,
-    work: Briefcase,
-    internship: Users,
-    project: Code2,
-    award: Trophy,
-    certification: Award,
-    milestone: Flag,
-  };
+const typeIcons: Record<
+  ExperienceType | "milestone",
+  React.ComponentType<{ className?: string }>
+> = {
+  education: GraduationCap,
+  work: Briefcase,
+  internship: Users,
+  project: Code2,
+  award: Trophy,
+  certification: Award,
+  milestone: Flag,
+};
 
 interface TimelineEntry {
   id: string;
@@ -184,8 +187,7 @@ function experienceToEntry(exp: Experience): TimelineEntry {
 const allEntries: TimelineEntry[] = [
   ...sortedExperiences.map(experienceToEntry),
   ...additionalMilestones,
-]
-  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 // Deduplicate: if a milestone overlaps with an experience (same rough date + similar title), keep the experience
 const deduplicatedEntries = allEntries.filter((entry, _idx, arr) => {
@@ -354,9 +356,7 @@ function TimelineCard({
       <div className="rounded-xl border border-gray-100 bg-white p-5 transition-all duration-300 hover:border-gray-200 hover:shadow-md dark:border-[#1a1a1a] dark:bg-[#0f0f0f] dark:hover:border-[#2a2a2a] dark:hover:shadow-lg dark:hover:shadow-black/20">
         {/* Badge + Date */}
         <div className="mb-3 flex items-center justify-between">
-          <span
-            className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${colors.badge}`}
-          >
+          <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${colors.badge}`}>
             {typeColors[entry.type].label}
           </span>
           <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-[#666]">
@@ -366,9 +366,7 @@ function TimelineCard({
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-          {entry.title}
-        </h3>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">{entry.title}</h3>
 
         {/* Subtitle (company/org) */}
         {entry.subtitle && (
@@ -414,7 +412,7 @@ function TimelineCard({
           <ul className="mt-3 space-y-1">
             {entry.achievements.slice(0, 2).map((a, i) => (
               <li key={i} className="flex items-start text-xs text-gray-500 dark:text-[#888]">
-                <Star className="mr-1.5 mt-0.5 h-3 w-3 flex-shrink-0 text-gray-300 dark:text-[#444]" />
+                <Star className="mt-0.5 mr-1.5 h-3 w-3 flex-shrink-0 text-gray-300 dark:text-[#444]" />
                 {a}
               </li>
             ))}
@@ -449,6 +447,12 @@ function TimelineCard({
 }
 
 export default function TimelinePage() {
+  useSEO({
+    title: "Timeline",
+    description: "My journey through tech and life.",
+    path: "/timeline",
+  });
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -497,16 +501,16 @@ export default function TimelinePage() {
 
           {/* Legend */}
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {(
-              ["education", "work", "internship", "project", "award", "milestone"] as const
-            ).map((type) => (
-              <div key={type} className="flex items-center gap-1.5">
-                <div className={`h-2.5 w-2.5 rounded-full ${typeColors[type].dot}`} />
-                <span className="text-xs text-gray-400 dark:text-[#666]">
-                  {typeColors[type].label}
-                </span>
-              </div>
-            ))}
+            {(["education", "work", "internship", "project", "award", "milestone"] as const).map(
+              (type) => (
+                <div key={type} className="flex items-center gap-1.5">
+                  <div className={`h-2.5 w-2.5 rounded-full ${typeColors[type].dot}`} />
+                  <span className="text-xs text-gray-400 dark:text-[#666]">
+                    {typeColors[type].label}
+                  </span>
+                </div>
+              ),
+            )}
           </div>
         </motion.header>
 
@@ -531,12 +535,7 @@ export default function TimelinePage() {
           {/* Timeline entries */}
           <div className="relative space-y-8 md:space-y-12">
             {deduplicatedEntries.map((entry, index) => (
-              <TimelineNode
-                key={entry.id}
-                entry={entry}
-                index={index}
-                isLeft={index % 2 === 0}
-              />
+              <TimelineNode key={entry.id} entry={entry} index={index} isLeft={index % 2 === 0} />
             ))}
           </div>
 

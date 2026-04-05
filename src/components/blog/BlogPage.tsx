@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Rss } from "lucide-react";
 import { blogPosts } from "../../constants/blog";
+import { useSEO } from "@/hooks/useSEO";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -12,6 +13,12 @@ function formatDate(iso: string): string {
 }
 
 export default function BlogPage() {
+  useSEO({
+    title: "Blog",
+    description: "Thoughts on software engineering, AI, and web development.",
+    path: "/blog",
+  });
+
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100">
       <div className="mx-auto max-w-2xl px-6 py-12 sm:py-20">

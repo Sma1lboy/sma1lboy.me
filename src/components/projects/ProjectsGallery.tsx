@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Star } from "lucide-react";
 import { featuredProjects, projectCategories, type ProjectCategory } from "@/constants/home";
+import { useSEO } from "@/hooks/useSEO";
 
 type FilterOption = "All" | ProjectCategory;
 
@@ -11,6 +12,12 @@ const filters: FilterOption[] = ["All", ...projectCategories];
 const featuredItems = featuredProjects.filter((p) => p.featured);
 
 export function ProjectsGallery() {
+  useSEO({
+    title: "Projects",
+    description: "Open source projects and side builds.",
+    path: "/projects",
+  });
+
   const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
 
   const filteredProjects =
@@ -31,9 +38,7 @@ export function ProjectsGallery() {
             <span>Home</span>
           </Link>
           <div className="h-4 w-px bg-gray-200 dark:bg-[#2a2a2a]" />
-          <h1
-            className="text-sm font-medium tracking-wide text-gray-900 dark:text-[#e0e0e0]"
-          >
+          <h1 className="text-sm font-medium tracking-wide text-gray-900 dark:text-[#e0e0e0]">
             Projects
           </h1>
         </div>
@@ -44,11 +49,7 @@ export function ProjectsGallery() {
         <FeaturedHero projects={featuredItems} />
 
         {/* Filter Bar */}
-        <FilterBar
-          filters={filters}
-          active={activeFilter}
-          onChange={setActiveFilter}
-        />
+        <FilterBar filters={filters} active={activeFilter} onChange={setActiveFilter} />
 
         {/* Project Grid */}
         <ProjectGrid projects={filteredProjects} />
@@ -59,15 +60,11 @@ export function ProjectsGallery() {
 
 /* ─── Featured Hero ─── */
 
-function FeaturedHero({
-  projects,
-}: {
-  projects: typeof featuredProjects;
-}) {
+function FeaturedHero({ projects }: { projects: typeof featuredProjects }) {
   return (
     <section className="mb-16">
       <motion.p
-        className="mb-6 flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-500 dark:text-[#666]"
+        className="mb-6 flex items-center gap-2 text-[11px] tracking-[0.2em] text-gray-500 uppercase dark:text-[#666]"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -104,19 +101,13 @@ function FeaturedHero({
             {/* Content overlay — stays light text on dark gradient regardless of theme */}
             <div className="absolute inset-x-0 bottom-0 p-6">
               <div className="mb-2 flex items-center gap-2">
-                <span
-                  className="rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#b0b0b0]"
-                >
+                <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] font-medium tracking-wider text-[#b0b0b0] uppercase">
                   {project.category}
                 </span>
-                <span className="text-[11px] text-[#666]">
-                  {project.year}
-                </span>
+                <span className="text-[11px] text-[#666]">{project.year}</span>
               </div>
 
-              <h3 className="mb-1.5 text-xl font-semibold text-white">
-                {project.title}
-              </h3>
+              <h3 className="mb-1.5 text-xl font-semibold text-white">{project.title}</h3>
 
               <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-gray-300">
                 {project.description}
@@ -160,7 +151,7 @@ function FilterBar({
 }) {
   return (
     <motion.div
-      className="mb-10 flex gap-1 overflow-x-auto pb-2 scrollbar-none"
+      className="scrollbar-none mb-10 flex gap-1 overflow-x-auto pb-2"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.3 }}
@@ -169,7 +160,7 @@ function FilterBar({
         <button
           key={filter}
           onClick={() => onChange(filter)}
-          className={`relative whitespace-nowrap rounded-lg px-4 py-2 text-[13px] font-medium transition-colors hover:cursor-pointer ${
+          className={`relative rounded-lg px-4 py-2 text-[13px] font-medium whitespace-nowrap transition-colors hover:cursor-pointer ${
             active === filter
               ? "text-gray-900 dark:text-[#e0e0e0]"
               : "text-gray-400 dark:text-[#666]"
@@ -191,16 +182,9 @@ function FilterBar({
 
 /* ─── Project Grid ─── */
 
-function ProjectGrid({
-  projects,
-}: {
-  projects: typeof featuredProjects;
-}) {
+function ProjectGrid({ projects }: { projects: typeof featuredProjects }) {
   return (
-    <motion.div
-      layout
-      className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-    >
+    <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <AnimatePresence mode="popLayout">
         {projects.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
@@ -250,9 +234,7 @@ function ProjectCard({
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">
         <div className="mb-2 flex items-center justify-between">
-          <h3
-            className="text-sm font-semibold text-gray-800 transition-colors duration-200 group-hover:text-gray-900 dark:text-[#d0d0d0] dark:group-hover:text-white"
-          >
+          <h3 className="text-sm font-semibold text-gray-800 transition-colors duration-200 group-hover:text-gray-900 dark:text-[#d0d0d0] dark:group-hover:text-white">
             {project.title}
           </h3>
           <ArrowUpRight
@@ -261,9 +243,7 @@ function ProjectCard({
           />
         </div>
 
-        <p
-          className="mb-3 line-clamp-2 text-[12px] leading-relaxed text-gray-500 dark:text-[#888]"
-        >
+        <p className="mb-3 line-clamp-2 text-[12px] leading-relaxed text-gray-500 dark:text-[#888]">
           {project.description}
         </p>
 
@@ -281,17 +261,11 @@ function ProjectCard({
 
         {/* Category + Year */}
         <div className="mt-3 flex items-center gap-2 border-t border-gray-100 pt-3 dark:border-[#1a1a1a]">
-          <span
-            className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-[#555]"
-          >
+          <span className="text-[10px] tracking-wider text-gray-400 uppercase dark:text-[#555]">
             {project.category}
           </span>
-          <span className="text-[10px] text-gray-300 dark:text-[#444]">
-            ·
-          </span>
-          <span className="text-[10px] text-gray-300 dark:text-[#444]">
-            {project.year}
-          </span>
+          <span className="text-[10px] text-gray-300 dark:text-[#444]">·</span>
+          <span className="text-[10px] text-gray-300 dark:text-[#444]">{project.year}</span>
         </div>
       </div>
     </motion.a>

@@ -15,6 +15,7 @@ import {
   Twitter,
 } from "lucide-react";
 import { resumeData } from "../../constants/resume";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -27,6 +28,12 @@ function section(delay: number) {
 }
 
 export default function ResumePage() {
+  useSEO({
+    title: "Resume",
+    description: "Professional experience, education, and skills.",
+    path: "/resume",
+  });
+
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0a0a0a] dark:text-gray-100">
       <div className="mx-auto max-w-4xl px-6 py-12 sm:py-20">
@@ -55,12 +62,8 @@ export default function ResumePage() {
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-gray-100">
             {resumeData.name}
           </h1>
-          <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
-            @{resumeData.handle}
-          </p>
-          <p className="mt-3 text-base text-gray-600 dark:text-[#999]">
-            {resumeData.title}
-          </p>
+          <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">@{resumeData.handle}</p>
+          <p className="mt-3 text-base text-gray-600 dark:text-[#999]">{resumeData.title}</p>
 
           {/* Contact links */}
           <div className="mt-5 flex flex-wrap items-center gap-4">
@@ -105,9 +108,7 @@ export default function ResumePage() {
         <motion.section className="mb-16" {...section(0.15)}>
           <div className="mb-6 flex items-center gap-2">
             <Briefcase size={16} className="text-gray-400 dark:text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Experience
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Experience</h2>
           </div>
 
           <div className="relative ml-3 border-l border-gray-200 pl-8 dark:border-[#1a1a1a]">
@@ -121,7 +122,7 @@ export default function ResumePage() {
               >
                 {/* Timeline dot */}
                 <div
-                  className="absolute -left-[37px] top-1.5 h-3 w-3 rounded-full border-2 border-white dark:border-[#0a0a0a]"
+                  className="absolute top-1.5 -left-[37px] h-3 w-3 rounded-full border-2 border-white dark:border-[#0a0a0a]"
                   style={{ backgroundColor: exp.color }}
                 />
 
@@ -130,9 +131,7 @@ export default function ResumePage() {
                     <h3 className="text-base font-medium text-gray-900 dark:text-[#e0e0e0]">
                       {exp.company}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-[#888]">
-                      {exp.role}
-                    </p>
+                    <p className="text-sm text-gray-500 dark:text-[#888]">{exp.role}</p>
                   </div>
                   <span className="shrink-0 text-xs text-gray-400 dark:text-[#666]">
                     {exp.period}
@@ -162,9 +161,7 @@ export default function ResumePage() {
         <motion.section className="mb-16" {...section(0.3)}>
           <div className="mb-6 flex items-center gap-2">
             <GraduationCap size={16} className="text-gray-400 dark:text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Education
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Education</h2>
           </div>
 
           {resumeData.education.map((edu) => (
@@ -180,9 +177,7 @@ export default function ResumePage() {
                   {edu.period}
                 </span>
               </div>
-              <p className="mt-1 text-sm text-gray-500 dark:text-[#888]">
-                {edu.degree}
-              </p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-[#888]">{edu.degree}</p>
               <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-[#999]">
                 {edu.details}
               </p>
@@ -194,9 +189,7 @@ export default function ResumePage() {
         <motion.section className="mb-16" {...section(0.4)}>
           <div className="mb-6 flex items-center gap-2">
             <BookOpen size={16} className="text-gray-400 dark:text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Skills
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Skills</h2>
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -256,9 +249,7 @@ export default function ResumePage() {
                       {c.role}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm text-gray-500 dark:text-[#888]">
-                    {c.description}
-                  </p>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-[#888]">{c.description}</p>
                 </div>
                 <ExternalLink
                   size={14}
@@ -273,9 +264,7 @@ export default function ResumePage() {
         <motion.section className="mb-16" {...section(0.6)}>
           <div className="mb-6 flex items-center gap-2">
             <Award size={16} className="text-gray-400 dark:text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Achievements
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Achievements</h2>
           </div>
 
           <div className="space-y-3">
@@ -287,12 +276,8 @@ export default function ResumePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.65 + i * 0.07, ease }}
               >
-                <h3 className="text-sm font-medium text-gray-900 dark:text-[#e0e0e0]">
-                  {a.title}
-                </h3>
-                <p className="mt-1 text-sm text-gray-500 dark:text-[#888]">
-                  {a.description}
-                </p>
+                <h3 className="text-sm font-medium text-gray-900 dark:text-[#e0e0e0]">{a.title}</h3>
+                <p className="mt-1 text-sm text-gray-500 dark:text-[#888]">{a.description}</p>
               </motion.div>
             ))}
           </div>

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link, useParams } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts, getBlogPost } from "../../constants/blog";
+import { useSEO } from "@/hooks/useSEO";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -14,6 +15,12 @@ function formatDate(iso: string): string {
 export default function BlogPostPage() {
   const { slug } = useParams({ from: "/blog/$slug" });
   const post = getBlogPost(slug);
+
+  useSEO({
+    title: post?.title ?? "Blog Post",
+    description: post?.excerpt ?? "A blog post by Jackson Chen.",
+    path: `/blog/${slug}`,
+  });
 
   if (!post) {
     return (
@@ -71,7 +78,7 @@ export default function BlogPostPage() {
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl font-bold leading-tight tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
+          <h1 className="text-2xl leading-tight font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             {post.title}
           </h1>
 
@@ -100,10 +107,7 @@ export default function BlogPostPage() {
           }}
         >
           {paragraphs.map((paragraph, i) => (
-            <p
-              key={i}
-              className="text-[15px] leading-[1.8] text-gray-700 dark:text-gray-300"
-            >
+            <p key={i} className="text-[15px] leading-[1.8] text-gray-700 dark:text-gray-300">
               {paragraph}
             </p>
           ))}

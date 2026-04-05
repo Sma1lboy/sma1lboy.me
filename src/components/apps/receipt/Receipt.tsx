@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
+import { useSEO } from "@/hooks/useSEO";
 
 // ── Verlet Cloth Simulation Config ──
 const COLS = 18; // width segments
@@ -227,6 +228,12 @@ function createReceiptTexture(): THREE.CanvasTexture {
 }
 
 export default function Receipt() {
+  useSEO({
+    title: "Receipt",
+    description: "3D receipt generator with cloth simulation.",
+    path: "/apps/receipt",
+  });
+
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<{
     renderer: THREE.WebGLRenderer;

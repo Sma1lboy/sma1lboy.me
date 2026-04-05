@@ -1,12 +1,18 @@
+import { useSEO } from "@/hooks/useSEO";
 import { Sidebar } from "./Sidebar";
 import { ThoughtsFeed } from "./ThoughtsFeed";
 import { ImageGallery } from "./ImageGallery";
 
 export function Home3() {
+  useSEO({
+    title: "Jackson Chen - Full Stack Developer",
+    description:
+      "Full Stack Developer & CS graduate. Building AI tooling, open-source projects, and interactive web experiences.",
+    path: "/",
+  });
+
   return (
-    <div
-      className="flex min-h-screen w-screen flex-col bg-white font-mono text-gray-600 transition-colors duration-300 md:h-screen md:min-h-0 md:flex-row dark:bg-[#0a0a0a] dark:text-[#b0b0b0]"
-    >
+    <div className="flex min-h-screen w-screen flex-col bg-white font-mono text-gray-600 transition-colors duration-300 md:h-screen md:min-h-0 md:flex-row dark:bg-[#0a0a0a] dark:text-[#b0b0b0]">
       {/* Left sidebar */}
       <div className="w-full md:w-[250px] md:shrink-0">
         <Sidebar />

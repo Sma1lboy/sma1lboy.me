@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 interface OutputLine {
   id: number;
@@ -121,6 +122,12 @@ function nextId() {
 }
 
 export default function Terminal() {
+  useSEO({
+    title: "Terminal",
+    description: "Interactive terminal emulator with custom commands.",
+    path: "/apps/terminal",
+  });
+
   const [output, setOutput] = useState<OutputLine[]>([
     {
       id: nextId(),

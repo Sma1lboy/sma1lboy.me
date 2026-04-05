@@ -11,6 +11,7 @@ import {
   Send,
   CheckCircle,
 } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -140,11 +141,7 @@ function FloatingField({
         className={`pointer-events-none absolute left-4 origin-left ${
           error ? "text-red-400 dark:text-red-500" : "text-gray-500 dark:text-gray-400"
         }`}
-        animate={
-          active
-            ? { y: 4, scale: 0.75, opacity: 1 }
-            : { y: 14, scale: 1, opacity: 0.6 }
-        }
+        animate={active ? { y: 4, scale: 0.75, opacity: 1 } : { y: 14, scale: 1, opacity: 0.6 }}
         transition={{ duration: 0.2, ease }}
       >
         {label}
@@ -168,6 +165,12 @@ function FloatingField({
 }
 
 export default function ContactPage() {
+  useSEO({
+    title: "Contact",
+    description: "Get in touch.",
+    path: "/contact",
+  });
+
   const [form, setForm] = useState<FormData>({
     name: "",
     email: "",

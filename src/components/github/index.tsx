@@ -1,14 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  GitFork,
-  RefreshCw,
-  Star,
-  BookOpen,
-  ExternalLink,
-} from "lucide-react";
+import { ArrowLeft, GitFork, RefreshCw, Star, BookOpen, ExternalLink } from "lucide-react";
 import { useGitHub } from "@/hooks/useGitHub";
+import { useSEO } from "@/hooks/useSEO";
 import type { GitHubRepo } from "@/services/githubApi";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
@@ -82,7 +76,10 @@ function SkeletonHeatmap() {
       <div className="h-5 w-32 animate-pulse rounded bg-gray-200 dark:bg-neutral-800" />
       <div className="grid grid-cols-[repeat(53,1fr)] gap-[3px]">
         {Array.from({ length: 53 * 7 }).map((_, i) => (
-          <div key={i} className="aspect-square animate-pulse rounded-sm bg-gray-200 dark:bg-neutral-800" />
+          <div
+            key={i}
+            className="aspect-square animate-pulse rounded-sm bg-gray-200 dark:bg-neutral-800"
+          />
         ))}
       </div>
     </div>
@@ -93,7 +90,10 @@ function SkeletonStats() {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="animate-pulse rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900">
+        <div
+          key={i}
+          className="animate-pulse rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
+        >
           <div className="mb-2 h-4 w-20 rounded bg-gray-200 dark:bg-neutral-800" />
           <div className="h-8 w-16 rounded bg-gray-200 dark:bg-neutral-800" />
         </div>
@@ -125,6 +125,12 @@ function SkeletonRepoList() {
 // --- Main page ---
 
 export default function GitHubActivityPage() {
+  useSEO({
+    title: "GitHub",
+    description: "Open source contributions and activity.",
+    path: "/github",
+  });
+
   const { user, repos, contributions, totalContributions, loading, error } = useGitHub();
 
   if (error) {
@@ -157,7 +163,9 @@ export default function GitHubActivityPage() {
           transition={{ duration: 0.5, ease }}
         >
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">GitHub Activity</h1>
-          <p className="mt-2 text-gray-500 dark:text-gray-400">Open source contributions and activity</p>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">
+            Open source contributions and activity
+          </p>
         </motion.div>
 
         {/* Stats */}
@@ -167,7 +175,11 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease }}
         >
-          {loading ? <SkeletonStats /> : <StatsBar user={user} repos={repos} totalContributions={totalContributions} />}
+          {loading ? (
+            <SkeletonStats />
+          ) : (
+            <StatsBar user={user} repos={repos} totalContributions={totalContributions} />
+          )}
         </motion.section>
 
         {/* Contribution Heatmap */}
@@ -177,7 +189,9 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease }}
         >
-          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">Contributions</h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Contributions
+          </h2>
           {loading ? <SkeletonHeatmap /> : <ContributionHeatmap contributions={contributions} />}
         </motion.section>
 
@@ -188,11 +202,16 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3, ease }}
         >
-          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">Top Languages</h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Top Languages
+          </h2>
           {loading ? (
             <div className="flex flex-wrap gap-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-8 w-24 animate-pulse rounded-full bg-gray-200 dark:bg-neutral-800" />
+                <div
+                  key={i}
+                  className="h-8 w-24 animate-pulse rounded-full bg-gray-200 dark:bg-neutral-800"
+                />
               ))}
             </div>
           ) : (
@@ -206,7 +225,9 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4, ease }}
         >
-          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">Recent Repositories</h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">
+            Recent Repositories
+          </h2>
           {loading ? <SkeletonRepoList /> : <RepoActivityFeed repos={repos} />}
         </motion.section>
       </div>
@@ -246,7 +267,9 @@ function StatsBar({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease }}
         >
-          <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">{s.label}</p>
+          <p className="text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
+            {s.label}
+          </p>
           <p className="mt-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">
             {s.value.toLocaleString()}
           </p>
@@ -452,7 +475,9 @@ function RepoActivityFeed({ repos }: { repos: GitHubRepo[] }) {
                 </h3>
               </div>
               {repo.description && (
-                <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">{repo.description}</p>
+                <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
+                  {repo.description}
+                </p>
               )}
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-gray-500">
                 {repo.language && (
