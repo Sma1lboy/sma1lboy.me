@@ -5,8 +5,9 @@ import { useCursorTrail } from "../hooks/useCursorTrail";
 
 const Home2 = lazy(() => import("../components/homes/home2").then((m) => ({ default: m.Home2 })));
 const Home3 = lazy(() => import("../components/homes/home3").then((m) => ({ default: m.Home3 })));
+const Home4 = lazy(() => import("../components/homes/home4").then((m) => ({ default: m.Home4 })));
 
-const homeVariants = [Home1, Home2, Home3] as const;
+const homeVariants = [Home1, Home2, Home3, Home4] as const;
 
 function RandomHome() {
   const idx = useMemo(() => Math.floor(Math.random() * homeVariants.length), []);
