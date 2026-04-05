@@ -34,6 +34,7 @@ import PixelPreview from "../../components/apps/pixel/PixelPreview";
 import DrawPreview from "../../components/apps/draw/DrawPreview";
 import MinesweeperPreview from "../../components/apps/minesweeper/MinesweeperPreview";
 import Game2048Preview from "../../components/apps/2048/Game2048Preview";
+import WeatherPreview from "../../components/apps/weather/WeatherPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -63,6 +64,7 @@ const newAppPaths = new Set([
   "/apps/draw",
   "/apps/minesweeper",
   "/apps/2048",
+  "/apps/weather",
 ]);
 
 const categories: {
@@ -163,6 +165,13 @@ const categories: {
         description:
           "Drag-and-drop sticky note Kanban board. Organize tasks across columns with pastel cards.",
         preview: <KanbanPreview />,
+      },
+      {
+        to: "/apps/weather",
+        title: "Weather",
+        description:
+          "Check current weather and 5-day forecast for any city. Auto-detects your location with unit toggle.",
+        preview: <WeatherPreview />,
       },
     ],
   },

@@ -31,6 +31,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AppsWidgetRouteImport } from './routes/apps/widget'
+import { Route as AppsWeatherRouteImport } from './routes/apps/weather'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
@@ -165,6 +166,11 @@ const AppsWidgetRoute = AppsWidgetRouteImport.update({
   path: '/apps/widget',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/widget.lazy').then((d) => d.Route))
+const AppsWeatherRoute = AppsWeatherRouteImport.update({
+  id: '/apps/weather',
+  path: '/apps/weather',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/weather.lazy').then((d) => d.Route))
 const AppsTypingRoute = AppsTypingRouteImport.update({
   id: '/apps/typing',
   path: '/apps/typing',
@@ -327,6 +333,7 @@ export interface FileRoutesByFullPath {
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/weather': typeof AppsWeatherRoute
   '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
@@ -374,6 +381,7 @@ export interface FileRoutesByTo {
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/weather': typeof AppsWeatherRoute
   '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
@@ -422,6 +430,7 @@ export interface FileRoutesById {
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/weather': typeof AppsWeatherRoute
   '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps/': typeof AppsIndexRoute
@@ -471,6 +480,7 @@ export interface FileRouteTypes {
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/weather'
     | '/apps/widget'
     | '/blog/$slug'
     | '/apps'
@@ -518,6 +528,7 @@ export interface FileRouteTypes {
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/weather'
     | '/apps/widget'
     | '/blog/$slug'
     | '/apps'
@@ -565,6 +576,7 @@ export interface FileRouteTypes {
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/weather'
     | '/apps/widget'
     | '/blog/$slug'
     | '/apps/'
@@ -613,6 +625,7 @@ export interface RootRouteChildren {
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
+  AppsWeatherRoute: typeof AppsWeatherRoute
   AppsWidgetRoute: typeof AppsWidgetRoute
   BlogSlugRoute: typeof BlogSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
@@ -773,6 +786,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/widget'
       fullPath: '/apps/widget'
       preLoaderRoute: typeof AppsWidgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/weather': {
+      id: '/apps/weather'
+      path: '/apps/weather'
+      fullPath: '/apps/weather'
+      preLoaderRoute: typeof AppsWeatherRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/typing': {
@@ -981,6 +1001,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,
+  AppsWeatherRoute: AppsWeatherRoute,
   AppsWidgetRoute: AppsWidgetRoute,
   BlogSlugRoute: BlogSlugRoute,
   AppsIndexRoute: AppsIndexRoute,
