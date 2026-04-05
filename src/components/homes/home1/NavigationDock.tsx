@@ -48,7 +48,7 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
   const { language, toggleLanguage } = useLanguageStore();
 
   return (
-    <div className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 transform sm:bottom-4">
+    <nav aria-label={t("nav.home")} className="fixed bottom-3 left-1/2 z-50 -translate-x-1/2 transform sm:bottom-4">
       <Dock className="px-2 py-1 sm:px-3 sm:py-2">
         <DockIcon
           label={t("nav.home")}
@@ -317,6 +317,6 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           <ThemeToggle />
         </DockIcon>
       </Dock>
-    </div>
+    </nav>
   );
 }

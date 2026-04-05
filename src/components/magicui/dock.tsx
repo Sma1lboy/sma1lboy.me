@@ -144,6 +144,15 @@ const DockIcon = ({
         "relative flex aspect-square cursor-pointer touch-manipulation items-center justify-center rounded-full",
         className,
       )}
+      role="button"
+      tabIndex={0}
+      aria-label={label}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          (e.currentTarget as HTMLElement).click();
+        }
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       {...props}

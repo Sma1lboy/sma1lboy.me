@@ -256,6 +256,7 @@ export default function GuestbookPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={50}
+              aria-label="Your name"
               className="rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400 dark:border-[#2a2a2a] dark:placeholder:text-gray-600 dark:focus:border-gray-600"
             />
             <div className="relative flex-1">
@@ -267,6 +268,7 @@ export default function GuestbookPage() {
                   e.target.value.length <= MAX_MESSAGE_LENGTH &&
                   setMessage(e.target.value)
                 }
+                aria-label="Your message"
                 className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 pr-16 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400 dark:border-[#2a2a2a] dark:placeholder:text-gray-600 dark:focus:border-gray-600"
               />
               <span
@@ -303,6 +305,8 @@ export default function GuestbookPage() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          aria-live="polite"
+          aria-label="Guestbook messages"
         >
           {allMessages.map((msg) => (
             <motion.div

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "@/i18n";
 
@@ -55,6 +55,50 @@ export function KeyboardShortcutsModal({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
+  // Save and restore focus
+  useEffect(() => {
+    if (open) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      requestAnimationFrame(() => {
+        const closeBtn = modalRef.current?.querySelector<HTMLElement>("button");
+        closeBtn?.focus();
+      });
+    } else if (previousFocusRef.current) {
+      previousFocusRef.current.focus();
+      previousFocusRef.current = null;
+    }
+  }, [open]);
+
+  // Focus trap
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && modalRef.current) {
+        const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    },
+    [onClose],
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -90,15 +134,20 @@ export function KeyboardShortcutsModal({
 
           {/* Modal */}
           <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="shortcuts-modal-title"
             className="border-border bg-card relative mx-4 w-full max-w-lg overflow-hidden rounded-xl border shadow-2xl"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
+            onKeyDown={handleKeyDown}
           >
             {/* Header */}
             <div className="border-border flex items-center justify-between border-b px-5 py-3.5">
-              <h2 className="text-foreground text-sm font-semibold">{t("shortcuts.title")}</h2>
+              <h2 id="shortcuts-modal-title" className="text-foreground text-sm font-semibold">{t("shortcuts.title")}</h2>
               <button
                 onClick={onClose}
                 className="text-muted-foreground hover:text-foreground transition-colors"

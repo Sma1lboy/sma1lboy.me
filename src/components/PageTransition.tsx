@@ -6,7 +6,8 @@ export function PageTransition() {
 
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <motion.main
+        id="main-content"
         key={location.pathname}
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -15,7 +16,7 @@ export function PageTransition() {
         style={{ minHeight: "100vh" }}
       >
         <Outlet />
-      </motion.div>
+      </motion.main>
     </AnimatePresence>
   );
 }

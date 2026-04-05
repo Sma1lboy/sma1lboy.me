@@ -341,6 +341,9 @@ export function CommandPalette() {
 
           {/* Modal */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("commandPalette.searchPlaceholder")}
             className="border-border bg-card relative mx-4 w-full max-w-[560px] overflow-hidden rounded-xl border shadow-2xl"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -358,6 +361,12 @@ export function CommandPalette() {
                 className="text-foreground placeholder:text-muted-foreground h-12 w-full bg-transparent text-sm outline-none"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                role="combobox"
+                aria-label={t("commandPalette.searchPlaceholder")}
+                aria-expanded={true}
+                aria-controls="command-palette-results"
+                aria-activedescendant={flatFiltered[selectedIndex]?.id}
+                autoComplete="off"
               />
               <kbd className="border-border bg-muted text-muted-foreground hidden h-5 items-center gap-0.5 rounded border px-1.5 text-[10px] font-medium sm:inline-flex">
                 ESC
@@ -365,7 +374,7 @@ export function CommandPalette() {
             </div>
 
             {/* Results */}
-            <div ref={listRef} className="max-h-[50vh] overflow-y-auto overscroll-contain p-2">
+            <div ref={listRef} id="command-palette-results" role="listbox" aria-live="polite" className="max-h-[50vh] overflow-y-auto overscroll-contain p-2">
               {flatFiltered.length === 0 ? (
                 <div className="text-muted-foreground px-4 py-8 text-center text-sm">
                   {t("commandPalette.noResults")}
@@ -386,6 +395,9 @@ export function CommandPalette() {
                         return (
                           <button
                             key={item.id}
+                            id={item.id}
+                            role="option"
+                            aria-selected={isSelected}
                             data-selected={isSelected}
                             className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
                               isSelected

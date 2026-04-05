@@ -13,16 +13,20 @@ export function ThemeToggle() {
 
   const Icon = getIcon();
 
+  const themeLabel = theme === "system" ? "System" : theme === "dark" ? "Dark" : "Light";
+
   return (
-    <div
+    <button
+      type="button"
       onClick={toggleTheme}
       className="cursor-pointer"
-      title={`Theme: ${theme === "system" ? "System" : theme === "dark" ? "Dark" : "Light"}`}
+      aria-label={`Toggle theme, current: ${themeLabel}`}
+      title={`Theme: ${themeLabel}`}
     >
       <Icon
         size={18}
         className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
       />
-    </div>
+    </button>
   );
 }

@@ -114,6 +114,7 @@ function FloatingField({
 
       {multiline ? (
         <textarea
+          id={`field-${name}`}
           name={name}
           rows={5}
           value={value}
@@ -122,9 +123,12 @@ function FloatingField({
           onBlur={() => setFocused(false)}
           className={`${sharedClasses} resize-none`}
           placeholder={label}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${name}-error` : undefined}
         />
       ) : (
         <input
+          id={`field-${name}`}
           type={type}
           name={name}
           value={value}
@@ -133,11 +137,14 @@ function FloatingField({
           onBlur={() => setFocused(false)}
           className={sharedClasses}
           placeholder={label}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${name}-error` : undefined}
         />
       )}
 
       {/* floating label */}
       <motion.label
+        htmlFor={`field-${name}`}
         className={`pointer-events-none absolute left-4 origin-left ${
           error ? "text-red-400 dark:text-red-500" : "text-gray-500 dark:text-gray-400"
         }`}
@@ -150,6 +157,8 @@ function FloatingField({
       <AnimatePresence>
         {error && (
           <motion.p
+            id={`${name}-error`}
+            role="alert"
             className="mt-1 text-xs text-red-400 dark:text-red-500"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}

@@ -318,7 +318,7 @@ export default function TypingTest() {
                     {timeLeft}s
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-4 text-sm" aria-live="polite" aria-atomic="true">
                   <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400">
                     <Zap size={14} />
                     <span className="font-mono font-bold text-gray-900 dark:text-gray-100">
@@ -350,6 +350,7 @@ export default function TypingTest() {
                   value={typed}
                   onChange={handleInput}
                   className="absolute inset-0 h-full w-full resize-none opacity-0"
+                  aria-label="Type the passage shown above"
                   autoFocus
                   spellCheck={false}
                   autoComplete="off"
@@ -381,12 +382,13 @@ export default function TypingTest() {
               transition={{ duration: 0.3 }}
               className="mt-8"
             >
-              <div className="text-center">
+              <div className="text-center" aria-live="assertive">
                 <motion.div
                   initial={{ scale: 0.5, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
                   className="mb-2 text-4xl"
+                  aria-hidden="true"
                 >
                   {rating.emoji}
                 </motion.div>

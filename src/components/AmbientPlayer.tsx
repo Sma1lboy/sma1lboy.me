@@ -149,6 +149,8 @@ export function AmbientPlayer() {
                 <button
                   key={p}
                   onClick={() => handlePresetChange(p)}
+                  aria-label={`${t(`ambientPlayer.presets.${p}`)}${preset === p && isAudioActive ? " (active)" : ""}`}
+                  aria-pressed={preset === p && isAudioActive}
                   className={`rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors ${
                     preset === p && isAudioActive
                       ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900"
@@ -176,6 +178,7 @@ export function AmbientPlayer() {
                 step="0.01"
                 value={volume}
                 onChange={handleVolumeChange}
+                aria-label={`Volume: ${Math.round(volume * 100)}%`}
                 className="h-1 w-full cursor-pointer appearance-none rounded-full bg-gray-200 accent-gray-700 dark:bg-[#2a2a2a] dark:accent-gray-300"
               />
             </div>

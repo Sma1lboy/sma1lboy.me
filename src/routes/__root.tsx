@@ -16,6 +16,12 @@ function RootComponent() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="fixed left-2 top-2 z-[99999] -translate-y-full rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-transform focus:translate-y-0 dark:bg-white dark:text-gray-900"
+      >
+        Skip to content
+      </a>
       <CommandPalette />
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={closeShortcuts} />
       <PageTransition />
