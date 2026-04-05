@@ -28,46 +28,158 @@ type Shape = number[][];
 
 const TETROMINOES: Record<string, Shape[]> = {
   I: [
-    [[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],
-    [[0,0,1,0],[0,0,1,0],[0,0,1,0],[0,0,1,0]],
-    [[0,0,0,0],[0,0,0,0],[1,1,1,1],[0,0,0,0]],
-    [[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]],
+    [
+      [0, 0, 0, 0],
+      [1, 1, 1, 1],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ],
+    [
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
+    ],
+    [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [1, 1, 1, 1],
+      [0, 0, 0, 0],
+    ],
+    [
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+    ],
   ],
   O: [
-    [[1,1],[1,1]],
-    [[1,1],[1,1]],
-    [[1,1],[1,1]],
-    [[1,1],[1,1]],
+    [
+      [1, 1],
+      [1, 1],
+    ],
+    [
+      [1, 1],
+      [1, 1],
+    ],
+    [
+      [1, 1],
+      [1, 1],
+    ],
+    [
+      [1, 1],
+      [1, 1],
+    ],
   ],
   T: [
-    [[0,1,0],[1,1,1],[0,0,0]],
-    [[0,1,0],[0,1,1],[0,1,0]],
-    [[0,0,0],[1,1,1],[0,1,0]],
-    [[0,1,0],[1,1,0],[0,1,0]],
+    [
+      [0, 1, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 0],
+      [0, 1, 1],
+      [0, 1, 0],
+    ],
+    [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 1, 0],
+    ],
+    [
+      [0, 1, 0],
+      [1, 1, 0],
+      [0, 1, 0],
+    ],
   ],
   S: [
-    [[0,1,1],[1,1,0],[0,0,0]],
-    [[0,1,0],[0,1,1],[0,0,1]],
-    [[0,0,0],[0,1,1],[1,1,0]],
-    [[1,0,0],[1,1,0],[0,1,0]],
+    [
+      [0, 1, 1],
+      [1, 1, 0],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 0],
+      [0, 1, 1],
+      [0, 0, 1],
+    ],
+    [
+      [0, 0, 0],
+      [0, 1, 1],
+      [1, 1, 0],
+    ],
+    [
+      [1, 0, 0],
+      [1, 1, 0],
+      [0, 1, 0],
+    ],
   ],
   Z: [
-    [[1,1,0],[0,1,1],[0,0,0]],
-    [[0,0,1],[0,1,1],[0,1,0]],
-    [[0,0,0],[1,1,0],[0,1,1]],
-    [[0,1,0],[1,1,0],[1,0,0]],
+    [
+      [1, 1, 0],
+      [0, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 0, 1],
+      [0, 1, 1],
+      [0, 1, 0],
+    ],
+    [
+      [0, 0, 0],
+      [1, 1, 0],
+      [0, 1, 1],
+    ],
+    [
+      [0, 1, 0],
+      [1, 1, 0],
+      [1, 0, 0],
+    ],
   ],
   J: [
-    [[1,0,0],[1,1,1],[0,0,0]],
-    [[0,1,1],[0,1,0],[0,1,0]],
-    [[0,0,0],[1,1,1],[0,0,1]],
-    [[0,1,0],[0,1,0],[1,1,0]],
+    [
+      [1, 0, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 1],
+      [0, 1, 0],
+      [0, 1, 0],
+    ],
+    [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 0, 1],
+    ],
+    [
+      [0, 1, 0],
+      [0, 1, 0],
+      [1, 1, 0],
+    ],
   ],
   L: [
-    [[0,0,1],[1,1,1],[0,0,0]],
-    [[0,1,0],[0,1,0],[0,1,1]],
-    [[0,0,0],[1,1,1],[1,0,0]],
-    [[1,1,0],[0,1,0],[0,1,0]],
+    [
+      [0, 0, 1],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 0],
+      [0, 1, 0],
+      [0, 1, 1],
+    ],
+    [
+      [0, 0, 0],
+      [1, 1, 1],
+      [1, 0, 0],
+    ],
+    [
+      [1, 1, 0],
+      [0, 1, 0],
+      [0, 1, 0],
+    ],
   ],
 };
 
@@ -97,7 +209,7 @@ function getShape(piece: Piece): Shape {
 }
 
 function collides(board: Board, piece: Piece, rowOff = 0, colOff = 0, rotOff = 0): boolean {
-  const rot = ((piece.rotation + rotOff) % 4 + 4) % 4;
+  const rot = (((piece.rotation + rotOff) % 4) + 4) % 4;
   const shape = TETROMINOES[piece.type][rot];
   for (let r = 0; r < shape.length; r++) {
     for (let c = 0; c < shape[r].length; c++) {
@@ -130,9 +242,7 @@ function lockPiece(board: Board, piece: Piece): Board {
 function clearLines(board: Board): { board: Board; cleared: number } {
   const remaining = board.filter((row) => row.some((cell) => cell === null));
   const cleared = ROWS - remaining.length;
-  const empty = Array.from({ length: cleared }, () =>
-    Array<string | null>(COLS).fill(null),
-  );
+  const empty = Array.from({ length: cleared }, () => Array<string | null>(COLS).fill(null));
   return { board: [...empty, ...remaining], cleared };
 }
 
@@ -162,14 +272,14 @@ function getHighScore(): number {
   try {
     const s = localStorage.getItem("tetris-high-score");
     if (s) return parseInt(s, 10);
-  } catch {}
+  } catch { /* ignored */ }
   return 0;
 }
 
 function saveHighScore(score: number) {
   try {
     localStorage.setItem("tetris-high-score", String(score));
-  } catch {}
+  } catch { /* ignored */ }
 }
 
 // ── Component ──────────────────────────────────────────────────────
@@ -332,7 +442,13 @@ export default function TetrisGame() {
     }
   }, []);
 
-  function drawCell(ctx: CanvasRenderingContext2D, col: number, row: number, color: string, alpha: number) {
+  function drawCell(
+    ctx: CanvasRenderingContext2D,
+    col: number,
+    row: number,
+    color: string,
+    alpha: number,
+  ) {
     const x = col * CELL;
     const y = row * CELL;
     ctx.globalAlpha = alpha;
@@ -568,35 +684,35 @@ export default function TetrisGame() {
           {/* Score Bar */}
           <div className="mb-4 flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-800 dark:bg-gray-900">
             <div className="text-center">
-              <div className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <div className="text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 Score
               </div>
-              <div className="text-xl font-bold tabular-nums text-gray-900 dark:text-gray-100">
+              <div className="text-xl font-bold text-gray-900 tabular-nums dark:text-gray-100">
                 {score.toLocaleString()}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <div className="text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 Level
               </div>
-              <div className="text-xl font-bold tabular-nums text-gray-900 dark:text-gray-100">
+              <div className="text-xl font-bold text-gray-900 tabular-nums dark:text-gray-100">
                 {level}
               </div>
             </div>
             <div className="text-center">
-              <div className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <div className="text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 Lines
               </div>
-              <div className="text-xl font-bold tabular-nums text-gray-900 dark:text-gray-100">
+              <div className="text-xl font-bold text-gray-900 tabular-nums dark:text-gray-100">
                 {lines}
               </div>
             </div>
             <div className="text-center">
-              <div className="flex items-center gap-1 text-xs font-medium uppercase tracking-wider text-amber-500">
+              <div className="flex items-center gap-1 text-xs font-medium tracking-wider text-amber-500 uppercase">
                 <Trophy size={12} />
                 Best
               </div>
-              <div className="text-xl font-bold tabular-nums text-amber-500">
+              <div className="text-xl font-bold text-amber-500 tabular-nums">
                 {highScore.toLocaleString()}
               </div>
             </div>
@@ -619,7 +735,7 @@ export default function TetrisGame() {
             <div className="flex flex-col gap-3">
               {/* Next Piece */}
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-900">
-                <div className="mb-2 text-center text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                <div className="mb-2 text-center text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                   Next
                 </div>
                 <div className="flex justify-center">
@@ -656,7 +772,7 @@ export default function TetrisGame() {
           </div>
 
           {/* Instructions */}
-          <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-1 text-center text-xs text-gray-400 dark:text-gray-500 sm:grid-cols-4">
+          <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-1 text-center text-xs text-gray-400 sm:grid-cols-4 dark:text-gray-500">
             <span>
               <kbd className="rounded bg-gray-100 px-1.5 py-0.5 font-mono dark:bg-gray-800">
                 &larr;&rarr;

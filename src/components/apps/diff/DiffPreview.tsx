@@ -16,8 +16,7 @@ function generateLines(): FakeLine[] {
   const lines: FakeLine[] = [];
   for (let i = 0; i < LINES * 2; i++) {
     const r = Math.random();
-    const type: FakeLine["type"] =
-      r < 0.25 ? "add" : r < 0.45 ? "del" : "same";
+    const type: FakeLine["type"] = r < 0.25 ? "add" : r < 0.45 ? "del" : "same";
     const width = 30 + Math.random() * 140;
     lines.push({ type, width });
   }
@@ -38,7 +37,7 @@ export default function DiffPreview() {
 
     let lines = generateLines();
     let offset = 0;
-    let cycleCount = 0;
+    
 
     const colors = {
       add: "rgba(34, 197, 94, 0.4)",
@@ -103,7 +102,7 @@ export default function DiffPreview() {
       if (offset > lines.length * STEP - H) {
         lines = generateLines();
         offset = 0;
-        cycleCount++;
+        
       }
       draw();
     };
@@ -115,11 +114,7 @@ export default function DiffPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

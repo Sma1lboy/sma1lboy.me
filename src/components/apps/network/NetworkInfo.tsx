@@ -49,12 +49,7 @@ function ipToUint32(ip: string): number {
 }
 
 function uint32ToIp(n: number): string {
-  return [
-    (n >>> 24) & 0xff,
-    (n >>> 16) & 0xff,
-    (n >>> 8) & 0xff,
-    n & 0xff,
-  ].join(".");
+  return [(n >>> 24) & 0xff, (n >>> 16) & 0xff, (n >>> 8) & 0xff, n & 0xff].join(".");
 }
 
 function parseCidr(input: string): CidrResult | string {
@@ -71,7 +66,7 @@ function parseCidr(input: string): CidrResult | string {
 
   const ipNum = ipToUint32(ip);
   const mask = prefix === 0 ? 0 : (0xffffffff << (32 - prefix)) >>> 0;
-  const wildcard = (~mask) >>> 0;
+  const wildcard = ~mask >>> 0;
   const networkNum = (ipNum & mask) >>> 0;
   const broadcastNum = (networkNum | wildcard) >>> 0;
 
@@ -118,10 +113,34 @@ const COMMON_PORTS = [
 
 const PRIVATE_RANGES = [
   { range: "10.0.0.0/8", from: "10.0.0.0", to: "10.255.255.255", hosts: "16,777,214", class: "A" },
-  { range: "172.16.0.0/12", from: "172.16.0.0", to: "172.31.255.255", hosts: "1,048,574", class: "B" },
-  { range: "192.168.0.0/16", from: "192.168.0.0", to: "192.168.255.255", hosts: "65,534", class: "C" },
-  { range: "127.0.0.0/8", from: "127.0.0.0", to: "127.255.255.255", hosts: "16,777,214", class: "Loopback" },
-  { range: "169.254.0.0/16", from: "169.254.0.0", to: "169.254.255.255", hosts: "65,534", class: "Link-local" },
+  {
+    range: "172.16.0.0/12",
+    from: "172.16.0.0",
+    to: "172.31.255.255",
+    hosts: "1,048,574",
+    class: "B",
+  },
+  {
+    range: "192.168.0.0/16",
+    from: "192.168.0.0",
+    to: "192.168.255.255",
+    hosts: "65,534",
+    class: "C",
+  },
+  {
+    range: "127.0.0.0/8",
+    from: "127.0.0.0",
+    to: "127.255.255.255",
+    hosts: "16,777,214",
+    class: "Loopback",
+  },
+  {
+    range: "169.254.0.0/16",
+    from: "169.254.0.0",
+    to: "169.254.255.255",
+    hosts: "65,534",
+    class: "Link-local",
+  },
 ];
 
 const SUBNET_CHEATSHEET = [
@@ -189,7 +208,7 @@ function Section({
         onClick={() => setOpen(!open)}
         className="mb-3 flex w-full items-center justify-between text-left"
       >
-        <h2 className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <h2 className="flex items-center gap-1.5 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
           {icon}
           {title}
         </h2>
@@ -243,15 +262,12 @@ export default function NetworkInfo() {
   // Browser info
   const browserInfo = useMemo(() => {
     const nav = typeof navigator !== "undefined" ? navigator : null;
-    const conn = nav && "connection" in nav ? (nav as any).connection : null;
+    const conn = nav && "connection" in nav ? (nav as unknown as Record<string, unknown>).connection : null;
     return {
       userAgent: nav?.userAgent ?? "Unknown",
       platform: nav?.platform ?? "Unknown",
       language: nav?.language ?? "Unknown",
-      screenRes:
-        typeof screen !== "undefined"
-          ? `${screen.width} × ${screen.height}`
-          : "Unknown",
+      screenRes: typeof screen !== "undefined" ? `${screen.width} × ${screen.height}` : "Unknown",
       connectionType: conn?.effectiveType ?? "Unknown",
       downlink: conn?.downlink ? `${conn.downlink} Mbps` : null,
     };
@@ -292,11 +308,7 @@ export default function NetworkInfo() {
           </div>
 
           {/* ── Section 1: Your Network Info ── */}
-          <Section
-            title="Your Network Info"
-            icon={<Wifi size={12} />}
-            defaultOpen={true}
-          >
+          <Section title="Your Network Info" icon={<Wifi size={12} />} defaultOpen={true}>
             {ipLoading ? (
               <div className="rounded-lg border border-gray-200 p-6 dark:border-gray-800">
                 <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
@@ -308,9 +320,7 @@ export default function NetworkInfo() {
               <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900/50 dark:bg-red-950/30">
                 <div className="flex items-center gap-2">
                   <AlertCircle size={14} className="shrink-0 text-red-500" />
-                  <p className="text-sm text-red-700 dark:text-red-400">
-                    {ipError}
-                  </p>
+                  <p className="text-sm text-red-700 dark:text-red-400">{ipError}</p>
                 </div>
               </div>
             ) : ipInfo ? (
@@ -359,14 +369,12 @@ export default function NetworkInfo() {
                   <div
                     key={row.label}
                     className={`flex items-center justify-between px-4 py-2.5 ${
-                      i !== 0
-                        ? "border-t border-gray-100 dark:border-gray-800/50"
-                        : ""
+                      i !== 0 ? "border-t border-gray-100 dark:border-gray-800/50" : ""
                     }`}
                   >
                     <div className="flex min-w-0 flex-1 items-center gap-2">
                       {row.icon}
-                      <span className="mr-3 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <span className="mr-3 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         {row.label}
                       </span>
                       <span className="truncate font-mono text-sm text-gray-900 dark:text-gray-100">
@@ -380,12 +388,12 @@ export default function NetworkInfo() {
                 <div className="border-t border-gray-100 px-4 py-2.5 dark:border-gray-800/50">
                   <div className="flex items-center gap-2">
                     <Monitor size={13} className="shrink-0 text-cyan-500" />
-                    <span className="mr-3 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                    <span className="mr-3 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                       User Agent
                     </span>
                     <CopyButton text={browserInfo.userAgent} />
                   </div>
-                  <p className="mt-1 break-all pl-5 font-mono text-xs text-gray-600 dark:text-gray-400">
+                  <p className="mt-1 pl-5 font-mono text-xs break-all text-gray-600 dark:text-gray-400">
                     {browserInfo.userAgent}
                   </p>
                 </div>
@@ -406,20 +414,24 @@ export default function NetworkInfo() {
                 onChange={(e) => setCidrInput(e.target.value)}
                 placeholder="e.g. 192.168.1.0/24"
                 spellCheck={false}
-                className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-lg text-gray-900 placeholder-gray-300 outline-none transition-colors focus:border-cyan-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-600 dark:focus:border-cyan-600"
+                className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-lg text-gray-900 placeholder-gray-300 transition-colors outline-none focus:border-cyan-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-600 dark:focus:border-cyan-600"
               />
               <div className="mt-2 flex flex-wrap gap-1.5">
-                {["10.0.0.0/8", "172.16.0.0/12", "192.168.1.0/24", "192.168.0.0/16", "10.0.0.0/24"].map(
-                  (ex) => (
-                    <button
-                      key={ex}
-                      onClick={() => handleExampleCidr(ex)}
-                      className="rounded bg-gray-100 px-2 py-0.5 font-mono text-xs text-gray-600 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
-                    >
-                      {ex}
-                    </button>
-                  ),
-                )}
+                {[
+                  "10.0.0.0/8",
+                  "172.16.0.0/12",
+                  "192.168.1.0/24",
+                  "192.168.0.0/16",
+                  "10.0.0.0/24",
+                ].map((ex) => (
+                  <button
+                    key={ex}
+                    onClick={() => handleExampleCidr(ex)}
+                    className="rounded bg-gray-100 px-2 py-0.5 font-mono text-xs text-gray-600 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                  >
+                    {ex}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -427,9 +439,7 @@ export default function NetworkInfo() {
               <div className="mb-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-900/50 dark:bg-red-950/30">
                 <div className="flex items-center gap-2">
                   <AlertCircle size={14} className="shrink-0 text-red-500" />
-                  <p className="text-sm text-red-700 dark:text-red-400">
-                    {cidrResult}
-                  </p>
+                  <p className="text-sm text-red-700 dark:text-red-400">{cidrResult}</p>
                 </div>
               </div>
             )}
@@ -448,13 +458,11 @@ export default function NetworkInfo() {
                   <div
                     key={row.label}
                     className={`flex items-center justify-between px-4 py-2.5 ${
-                      i !== 0
-                        ? "border-t border-gray-100 dark:border-gray-800/50"
-                        : ""
+                      i !== 0 ? "border-t border-gray-100 dark:border-gray-800/50" : ""
                     }`}
                   >
                     <div className="min-w-0 flex-1">
-                      <span className="mr-3 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <span className="mr-3 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         {row.label}
                       </span>
                       <span className="font-mono text-sm text-gray-900 dark:text-gray-100">
@@ -469,14 +477,10 @@ export default function NetworkInfo() {
           </Section>
 
           {/* ── Section 3: Networking Reference ── */}
-          <Section
-            title="Networking Reference"
-            icon={<BookOpen size={12} />}
-            defaultOpen={false}
-          >
+          <Section title="Networking Reference" icon={<BookOpen size={12} />} defaultOpen={false}>
             {/* Common Ports */}
             <div className="mb-5">
-              <h3 className="mb-2 flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <h3 className="mb-2 flex items-center gap-1.5 text-[11px] font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 <Network size={11} />
                 Common Ports
               </h3>
@@ -484,13 +488,13 @@ export default function NetworkInfo() {
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Port
                       </th>
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Protocol
                       </th>
-                      <th className="hidden px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500 sm:table-cell">
+                      <th className="hidden px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:table-cell dark:text-gray-500">
                         Description
                       </th>
                     </tr>
@@ -499,11 +503,7 @@ export default function NetworkInfo() {
                     {COMMON_PORTS.map((row, i) => (
                       <tr
                         key={row.port}
-                        className={
-                          i !== 0
-                            ? "border-t border-gray-50 dark:border-gray-800/50"
-                            : ""
-                        }
+                        className={i !== 0 ? "border-t border-gray-50 dark:border-gray-800/50" : ""}
                       >
                         <td className="px-4 py-1.5 font-mono text-cyan-600 dark:text-cyan-400">
                           {row.port}
@@ -511,7 +511,7 @@ export default function NetworkInfo() {
                         <td className="px-4 py-1.5 font-medium text-gray-900 dark:text-gray-100">
                           {row.protocol}
                         </td>
-                        <td className="hidden px-4 py-1.5 text-gray-500 dark:text-gray-400 sm:table-cell">
+                        <td className="hidden px-4 py-1.5 text-gray-500 sm:table-cell dark:text-gray-400">
                           {row.desc}
                         </td>
                       </tr>
@@ -523,7 +523,7 @@ export default function NetworkInfo() {
 
             {/* Private IP Ranges */}
             <div className="mb-5">
-              <h3 className="mb-2 flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <h3 className="mb-2 flex items-center gap-1.5 text-[11px] font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 <Network size={11} />
                 Private IP Ranges
               </h3>
@@ -531,16 +531,16 @@ export default function NetworkInfo() {
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Range
                       </th>
-                      <th className="hidden px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500 sm:table-cell">
+                      <th className="hidden px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:table-cell dark:text-gray-500">
                         From
                       </th>
-                      <th className="hidden px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500 sm:table-cell">
+                      <th className="hidden px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase sm:table-cell dark:text-gray-500">
                         To
                       </th>
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Hosts
                       </th>
                     </tr>
@@ -549,11 +549,7 @@ export default function NetworkInfo() {
                     {PRIVATE_RANGES.map((row, i) => (
                       <tr
                         key={row.range}
-                        className={
-                          i !== 0
-                            ? "border-t border-gray-50 dark:border-gray-800/50"
-                            : ""
-                        }
+                        className={i !== 0 ? "border-t border-gray-50 dark:border-gray-800/50" : ""}
                       >
                         <td className="px-4 py-1.5">
                           <button
@@ -563,10 +559,10 @@ export default function NetworkInfo() {
                             {row.range}
                           </button>
                         </td>
-                        <td className="hidden px-4 py-1.5 font-mono text-gray-600 dark:text-gray-400 sm:table-cell">
+                        <td className="hidden px-4 py-1.5 font-mono text-gray-600 sm:table-cell dark:text-gray-400">
                           {row.from}
                         </td>
-                        <td className="hidden px-4 py-1.5 font-mono text-gray-600 dark:text-gray-400 sm:table-cell">
+                        <td className="hidden px-4 py-1.5 font-mono text-gray-600 sm:table-cell dark:text-gray-400">
                           {row.to}
                         </td>
                         <td className="px-4 py-1.5 font-mono text-gray-900 dark:text-gray-100">
@@ -581,7 +577,7 @@ export default function NetworkInfo() {
 
             {/* Subnet Cheat Sheet */}
             <div>
-              <h3 className="mb-2 flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <h3 className="mb-2 flex items-center gap-1.5 text-[11px] font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 <Calculator size={11} />
                 Subnet Cheat Sheet
               </h3>
@@ -589,13 +585,13 @@ export default function NetworkInfo() {
                 <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="border-b border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Prefix
                       </th>
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Subnet Mask
                       </th>
-                      <th className="px-4 py-2 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <th className="px-4 py-2 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         Usable Hosts
                       </th>
                     </tr>
@@ -604,11 +600,7 @@ export default function NetworkInfo() {
                     {SUBNET_CHEATSHEET.map((row, i) => (
                       <tr
                         key={row.prefix}
-                        className={
-                          i !== 0
-                            ? "border-t border-gray-50 dark:border-gray-800/50"
-                            : ""
-                        }
+                        className={i !== 0 ? "border-t border-gray-50 dark:border-gray-800/50" : ""}
                       >
                         <td className="px-4 py-1.5 font-mono font-medium text-cyan-600 dark:text-cyan-400">
                           {row.prefix}
@@ -617,9 +609,7 @@ export default function NetworkInfo() {
                           {row.mask}
                         </td>
                         <td className="px-4 py-1.5 font-mono text-gray-900 dark:text-gray-100">
-                          {typeof row.hosts === "number"
-                            ? row.hosts.toLocaleString()
-                            : row.hosts}
+                          {typeof row.hosts === "number" ? row.hosts.toLocaleString() : row.hosts}
                         </td>
                       </tr>
                     ))}

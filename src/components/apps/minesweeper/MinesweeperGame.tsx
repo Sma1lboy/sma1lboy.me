@@ -14,7 +14,10 @@ interface CellData {
   adjacentMines: number;
 }
 
-const DIFFICULTIES: Record<Difficulty, { cols: number; rows: number; mines: number; label: string }> = {
+const DIFFICULTIES: Record<
+  Difficulty,
+  { cols: number; rows: number; mines: number; label: string }
+> = {
   easy: { cols: 9, rows: 9, mines: 10, label: "Easy" },
   medium: { cols: 16, rows: 16, mines: 40, label: "Medium" },
   hard: { cols: 30, rows: 16, mines: 99, label: "Hard" },
@@ -46,7 +49,7 @@ function getHighScores(): Record<Difficulty, number | null> {
   try {
     const stored = localStorage.getItem("minesweeper-high-scores");
     if (stored) return JSON.parse(stored);
-  } catch {}
+  } catch { /* ignored */ }
   return { easy: null, medium: null, hard: null };
 }
 
@@ -57,7 +60,7 @@ function saveHighScore(difficulty: Difficulty, time: number) {
       scores[difficulty] = time;
       localStorage.setItem("minesweeper-high-scores", JSON.stringify(scores));
     }
-  } catch {}
+  } catch { /* ignored */ }
 }
 
 function createEmptyGrid(rows: number, cols: number): CellData[][] {
@@ -118,7 +121,13 @@ function placeMines(
   return newGrid;
 }
 
-function floodReveal(grid: CellData[][], rows: number, cols: number, startRow: number, startCol: number): CellData[][] {
+function floodReveal(
+  grid: CellData[][],
+  rows: number,
+  cols: number,
+  startRow: number,
+  startCol: number,
+): CellData[][] {
   const newGrid = grid.map((row) => row.map((cell) => ({ ...cell })));
   const stack: [number, number][] = [[startRow, startCol]];
 
@@ -270,25 +279,30 @@ export default function MinesweeperGame() {
     [rows, cols, mines, difficulty, startTimer, stopTimer],
   );
 
-  const handleCellRightClick = useCallback(
-    (e: React.MouseEvent, row: number, col: number) => {
-      e.preventDefault();
-      if (gameStatusRef.current === "won" || gameStatusRef.current === "lost" || gameStatusRef.current === "idle") return;
+  const handleCellRightClick = useCallback((e: React.MouseEvent, row: number, col: number) => {
+    e.preventDefault();
+    if (
+      gameStatusRef.current === "won" ||
+      gameStatusRef.current === "lost" ||
+      gameStatusRef.current === "idle"
+    )
+      return;
 
-      setGrid((prevGrid) => {
-        const cell = prevGrid[row][col];
-        if (cell.isRevealed) return prevGrid;
+    setGrid((prevGrid) => {
+      const cell = prevGrid[row][col];
+      if (cell.isRevealed) return prevGrid;
 
-        const newGrid = prevGrid.map((r) => r.map((c) => ({ ...c })));
-        newGrid[row][col].isFlagged = !newGrid[row][col].isFlagged;
-        setFlagCount((f) => (newGrid[row][col].isFlagged ? f + 1 : f - 1));
-        return newGrid;
-      });
-    },
-    [],
-  );
+      const newGrid = prevGrid.map((r) => r.map((c) => ({ ...c })));
+      newGrid[row][col].isFlagged = !newGrid[row][col].isFlagged;
+      setFlagCount((f) => (newGrid[row][col].isFlagged ? f + 1 : f - 1));
+      return newGrid;
+    });
+  }, []);
 
-  const cellSize = difficulty === "hard" ? "w-6 h-6 text-[10px] sm:w-7 sm:h-7 sm:text-xs" : "w-7 h-7 text-xs sm:w-8 sm:h-8 sm:text-sm";
+  const cellSize =
+    difficulty === "hard"
+      ? "w-6 h-6 text-[10px] sm:w-7 sm:h-7 sm:text-xs"
+      : "w-7 h-7 text-xs sm:w-8 sm:h-8 sm:text-sm";
 
   const currentBest = highScores[difficulty];
 
@@ -304,7 +318,11 @@ export default function MinesweeperGame() {
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-neutral-950 dark:text-white">
       <div className="mx-auto max-w-4xl px-4 py-6">
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
+        >
           <Breadcrumbs />
           <h1 className="text-2xl font-bold">Minesweeper</h1>
         </motion.div>
@@ -348,13 +366,15 @@ export default function MinesweeperGame() {
           <div className="flex items-center gap-3">
             <Bomb className="h-4 w-4 text-red-500" />
             <span className="text-sm text-neutral-500 dark:text-neutral-400">Mines</span>
-            <span className="text-lg font-bold tabular-nums text-red-500">{mines - flagCount}</span>
+            <span className="text-lg font-bold text-red-500 tabular-nums">{mines - flagCount}</span>
           </div>
           <div className="flex items-center gap-2">{statusIcon}</div>
           <div className="flex items-center gap-3">
             <Timer className="h-4 w-4 text-blue-500 dark:text-blue-400" />
             <span className="text-sm text-neutral-500 dark:text-neutral-400">Time</span>
-            <span className="text-lg font-bold tabular-nums text-blue-500 dark:text-blue-400">{timer}s</span>
+            <span className="text-lg font-bold text-blue-500 tabular-nums dark:text-blue-400">
+              {timer}s
+            </span>
           </div>
         </motion.div>
 
@@ -367,7 +387,10 @@ export default function MinesweeperGame() {
             className="mb-4 flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400"
           >
             <Trophy className="h-4 w-4 text-yellow-500" />
-            Best time ({DIFFICULTIES[difficulty].label}): <span className="font-semibold text-yellow-600 dark:text-yellow-500">{currentBest}s</span>
+            Best time ({DIFFICULTIES[difficulty].label}):{" "}
+            <span className="font-semibold text-yellow-600 dark:text-yellow-500">
+              {currentBest}s
+            </span>
           </motion.div>
         )}
 
@@ -376,7 +399,7 @@ export default function MinesweeperGame() {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.15 }}
-          className="overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-800 dark:bg-neutral-900 sm:p-4"
+          className="overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50 p-3 sm:p-4 dark:border-neutral-800 dark:bg-neutral-900"
           onContextMenu={(e) => e.preventDefault()}
         >
           <div
@@ -397,12 +420,15 @@ export default function MinesweeperGame() {
                   "bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 border border-neutral-300 dark:border-neutral-600";
 
                 if (cell.isRevealed) {
-                  bgClass = "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700";
+                  bgClass =
+                    "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700";
                   if (cell.isMine) {
                     bgClass = isExplodedMine
                       ? "bg-red-200 dark:bg-red-900/50 border border-red-300 dark:border-red-700"
                       : "bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700";
-                    content = <Bomb className="h-3 w-3 text-neutral-800 dark:text-neutral-200 sm:h-3.5 sm:w-3.5" />;
+                    content = (
+                      <Bomb className="h-3 w-3 text-neutral-800 sm:h-3.5 sm:w-3.5 dark:text-neutral-200" />
+                    );
                   } else if (cell.adjacentMines > 0) {
                     const color = isDark
                       ? NUMBER_COLORS_DARK[cell.adjacentMines]
@@ -472,8 +498,12 @@ export default function MinesweeperGame() {
           transition={{ delay: 0.25 }}
           className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-neutral-500"
         >
-          <span className="rounded bg-neutral-100 px-2 py-1 dark:bg-neutral-800">Left Click: Reveal</span>
-          <span className="rounded bg-neutral-100 px-2 py-1 dark:bg-neutral-800">Right Click: Flag</span>
+          <span className="rounded bg-neutral-100 px-2 py-1 dark:bg-neutral-800">
+            Left Click: Reveal
+          </span>
+          <span className="rounded bg-neutral-100 px-2 py-1 dark:bg-neutral-800">
+            Right Click: Flag
+          </span>
         </motion.div>
       </div>
     </div>

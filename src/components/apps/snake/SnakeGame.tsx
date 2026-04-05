@@ -45,7 +45,7 @@ function getHighScore(): number {
 function setHighScore(score: number) {
   try {
     localStorage.setItem("snake-high-score", String(score));
-  } catch {}
+  } catch { /* ignored */ }
 }
 
 export default function SnakeGame() {
@@ -62,9 +62,7 @@ export default function SnakeGame() {
   const lastTickRef = useRef<number>(0);
 
   const [gridSize, setGridSize] = useState({ cols: 20, rows: 20 });
-  const [gameState, setGameState] = useState<"idle" | "playing" | "gameover">(
-    "idle",
-  );
+  const [gameState, setGameState] = useState<"idle" | "playing" | "gameover">("idle");
   const [score, setScore] = useState(0);
   const [highScore, setHighScoreState] = useState(getHighScore);
 
@@ -391,16 +389,12 @@ export default function SnakeGame() {
         >
           <div className="flex items-center gap-4">
             <div className="text-sm text-neutral-400">Score</div>
-            <div className="text-2xl font-bold tabular-nums text-green-400">
-              {score}
-            </div>
+            <div className="text-2xl font-bold text-green-400 tabular-nums">{score}</div>
           </div>
           <div className="flex items-center gap-3">
             <Trophy className="h-4 w-4 text-yellow-500" />
             <div className="text-sm text-neutral-400">Best</div>
-            <div className="text-lg font-semibold tabular-nums text-yellow-500">
-              {highScore}
-            </div>
+            <div className="text-lg font-semibold text-yellow-500 tabular-nums">{highScore}</div>
           </div>
         </motion.div>
 
@@ -434,12 +428,8 @@ export default function SnakeGame() {
                 transition={{ type: "spring", stiffness: 200 }}
                 className="flex flex-col items-center gap-4"
               >
-                <div className="text-4xl font-bold text-green-400">
-                  Snake
-                </div>
-                <p className="text-sm text-neutral-400">
-                  Use arrow keys or WASD to move
-                </p>
+                <div className="text-4xl font-bold text-green-400">Snake</div>
+                <p className="text-sm text-neutral-400">Use arrow keys or WASD to move</p>
                 <button
                   onClick={startGame}
                   className="flex items-center gap-2 rounded-lg bg-green-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-500"
@@ -447,9 +437,7 @@ export default function SnakeGame() {
                   <Play className="h-5 w-5" />
                   Play
                 </button>
-                <p className="text-xs text-neutral-500">
-                  or press Space to start
-                </p>
+                <p className="text-xs text-neutral-500">or press Space to start</p>
               </motion.div>
             </motion.div>
           )}
@@ -467,16 +455,10 @@ export default function SnakeGame() {
                 transition={{ type: "spring", stiffness: 200 }}
                 className="flex flex-col items-center gap-4"
               >
-                <div className="text-3xl font-bold text-red-400">
-                  Game Over
-                </div>
-                <div className="text-5xl font-bold tabular-nums text-white">
-                  {score}
-                </div>
+                <div className="text-3xl font-bold text-red-400">Game Over</div>
+                <div className="text-5xl font-bold text-white tabular-nums">{score}</div>
                 <p className="text-sm text-neutral-400">
-                  {score > 0 && score >= highScore
-                    ? "New high score!"
-                    : `Best: ${highScore}`}
+                  {score > 0 && score >= highScore ? "New high score!" : `Best: ${highScore}`}
                 </p>
                 <button
                   onClick={startGame}
@@ -485,9 +467,7 @@ export default function SnakeGame() {
                   <RotateCcw className="h-5 w-5" />
                   Play Again
                 </button>
-                <p className="text-xs text-neutral-500">
-                  or press Space to restart
-                </p>
+                <p className="text-xs text-neutral-500">or press Space to restart</p>
               </motion.div>
             </motion.div>
           )}
@@ -500,12 +480,8 @@ export default function SnakeGame() {
           transition={{ delay: 0.25 }}
           className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-neutral-500"
         >
-          <span className="rounded bg-neutral-800 px-2 py-1">
-            Arrow Keys / WASD
-          </span>
-          <span className="rounded bg-neutral-800 px-2 py-1">
-            Space to start/restart
-          </span>
+          <span className="rounded bg-neutral-800 px-2 py-1">Arrow Keys / WASD</span>
+          <span className="rounded bg-neutral-800 px-2 py-1">Space to start/restart</span>
         </motion.div>
       </div>
     </div>

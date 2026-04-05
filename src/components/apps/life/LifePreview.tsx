@@ -40,11 +40,19 @@ function seedGrid(): Grid {
   const grid = createGrid();
   // Glider at top-left area
   const glider = [
-    [2, 3], [3, 4], [4, 2], [4, 3], [4, 4],
+    [2, 3],
+    [3, 4],
+    [4, 2],
+    [4, 3],
+    [4, 4],
   ];
   // R-pentomino in the center (produces long-lived chaotic behavior)
   const rpent = [
-    [10, 20], [10, 21], [11, 19], [11, 20], [12, 20],
+    [10, 20],
+    [10, 21],
+    [11, 19],
+    [11, 20],
+    [12, 20],
   ];
   for (const [r, c] of [...glider, ...rpent]) {
     if (r < ROWS && c < COLS) grid[r][c] = true;
@@ -102,9 +110,10 @@ export default function LifePreview() {
 
     draw();
     const interval = setInterval(tick, 120);
+    const frame = frameRef.current;
     return () => {
       clearInterval(interval);
-      cancelAnimationFrame(frameRef.current);
+      cancelAnimationFrame(frame);
     };
   }, []);
 

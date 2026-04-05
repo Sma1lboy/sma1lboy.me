@@ -27,7 +27,7 @@ export function useCursorTrail(containerRef: React.RefObject<HTMLElement | null>
 
     const ctx = canvas.getContext("2d")!;
     const particles: Particle[] = [];
-    let mouse = { x: -1, y: -1 };
+    const mouse = { x: -1, y: -1 };
     let frameCount = 0;
     let rafId = 0;
 

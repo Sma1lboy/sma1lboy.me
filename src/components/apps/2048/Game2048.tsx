@@ -38,14 +38,14 @@ function getHighScore(): number {
   try {
     const stored = localStorage.getItem("2048-high-score");
     if (stored) return parseInt(stored, 10);
-  } catch {}
+  } catch { /* ignored */ }
   return 0;
 }
 
 function saveHighScore(score: number) {
   try {
     localStorage.setItem("2048-high-score", String(score));
-  } catch {}
+  } catch { /* ignored */ }
 }
 
 function createEmptyGrid(): Grid {
@@ -84,7 +84,12 @@ function rotateGrid(grid: Grid, times: number): Grid {
   return g;
 }
 
-function slideLeft(grid: Grid): { grid: Grid; score: number; moved: boolean; mergedCells: Set<string> } {
+function slideLeft(grid: Grid): {
+  grid: Grid;
+  score: number;
+  moved: boolean;
+  mergedCells: Set<string>;
+} {
   let score = 0;
   let moved = false;
   const mergedCells = new Set<string>();
@@ -115,7 +120,10 @@ function slideLeft(grid: Grid): { grid: Grid; score: number; moved: boolean; mer
   return { grid: newGrid, score, moved, mergedCells };
 }
 
-function move(grid: Grid, direction: Direction): { grid: Grid; score: number; moved: boolean; mergedCells: Set<string> } {
+function move(
+  grid: Grid,
+  direction: Direction,
+): { grid: Grid; score: number; moved: boolean; mergedCells: Set<string> } {
   const rotations: Record<Direction, number> = { left: 0, up: 1, right: 2, down: 3 };
   const inverseRotations: Record<Direction, number> = { left: 0, down: 1, right: 2, up: 3 };
   const rot = rotations[direction];
@@ -140,7 +148,12 @@ function move(grid: Grid, direction: Direction): { grid: Grid; score: number; mo
     transformedMerged.add(`${tr},${tc}`);
   });
 
-  return { grid: finalGrid, score: result.score, moved: result.moved, mergedCells: transformedMerged };
+  return {
+    grid: finalGrid,
+    score: result.score,
+    moved: result.moved,
+    mergedCells: transformedMerged,
+  };
 }
 
 function canMove(grid: Grid): boolean {
@@ -189,8 +202,7 @@ function initGame(): { grid: Grid; tiles: TileInfo[] } {
   grid = addRandomTile(grid);
   const firstNew = new Set<string>();
   for (let r = 0; r < SIZE; r++)
-    for (let c = 0; c < SIZE; c++)
-      if (grid[r][c] !== 0) firstNew.add(`${r},${c}`);
+    for (let c = 0; c < SIZE; c++) if (grid[r][c] !== 0) firstNew.add(`${r},${c}`);
   grid = addRandomTile(grid);
   for (let r = 0; r < SIZE; r++)
     for (let c = 0; c < SIZE; c++)
@@ -201,8 +213,7 @@ function initGame(): { grid: Grid; tiles: TileInfo[] } {
 export default function Game2048() {
   useSEO({
     title: "2048 – sma1lboy's Lab",
-    description:
-      "Play the classic 2048 sliding puzzle game. Merge tiles to reach 2048!",
+    description: "Play the classic 2048 sliding puzzle game. Merge tiles to reach 2048!",
     path: "/apps/2048",
   });
 
@@ -251,8 +262,7 @@ export default function Game2048() {
       const newCells = new Set<string>();
       for (let r = 0; r < SIZE; r++)
         for (let c = 0; c < SIZE; c++)
-          if (newGrid[r][c] !== 0 && result.grid[r][c] === 0)
-            newCells.add(`${r},${c}`);
+          if (newGrid[r][c] !== 0 && result.grid[r][c] === 0) newCells.add(`${r},${c}`);
 
       const newTiles = gridToTiles(newGrid, newCells, result.mergedCells);
       setTiles(newTiles);
@@ -361,13 +371,13 @@ export default function Game2048() {
         >
           <div className="flex flex-1 gap-2">
             <div className="flex-1 rounded-lg bg-neutral-100 px-4 py-2 text-center dark:bg-neutral-800">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+              <div className="text-[10px] font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
                 Score
               </div>
               <div className="text-lg font-bold tabular-nums">{score}</div>
             </div>
             <div className="flex-1 rounded-lg bg-neutral-100 px-4 py-2 text-center dark:bg-neutral-800">
-              <div className="flex items-center justify-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+              <div className="flex items-center justify-center gap-1 text-[10px] font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
                 <Trophy size={10} />
                 Best
               </div>
@@ -396,10 +406,7 @@ export default function Game2048() {
           {/* Empty cell backgrounds */}
           <div className="grid h-full w-full grid-cols-4 gap-2">
             {Array.from({ length: 16 }).map((_, i) => (
-              <div
-                key={i}
-                className="rounded-md bg-[#cdc1b4]/50 dark:bg-[#3c3a32]/50"
-              />
+              <div key={i} className="rounded-md bg-[#cdc1b4]/50 dark:bg-[#3c3a32]/50" />
             ))}
           </div>
 
@@ -414,11 +421,7 @@ export default function Game2048() {
                   <motion.div
                     key={tile.id}
                     initial={
-                      tile.isNew
-                        ? { scale: 0, opacity: 0 }
-                        : tile.isMerged
-                          ? { scale: 0.8 }
-                          : false
+                      tile.isNew ? { scale: 0, opacity: 0 } : tile.isMerged ? { scale: 0.8 } : false
                     }
                     animate={{
                       scale: 1,
@@ -510,10 +513,19 @@ export default function Game2048() {
           transition={{ delay: 0.25 }}
           className="mt-4 text-center text-xs text-neutral-400 dark:text-neutral-500"
         >
-          Use <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">&#8592;</kbd>{" "}
-          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">&#8593;</kbd>{" "}
-          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">&#8594;</kbd>{" "}
-          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">&#8595;</kbd>{" "}
+          Use{" "}
+          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">
+            &#8592;
+          </kbd>{" "}
+          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">
+            &#8593;
+          </kbd>{" "}
+          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">
+            &#8594;
+          </kbd>{" "}
+          <kbd className="rounded border border-neutral-300 px-1 py-0.5 text-[10px] dark:border-neutral-700">
+            &#8595;
+          </kbd>{" "}
           arrow keys or swipe to move tiles
         </motion.p>
       </div>
