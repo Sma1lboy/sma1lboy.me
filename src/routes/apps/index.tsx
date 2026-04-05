@@ -41,6 +41,7 @@ import PasswordPreview from "../../components/apps/password/PasswordPreview";
 import UnitsPreview from "../../components/apps/units/UnitsPreview";
 import LoremPreview from "../../components/apps/lorem/LoremPreview";
 import CronPreview from "../../components/apps/cron/CronPreview";
+import EpochPreview from "../../components/apps/epoch/EpochPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -77,6 +78,7 @@ const newAppPaths = new Set([
   "/apps/units",
   "/apps/lorem",
   "/apps/cron",
+  "/apps/epoch",
 ]);
 
 const categories: {
@@ -164,6 +166,13 @@ const categories: {
         description:
           "Parse cron expressions into human-readable schedules. Visualize fields, see next execution times, and use quick presets.",
         preview: <CronPreview />,
+      },
+      {
+        to: "/apps/epoch",
+        title: "Epoch Converter",
+        description:
+          "Convert Unix timestamps to dates and back. ISO 8601, UTC, local time, relative time, live clock, and common epochs reference.",
+        preview: <EpochPreview />,
       },
     ],
   },
