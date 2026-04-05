@@ -168,17 +168,13 @@ export default function Terminal() {
           const batch = chars.slice(i, i + 3).join("");
           i += 3;
           setOutput((prev) =>
-            prev.map((line) =>
-              line.id === lineId ? { ...line, text: line.text + batch } : line,
-            ),
+            prev.map((line) => (line.id === lineId ? { ...line, text: line.text + batch } : line)),
           );
           scrollToBottom();
           setTimeout(tick, TYPE_DELAY);
         } else {
           setOutput((prev) =>
-            prev.map((line) =>
-              line.id === lineId ? { ...line, isTyping: false } : line,
-            ),
+            prev.map((line) => (line.id === lineId ? { ...line, isTyping: false } : line)),
           );
           setIsTyping(false);
           onDone?.();
@@ -198,10 +194,7 @@ export default function Terminal() {
       const args = parts.slice(1).join(" ");
 
       // Add command line to output
-      setOutput((prev) => [
-        ...prev,
-        { id: nextId(), text: PROMPT + trimmed, isCommand: true },
-      ]);
+      setOutput((prev) => [...prev, { id: nextId(), text: PROMPT + trimmed, isCommand: true }]);
 
       if (!trimmed) return;
 
@@ -246,9 +239,7 @@ export default function Terminal() {
           break;
 
         case "ls":
-          typewriterOutput(
-            "  " + Object.keys(SITE_PAGES).join("  "),
-          );
+          typewriterOutput("  " + Object.keys(SITE_PAGES).join("  "));
           break;
 
         case "whoami":
@@ -340,9 +331,7 @@ export default function Terminal() {
               <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
               <div className="h-3 w-3 rounded-full bg-[#28c840]" />
             </div>
-            <span className="ml-2 font-mono text-xs text-gray-500">
-              visitor@sma1lboy.me — bash
-            </span>
+            <span className="ml-2 font-mono text-xs text-gray-500">visitor@sma1lboy.me — bash</span>
           </div>
 
           {/* Terminal body */}
@@ -368,7 +357,7 @@ export default function Terminal() {
             {/* Input line */}
             {!isTyping && (
               <div className="flex font-mono text-sm">
-                <span className="text-green-400 whitespace-pre">{PROMPT}</span>
+                <span className="whitespace-pre text-green-400">{PROMPT}</span>
                 <div className="relative flex-1">
                   <input
                     ref={inputRef}
@@ -384,11 +373,11 @@ export default function Terminal() {
                   />
                   {/* Custom blinking cursor */}
                   <span
-                    className="pointer-events-none absolute top-0 font-mono text-sm text-green-400 whitespace-pre"
+                    className="pointer-events-none absolute top-0 font-mono text-sm whitespace-pre text-green-400"
                     aria-hidden
                   >
                     {input}
-                    <span className="inline-block h-4 w-1.5 translate-y-[1px] animate-blink bg-green-400" />
+                    <span className="animate-blink inline-block h-4 w-1.5 translate-y-[1px] bg-green-400" />
                   </span>
                 </div>
               </div>

@@ -1,14 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import {
-  Copy,
-  Check,
-  Plus,
-  Trash2,
-  ChevronUp,
-  ChevronDown,
-  Eye,
-  EyeOff,
-} from "lucide-react";
+import { Copy, Check, Plus, Trash2, ChevronUp, ChevronDown, Eye, EyeOff } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 import { useToastStore } from "@/store/toastStore";
@@ -260,20 +251,12 @@ export default function BoxShadowGenerator() {
     return visible.map(layerToCss).join(",\n    ");
   }, [layers]);
 
-  const fullCss = useMemo(
-    () => `box-shadow: ${shadowCss};`,
-    [shadowCss],
-  );
+  const fullCss = useMemo(() => `box-shadow: ${shadowCss};`, [shadowCss]);
 
   // Layer operations
-  const updateLayer = useCallback(
-    (id: number, updates: Partial<ShadowLayer>) => {
-      setLayers((prev) =>
-        prev.map((l) => (l.id === id ? { ...l, ...updates } : l)),
-      );
-    },
-    [],
-  );
+  const updateLayer = useCallback((id: number, updates: Partial<ShadowLayer>) => {
+    setLayers((prev) => prev.map((l) => (l.id === id ? { ...l, ...updates } : l)));
+  }, []);
 
   const addLayer = useCallback(() => {
     const newLayer = createLayer();
@@ -334,8 +317,7 @@ export default function BoxShadowGenerator() {
             Box Shadow Generator
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Create CSS box shadows with multiple layers, presets, and live
-            preview.
+            Create CSS box shadows with multiple layers, presets, and live preview.
           </p>
         </motion.div>
 
@@ -406,15 +388,9 @@ export default function BoxShadowGenerator() {
                         updateLayer(layer.id, { visible: !layer.visible });
                       }}
                       className="p-0.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
-                      aria-label={
-                        layer.visible ? "Hide layer" : "Show layer"
-                      }
+                      aria-label={layer.visible ? "Hide layer" : "Show layer"}
                     >
-                      {layer.visible ? (
-                        <Eye size={14} />
-                      ) : (
-                        <EyeOff size={14} />
-                      )}
+                      {layer.visible ? <Eye size={14} /> : <EyeOff size={14} />}
                     </button>
                     <button
                       onClick={(e) => {
@@ -546,16 +522,12 @@ export default function BoxShadowGenerator() {
 
                 {/* Color + Opacity */}
                 <div>
-                  <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">
-                    Shadow Color
-                  </div>
+                  <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">Shadow Color</div>
                   <div className="flex items-center gap-2">
                     <input
                       type="color"
                       value={activeLayer.color}
-                      onChange={(e) =>
-                        updateLayer(activeLayerId, { color: e.target.value })
-                      }
+                      onChange={(e) => updateLayer(activeLayerId, { color: e.target.value })}
                       className="h-8 w-10 cursor-pointer rounded border border-gray-300 dark:border-gray-600"
                       aria-label="Shadow color"
                     />
@@ -604,23 +576,19 @@ export default function BoxShadowGenerator() {
                       })
                     }
                     className={`relative h-6 w-11 rounded-full transition-colors ${
-                      activeLayer.inset
-                        ? "bg-violet-500"
-                        : "bg-gray-300 dark:bg-gray-600"
+                      activeLayer.inset ? "bg-violet-500" : "bg-gray-300 dark:bg-gray-600"
                     }`}
                     aria-label="Toggle inset shadow"
                     role="switch"
                     aria-checked={activeLayer.inset}
                   >
                     <span
-                      className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform shadow-sm ${
+                      className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
                         activeLayer.inset ? "translate-x-5" : ""
                       }`}
                     />
                   </button>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    Inset Shadow
-                  </span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Inset Shadow</span>
                 </div>
               </div>
             </div>
@@ -662,9 +630,7 @@ export default function BoxShadowGenerator() {
                   />
                 </div>
                 <div>
-                  <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">
-                    Box Color
-                  </div>
+                  <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">Box Color</div>
                   <div className="flex items-center gap-2">
                     <input
                       type="color"
@@ -673,9 +639,7 @@ export default function BoxShadowGenerator() {
                       className="h-8 w-10 cursor-pointer rounded border border-gray-300 dark:border-gray-600"
                       aria-label="Preview box color"
                     />
-                    <span className="text-xs text-gray-500">
-                      {previewColor}
-                    </span>
+                    <span className="text-xs text-gray-500">{previewColor}</span>
                   </div>
                 </div>
                 <div>

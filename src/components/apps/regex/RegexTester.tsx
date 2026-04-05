@@ -104,7 +104,7 @@ function FlagButton({
     <button
       type="button"
       onClick={onToggle}
-      className={`flex h-7 w-7 items-center justify-center rounded text-xs font-bold font-mono transition-all ${
+      className={`flex h-7 w-7 items-center justify-center rounded font-mono text-xs font-bold transition-all ${
         active
           ? "bg-purple-500/20 text-purple-400 ring-1 ring-purple-500/40"
           : "bg-gray-100 text-gray-400 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700"
@@ -130,7 +130,7 @@ function CheatCategory({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-gray-100 dark:border-gray-800 last:border-0">
+    <div className="border-b border-gray-100 last:border-0 dark:border-gray-800">
       <button
         type="button"
         onClick={() => setOpen(!open)}
@@ -150,16 +150,11 @@ function CheatCategory({
           >
             <div className="px-3 pb-2">
               {items.map((item) => (
-                <div
-                  key={item.pattern}
-                  className="flex items-baseline gap-2 py-0.5"
-                >
-                  <code className="shrink-0 rounded bg-gray-100 px-1.5 py-0.5 text-[11px] font-mono text-purple-600 dark:bg-gray-800 dark:text-purple-400">
+                <div key={item.pattern} className="flex items-baseline gap-2 py-0.5">
+                  <code className="shrink-0 rounded bg-gray-100 px-1.5 py-0.5 font-mono text-[11px] text-purple-600 dark:bg-gray-800 dark:text-purple-400">
                     {item.pattern}
                   </code>
-                  <span className="text-[11px] text-gray-500 dark:text-gray-400">
-                    {item.desc}
-                  </span>
+                  <span className="text-[11px] text-gray-500 dark:text-gray-400">{item.desc}</span>
                 </div>
               ))}
             </div>
@@ -189,8 +184,7 @@ export default function RegexTester() {
   const [showCheatSheet, setShowCheatSheet] = useState(true);
 
   const toggleFlag = useCallback(
-    (flag: keyof typeof flags) =>
-      setFlags((f) => ({ ...f, [flag]: !f[flag] })),
+    (flag: keyof typeof flags) => setFlags((f) => ({ ...f, [flag]: !f[flag] })),
     [],
   );
 
@@ -339,7 +333,7 @@ export default function RegexTester() {
                   className={`flex flex-1 items-center rounded-lg border bg-white dark:bg-gray-950 ${
                     error
                       ? "border-red-400 ring-1 ring-red-400/30"
-                      : "border-gray-200 dark:border-gray-800 focus-within:border-purple-400 dark:focus-within:border-purple-500"
+                      : "border-gray-200 focus-within:border-purple-400 dark:border-gray-800 dark:focus-within:border-purple-500"
                   } transition-colors`}
                 >
                   <span className="pl-3 font-mono text-sm text-gray-400">/</span>
@@ -351,31 +345,13 @@ export default function RegexTester() {
                     className="flex-1 bg-transparent px-1 py-2.5 font-mono text-sm text-gray-900 outline-none placeholder:text-gray-300 dark:text-gray-100 dark:placeholder:text-gray-600"
                     spellCheck={false}
                   />
-                  <span className="pr-3 font-mono text-sm text-gray-400">
-                    /{flagString}
-                  </span>
+                  <span className="pr-3 font-mono text-sm text-gray-400">/{flagString}</span>
                 </div>
                 <div className="flex gap-1">
-                  <FlagButton
-                    flag="g"
-                    active={flags.g}
-                    onToggle={() => toggleFlag("g")}
-                  />
-                  <FlagButton
-                    flag="i"
-                    active={flags.i}
-                    onToggle={() => toggleFlag("i")}
-                  />
-                  <FlagButton
-                    flag="m"
-                    active={flags.m}
-                    onToggle={() => toggleFlag("m")}
-                  />
-                  <FlagButton
-                    flag="s"
-                    active={flags.s}
-                    onToggle={() => toggleFlag("s")}
-                  />
+                  <FlagButton flag="g" active={flags.g} onToggle={() => toggleFlag("g")} />
+                  <FlagButton flag="i" active={flags.i} onToggle={() => toggleFlag("i")} />
+                  <FlagButton flag="m" active={flags.m} onToggle={() => toggleFlag("m")} />
+                  <FlagButton flag="s" active={flags.s} onToggle={() => toggleFlag("s")} />
                 </div>
               </div>
               <AnimatePresence>
@@ -408,7 +384,7 @@ export default function RegexTester() {
                   onChange={(e) => setTestString(e.target.value)}
                   rows={6}
                   placeholder="Enter test string..."
-                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-sm text-transparent caret-gray-900 outline-none transition-colors focus:border-purple-400 dark:border-gray-800 dark:bg-gray-950 dark:caret-gray-100 dark:focus:border-purple-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-sm text-transparent caret-gray-900 transition-colors outline-none focus:border-purple-400 dark:border-gray-800 dark:bg-gray-950 dark:caret-gray-100 dark:focus:border-purple-500"
                   spellCheck={false}
                   style={{
                     lineHeight: "1.6",
@@ -417,7 +393,7 @@ export default function RegexTester() {
                 />
                 {/* Highlight overlay */}
                 <div
-                  className="pointer-events-none absolute inset-0 overflow-auto whitespace-pre-wrap break-words rounded-lg px-4 py-3 font-mono text-sm text-gray-900 dark:text-gray-100"
+                  className="pointer-events-none absolute inset-0 overflow-auto rounded-lg px-4 py-3 font-mono text-sm break-words whitespace-pre-wrap text-gray-900 dark:text-gray-100"
                   style={{ lineHeight: "1.6" }}
                   dangerouslySetInnerHTML={{ __html: highlightedHtml }}
                 />
@@ -478,9 +454,7 @@ export default function RegexTester() {
                               key={`${m.index}-${i}`}
                               className="border-b border-gray-50 last:border-0 dark:border-gray-800/50"
                             >
-                              <td className="px-3 py-1.5 font-mono text-gray-400">
-                                {i}
-                              </td>
+                              <td className="px-3 py-1.5 font-mono text-gray-400">{i}</td>
                               <td className="px-3 py-1.5">
                                 <code className="rounded bg-green-500/10 px-1.5 py-0.5 font-mono text-green-700 dark:text-green-400">
                                   {m.fullMatch}
@@ -524,9 +498,7 @@ export default function RegexTester() {
                                   key={`${mi}-${g.index}`}
                                   className="border-b border-gray-50 last:border-0 dark:border-gray-800/50"
                                 >
-                                  <td className="px-3 py-1.5 font-mono text-gray-400">
-                                    {mi}
-                                  </td>
+                                  <td className="px-3 py-1.5 font-mono text-gray-400">{mi}</td>
                                   <td className="px-3 py-1.5">
                                     <span className="rounded bg-purple-500/10 px-1.5 py-0.5 font-mono text-purple-600 dark:text-purple-400">
                                       ${g.index}

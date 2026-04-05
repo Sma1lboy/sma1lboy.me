@@ -101,7 +101,8 @@ export const resumeData = {
   contributions: [
     {
       project: "TabbyML/tabby",
-      description: "Self-hosted AI coding assistant — significant contributor to core Rust codebase",
+      description:
+        "Self-hosted AI coding assistant — significant contributor to core Rust codebase",
       role: "Contributor",
       url: "https://github.com/TabbyML/tabby",
     },
@@ -113,7 +114,8 @@ export const resumeData = {
     },
     {
       project: "AI/ML Ecosystem",
-      description: "Various contributions to open source AI tooling and developer experience projects",
+      description:
+        "Various contributions to open source AI tooling and developer experience projects",
       role: "Contributor",
       url: "https://github.com/Sma1lboy",
     },
@@ -126,7 +128,8 @@ export const resumeData = {
     },
     {
       title: "Core Contributor — TabbyML",
-      description: "Significant contributions to a self-hosted AI coding assistant with 1000+ GitHub stars.",
+      description:
+        "Significant contributions to a self-hosted AI coding assistant with 1000+ GitHub stars.",
     },
     {
       title: "UIUC Computer Science",

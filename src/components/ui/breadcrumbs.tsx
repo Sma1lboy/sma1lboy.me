@@ -85,16 +85,9 @@ export function Breadcrumbs({ lastLabel, items: itemsProp }: BreadcrumbsProps) {
           const isLast = i === items.length - 1;
           return (
             <li key={item.href} className="flex items-center gap-1">
-              {i > 0 && (
-                <ChevronRight
-                  size={12}
-                  className="text-gray-300 dark:text-gray-700"
-                />
-              )}
+              {i > 0 && <ChevronRight size={12} className="text-gray-300 dark:text-gray-700" />}
               {isLast ? (
-                <span className="text-gray-500 dark:text-gray-400">
-                  {item.label}
-                </span>
+                <span className="text-gray-500 dark:text-gray-400">{item.label}</span>
               ) : (
                 <Link
                   to={item.href}

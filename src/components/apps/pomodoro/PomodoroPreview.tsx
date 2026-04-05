@@ -20,20 +20,8 @@ export default function PomodoroPreview() {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <div className="relative flex items-center justify-center">
-        <svg
-          width="100"
-          height="100"
-          viewBox="0 0 100 100"
-          className="-rotate-90"
-        >
-          <circle
-            cx="50"
-            cy="50"
-            r={36}
-            fill="none"
-            strokeWidth="3"
-            className="stroke-gray-800"
-          />
+        <svg width="100" height="100" viewBox="0 0 100 100" className="-rotate-90">
+          <circle cx="50" cy="50" r={36} fill="none" strokeWidth="3" className="stroke-gray-800" />
           <circle
             cx="50"
             cy="50"
@@ -47,9 +35,7 @@ export default function PomodoroPreview() {
             style={{ transition: "stroke-dashoffset 50ms linear" }}
           />
         </svg>
-        <span className="absolute font-mono text-xs tabular-nums text-gray-300">
-          25:00
-        </span>
+        <span className="absolute font-mono text-xs text-gray-300 tabular-nums">25:00</span>
       </div>
     </div>
   );

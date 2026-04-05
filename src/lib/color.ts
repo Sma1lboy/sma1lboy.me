@@ -2,11 +2,7 @@ export function clamp(v: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, v));
 }
 
-export function hsvToRgb(
-  h: number,
-  s: number,
-  v: number,
-): [number, number, number] {
+export function hsvToRgb(h: number, s: number, v: number): [number, number, number] {
   h = ((h % 360) + 360) % 360;
   const s1 = s / 100;
   const v1 = v / 100;
@@ -17,30 +13,34 @@ export function hsvToRgb(
     g1 = 0,
     b1 = 0;
   if (h < 60) {
-    r1 = c; g1 = x; b1 = 0;
+    r1 = c;
+    g1 = x;
+    b1 = 0;
   } else if (h < 120) {
-    r1 = x; g1 = c; b1 = 0;
+    r1 = x;
+    g1 = c;
+    b1 = 0;
   } else if (h < 180) {
-    r1 = 0; g1 = c; b1 = x;
+    r1 = 0;
+    g1 = c;
+    b1 = x;
   } else if (h < 240) {
-    r1 = 0; g1 = x; b1 = c;
+    r1 = 0;
+    g1 = x;
+    b1 = c;
   } else if (h < 300) {
-    r1 = x; g1 = 0; b1 = c;
+    r1 = x;
+    g1 = 0;
+    b1 = c;
   } else {
-    r1 = c; g1 = 0; b1 = x;
+    r1 = c;
+    g1 = 0;
+    b1 = x;
   }
-  return [
-    Math.round((r1 + m) * 255),
-    Math.round((g1 + m) * 255),
-    Math.round((b1 + m) * 255),
-  ];
+  return [Math.round((r1 + m) * 255), Math.round((g1 + m) * 255), Math.round((b1 + m) * 255)];
 }
 
-export function rgbToHsv(
-  r: number,
-  g: number,
-  b: number,
-): [number, number, number] {
+export function rgbToHsv(r: number, g: number, b: number): [number, number, number] {
   const r1 = r / 255;
   const g1 = g / 255;
   const b1 = b / 255;
@@ -58,11 +58,7 @@ export function rgbToHsv(
   return [h, s, v];
 }
 
-export function rgbToHsl(
-  r: number,
-  g: number,
-  b: number,
-): [number, number, number] {
+export function rgbToHsl(r: number, g: number, b: number): [number, number, number] {
   const r1 = r / 255;
   const g1 = g / 255;
   const b1 = b / 255;
@@ -79,11 +75,7 @@ export function rgbToHsl(
   return [Math.round(h), Math.round(s * 100), Math.round(l * 100)];
 }
 
-export function hslToRgb(
-  h: number,
-  s: number,
-  l: number,
-): [number, number, number] {
+export function hslToRgb(h: number, s: number, l: number): [number, number, number] {
   const s1 = s / 100;
   const l1 = l / 100;
   if (s1 === 0) {
@@ -109,10 +101,7 @@ export function hslToRgb(
 }
 
 export function rgbToHex(r: number, g: number, b: number): string {
-  return (
-    "#" +
-    [r, g, b].map((c) => c.toString(16).padStart(2, "0")).join("")
-  );
+  return "#" + [r, g, b].map((c) => c.toString(16).padStart(2, "0")).join("");
 }
 
 export function hexToRgb(hex: string): [number, number, number] | null {
@@ -120,9 +109,5 @@ export function hexToRgb(hex: string): [number, number, number] | null {
   if (!m) return null;
   let h = m[1];
   if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
-  return [
-    parseInt(h.slice(0, 2), 16),
-    parseInt(h.slice(2, 4), 16),
-    parseInt(h.slice(4, 6), 16),
-  ];
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
 }

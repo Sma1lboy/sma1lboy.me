@@ -37,12 +37,7 @@ export default function GradientPreview() {
       const dx = Math.cos(angle) * len;
       const dy = Math.sin(angle) * len;
 
-      const grad = ctx.createLinearGradient(
-        cx - dx / 2,
-        cy - dy / 2,
-        cx + dx / 2,
-        cy + dy / 2,
-      );
+      const grad = ctx.createLinearGradient(cx - dx / 2, cy - dy / 2, cx + dx / 2, cy + dy / 2);
 
       // Shifting hue-based colors
       const hue1 = (frame * 0.5) % 360;
@@ -128,11 +123,7 @@ export default function GradientPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

@@ -71,23 +71,57 @@ const PRESETS: Record<string, { name: string; cells: [number, number][] }> = {
       // Top-left quadrant pattern (symmetric across both axes)
       ...((): [number, number][] => {
         const quarter: [number, number][] = [
-          [1, 2], [1, 3], [1, 4],
-          [2, 1], [3, 1], [4, 1],
-          [6, 2], [6, 3], [6, 4],
-          [4, 6], [3, 6], [2, 6],
-          [1, 8], [1, 9], [1, 10],
-          [2, 11], [3, 11], [4, 11],
-          [6, 8], [6, 9], [6, 10],
-          [4, 6], [3, 6], [2, 6],
-          [8, 2], [8, 3], [8, 4],
-          [9, 1], [10, 1], [11, 1],
-          [8, 8], [8, 9], [8, 10],
-          [9, 11], [10, 11], [11, 11],
-          [11, 2], [11, 3], [11, 4],
-          [9, 6], [10, 6], [11, 6],
-          [11, 8], [11, 9], [11, 10],
-          [2, 6], [3, 6], [4, 6],
-          [9, 6], [10, 6], [11, 6],
+          [1, 2],
+          [1, 3],
+          [1, 4],
+          [2, 1],
+          [3, 1],
+          [4, 1],
+          [6, 2],
+          [6, 3],
+          [6, 4],
+          [4, 6],
+          [3, 6],
+          [2, 6],
+          [1, 8],
+          [1, 9],
+          [1, 10],
+          [2, 11],
+          [3, 11],
+          [4, 11],
+          [6, 8],
+          [6, 9],
+          [6, 10],
+          [4, 6],
+          [3, 6],
+          [2, 6],
+          [8, 2],
+          [8, 3],
+          [8, 4],
+          [9, 1],
+          [10, 1],
+          [11, 1],
+          [8, 8],
+          [8, 9],
+          [8, 10],
+          [9, 11],
+          [10, 11],
+          [11, 11],
+          [11, 2],
+          [11, 3],
+          [11, 4],
+          [9, 6],
+          [10, 6],
+          [11, 6],
+          [11, 8],
+          [11, 9],
+          [11, 10],
+          [2, 6],
+          [3, 6],
+          [4, 6],
+          [9, 6],
+          [10, 6],
+          [11, 6],
         ];
         // Deduplicate
         const set = new Set(quarter.map(([r, c]) => `${r},${c}`));
@@ -102,26 +136,52 @@ const PRESETS: Record<string, { name: string; cells: [number, number][] }> = {
     name: "Gosper Glider Gun",
     cells: [
       [1, 25],
-      [2, 23], [2, 25],
-      [3, 13], [3, 14], [3, 21], [3, 22], [3, 35], [3, 36],
-      [4, 12], [4, 16], [4, 21], [4, 22], [4, 35], [4, 36],
-      [5, 1], [5, 2], [5, 11], [5, 17], [5, 21], [5, 22],
-      [6, 1], [6, 2], [6, 11], [6, 15], [6, 17], [6, 18], [6, 23], [6, 25],
-      [7, 11], [7, 17], [7, 25],
-      [8, 12], [8, 16],
-      [9, 13], [9, 14],
+      [2, 23],
+      [2, 25],
+      [3, 13],
+      [3, 14],
+      [3, 21],
+      [3, 22],
+      [3, 35],
+      [3, 36],
+      [4, 12],
+      [4, 16],
+      [4, 21],
+      [4, 22],
+      [4, 35],
+      [4, 36],
+      [5, 1],
+      [5, 2],
+      [5, 11],
+      [5, 17],
+      [5, 21],
+      [5, 22],
+      [6, 1],
+      [6, 2],
+      [6, 11],
+      [6, 15],
+      [6, 17],
+      [6, 18],
+      [6, 23],
+      [6, 25],
+      [7, 11],
+      [7, 17],
+      [7, 25],
+      [8, 12],
+      [8, 16],
+      [9, 13],
+      [9, 14],
     ],
   },
 };
 
-function placePreset(
-  rows: number,
-  cols: number,
-  cells: [number, number][],
-): Grid {
+function placePreset(rows: number, cols: number, cells: [number, number][]): Grid {
   const grid = createEmptyGrid(rows, cols);
   // Find bounding box of pattern
-  let minR = Infinity, maxR = -Infinity, minC = Infinity, maxC = -Infinity;
+  let minR = Infinity,
+    maxR = -Infinity,
+    minC = Infinity,
+    maxC = -Infinity;
   for (const [r, c] of cells) {
     minR = Math.min(minR, r);
     maxR = Math.max(maxR, r);
@@ -234,12 +294,7 @@ export default function Life() {
     for (let row = 0; row < r; row++) {
       for (let col = 0; col < c; col++) {
         if (g[row][col]) {
-          ctx.fillRect(
-            col * STEP + GRID_LINE,
-            row * STEP + GRID_LINE,
-            CELL_SIZE,
-            CELL_SIZE,
-          );
+          ctx.fillRect(col * STEP + GRID_LINE, row * STEP + GRID_LINE, CELL_SIZE, CELL_SIZE);
         }
       }
     }
@@ -261,24 +316,26 @@ export default function Life() {
   }, [running, speed]);
 
   // Mouse interactions
-  const getCellFromEvent = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement>) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return null;
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = canvas.width / rect.width;
-      const scaleY = canvas.height / rect.height;
-      const x = (e.clientX - rect.left) * scaleX;
-      const y = (e.clientY - rect.top) * scaleY;
-      const col = Math.floor(x / STEP);
-      const row = Math.floor(y / STEP);
-      if (row >= 0 && row < gridRef.current.length && col >= 0 && col < (gridRef.current[0]?.length ?? 0)) {
-        return { row, col };
-      }
-      return null;
-    },
-    [],
-  );
+  const getCellFromEvent = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return null;
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    const col = Math.floor(x / STEP);
+    const row = Math.floor(y / STEP);
+    if (
+      row >= 0 &&
+      row < gridRef.current.length &&
+      col >= 0 &&
+      col < (gridRef.current[0]?.length ?? 0)
+    ) {
+      return { row, col };
+    }
+    return null;
+  }, []);
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -341,7 +398,7 @@ export default function Life() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-white dark:bg-black">
       {/* Breadcrumbs */}
-      <div className="fixed left-6 top-6 z-10">
+      <div className="fixed top-6 left-6 z-10">
         <Breadcrumbs />
       </div>
 
@@ -434,7 +491,7 @@ export default function Life() {
           <div className="mx-1 h-6 w-px bg-gray-200 dark:bg-gray-800" />
 
           {/* Generation counter */}
-          <span className="font-mono text-xs tabular-nums text-gray-500 dark:text-gray-400">
+          <span className="font-mono text-xs text-gray-500 tabular-nums dark:text-gray-400">
             Gen {generation}
           </span>
         </div>

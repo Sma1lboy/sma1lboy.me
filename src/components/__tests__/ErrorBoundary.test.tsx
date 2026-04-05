@@ -40,10 +40,7 @@ describe("ErrorBoundary", () => {
         <ThrowingComponent message="Logged error" />
       </ErrorBoundary>,
     );
-    expect(console.error).toHaveBeenCalledWith(
-      "[ErrorBoundary] Caught error:",
-      expect.any(Error),
-    );
+    expect(console.error).toHaveBeenCalledWith("[ErrorBoundary] Caught error:", expect.any(Error));
   });
 
   it("resets error state when retry button is clicked", () => {
@@ -105,37 +102,22 @@ describe("RouteErrorBoundary", () => {
 
   it("renders error UI with retry button", () => {
     const reset = vi.fn();
-    render(
-      <RouteErrorBoundary
-        error={new Error("Route error")}
-        reset={reset}
-      />,
-    );
+    render(<RouteErrorBoundary error={new Error("Route error")} reset={reset} />);
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
     expect(screen.getByText("Try again")).toBeInTheDocument();
   });
 
   it("calls reset when retry is clicked", () => {
     const reset = vi.fn();
-    render(
-      <RouteErrorBoundary
-        error={new Error("Route error")}
-        reset={reset}
-      />,
-    );
+    render(<RouteErrorBoundary error={new Error("Route error")} reset={reset} />);
     fireEvent.click(screen.getByText("Try again"));
     expect(reset).toHaveBeenCalledTimes(1);
   });
 
   it("logs route error to console", () => {
     const error = new Error("Route console error");
-    render(
-      <RouteErrorBoundary error={error} reset={() => {}} />,
-    );
-    expect(console.error).toHaveBeenCalledWith(
-      "[RouteErrorBoundary] Route error:",
-      error,
-    );
+    render(<RouteErrorBoundary error={error} reset={() => {}} />);
+    expect(console.error).toHaveBeenCalledWith("[RouteErrorBoundary] Route error:", error);
   });
 
   it("shows component stack in dev mode when provided", () => {
@@ -150,12 +132,7 @@ describe("RouteErrorBoundary", () => {
   });
 
   it("shows error message in dev mode", () => {
-    render(
-      <RouteErrorBoundary
-        error={new Error("Dev route error message")}
-        reset={() => {}}
-      />,
-    );
+    render(<RouteErrorBoundary error={new Error("Dev route error message")} reset={() => {}} />);
     expect(screen.getByText("Dev route error message")).toBeInTheDocument();
   });
 });

@@ -29,12 +29,10 @@ export default function CronPreview() {
       <div className="flex gap-1">
         {expr.map((field, i) => (
           <div key={i} className="flex flex-col items-center gap-1">
-            <span
-              className="rounded bg-gray-800 px-2 py-1 font-mono text-sm font-semibold text-emerald-400 transition-all duration-300"
-            >
+            <span className="rounded bg-gray-800 px-2 py-1 font-mono text-sm font-semibold text-emerald-400 transition-all duration-300">
               {field}
             </span>
-            <span className="text-[9px] font-medium uppercase tracking-wider text-gray-500">
+            <span className="text-[9px] font-medium tracking-wider text-gray-500 uppercase">
               {FIELDS[i]}
             </span>
           </div>

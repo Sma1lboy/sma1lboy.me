@@ -91,9 +91,7 @@ export default function ChangelogPage() {
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-gray-100">
             Changelog
           </h1>
-          <p className="mt-3 text-base text-gray-500 dark:text-[#888]">
-            What's new on this site
-          </p>
+          <p className="mt-3 text-base text-gray-500 dark:text-[#888]">What's new on this site</p>
         </motion.header>
 
         {/* Entries by month */}
@@ -101,7 +99,7 @@ export default function ChangelogPage() {
           {groups.map((group) => (
             <motion.section key={group.label} variants={itemVariants} className="mb-12">
               {/* Month heading */}
-              <h2 className="mb-5 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+              <h2 className="mb-5 text-xs font-semibold tracking-widest text-gray-400 uppercase dark:text-gray-500">
                 {group.label}
               </h2>
 

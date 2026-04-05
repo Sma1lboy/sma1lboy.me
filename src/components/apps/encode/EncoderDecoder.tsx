@@ -1,10 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Copy,
-  ArrowRightLeft,
-  Lock,
-} from "lucide-react";
+import { Copy, ArrowRightLeft, Lock } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 import { useToastStore } from "@/store/toastStore";
@@ -171,7 +167,7 @@ export default function EncoderDecoder() {
         {/* Header */}
         <div className="mb-8">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             Encoder / Decoder
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -228,7 +224,7 @@ export default function EncoderDecoder() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     spellCheck={false}
-                    className="min-h-[300px] flex-1 resize-none bg-transparent p-4 font-mono text-sm leading-6 text-gray-900 outline-none placeholder:text-gray-400 dark:text-gray-100 dark:placeholder:text-gray-600 sm:min-h-[400px]"
+                    className="min-h-[300px] flex-1 resize-none bg-transparent p-4 font-mono text-sm leading-6 text-gray-900 outline-none placeholder:text-gray-400 sm:min-h-[400px] dark:text-gray-100 dark:placeholder:text-gray-600"
                     placeholder={
                       activeTab === "jwt"
                         ? "Paste a JWT token here (e.g. eyJhbGci...)"
@@ -246,9 +242,7 @@ export default function EncoderDecoder() {
                     </div>
                   ) : (
                     <button
-                      onClick={() =>
-                        setMode((m) => (m === "encode" ? "decode" : "encode"))
-                      }
+                      onClick={() => setMode((m) => (m === "encode" ? "decode" : "encode"))}
                       className="inline-flex items-center gap-2 rounded-lg bg-gray-200 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                     >
                       <ArrowRightLeft size={14} />
@@ -270,14 +264,14 @@ export default function EncoderDecoder() {
                       <button
                         onClick={handleCopy}
                         disabled={!output}
-                        className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 disabled:opacity-40 disabled:cursor-not-allowed dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-40 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                       >
                         <Copy size={12} />
                         Copy
                       </button>
                     </div>
                   </div>
-                  <pre className="min-h-[300px] flex-1 overflow-auto whitespace-pre-wrap break-all bg-transparent p-4 font-mono text-sm leading-6 text-gray-900 dark:text-gray-100 sm:min-h-[400px]">
+                  <pre className="min-h-[300px] flex-1 overflow-auto bg-transparent p-4 font-mono text-sm leading-6 break-all whitespace-pre-wrap text-gray-900 sm:min-h-[400px] dark:text-gray-100">
                     {output || (
                       <span className="text-gray-400 dark:text-gray-600">
                         Output will appear here...

@@ -9,7 +9,14 @@ const TOTAL_LINES = Math.floor(H / STEP) * 2;
 
 interface FakeJsonLine {
   indent: number;
-  type: "key-string" | "key-number" | "key-bool" | "bracket-open" | "bracket-close" | "array-open" | "array-close";
+  type:
+    | "key-string"
+    | "key-number"
+    | "key-bool"
+    | "bracket-open"
+    | "bracket-close"
+    | "array-open"
+    | "array-close";
   keyWidth: number;
   valueWidth: number;
 }
@@ -20,20 +27,45 @@ function generateLines(): FakeJsonLine[] {
   for (let i = 0; i < TOTAL_LINES; i++) {
     const r = Math.random();
     if (r < 0.12 && indent < 3) {
-      lines.push({ indent, type: "bracket-open", keyWidth: 30 + Math.random() * 40, valueWidth: 0 });
+      lines.push({
+        indent,
+        type: "bracket-open",
+        keyWidth: 30 + Math.random() * 40,
+        valueWidth: 0,
+      });
       indent++;
     } else if (r < 0.2 && indent < 3) {
       lines.push({ indent, type: "array-open", keyWidth: 25 + Math.random() * 35, valueWidth: 0 });
       indent++;
     } else if (r < 0.3 && indent > 0) {
       indent--;
-      lines.push({ indent, type: Math.random() > 0.5 ? "bracket-close" : "array-close", keyWidth: 0, valueWidth: 0 });
+      lines.push({
+        indent,
+        type: Math.random() > 0.5 ? "bracket-close" : "array-close",
+        keyWidth: 0,
+        valueWidth: 0,
+      });
     } else if (r < 0.55) {
-      lines.push({ indent, type: "key-string", keyWidth: 20 + Math.random() * 30, valueWidth: 25 + Math.random() * 50 });
+      lines.push({
+        indent,
+        type: "key-string",
+        keyWidth: 20 + Math.random() * 30,
+        valueWidth: 25 + Math.random() * 50,
+      });
     } else if (r < 0.8) {
-      lines.push({ indent, type: "key-number", keyWidth: 20 + Math.random() * 30, valueWidth: 15 + Math.random() * 25 });
+      lines.push({
+        indent,
+        type: "key-number",
+        keyWidth: 20 + Math.random() * 30,
+        valueWidth: 15 + Math.random() * 25,
+      });
     } else {
-      lines.push({ indent, type: "key-bool", keyWidth: 20 + Math.random() * 30, valueWidth: 18 + Math.random() * 15 });
+      lines.push({
+        indent,
+        type: "key-bool",
+        keyWidth: 20 + Math.random() * 30,
+        valueWidth: 18 + Math.random() * 15,
+      });
     }
   }
   return lines;
@@ -111,9 +143,11 @@ export default function JsonPreview() {
 
           // Value
           const valueColor =
-            line.type === "key-string" ? colors.string :
-            line.type === "key-number" ? colors.number :
-            colors.bool;
+            line.type === "key-string"
+              ? colors.string
+              : line.type === "key-number"
+                ? colors.number
+                : colors.bool;
           ctx.fillStyle = valueColor;
           ctx.fillRect(x0 + line.keyWidth + 8, y + 1, line.valueWidth, LINE_H - 2);
         }
@@ -136,11 +170,7 @@ export default function JsonPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

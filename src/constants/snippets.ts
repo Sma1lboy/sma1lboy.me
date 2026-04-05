@@ -99,8 +99,7 @@ getUser(userId); // OK
   {
     id: "ts-result-type",
     title: "Result Type (Railway-Oriented)",
-    description:
-      "A Result type for explicit error handling without exceptions, inspired by Rust.",
+    description: "A Result type for explicit error handling without exceptions, inspired by Rust.",
     language: "typescript",
     category: "typescript",
     code: `type Result<T, E = Error> =
@@ -135,8 +134,7 @@ if (result.ok) {
   {
     id: "ts-typesafe-event-emitter",
     title: "Type-Safe Event Emitter",
-    description:
-      "A strongly-typed event emitter where event names and payload types are enforced.",
+    description: "A strongly-typed event emitter where event names and payload types are enforced.",
     language: "typescript",
     category: "typescript",
     code: `type EventMap = {
@@ -170,8 +168,7 @@ bus.on("user:login", ({ userId, timestamp }) => {
   {
     id: "react-use-debounce",
     title: "useDebounce Hook",
-    description:
-      "A reusable debounce hook for search inputs and other delayed-response patterns.",
+    description: "A reusable debounce hook for search inputs and other delayed-response patterns.",
     language: "tsx",
     category: "react",
     code: `import { useEffect, useState } from "react";
@@ -244,8 +241,7 @@ function useTodos(initial: Todo[]) {
   {
     id: "react-compound-component",
     title: "Compound Component Pattern",
-    description:
-      "Build flexible, composable components using React context and dot notation.",
+    description: "Build flexible, composable components using React context and dot notation.",
     language: "tsx",
     category: "react",
     code: `import { createContext, useContext, useState, type ReactNode } from "react";
@@ -415,8 +411,7 @@ echo "Done. Current branch: $current"`,
   {
     id: "sh-port-finder",
     title: "Find & Kill Process on Port",
-    description:
-      "Quickly find what process is using a port and optionally kill it.",
+    description: "Quickly find what process is using a port and optionally kill it.",
     language: "bash",
     category: "shell",
     code: `#!/usr/bin/env bash
@@ -478,8 +473,7 @@ docker system df`,
   {
     id: "ai-structured-output",
     title: "Structured JSON Output from LLMs",
-    description:
-      "Force reliable JSON output from Claude/GPT using TypeScript + Zod validation.",
+    description: "Force reliable JSON output from Claude/GPT using TypeScript + Zod validation.",
     language: "typescript",
     category: "ai-ml",
     code: `import Anthropic from "@anthropic-ai/sdk";
@@ -564,8 +558,7 @@ for doc, score in results:
   {
     id: "ai-tool-use",
     title: "Claude Tool Use / Function Calling",
-    description:
-      "Define and use tools with Claude's API for structured agent interactions.",
+    description: "Define and use tools with Claude's API for structured agent interactions.",
     language: "typescript",
     category: "ai-ml",
     code: `import Anthropic from "@anthropic-ai/sdk";

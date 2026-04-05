@@ -32,8 +32,7 @@ const SEED_MESSAGES: GuestbookMessage[] = [
   {
     id: "seed-1",
     name: "Linus Torvalds",
-    message:
-      "Talk is cheap. Show me the code. Nice portfolio though — at least you ship things.",
+    message: "Talk is cheap. Show me the code. Nice portfolio though — at least you ship things.",
     timestamp: Date.now() - 86400000 * 30,
     color: NOTE_COLORS[0],
     rotation: -2.1,
@@ -166,16 +165,12 @@ export default function GuestbookPage() {
     path: "/guestbook",
   });
 
-  const [userMessages, setUserMessages] = useState<GuestbookMessage[]>(
-    getStoredMessages,
-  );
+  const [userMessages, setUserMessages] = useState<GuestbookMessage[]>(getStoredMessages);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
   const allMessages = useMemo(() => {
-    return [...userMessages, ...SEED_MESSAGES].sort(
-      (a, b) => b.timestamp - a.timestamp,
-    );
+    return [...userMessages, ...SEED_MESSAGES].sort((a, b) => b.timestamp - a.timestamp);
   }, [userMessages]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -257,7 +252,7 @@ export default function GuestbookPage() {
               onChange={(e) => setName(e.target.value)}
               maxLength={50}
               aria-label="Your name"
-              className="rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400 dark:border-[#2a2a2a] dark:placeholder:text-gray-600 dark:focus:border-gray-600"
+              className="rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-sm transition-colors outline-none placeholder:text-gray-400 focus:border-gray-400 dark:border-[#2a2a2a] dark:placeholder:text-gray-600 dark:focus:border-gray-600"
             />
             <div className="relative flex-1">
               <input
@@ -265,14 +260,13 @@ export default function GuestbookPage() {
                 placeholder="Your message..."
                 value={message}
                 onChange={(e) =>
-                  e.target.value.length <= MAX_MESSAGE_LENGTH &&
-                  setMessage(e.target.value)
+                  e.target.value.length <= MAX_MESSAGE_LENGTH && setMessage(e.target.value)
                 }
                 aria-label="Your message"
-                className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 pr-16 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400 dark:border-[#2a2a2a] dark:placeholder:text-gray-600 dark:focus:border-gray-600"
+                className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 pr-16 text-sm transition-colors outline-none placeholder:text-gray-400 focus:border-gray-400 dark:border-[#2a2a2a] dark:placeholder:text-gray-600 dark:focus:border-gray-600"
               />
               <span
-                className={`absolute right-3 top-1/2 -translate-y-1/2 text-xs tabular-nums ${
+                className={`absolute top-1/2 right-3 -translate-y-1/2 text-xs tabular-nums ${
                   charsLeft < 30
                     ? charsLeft < 10
                       ? "text-red-400"
@@ -342,8 +336,8 @@ export default function GuestbookPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6, ease }}
         >
-          {allMessages.length} message{allMessages.length !== 1 && "s"} &middot;
-          stored locally in your browser
+          {allMessages.length} message{allMessages.length !== 1 && "s"} &middot; stored locally in
+          your browser
         </motion.p>
       </div>
     </div>

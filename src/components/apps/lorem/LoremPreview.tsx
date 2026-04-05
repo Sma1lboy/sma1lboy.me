@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 
 const WORDS = [
-  "Lorem", "ipsum", "dolor", "sit", "amet", "const", "async", "return",
-  "function", "import", "export", "class", "interface", "Promise",
+  "Lorem",
+  "ipsum",
+  "dolor",
+  "sit",
+  "amet",
+  "const",
+  "async",
+  "return",
+  "function",
+  "import",
+  "export",
+  "class",
+  "interface",
+  "Promise",
 ];
 
 export default function LoremPreview() {
-  const [lines, setLines] = useState(() =>
-    Array.from({ length: 3 }, () => buildLine()),
-  );
+  const [lines, setLines] = useState(() => Array.from({ length: 3 }, () => buildLine()));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,8 +57,5 @@ export default function LoremPreview() {
 
 function buildLine(): string[] {
   const len = 3 + Math.floor(Math.random() * 3);
-  return Array.from(
-    { length: len },
-    () => WORDS[Math.floor(Math.random() * WORDS.length)],
-  );
+  return Array.from({ length: len }, () => WORDS[Math.floor(Math.random() * WORDS.length)]);
 }

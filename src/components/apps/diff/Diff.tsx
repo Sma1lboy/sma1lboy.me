@@ -47,9 +47,7 @@ export default function Diff() {
         {/* Header */}
         <div className="mb-6">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-100">
-            Code Diff Viewer
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-100">Code Diff Viewer</h1>
           <p className="mt-1 text-sm text-gray-400">
             Paste code in both panels to see a visual diff.
           </p>
@@ -92,9 +90,7 @@ export default function Diff() {
         {/* Input areas */}
         <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label className="mb-1 block text-xs font-medium text-gray-400">
-              Original
-            </label>
+            <label className="mb-1 block text-xs font-medium text-gray-400">Original</label>
             <textarea
               value={original}
               onChange={(e) => setOriginal(e.target.value)}
@@ -104,9 +100,7 @@ export default function Diff() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs font-medium text-gray-400">
-              Modified
-            </label>
+            <label className="mb-1 block text-xs font-medium text-gray-400">Modified</label>
             <textarea
               value={modified}
               onChange={(e) => setModified(e.target.value)}
@@ -122,11 +116,7 @@ export default function Diff() {
           <div className="border-b border-gray-800 bg-gray-950 px-4 py-2 text-xs font-medium text-gray-400">
             Diff Output
           </div>
-          {viewMode === "split" ? (
-            <SplitView diff={diff} />
-          ) : (
-            <UnifiedView diff={diff} />
-          )}
+          {viewMode === "split" ? <SplitView diff={diff} /> : <UnifiedView diff={diff} />}
         </div>
       </div>
     </div>
@@ -187,39 +177,21 @@ function SplitView({ diff }: { diff: DiffLine[] }) {
   );
 }
 
-function SplitLine({
-  line,
-  side,
-}: {
-  line: DiffLine | null;
-  side: "left" | "right";
-}) {
+function SplitLine({ line, side }: { line: DiffLine | null; side: "left" | "right" }) {
   if (!line) {
     return <div className="h-5 bg-gray-950 px-2">&nbsp;</div>;
   }
 
   const num = side === "left" ? line.oldNum : line.newNum;
   const bgClass =
-    line.type === "del"
-      ? "bg-red-900/30"
-      : line.type === "add"
-        ? "bg-green-900/30"
-        : "";
+    line.type === "del" ? "bg-red-900/30" : line.type === "add" ? "bg-green-900/30" : "";
   const textClass =
-    line.type === "del"
-      ? "text-red-300"
-      : line.type === "add"
-        ? "text-green-300"
-        : "text-gray-400";
+    line.type === "del" ? "text-red-300" : line.type === "add" ? "text-green-300" : "text-gray-400";
 
   return (
     <div className={`flex ${bgClass}`}>
-      <span className="w-10 shrink-0 select-none px-2 text-right text-gray-600">
-        {num ?? ""}
-      </span>
-      <span className={`flex-1 whitespace-pre px-2 font-mono ${textClass}`}>
-        {line.text}
-      </span>
+      <span className="w-10 shrink-0 px-2 text-right text-gray-600 select-none">{num ?? ""}</span>
+      <span className={`flex-1 px-2 font-mono whitespace-pre ${textClass}`}>{line.text}</span>
     </div>
   );
 }
@@ -232,34 +204,25 @@ function UnifiedView({ diff }: { diff: DiffLine[] }) {
       <pre className="text-xs leading-5">
         {diff.map((line, i) => {
           const bgClass =
-            line.type === "del"
-              ? "bg-red-900/30"
-              : line.type === "add"
-                ? "bg-green-900/30"
-                : "";
+            line.type === "del" ? "bg-red-900/30" : line.type === "add" ? "bg-green-900/30" : "";
           const textClass =
             line.type === "del"
               ? "text-red-300"
               : line.type === "add"
                 ? "text-green-300"
                 : "text-gray-400";
-          const prefix =
-            line.type === "del" ? "-" : line.type === "add" ? "+" : " ";
+          const prefix = line.type === "del" ? "-" : line.type === "add" ? "+" : " ";
 
           return (
             <div key={i} className={`flex ${bgClass}`}>
-              <span className="w-10 shrink-0 select-none px-2 text-right text-gray-600">
+              <span className="w-10 shrink-0 px-2 text-right text-gray-600 select-none">
                 {line.oldNum ?? ""}
               </span>
-              <span className="w-10 shrink-0 select-none px-2 text-right text-gray-600">
+              <span className="w-10 shrink-0 px-2 text-right text-gray-600 select-none">
                 {line.newNum ?? ""}
               </span>
-              <span className="w-4 shrink-0 select-none text-center text-gray-500">
-                {prefix}
-              </span>
-              <span
-                className={`flex-1 whitespace-pre px-2 font-mono ${textClass}`}
-              >
+              <span className="w-4 shrink-0 text-center text-gray-500 select-none">{prefix}</span>
+              <span className={`flex-1 px-2 font-mono whitespace-pre ${textClass}`}>
                 {line.text}
               </span>
             </div>

@@ -108,11 +108,7 @@ export default function Game2048Preview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

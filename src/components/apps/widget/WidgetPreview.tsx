@@ -50,10 +50,7 @@ export default function WidgetPreview() {
 
         const innerAngle = angle + (2 * Math.PI) / 10;
         const ir = 2.2 * pulse;
-        ctx.lineTo(
-          starX + Math.cos(innerAngle) * ir,
-          starY + Math.sin(innerAngle) * ir,
-        );
+        ctx.lineTo(starX + Math.cos(innerAngle) * ir, starY + Math.sin(innerAngle) * ir);
       }
       ctx.closePath();
       ctx.fill();
@@ -119,13 +116,8 @@ export default function WidgetPreview() {
       ctx.fill();
 
       // Animated counter number
-      const counterVal = Math.round(
-        1234 * Math.min(1, (frame % 120) / 80),
-      );
-      const eased =
-        counterVal >= 1234
-          ? "1,234"
-          : counterVal.toLocaleString();
+      const counterVal = Math.round(1234 * Math.min(1, (frame % 120) / 80));
+      const eased = counterVal >= 1234 ? "1,234" : counterVal.toLocaleString();
 
       ctx.font = "bold 16px monospace";
       ctx.fillStyle = "#22c55e";
@@ -154,11 +146,7 @@ export default function WidgetPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

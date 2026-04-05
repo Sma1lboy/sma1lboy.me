@@ -17,7 +17,7 @@ export default function TimerPreview() {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-1">
-      <span className="font-mono text-lg tabular-nums text-gray-300">
+      <span className="font-mono text-lg text-gray-300 tabular-nums">
         {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}.
         {String(centiseconds).padStart(2, "0")}
       </span>

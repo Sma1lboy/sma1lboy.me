@@ -11,8 +11,7 @@ type ErrorCorrectionLevel = "L" | "M" | "Q" | "H";
 export default function QrGenerator() {
   useSEO({
     title: "QR Code Generator",
-    description:
-      "Generate QR codes from text or URLs with custom colors. Download as PNG.",
+    description: "Generate QR codes from text or URLs with custom colors. Download as PNG.",
     path: "/apps/qr",
   });
 
@@ -70,13 +69,9 @@ export default function QrGenerator() {
     if (!canvas || !input.trim()) return;
 
     try {
-      const blob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob(resolve, "image/png"),
-      );
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
       if (blob) {
-        await navigator.clipboard.write([
-          new ClipboardItem({ "image/png": blob }),
-        ]);
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
         useToastStore.getState().addToast("Copied to clipboard!");
       }
     } catch {
@@ -90,7 +85,7 @@ export default function QrGenerator() {
         {/* Header */}
         <div className="mb-8">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             QR Code Generator
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">

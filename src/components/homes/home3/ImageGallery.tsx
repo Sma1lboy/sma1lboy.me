@@ -35,18 +35,14 @@ export function ImageGallery() {
               loading="lazy"
               className="w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
             />
-            <figcaption
-              className="mt-2 font-mono text-[11px] text-gray-400 dark:text-[#666]"
-            >
+            <figcaption className="mt-2 font-mono text-[11px] text-gray-400 dark:text-[#666]">
               {image.caption}
             </figcaption>
           </motion.figure>
         ))}
       </div>
 
-      <p
-        className="mt-8 pb-4 text-center font-mono text-[10px] text-gray-400 dark:text-[#444]"
-      >
+      <p className="mt-8 pb-4 text-center font-mono text-[10px] text-gray-400 dark:text-[#444]">
         {galleryImages.length} projects
       </p>
     </motion.div>

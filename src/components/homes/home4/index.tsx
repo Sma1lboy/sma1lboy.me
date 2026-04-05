@@ -213,7 +213,7 @@ function ProjectCard() {
           </div>
           <ArrowUpRight
             size={12}
-            className="text-zinc-600 transition-transform transition-colors group-hover:text-zinc-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="text-zinc-600 transition-colors transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-zinc-300"
           />
         </div>
         <h2 className="text-sm font-semibold text-white">{featuredProject.title}</h2>

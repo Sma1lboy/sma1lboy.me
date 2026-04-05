@@ -47,13 +47,7 @@ function Kbd({ children }: { children: string }) {
   );
 }
 
-export function KeyboardShortcutsModal({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+export function KeyboardShortcutsModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -147,7 +141,9 @@ export function KeyboardShortcutsModal({
           >
             {/* Header */}
             <div className="border-border flex items-center justify-between border-b px-5 py-3.5">
-              <h2 id="shortcuts-modal-title" className="text-foreground text-sm font-semibold">{t("shortcuts.title")}</h2>
+              <h2 id="shortcuts-modal-title" className="text-foreground text-sm font-semibold">
+                {t("shortcuts.title")}
+              </h2>
               <button
                 onClick={onClose}
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -163,7 +159,7 @@ export function KeyboardShortcutsModal({
             <div className="max-h-[60vh] overflow-y-auto p-5">
               {shortcutGroups.map((group, gi) => (
                 <div key={group.titleKey} className={gi > 0 ? "mt-5" : ""}>
-                  <h3 className="text-muted-foreground mb-2.5 text-xs font-medium uppercase tracking-wide">
+                  <h3 className="text-muted-foreground mb-2.5 text-xs font-medium tracking-wide uppercase">
                     {t(group.titleKey)}
                   </h3>
                   <div className="space-y-1.5">

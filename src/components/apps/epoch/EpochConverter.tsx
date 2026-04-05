@@ -1,13 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import {
-  Clock,
-  AlertCircle,
-  Copy,
-  Check,
-  ArrowRightLeft,
-  Calendar,
-  Timer,
-} from "lucide-react";
+import { Clock, AlertCircle, Copy, Check, ArrowRightLeft, Calendar, Timer } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { motion } from "framer-motion";
 import { useSEO } from "@/hooks/useSEO";
@@ -172,20 +164,20 @@ export default function EpochConverter() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Timer size={14} className="text-emerald-500" />
-                <span className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Current Unix Time
                 </span>
               </div>
               <CopyButton text={String(liveClock)} />
             </div>
-            <p className="mt-2 font-mono text-2xl font-bold tabular-nums text-gray-900 dark:text-gray-100">
+            <p className="mt-2 font-mono text-2xl font-bold text-gray-900 tabular-nums dark:text-gray-100">
               {liveClock}
             </p>
           </div>
 
           {/* Timestamp → Date */}
           <div className="mb-6">
-            <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
               <ArrowRightLeft size={12} className="mr-1 inline" />
               Timestamp → Date
             </label>
@@ -196,7 +188,7 @@ export default function EpochConverter() {
                 onChange={(e) => setTimestampInput(e.target.value)}
                 placeholder="e.g. 1700000000"
                 spellCheck={false}
-                className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-lg text-gray-900 placeholder-gray-300 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-600 dark:focus:border-gray-600"
+                className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-lg text-gray-900 placeholder-gray-300 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-600 dark:focus:border-gray-600"
               />
               <button
                 onClick={handleUseNow}
@@ -211,9 +203,7 @@ export default function EpochConverter() {
               <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-900/50 dark:bg-red-950/30">
                 <div className="flex items-center gap-2">
                   <AlertCircle size={14} className="shrink-0 text-red-500" />
-                  <p className="text-sm text-red-700 dark:text-red-400">
-                    {timestampResult.error}
-                  </p>
+                  <p className="text-sm text-red-700 dark:text-red-400">{timestampResult.error}</p>
                 </div>
               </div>
             )}
@@ -255,7 +245,7 @@ export default function EpochConverter() {
                     }`}
                   >
                     <div className="min-w-0 flex-1">
-                      <span className="mr-3 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <span className="mr-3 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         {row.label}
                       </span>
                       <span className="font-mono text-sm text-gray-900 dark:text-gray-100">
@@ -271,7 +261,7 @@ export default function EpochConverter() {
 
           {/* Date → Timestamp */}
           <div className="mb-6">
-            <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
               <Calendar size={12} className="mr-1 inline" />
               Date → Timestamp
             </label>
@@ -281,7 +271,7 @@ export default function EpochConverter() {
                 value={dateInput}
                 onChange={(e) => setDateInput(e.target.value)}
                 step="1"
-                className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-gray-900 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:focus:border-gray-600 [color-scheme:light] dark:[color-scheme:dark]"
+                className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-gray-900 [color-scheme:light] transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:[color-scheme:dark] dark:focus:border-gray-600"
               />
               <button
                 onClick={handleUseNowDate}
@@ -296,9 +286,7 @@ export default function EpochConverter() {
               <div className="mt-3 rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-900/50 dark:bg-red-950/30">
                 <div className="flex items-center gap-2">
                   <AlertCircle size={14} className="shrink-0 text-red-500" />
-                  <p className="text-sm text-red-700 dark:text-red-400">
-                    {dateResult.error}
-                  </p>
+                  <p className="text-sm text-red-700 dark:text-red-400">{dateResult.error}</p>
                 </div>
               </div>
             )}
@@ -315,13 +303,11 @@ export default function EpochConverter() {
                   <div
                     key={row.label}
                     className={`flex items-center justify-between px-4 py-2.5 ${
-                      i !== 0
-                        ? "border-t border-gray-100 dark:border-gray-800/50"
-                        : ""
+                      i !== 0 ? "border-t border-gray-100 dark:border-gray-800/50" : ""
                     }`}
                   >
                     <div className="min-w-0 flex-1">
-                      <span className="mr-3 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                      <span className="mr-3 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                         {row.label}
                       </span>
                       <span className="font-mono text-sm text-gray-900 dark:text-gray-100">
@@ -337,7 +323,7 @@ export default function EpochConverter() {
 
           {/* Common Epochs Reference */}
           <div>
-            <h2 className="mb-3 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <h2 className="mb-3 flex items-center gap-1.5 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
               <Clock size={12} />
               Common Epochs
             </h2>
@@ -346,9 +332,7 @@ export default function EpochConverter() {
                 <div
                   key={epoch.label}
                   className={`flex items-center justify-between px-4 py-2.5 ${
-                    i !== 0
-                      ? "border-t border-gray-100 dark:border-gray-800/50"
-                      : ""
+                    i !== 0 ? "border-t border-gray-100 dark:border-gray-800/50" : ""
                   }`}
                 >
                   <div className="min-w-0 flex-1">

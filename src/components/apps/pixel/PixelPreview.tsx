@@ -65,10 +65,7 @@ export default function PixelPreview() {
 
       // Animate drawing the sprite pixel by pixel
       const totalPixels = rows * cols;
-      const revealCount = Math.min(
-        Math.floor((frame % 80) * 1.5),
-        totalPixels,
-      );
+      const revealCount = Math.min(Math.floor((frame % 80) * 1.5), totalPixels);
 
       for (let i = 0; i < revealCount; i++) {
         const r = Math.floor(i / cols);
@@ -76,8 +73,7 @@ export default function PixelPreview() {
         if (SPRITE[r][c] === "0") {
           const x = offsetX + c * cellSize;
           const y = offsetY + r * cellSize;
-          const pulse =
-            0.7 + Math.sin(frame * 0.05 + r * 0.3 + c * 0.3) * 0.3;
+          const pulse = 0.7 + Math.sin(frame * 0.05 + r * 0.3 + c * 0.3) * 0.3;
           ctx.globalAlpha = pulse;
           ctx.fillStyle = color;
           ctx.fillRect(x, y, cellSize - 1, cellSize - 1);
@@ -110,11 +106,7 @@ export default function PixelPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

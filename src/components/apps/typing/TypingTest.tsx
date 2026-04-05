@@ -156,9 +156,7 @@ export default function TypingTest() {
 
   const wpm = useMemo(() => {
     const elapsed =
-      gameState === "results"
-        ? (duration - timeLeft) || duration
-        : (Date.now() - startTime) / 1000;
+      gameState === "results" ? duration - timeLeft || duration : (Date.now() - startTime) / 1000;
     if (elapsed <= 0) return 0;
     const words = correctChars / 5;
     return Math.round((words / elapsed) * 60);
@@ -210,8 +208,7 @@ export default function TypingTest() {
             ? "text-green-500 dark:text-green-400"
             : "bg-red-500/20 text-red-500 dark:text-red-400";
       } else if (i === typed.length) {
-        className =
-          "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100";
+        className = "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100";
       }
 
       return (
@@ -227,7 +224,7 @@ export default function TypingTest() {
   const rating = getRating(wpm);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black p-4 sm:p-8">
+    <div className="min-h-screen bg-white p-4 sm:p-8 dark:bg-black">
       <div className="mx-auto max-w-3xl">
         <Breadcrumbs />
 
@@ -251,7 +248,7 @@ export default function TypingTest() {
                 </p>
 
                 {bestScore > 0 && (
-                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-yellow-50 dark:bg-yellow-900/20 px-3 py-1 text-sm text-yellow-700 dark:text-yellow-400">
+                  <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-yellow-50 px-3 py-1 text-sm text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400">
                     <Trophy size={14} />
                     Best: {bestScore} WPM
                   </div>
@@ -311,7 +308,11 @@ export default function TypingTest() {
                     {timeLeft}s
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-sm" aria-live="polite" aria-atomic="true">
+                <div
+                  className="flex items-center gap-4 text-sm"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
                   <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400">
                     <Zap size={14} />
                     <span className="font-mono font-bold text-gray-900 dark:text-gray-100">
@@ -333,7 +334,7 @@ export default function TypingTest() {
                 className="relative cursor-text rounded-xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-950"
                 onClick={() => inputRef.current?.focus()}
               >
-                <pre className="font-mono text-base leading-relaxed whitespace-pre-wrap break-all sm:text-lg">
+                <pre className="font-mono text-base leading-relaxed break-all whitespace-pre-wrap sm:text-lg">
                   {renderPassage()}
                 </pre>
 
@@ -393,9 +394,7 @@ export default function TypingTest() {
               {/* Stats grid */}
               <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center dark:border-gray-800 dark:bg-gray-950">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                    {wpm}
-                  </div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{wpm}</div>
                   <div className="mt-1 text-xs text-gray-500">WPM</div>
                 </div>
                 <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center dark:border-gray-800 dark:bg-gray-950">

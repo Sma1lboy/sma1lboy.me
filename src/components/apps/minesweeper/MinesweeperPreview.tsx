@@ -96,8 +96,7 @@ export default function MinesweeperPreview() {
               }
             }
           } else {
-            const pulse =
-              0.08 + Math.sin(frame * 0.03 + r * 0.5 + c * 0.5) * 0.04;
+            const pulse = 0.08 + Math.sin(frame * 0.03 + r * 0.5 + c * 0.5) * 0.04;
             ctx.fillStyle = `rgba(255, 255, 255, ${pulse})`;
             ctx.fillRect(x, y, CELL - 1, CELL - 1);
             ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
@@ -121,11 +120,7 @@ export default function MinesweeperPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

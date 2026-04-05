@@ -223,38 +223,37 @@ function startCoffee(): ActivePreset {
   // Occasional subtle clicks (short bursts)
   let clickTimeout: number;
   const scheduleClick = () => {
-    clickTimeout = window.setTimeout(() => {
-      const clickBuffer = ctx.createBuffer(
-        1,
-        Math.floor(ctx.sampleRate * 0.01),
-        ctx.sampleRate,
-      );
-      const clickData = clickBuffer.getChannelData(0);
-      for (let i = 0; i < clickData.length; i++) {
-        clickData[i] = (Math.random() * 2 - 1) * (1 - i / clickData.length);
-      }
-      const clickSource = ctx.createBufferSource();
-      clickSource.buffer = clickBuffer;
+    clickTimeout = window.setTimeout(
+      () => {
+        const clickBuffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.01), ctx.sampleRate);
+        const clickData = clickBuffer.getChannelData(0);
+        for (let i = 0; i < clickData.length; i++) {
+          clickData[i] = (Math.random() * 2 - 1) * (1 - i / clickData.length);
+        }
+        const clickSource = ctx.createBufferSource();
+        clickSource.buffer = clickBuffer;
 
-      const clickFilter = ctx.createBiquadFilter();
-      clickFilter.type = "highpass";
-      clickFilter.frequency.value = 2000;
+        const clickFilter = ctx.createBiquadFilter();
+        clickFilter.type = "highpass";
+        clickFilter.frequency.value = 2000;
 
-      const clickGain = ctx.createGain();
-      clickGain.gain.value = 0.08 + Math.random() * 0.06;
+        const clickGain = ctx.createGain();
+        clickGain.gain.value = 0.08 + Math.random() * 0.06;
 
-      clickSource.connect(clickFilter);
-      clickFilter.connect(clickGain);
-      clickGain.connect(analyser);
-      clickSource.start();
-      clickSource.onended = () => {
-        clickSource.disconnect();
-        clickFilter.disconnect();
-        clickGain.disconnect();
-      };
+        clickSource.connect(clickFilter);
+        clickFilter.connect(clickGain);
+        clickGain.connect(analyser);
+        clickSource.start();
+        clickSource.onended = () => {
+          clickSource.disconnect();
+          clickFilter.disconnect();
+          clickGain.disconnect();
+        };
 
-      scheduleClick();
-    }, 800 + Math.random() * 3000) as unknown as number;
+        scheduleClick();
+      },
+      800 + Math.random() * 3000,
+    ) as unknown as number;
   };
   scheduleClick();
 

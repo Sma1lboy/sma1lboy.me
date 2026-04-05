@@ -37,3 +37,4 @@ auto-imports.d.ts
 .eslintrc-auto-import.json
 .gstack/
 public/og/
+.autonomous/

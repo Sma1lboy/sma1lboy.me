@@ -32,6 +32,17 @@
     <link rel="apple-touch-icon" href="/icons/icon-192x192.svg" />
   </head>
   <body>
+    <script>
+      // Apply theme before React loads to prevent flash
+      (function() {
+        try {
+          var stored = JSON.parse(localStorage.getItem('theme-storage') || '{}');
+          var theme = (stored.state && stored.state.theme) || 'system';
+          var dark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch(e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

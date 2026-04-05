@@ -2,15 +2,7 @@ import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { RouteErrorBoundary } from "@/components/ErrorBoundary";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import {
-  FlaskConical,
-  Search,
-  X,
-  Code2,
-  Clock,
-  Sparkles,
-  Palette,
-} from "lucide-react";
+import { FlaskConical, Search, X, Code2, Clock, Sparkles, Palette } from "lucide-react";
 import TypewriterPreview from "../../components/apps/typewriter/TypewriterPreview";
 import ReceiptPreview from "../../components/apps/receipt/ReceiptPreview";
 import TerminalPreview from "../../components/apps/terminal/TerminalPreview";
@@ -99,8 +91,7 @@ const categories: {
       {
         to: "/apps/terminal",
         title: "Terminal",
-        description:
-          "Interactive terminal emulator. Type commands to explore.",
+        description: "Interactive terminal emulator. Type commands to explore.",
         preview: <TerminalPreview />,
       },
       {
@@ -148,8 +139,7 @@ const categories: {
       {
         to: "/apps/qr",
         title: "QR Code Generator",
-        description:
-          "Generate QR codes from text or URLs with custom colors. Download as PNG.",
+        description: "Generate QR codes from text or URLs with custom colors. Download as PNG.",
         preview: <QrPreview />,
       },
       {
@@ -196,8 +186,7 @@ const categories: {
       {
         to: "/apps/pomodoro",
         title: "Pomodoro Timer",
-        description:
-          "Focus timer with 25-min work sessions and breaks. Track your productivity.",
+        description: "Focus timer with 25-min work sessions and breaks. Track your productivity.",
         preview: <PomodoroPreview />,
       },
       {
@@ -334,8 +323,7 @@ const categories: {
       {
         to: "/apps/ascii",
         title: "ASCII Art",
-        description:
-          "Type text and see it rendered as large ASCII art with multiple font styles.",
+        description: "Type text and see it rendered as large ASCII art with multiple font styles.",
         preview: <AsciiPreview />,
       },
       {
@@ -348,8 +336,7 @@ const categories: {
       {
         to: "/apps/draw",
         title: "Drawing Canvas",
-        description:
-          "Freehand whiteboard with pen, eraser, shapes, color picker, and PNG export.",
+        description: "Freehand whiteboard with pen, eraser, shapes, color picker, and PNG export.",
         preview: <DrawPreview />,
       },
     ],
@@ -369,9 +356,7 @@ function AppsIndex() {
       .map((cat) => ({
         ...cat,
         apps: cat.apps.filter(
-          (app) =>
-            app.title.toLowerCase().includes(q) ||
-            app.description.toLowerCase().includes(q),
+          (app) => app.title.toLowerCase().includes(q) || app.description.toLowerCase().includes(q),
         ),
       }))
       .filter((cat) => cat.apps.length > 0);
@@ -384,10 +369,7 @@ function AppsIndex() {
         <div className="mb-8">
           <Breadcrumbs />
           <div className="flex items-center gap-3">
-            <FlaskConical
-              size={28}
-              className="text-gray-700 dark:text-gray-300"
-            />
+            <FlaskConical size={28} className="text-gray-700 dark:text-gray-300" />
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
@@ -408,19 +390,19 @@ function AppsIndex() {
         <div className="relative mb-10">
           <Search
             size={16}
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-gray-400"
           />
           <input
             type="text"
             placeholder="Search apps..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600 sm:max-w-sm"
+            className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-9 pl-9 text-sm text-gray-900 placeholder-gray-400 transition-colors outline-none focus:border-gray-400 sm:max-w-sm dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <X size={16} />
             </button>
@@ -453,7 +435,7 @@ function AppsIndex() {
                     className="group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-950 dark:hover:border-gray-700"
                   >
                     {newAppPaths.has(app.to) && (
-                      <span className="absolute right-3 top-3 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
+                      <span className="absolute top-3 right-3 z-10 rounded-full bg-emerald-500/90 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-white uppercase">
                         New
                       </span>
                     )}

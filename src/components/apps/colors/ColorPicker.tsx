@@ -1,25 +1,10 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Copy,
-  Check,
-  Trash2,
-  Download,
-  Plus,
-  RotateCcw,
-} from "lucide-react";
+import { Copy, Check, Trash2, Download, Plus, RotateCcw } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { useToastStore } from "@/store/toastStore";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import {
-  clamp,
-  hsvToRgb,
-  rgbToHsv,
-  rgbToHsl,
-  hslToRgb,
-  rgbToHex,
-  hexToRgb,
-} from "@/lib/color";
+import { clamp, hsvToRgb, rgbToHsv, rgbToHsl, hslToRgb, rgbToHex, hexToRgb } from "@/lib/color";
 
 // ---------------------------------------------------------------------------
 // WCAG contrast helpers
@@ -31,17 +16,10 @@ function srgbToLinear(c: number): number {
 }
 
 function relativeLuminance(r: number, g: number, b: number): number {
-  return (
-    0.2126 * srgbToLinear(r) +
-    0.7152 * srgbToLinear(g) +
-    0.0722 * srgbToLinear(b)
-  );
+  return 0.2126 * srgbToLinear(r) + 0.7152 * srgbToLinear(g) + 0.0722 * srgbToLinear(b);
 }
 
-function contrastRatio(
-  fg: [number, number, number],
-  bg: [number, number, number],
-): number {
+function contrastRatio(fg: [number, number, number], bg: [number, number, number]): number {
   const l1 = relativeLuminance(...fg);
   const l2 = relativeLuminance(...bg);
   const lighter = Math.max(l1, l2);
@@ -61,12 +39,7 @@ interface PaletteColor {
   label: string;
 }
 
-function generatePalette(
-  h: number,
-  s: number,
-  v: number,
-  rule: HarmonyRule,
-): PaletteColor[] {
+function generatePalette(h: number, s: number, v: number, rule: HarmonyRule): PaletteColor[] {
   const makeColor = (hue: number, label: string): PaletteColor => {
     const normalizedH = ((hue % 360) + 360) % 360;
     const rgb = hsvToRgb(normalizedH, s, v);
@@ -181,13 +154,8 @@ function Swatch({
         className={`${dims} relative rounded-lg border border-gray-200 transition-transform hover:scale-105 active:scale-95 dark:border-gray-700`}
         style={{ backgroundColor: color }}
         title={`Click to copy ${color}`}
-      >
-      </button>
-      {label && (
-        <span className="text-[10px] text-gray-500 dark:text-gray-400">
-          {label}
-        </span>
-      )}
+      ></button>
+      {label && <span className="text-[10px] text-gray-500 dark:text-gray-400">{label}</span>}
       <span className="font-mono text-xs text-gray-600 dark:text-gray-300">
         {color.toUpperCase()}
       </span>
@@ -353,13 +321,7 @@ function VisualPicker({
 // Contrast badge
 // ---------------------------------------------------------------------------
 
-function ContrastBadge({
-  label,
-  pass,
-}: {
-  label: string;
-  pass: boolean;
-}) {
+function ContrastBadge({ label, pass }: { label: string; pass: boolean }) {
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
@@ -414,22 +376,14 @@ export default function ColorPicker() {
   }, []);
 
   const applyRgb = useCallback((r: number, g: number, b: number) => {
-    const [h, s, v] = rgbToHsv(
-      clamp(r, 0, 255),
-      clamp(g, 0, 255),
-      clamp(b, 0, 255),
-    );
+    const [h, s, v] = rgbToHsv(clamp(r, 0, 255), clamp(g, 0, 255), clamp(b, 0, 255));
     setHue(h);
     setSat(s);
     setVal(v);
   }, []);
 
   const applyHsl = useCallback((h: number, s: number, l: number) => {
-    const rgbVal = hslToRgb(
-      clamp(h, 0, 360),
-      clamp(s, 0, 100),
-      clamp(l, 0, 100),
-    );
+    const rgbVal = hslToRgb(clamp(h, 0, 360), clamp(s, 0, 100), clamp(l, 0, 100));
     const [hh, ss, vv] = rgbToHsv(...rgbVal);
     setHue(hh);
     setSat(ss);
@@ -502,7 +456,7 @@ export default function ColorPicker() {
         {/* Header */}
         <div className="mb-8">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             Color Picker & Palette Generator
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -554,7 +508,10 @@ export default function ColorPicker() {
                 hexInput={hexInput}
                 setHexInput={setHexInput}
                 setHue={setHue}
-                onSVChange={(s, v) => { setSat(s); setVal(v); }}
+                onSVChange={(s, v) => {
+                  setSat(s);
+                  setVal(v);
+                }}
                 applyHex={applyHex}
                 applyRgb={applyRgb}
                 applyHsl={applyHsl}
@@ -609,11 +566,7 @@ export default function ColorPicker() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
-              <SavedTab
-                palettes={savedPalettes}
-                onLoad={loadPalette}
-                onDelete={deletePalette}
-              />
+              <SavedTab palettes={savedPalettes} onLoad={loadPalette} onDelete={deletePalette} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -627,8 +580,19 @@ export default function ColorPicker() {
 // ---------------------------------------------------------------------------
 
 function PickerTab({
-  hue, sat, val, rgb, hex, hsl, hexInput, setHexInput,
-  setHue, onSVChange, applyHex, applyRgb, applyHsl,
+  hue,
+  sat,
+  val,
+  rgb,
+  hex,
+  hsl,
+  hexInput,
+  setHexInput,
+  setHue,
+  onSVChange,
+  applyHex,
+  applyRgb,
+  applyHsl,
 }: {
   hue: number;
   sat: number;
@@ -648,7 +612,7 @@ function PickerTab({
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
       <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_1fr]">
         {/* Visual picker */}
-        <div className="border-b border-gray-200 p-5 lg:border-b-0 lg:border-r dark:border-gray-800">
+        <div className="border-b border-gray-200 p-5 lg:border-r lg:border-b-0 dark:border-gray-800">
           <VisualPicker
             hue={hue}
             sat={sat}
@@ -666,10 +630,7 @@ function PickerTab({
               <span className="font-mono text-lg font-bold text-gray-900 dark:text-gray-100">
                 {hex.toUpperCase()}
               </span>
-              <CopyButton
-                text={hex}
-                className="text-gray-500 dark:text-gray-400"
-              />
+              <CopyButton text={hex} className="text-gray-500 dark:text-gray-400" />
             </div>
           </div>
         </div>
@@ -697,10 +658,7 @@ function PickerTab({
                 className="flex-1 rounded-lg border border-gray-200 bg-white px-3 py-2 font-mono text-sm text-gray-900 outline-none focus:border-blue-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 maxLength={7}
               />
-              <CopyButton
-                text={hex}
-                className="text-gray-500 dark:text-gray-400"
-              />
+              <CopyButton text={hex} className="text-gray-500 dark:text-gray-400" />
             </div>
           </div>
 
@@ -748,7 +706,8 @@ function PickerTab({
                   <div key={ch} className="flex-1">
                     <div className="flex items-center gap-1">
                       <span className="text-[10px] text-gray-400">
-                        {ch}{i === 0 ? "°" : "%"}
+                        {ch}
+                        {i === 0 ? "°" : "%"}
                       </span>
                       <input
                         type="number"
@@ -775,9 +734,7 @@ function PickerTab({
 
           {/* CSS string preview */}
           <div className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-900">
-            <div className="mb-1 text-[10px] font-medium text-gray-400 dark:text-gray-500">
-              CSS
-            </div>
+            <div className="mb-1 text-[10px] font-medium text-gray-400 dark:text-gray-500">CSS</div>
             <code className="block font-mono text-xs text-gray-700 dark:text-gray-300">
               color: {hex};
             </code>
@@ -828,16 +785,12 @@ function PalettesTab({
             style={{ backgroundColor: hex }}
           />
           <div>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
-              Base color
-            </span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Base color</span>
             <span className="ml-2 font-mono text-sm font-semibold text-gray-900 dark:text-gray-100">
               {hex.toUpperCase()}
             </span>
           </div>
-          <span className="text-xs text-gray-400 dark:text-gray-500">
-            (set in Picker tab)
-          </span>
+          <span className="text-xs text-gray-400 dark:text-gray-500">(set in Picker tab)</span>
         </div>
 
         {/* Rule selector */}
@@ -944,8 +897,7 @@ function ContrastTab({
                 type="text"
                 value={fg}
                 onChange={(e) => {
-                  if (/^#[0-9a-f]{0,6}$/i.test(e.target.value))
-                    setFg(e.target.value);
+                  if (/^#[0-9a-f]{0,6}$/i.test(e.target.value)) setFg(e.target.value);
                 }}
                 className="flex-1 rounded-lg border border-gray-200 bg-white px-3 py-2 font-mono text-sm text-gray-900 outline-none focus:border-blue-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 maxLength={7}
@@ -976,8 +928,7 @@ function ContrastTab({
                 type="text"
                 value={bg}
                 onChange={(e) => {
-                  if (/^#[0-9a-f]{0,6}$/i.test(e.target.value))
-                    setBg(e.target.value);
+                  if (/^#[0-9a-f]{0,6}$/i.test(e.target.value)) setBg(e.target.value);
                 }}
                 className="flex-1 rounded-lg border border-gray-200 bg-white px-3 py-2 font-mono text-sm text-gray-900 outline-none focus:border-blue-400 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                 maxLength={7}
@@ -1009,26 +960,14 @@ function ContrastTab({
         </div>
 
         {/* Preview */}
-        <div
-          className="mb-6 rounded-xl p-6"
-          style={{ backgroundColor: bg }}
-        >
-          <p
-            className="text-2xl font-bold"
-            style={{ color: fg }}
-          >
+        <div className="mb-6 rounded-xl p-6" style={{ backgroundColor: bg }}>
+          <p className="text-2xl font-bold" style={{ color: fg }}>
             Sample Text
           </p>
-          <p
-            className="mt-1 text-sm"
-            style={{ color: fg }}
-          >
+          <p className="mt-1 text-sm" style={{ color: fg }}>
             The quick brown fox jumps over the lazy dog. 0123456789
           </p>
-          <p
-            className="mt-2 text-xs"
-            style={{ color: fg, opacity: 0.7 }}
-          >
+          <p className="mt-2 text-xs" style={{ color: fg, opacity: 0.7 }}>
             rgb({fgRgb[0]}, {fgRgb[1]}, {fgRgb[2]}) on rgb({bgRgb[0]}, {bgRgb[1]}, {bgRgb[2]})
           </p>
         </div>
@@ -1039,9 +978,7 @@ function ContrastTab({
             {ratio.toFixed(2)}
             <span className="ml-1 text-lg text-gray-400">: 1</span>
           </div>
-          <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-            Contrast Ratio
-          </div>
+          <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">Contrast Ratio</div>
         </div>
 
         {/* Pass/fail badges */}
@@ -1094,11 +1031,7 @@ function SavedTab({
           {/* Color band */}
           <div className="flex h-10">
             {p.colors.map((c, i) => (
-              <div
-                key={`${c.hex}-${i}`}
-                className="flex-1"
-                style={{ backgroundColor: c.hex }}
-              />
+              <div key={`${c.hex}-${i}`} className="flex-1" style={{ backgroundColor: c.hex }} />
             ))}
           </div>
 

@@ -1,5 +1,4 @@
 import App from "@/App";
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -28,11 +27,7 @@ if (typeof window !== "undefined") {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-);
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
 
 // Register service worker in production
 if ("serviceWorker" in navigator && import.meta.env.PROD) {

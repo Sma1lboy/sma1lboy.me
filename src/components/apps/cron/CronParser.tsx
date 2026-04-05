@@ -7,12 +7,28 @@ import { useSEO } from "@/hooks/useSEO";
 // ─── Constants ────────────────────────────────────────────────────────
 
 const MONTH_MAP: Record<string, number> = {
-  JAN: 1, FEB: 2, MAR: 3, APR: 4, MAY: 5, JUN: 6,
-  JUL: 7, AUG: 8, SEP: 9, OCT: 10, NOV: 11, DEC: 12,
+  JAN: 1,
+  FEB: 2,
+  MAR: 3,
+  APR: 4,
+  MAY: 5,
+  JUN: 6,
+  JUL: 7,
+  AUG: 8,
+  SEP: 9,
+  OCT: 10,
+  NOV: 11,
+  DEC: 12,
 };
 
 const DOW_MAP: Record<string, number> = {
-  SUN: 0, MON: 1, TUE: 2, WED: 3, THU: 4, FRI: 5, SAT: 6,
+  SUN: 0,
+  MON: 1,
+  TUE: 2,
+  WED: 3,
+  THU: 4,
+  FRI: 5,
+  SAT: 6,
 };
 
 const FIELD_DEFS = [
@@ -36,14 +52,21 @@ const PRESETS = [
   { label: "Yearly Jan 1", value: "0 0 1 1 *" },
 ];
 
-const DAY_NAMES = [
-  "Sunday", "Monday", "Tuesday", "Wednesday",
-  "Thursday", "Friday", "Saturday",
-];
+const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 // ─── Parsing ──────────────────────────────────────────────────────────
@@ -107,8 +130,7 @@ function expandField(
     if (rangeMatch) {
       const start = parseInt(rangeMatch[1]);
       const end = parseInt(rangeMatch[2]);
-      if (start > end)
-        return { values: [], isWild, error: `Invalid range: ${start}-${end}` };
+      if (start > end) return { values: [], isWild, error: `Invalid range: ${start}-${end}` };
       for (let i = start; i <= end; i++) values.add(i);
       continue;
     }
@@ -235,10 +257,14 @@ function getNextExecutions(fields: ParsedField[], count: number): Date[] {
 function ordinal(n: number): string {
   if (n > 3 && n < 21) return `${n}th`;
   switch (n % 10) {
-    case 1: return `${n}st`;
-    case 2: return `${n}nd`;
-    case 3: return `${n}rd`;
-    default: return `${n}th`;
+    case 1:
+      return `${n}st`;
+    case 2:
+      return `${n}nd`;
+    case 3:
+      return `${n}rd`;
+    default:
+      return `${n}th`;
   }
 }
 
@@ -273,9 +299,7 @@ function describeCron(fields: ParsedField[]): string {
     }
   } else {
     // Specific times
-    const times = hrs.values
-      .flatMap((h) => mins.values.map((m) => formatTime12(h, m)))
-      .join(", ");
+    const times = hrs.values.flatMap((h) => mins.values.map((m) => formatTime12(h, m))).join(", ");
     parts.push(`At ${times}`);
   }
 
@@ -283,16 +307,9 @@ function describeCron(fields: ParsedField[]): string {
   if (!dows.isWild) {
     const dowNorm = dows.values.map((d) => (d === 7 ? 0 : d));
     const sorted = [...new Set(dowNorm)].sort((a, b) => a - b);
-    if (
-      sorted.length === 5 &&
-      [1, 2, 3, 4, 5].every((d) => sorted.includes(d))
-    ) {
+    if (sorted.length === 5 && [1, 2, 3, 4, 5].every((d) => sorted.includes(d))) {
       parts.push("on weekdays");
-    } else if (
-      sorted.length === 2 &&
-      sorted.includes(0) &&
-      sorted.includes(6)
-    ) {
+    } else if (sorted.length === 2 && sorted.includes(0) && sorted.includes(6)) {
       parts.push("on weekends");
     } else {
       parts.push(`on ${sorted.map((d) => DAY_NAMES[d]).join(", ")}`);
@@ -327,13 +344,11 @@ export default function CronParser() {
 
   const parsed = useMemo(() => parseCron(expression), [expression]);
   const description = useMemo(
-    () =>
-      parsed.errors.length === 0 ? describeCron(parsed.fields) : "",
+    () => (parsed.errors.length === 0 ? describeCron(parsed.fields) : ""),
     [parsed],
   );
   const nextTimes = useMemo(
-    () =>
-      parsed.errors.length === 0 ? getNextExecutions(parsed.fields, 10) : [],
+    () => (parsed.errors.length === 0 ? getNextExecutions(parsed.fields, 10) : []),
     [parsed],
   );
 
@@ -368,7 +383,7 @@ export default function CronParser() {
 
           {/* Input */}
           <div className="mb-6">
-            <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
               Cron Expression
             </label>
             <div className="flex gap-2">
@@ -378,7 +393,7 @@ export default function CronParser() {
                 onChange={(e) => setExpression(e.target.value)}
                 placeholder="* * * * *"
                 spellCheck={false}
-                className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-lg tracking-widest text-gray-900 placeholder-gray-300 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-600 dark:focus:border-gray-600"
+                className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 font-mono text-lg tracking-widest text-gray-900 placeholder-gray-300 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-600 dark:focus:border-gray-600"
               />
               <button
                 onClick={handleCopy}
@@ -393,16 +408,10 @@ export default function CronParser() {
           {parsed.errors.length > 0 && (
             <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900/50 dark:bg-red-950/30">
               <div className="flex items-start gap-2">
-                <AlertCircle
-                  size={16}
-                  className="mt-0.5 shrink-0 text-red-500"
-                />
+                <AlertCircle size={16} className="mt-0.5 shrink-0 text-red-500" />
                 <div className="space-y-1">
                   {parsed.errors.map((err, i) => (
-                    <p
-                      key={i}
-                      className="text-sm text-red-700 dark:text-red-400"
-                    >
+                    <p key={i} className="text-sm text-red-700 dark:text-red-400">
                       {err}
                     </p>
                   ))}
@@ -423,7 +432,7 @@ export default function CronParser() {
           {/* Field Breakdown */}
           {parsed.fields.length === 5 && parsed.errors.length === 0 && (
             <div className="mb-6">
-              <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <h2 className="mb-3 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Field Breakdown
               </h2>
               <div className="grid grid-cols-5 gap-2">
@@ -435,7 +444,7 @@ export default function CronParser() {
                     <p className="font-mono text-lg font-semibold text-gray-900 dark:text-gray-100">
                       {field.raw}
                     </p>
-                    <p className="mt-1 text-[10px] font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                    <p className="mt-1 text-[10px] font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                       {FIELD_DEFS[i].name}
                     </p>
                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -454,7 +463,7 @@ export default function CronParser() {
           {/* Next 10 Executions */}
           {nextTimes.length > 0 && (
             <div className="mb-6">
-              <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <h2 className="mb-3 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Next 10 Executions
               </h2>
               <div className="rounded-lg border border-gray-200 dark:border-gray-800">
@@ -462,9 +471,7 @@ export default function CronParser() {
                   <div
                     key={i}
                     className={`flex items-center gap-3 px-4 py-2.5 ${
-                      i !== 0
-                        ? "border-t border-gray-100 dark:border-gray-800/50"
-                        : ""
+                      i !== 0 ? "border-t border-gray-100 dark:border-gray-800/50" : ""
                     }`}
                   >
                     <span className="w-5 text-right font-mono text-xs text-gray-400 dark:text-gray-500">
@@ -489,7 +496,7 @@ export default function CronParser() {
 
           {/* Quick Presets */}
           <div>
-            <h2 className="mb-3 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <h2 className="mb-3 flex items-center gap-1.5 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
               <Zap size={12} />
               Quick Presets
             </h2>
@@ -505,9 +512,7 @@ export default function CronParser() {
                   }`}
                 >
                   <span className="font-mono">{preset.value}</span>
-                  <span className="ml-1.5 text-gray-400 dark:text-gray-500">
-                    {preset.label}
-                  </span>
+                  <span className="ml-1.5 text-gray-400 dark:text-gray-500">{preset.label}</span>
                 </button>
               ))}
             </div>

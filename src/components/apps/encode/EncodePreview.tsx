@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 const W = 200;
 const H = 120;
 
-const CHARS_PLAIN = "Hello, World! <html>&amp;\"encode\"";
+const CHARS_PLAIN = 'Hello, World! <html>&amp;"encode"';
 const CHARS_ENCODED = "SGVsbG8sIFdvcmxkIQ== %3Chtml%3E &amp;quot;";
 
 export default function EncodePreview() {
@@ -108,11 +108,7 @@ export default function EncodePreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

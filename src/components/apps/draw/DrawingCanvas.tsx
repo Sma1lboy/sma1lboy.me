@@ -2,16 +2,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Stage, Layer, Line, Rect, Ellipse } from "react-konva";
 import type Konva from "konva";
 import { motion } from "framer-motion";
-import {
-  Pencil,
-  Eraser,
-  Trash2,
-  Undo2,
-  Download,
-  Square,
-  CircleIcon,
-  Minus,
-} from "lucide-react";
+import { Pencil, Eraser, Trash2, Undo2, Download, Square, CircleIcon, Minus } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
@@ -255,9 +246,7 @@ export default function DrawingCanvas() {
                 if (tool === "eraser") setTool("pen");
               }}
               className={`h-6 w-6 rounded-full border-2 transition-transform hover:scale-110 ${
-                color === c && tool !== "eraser"
-                  ? "border-white scale-110"
-                  : "border-gray-700"
+                color === c && tool !== "eraser" ? "scale-110 border-white" : "border-gray-700"
               }`}
               style={{ backgroundColor: c }}
             />
@@ -384,9 +373,7 @@ export default function DrawingCanvas() {
                 tension={0.5}
                 lineCap="round"
                 lineJoin="round"
-                globalCompositeOperation={
-                  tool === "eraser" ? "destination-out" : "source-over"
-                }
+                globalCompositeOperation={tool === "eraser" ? "destination-out" : "source-over"}
               />
             )}
 

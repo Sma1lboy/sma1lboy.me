@@ -1,10 +1,5 @@
 import { useState, useCallback, useMemo } from "react";
-import {
-  Copy,
-  Plus,
-  Trash2,
-  RotateCcw,
-} from "lucide-react";
+import { Copy, Plus, Trash2, RotateCcw } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 import { useToastStore } from "@/store/toastStore";
@@ -148,15 +143,9 @@ const DIRECTION_PRESETS = [
 
 let nextId = 100;
 
-function buildCss(
-  type: GradientType,
-  angle: number,
-  stops: ColorStop[],
-): string {
+function buildCss(type: GradientType, angle: number, stops: ColorStop[]): string {
   const sorted = [...stops].sort((a, b) => a.position - b.position);
-  const stopsStr = sorted
-    .map((s) => `${s.color} ${s.position}%`)
-    .join(", ");
+  const stopsStr = sorted.map((s) => `${s.color} ${s.position}%`).join(", ");
   if (type === "radial") {
     return `radial-gradient(circle, ${stopsStr})`;
   }
@@ -199,14 +188,9 @@ export default function GradientGenerator() {
     let pos = 50;
     if (sorted.length >= 2) {
       const midIdx = Math.floor(sorted.length / 2);
-      pos = Math.round(
-        (sorted[midIdx - 1].position + sorted[midIdx].position) / 2,
-      );
+      pos = Math.round((sorted[midIdx - 1].position + sorted[midIdx].position) / 2);
     }
-    setStops((prev) => [
-      ...prev,
-      { id: nextId++, color: "#ffffff", position: pos },
-    ]);
+    setStops((prev) => [...prev, { id: nextId++, color: "#ffffff", position: pos }]);
   }, [stops]);
 
   const removeStop = useCallback(
@@ -217,25 +201,15 @@ export default function GradientGenerator() {
     [stops.length],
   );
 
-  const updateStop = useCallback(
-    (id: number, patch: Partial<Omit<ColorStop, "id">>) => {
-      setStops((prev) =>
-        prev.map((s) => (s.id === id ? { ...s, ...patch } : s)),
-      );
-    },
-    [],
-  );
+  const updateStop = useCallback((id: number, patch: Partial<Omit<ColorStop, "id">>) => {
+    setStops((prev) => prev.map((s) => (s.id === id ? { ...s, ...patch } : s)));
+  }, []);
 
-  const loadPreset = useCallback(
-    (preset: (typeof PRESETS)[number]) => {
-      setGradientType(preset.type);
-      setAngle(preset.angle);
-      setStops(
-        preset.stops.map((s) => ({ ...s, id: nextId++ })),
-      );
-    },
-    [],
-  );
+  const loadPreset = useCallback((preset: (typeof PRESETS)[number]) => {
+    setGradientType(preset.type);
+    setAngle(preset.angle);
+    setStops(preset.stops.map((s) => ({ ...s, id: nextId++ })));
+  }, []);
 
   const reset = useCallback(() => {
     setGradientType("linear");
@@ -254,7 +228,7 @@ export default function GradientGenerator() {
         <div className="mb-8">
           <Breadcrumbs />
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
               CSS Gradient Generator
             </h1>
             <button
@@ -278,7 +252,7 @@ export default function GradientGenerator() {
           <div className="space-y-6">
             {/* Type toggle */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Gradient Type
               </label>
               <div className="inline-flex overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
@@ -301,7 +275,7 @@ export default function GradientGenerator() {
             {/* Direction (linear only) */}
             {gradientType === "linear" && (
               <div>
-                <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Direction
                 </label>
                 <div className="flex flex-wrap items-center gap-3">
@@ -319,11 +293,7 @@ export default function GradientGenerator() {
                       min={0}
                       max={360}
                       value={angle}
-                      onChange={(e) =>
-                        setAngle(
-                          Math.min(360, Math.max(0, Number(e.target.value))),
-                        )
-                      }
+                      onChange={(e) => setAngle(Math.min(360, Math.max(0, Number(e.target.value))))}
                       className="w-16 rounded-md border border-gray-200 bg-white px-2 py-1 text-center text-sm text-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100"
                     />
                     <span className="text-xs text-gray-400">deg</span>
@@ -351,7 +321,7 @@ export default function GradientGenerator() {
             {/* Color stops */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <label className="text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Color Stops
                 </label>
                 <button
@@ -391,23 +361,17 @@ export default function GradientGenerator() {
                     key={stop.id}
                     className="flex items-center gap-3 rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-800 dark:bg-gray-950"
                   >
-                    <span className="w-4 text-xs text-gray-400">
-                      {i + 1}
-                    </span>
+                    <span className="w-4 text-xs text-gray-400">{i + 1}</span>
                     <input
                       type="color"
                       value={stop.color}
-                      onChange={(e) =>
-                        updateStop(stop.id, { color: e.target.value })
-                      }
+                      onChange={(e) => updateStop(stop.id, { color: e.target.value })}
                       className="h-8 w-8 cursor-pointer rounded border-0 bg-transparent p-0"
                     />
                     <input
                       type="text"
                       value={stop.color}
-                      onChange={(e) =>
-                        updateStop(stop.id, { color: e.target.value })
-                      }
+                      onChange={(e) => updateStop(stop.id, { color: e.target.value })}
                       className="w-20 rounded-md border border-gray-200 bg-white px-2 py-1 font-mono text-xs text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
                     />
                     <input
@@ -439,7 +403,7 @@ export default function GradientGenerator() {
 
             {/* CSS Output */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 CSS Output
               </label>
               <div className="relative">
@@ -448,7 +412,7 @@ export default function GradientGenerator() {
                 </pre>
                 <button
                   onClick={handleCopy}
-                  className="absolute right-2 top-2 rounded-md border border-gray-200 bg-white p-1.5 text-gray-500 transition-colors hover:text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="absolute top-2 right-2 rounded-md border border-gray-200 bg-white p-1.5 text-gray-500 transition-colors hover:text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
                 >
                   <Copy size={14} />
                 </button>
@@ -458,7 +422,7 @@ export default function GradientGenerator() {
 
           {/* Right: Presets */}
           <div>
-            <label className="mb-3 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <label className="mb-3 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
               Presets
             </label>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2">
@@ -474,10 +438,7 @@ export default function GradientGenerator() {
                     onClick={() => loadPreset(preset)}
                     className="group overflow-hidden rounded-xl border border-gray-200 transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-gray-800 dark:hover:border-gray-700"
                   >
-                    <div
-                      className="h-16 w-full"
-                      style={{ background: bg }}
-                    />
+                    <div className="h-16 w-full" style={{ background: bg }} />
                     <div className="px-2 py-1.5 text-left">
                       <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                         {preset.name}

@@ -1,12 +1,5 @@
 import { useState, useCallback } from "react";
-import {
-  ArrowDownUp,
-  Ruler,
-  Scale,
-  Thermometer,
-  Beaker,
-  HardDrive,
-} from "lucide-react";
+import { ArrowDownUp, Ruler, Scale, Thermometer, Beaker, HardDrive } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { motion } from "framer-motion";
 import { useSEO } from "@/hooks/useSEO";
@@ -72,15 +65,11 @@ const dataFactors: Record<string, number> = {
   PB: 8 * 1024 ** 5,
 };
 
-function linearToBase(
-  factors: Record<string, number>,
-): (v: number, u: string) => number {
+function linearToBase(factors: Record<string, number>): (v: number, u: string) => number {
   return (v, u) => v * (factors[u] ?? 1);
 }
 
-function linearFromBase(
-  factors: Record<string, number>,
-): (v: number, u: string) => number {
+function linearFromBase(factors: Record<string, number>): (v: number, u: string) => number {
   return (v, u) => v / (factors[u] ?? 1);
 }
 
@@ -255,10 +244,7 @@ export default function UnitConverter() {
     setFromValue("1");
     // Calculate initial conversion
     const base = categories[c].toBase(1, units[0].abbr);
-    const result = categories[c].fromBase(
-      base,
-      units.length > 1 ? units[1].abbr : units[0].abbr,
-    );
+    const result = categories[c].fromBase(base, units.length > 1 ? units[1].abbr : units[0].abbr);
     setToValue(formatResult(result));
     setActiveInput("from");
   }
@@ -320,7 +306,7 @@ export default function UnitConverter() {
             <button
               key={key}
               onClick={() => handleCategoryChange(key)}
-              className={`flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
                 activeCategory === key
                   ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
                   : "text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200"
@@ -342,7 +328,7 @@ export default function UnitConverter() {
         >
           {/* From */}
           <div className="mb-5">
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+            <label className="mb-1.5 block text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
               From
             </label>
             <div className="flex gap-3">
@@ -385,7 +371,7 @@ export default function UnitConverter() {
 
           {/* To */}
           <div>
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+            <label className="mb-1.5 block text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
               To
             </label>
             <div className="flex gap-3">
@@ -423,11 +409,7 @@ export default function UnitConverter() {
               transition={{ duration: 0.2 }}
               className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400"
             >
-              1 {fromUnit} ={" "}
-              {formatResult(
-                cat.fromBase(cat.toBase(1, fromUnit), toUnit),
-              )}{" "}
-              {toUnit}
+              1 {fromUnit} = {formatResult(cat.fromBase(cat.toBase(1, fromUnit), toUnit))} {toUnit}
             </motion.div>
           )}
         </motion.div>

@@ -172,10 +172,7 @@ function CardItem({
       style={{ backgroundColor: card.color }}
     >
       <div className="flex items-start gap-1.5">
-        <GripVertical
-          size={14}
-          className="mt-0.5 shrink-0 text-gray-400/60"
-        />
+        <GripVertical size={14} className="mt-0.5 shrink-0 text-gray-400/60" />
         <div className="min-w-0 flex-1">
           {editing ? (
             <textarea
@@ -210,7 +207,7 @@ function CardItem({
             e.stopPropagation();
             onDelete();
           }}
-          className="shrink-0 rounded p-0.5 text-gray-400/50 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
+          className="shrink-0 rounded p-0.5 text-gray-400/50 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-500"
         >
           <X size={14} />
         </button>
@@ -269,9 +266,7 @@ function ColumnComponent({
       {/* Column header */}
       <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-gray-800">
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-            {column.title}
-          </h2>
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{column.title}</h2>
           <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-400">
             {cardCount}
           </span>
@@ -379,10 +374,7 @@ export default function KanbanBoard() {
           col.id === colId
             ? {
                 ...col,
-                cards: [
-                  ...col.cards,
-                  { id: genId(), text, color: randomPastel() },
-                ],
+                cards: [...col.cards, { id: genId(), text, color: randomPastel() }],
               }
             : col,
         ),
@@ -395,9 +387,7 @@ export default function KanbanBoard() {
     (colId: string, cardId: string) => {
       persistBoard(
         board.map((col) =>
-          col.id === colId
-            ? { ...col, cards: col.cards.filter((c) => c.id !== cardId) }
-            : col,
+          col.id === colId ? { ...col, cards: col.cards.filter((c) => c.id !== cardId) } : col,
         ),
       );
     },
@@ -411,9 +401,7 @@ export default function KanbanBoard() {
           col.id === colId
             ? {
                 ...col,
-                cards: col.cards.map((c) =>
-                  c.id === cardId ? { ...c, text } : c,
-                ),
+                cards: col.cards.map((c) => (c.id === cardId ? { ...c, text } : c)),
               }
             : col,
         ),
@@ -422,12 +410,9 @@ export default function KanbanBoard() {
     [board, persistBoard],
   );
 
-  const handleCardDragStart = useCallback(
-    (cardId: string, fromColId: string) => {
-      dragInfoRef.current = { cardId, fromColId };
-    },
-    [],
-  );
+  const handleCardDragStart = useCallback((cardId: string, fromColId: string) => {
+    dragInfoRef.current = { cardId, fromColId };
+  }, []);
 
   const handleCardDragEnd = useCallback(
     (cardId: string) => {
@@ -476,7 +461,7 @@ export default function KanbanBoard() {
           <Breadcrumbs />
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
                 Kanban Board
               </h1>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -515,7 +500,8 @@ export default function KanbanBoard() {
 
         {/* Hint */}
         <p className="mt-6 text-center text-xs text-gray-400 dark:text-gray-600">
-          Drag cards between columns &middot; Double-click to edit &middot; Auto-saved to localStorage
+          Drag cards between columns &middot; Double-click to edit &middot; Auto-saved to
+          localStorage
         </p>
       </div>
     </div>

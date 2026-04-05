@@ -79,9 +79,7 @@ export default function TetrisPreview() {
             ctx.fillRect(x + 0.5, y + 0.5, CELL - 1, 2);
             ctx.globalAlpha = 1;
           } else if (!type) {
-            const pulse =
-              0.03 +
-              Math.sin(frame * 0.02 + r * 0.4 + c * 0.3) * 0.02;
+            const pulse = 0.03 + Math.sin(frame * 0.02 + r * 0.4 + c * 0.3) * 0.02;
             ctx.fillStyle = `rgba(255,255,255,${pulse})`;
             ctx.fillRect(x + 0.5, y + 0.5, CELL - 1, CELL - 1);
           }
@@ -103,11 +101,7 @@ export default function TetrisPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

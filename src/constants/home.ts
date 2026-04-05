@@ -1,12 +1,7 @@
 // Project categories
 export type ProjectCategory = "AI/ML" | "Web" | "Tools" | "Open Source";
 
-export const projectCategories: ProjectCategory[] = [
-  "AI/ML",
-  "Web",
-  "Tools",
-  "Open Source",
-];
+export const projectCategories: ProjectCategory[] = ["AI/ML", "Web", "Tools", "Open Source"];
 
 // Featured projects data
 export const featuredProjects = [

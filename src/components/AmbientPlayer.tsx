@@ -2,19 +2,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Music, Volume2 } from "lucide-react";
 import { useTranslation } from "@/i18n";
-import {
-  type AmbientPreset,
-  playPreset,
-  setVolume,
-  stopAll,
-} from "@/lib/ambient-audio";
+import { type AmbientPreset, playPreset, setVolume, stopAll } from "@/lib/ambient-audio";
 import { useAmbientPlayerStore } from "@/store/ambientPlayerStore";
 
 const PRESETS: AmbientPreset[] = ["lofi", "rain", "coffee", "silence"];
 
 function EqualizerBars({ active }: { active: boolean }) {
   return (
-    <div className="flex items-end gap-[2px] h-4">
+    <div className="flex h-4 items-end gap-[2px]">
       {[0, 1, 2, 3].map((i) => (
         <motion.div
           key={i}
@@ -123,7 +118,7 @@ export function AmbientPlayer() {
   const isPlaying = isAudioActive && preset !== "silence";
 
   return (
-    <div className="fixed left-6 bottom-6 z-50 flex flex-col items-start gap-2">
+    <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-2">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -137,9 +132,7 @@ export function AmbientPlayer() {
             <div className="mb-3 flex items-center gap-2 text-gray-600 dark:text-gray-400">
               <EqualizerBars active={isPlaying} />
               <span className="text-xs font-medium">
-                {isPlaying
-                  ? t(`ambientPlayer.presets.${preset}`)
-                  : t("ambientPlayer.idle")}
+                {isPlaying ? t(`ambientPlayer.presets.${preset}`) : t("ambientPlayer.idle")}
               </span>
             </div>
 
@@ -194,11 +187,7 @@ export function AmbientPlayer() {
         whileTap={{ scale: 0.95 }}
         aria-label={t("ambientPlayer.title")}
       >
-        {isPlaying ? (
-          <EqualizerBars active={true} />
-        ) : (
-          <Music size={18} />
-        )}
+        {isPlaying ? <EqualizerBars active={true} /> : <Music size={18} />}
 
         {/* Resume indicator */}
         {showResume && (
@@ -217,7 +206,7 @@ export function AmbientPlayer() {
             initial={{ opacity: 0, x: -5 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -5 }}
-            className="absolute bottom-0 left-12 whitespace-nowrap rounded-lg border border-gray-200 bg-white/90 px-2.5 py-1 text-xs text-gray-600 shadow-md backdrop-blur-sm dark:border-[#2a2a2a] dark:bg-[#0a0a0a]/90 dark:text-gray-400"
+            className="absolute bottom-0 left-12 rounded-lg border border-gray-200 bg-white/90 px-2.5 py-1 text-xs whitespace-nowrap text-gray-600 shadow-md backdrop-blur-sm dark:border-[#2a2a2a] dark:bg-[#0a0a0a]/90 dark:text-gray-400"
           >
             {t("ambientPlayer.clickToResume")}
           </motion.div>

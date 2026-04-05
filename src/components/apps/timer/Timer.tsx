@@ -1,12 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  Play,
-  Pause,
-  RotateCcw,
-  Flag,
-  Timer as TimerIcon,
-  Hourglass,
-} from "lucide-react";
+import { Play, Pause, RotateCcw, Flag, Timer as TimerIcon, Hourglass } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSEO } from "@/hooks/useSEO";
@@ -120,8 +113,8 @@ function Stopwatch() {
   return (
     <div className="flex flex-col items-center">
       {/* Time display */}
-      <div className="mb-10 mt-4">
-        <span className="font-mono text-6xl font-light tabular-nums tracking-tight text-gray-900 sm:text-7xl dark:text-gray-100">
+      <div className="mt-4 mb-10">
+        <span className="font-mono text-6xl font-light tracking-tight text-gray-900 tabular-nums sm:text-7xl dark:text-gray-100">
           {formatStopwatch(elapsed)}
         </span>
       </div>
@@ -142,11 +135,7 @@ function Stopwatch() {
           className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-600 dark:bg-blue-400 dark:text-gray-900 dark:shadow-blue-400/20 dark:hover:bg-blue-300"
           aria-label={isRunning ? "Stop" : "Start"}
         >
-          {isRunning ? (
-            <Pause size={24} />
-          ) : (
-            <Play size={24} className="ml-1" />
-          )}
+          {isRunning ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
         </button>
 
         <button
@@ -170,13 +159,11 @@ function Stopwatch() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex items-center justify-between border-b border-gray-100 px-2 py-2 dark:border-gray-800"
               >
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                  Lap {lap.number}
-                </span>
-                <span className="font-mono text-sm tabular-nums text-gray-400 dark:text-gray-500">
+                <span className="text-sm text-gray-500 dark:text-gray-400">Lap {lap.number}</span>
+                <span className="font-mono text-sm text-gray-400 tabular-nums dark:text-gray-500">
                   +{formatStopwatch(lap.delta)}
                 </span>
-                <span className="font-mono text-sm tabular-nums text-gray-700 dark:text-gray-300">
+                <span className="font-mono text-sm text-gray-700 tabular-nums dark:text-gray-300">
                   {formatStopwatch(lap.time)}
                 </span>
               </motion.div>
@@ -251,7 +238,7 @@ function Countdown() {
   if (state === "setting") {
     return (
       <div className="flex flex-col items-center">
-        <div className="mb-10 mt-4 flex items-baseline gap-2">
+        <div className="mt-4 mb-10 flex items-baseline gap-2">
           {[
             {
               label: "h",
@@ -286,7 +273,7 @@ function Countdown() {
                 max={max}
                 value={value}
                 onChange={(e) => set(clamp(parseInt(e.target.value) || 0, max))}
-                className="w-16 rounded-lg bg-gray-50 px-1 py-2 text-center font-mono text-4xl font-light tabular-nums text-gray-900 outline-none focus:ring-2 focus:ring-orange-400 dark:bg-gray-900 dark:text-gray-100"
+                className="w-16 rounded-lg bg-gray-50 px-1 py-2 text-center font-mono text-4xl font-light text-gray-900 tabular-nums outline-none focus:ring-2 focus:ring-orange-400 dark:bg-gray-900 dark:text-gray-100"
               />
               <button
                 onClick={() => set((v) => clamp(v - 1, max))}
@@ -318,9 +305,9 @@ function Countdown() {
   return (
     <div className="flex flex-col items-center">
       {/* Time display */}
-      <div className="mb-10 mt-4">
+      <div className="mt-4 mb-10">
         <span
-          className={`font-mono text-6xl font-light tabular-nums tracking-tight sm:text-7xl ${
+          className={`font-mono text-6xl font-light tracking-tight tabular-nums sm:text-7xl ${
             state === "done"
               ? "animate-pulse text-orange-500 dark:text-orange-400"
               : "text-gray-900 dark:text-gray-100"
@@ -355,11 +342,7 @@ function Countdown() {
             className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-500 text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-orange-600 dark:bg-orange-400 dark:text-gray-900 dark:shadow-orange-400/20 dark:hover:bg-orange-300"
             aria-label={state === "running" ? "Pause" : "Resume"}
           >
-            {state === "running" ? (
-              <Pause size={24} />
-            ) : (
-              <Play size={24} className="ml-1" />
-            )}
+            {state === "running" ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
           </button>
         )}
 
@@ -393,8 +376,7 @@ function Countdown() {
 export default function Timer() {
   useSEO({
     title: "Stopwatch & Timer",
-    description:
-      "Stopwatch with lap tracking and countdown timer with alarm.",
+    description: "Stopwatch with lap tracking and countdown timer with alarm.",
     path: "/apps/timer",
   });
 
@@ -403,7 +385,7 @@ export default function Timer() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-6 dark:bg-black">
       {/* Back link */}
-      <div className="fixed left-6 top-6">
+      <div className="fixed top-6 left-6">
         <Breadcrumbs />
       </div>
 

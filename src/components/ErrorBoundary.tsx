@@ -57,13 +57,7 @@ export function RouteErrorBoundary({ error, info, reset }: ErrorComponentProps) 
     console.error("[RouteErrorBoundary] Component stack:", info.componentStack);
   }
 
-  return (
-    <ErrorDisplay
-      error={error}
-      componentStack={info?.componentStack}
-      reset={reset}
-    />
-  );
+  return <ErrorDisplay error={error} componentStack={info?.componentStack} reset={reset} />;
 }
 
 interface ErrorDisplayProps {
@@ -78,9 +72,7 @@ function ErrorDisplay({ error, componentStack, reset }: ErrorDisplayProps) {
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-6 py-16">
       <div className="w-full max-w-lg text-center">
-        <div className="mb-6 text-5xl font-bold text-gray-300 dark:text-gray-700">
-          !
-        </div>
+        <div className="mb-6 text-5xl font-bold text-gray-300 dark:text-gray-700">!</div>
         <h1 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
           Something went wrong
         </h1>

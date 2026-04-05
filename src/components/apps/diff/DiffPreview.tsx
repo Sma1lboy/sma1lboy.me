@@ -37,7 +37,6 @@ export default function DiffPreview() {
 
     let lines = generateLines();
     let offset = 0;
-    
 
     const colors = {
       add: "rgba(34, 197, 94, 0.4)",
@@ -102,7 +101,6 @@ export default function DiffPreview() {
       if (offset > lines.length * STEP - H) {
         lines = generateLines();
         offset = 0;
-        
       }
       draw();
     };

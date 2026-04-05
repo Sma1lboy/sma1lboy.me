@@ -81,8 +81,7 @@ export default function KanbanPreview() {
       if (candidates.length === 0) return;
       const note = candidates[Math.floor(Math.random() * candidates.length)];
       const possibleCols = [0, 1, 2].filter((c) => c !== note.col);
-      const targetCol =
-        possibleCols[Math.floor(Math.random() * possibleCols.length)];
+      const targetCol = possibleCols[Math.floor(Math.random() * possibleCols.length)];
 
       note.transitioning = true;
       note.targetCol = targetCol;
@@ -108,9 +107,7 @@ export default function KanbanPreview() {
         ctx!.fillRect(x + 6, 14, 30, 3);
 
         // Card count dot
-        const count = notes.filter(
-          (n) => n.col === i && !n.transitioning,
-        ).length;
+        const count = notes.filter((n) => n.col === i && !n.transitioning).length;
         ctx!.fillStyle = "rgba(255,255,255,0.1)";
         ctx!.beginPath();
         ctx!.arc(x + COL_W - 10, 16, 5, 0, Math.PI * 2);
@@ -213,11 +210,7 @@ export default function KanbanPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

@@ -26,7 +26,7 @@ export default function EpochPreview() {
         ))}
       </div>
       {/* Label */}
-      <span className="text-[9px] font-medium uppercase tracking-wider text-gray-500">
+      <span className="text-[9px] font-medium tracking-wider text-gray-500 uppercase">
         Unix Epoch
       </span>
       {/* Animated dots */}

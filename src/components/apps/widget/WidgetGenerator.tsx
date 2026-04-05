@@ -1,12 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Copy,
-  Code2,
-  User,
-  Hash,
-  Star,
-} from "lucide-react";
+import { Copy, Code2, User, Hash, Star } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 import { useToastStore } from "@/store/toastStore";
@@ -196,16 +190,9 @@ function AnimatedCounter({
 // Widget HTML Generators
 // ---------------------------------------------------------------------------
 
-function generateGithubBadgeHtml(
-  config: GithubBadgeConfig,
-  stars: number | null,
-): string {
+function generateGithubBadgeHtml(config: GithubBadgeConfig, stars: number | null): string {
   const displayStars =
-    stars !== null
-      ? stars >= 1000
-        ? `${(stars / 1000).toFixed(1)}k`
-        : String(stars)
-      : "---";
+    stars !== null ? (stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : String(stars)) : "---";
   return `<div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;background:${config.bgColor};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;border:1px solid rgba(255,255,255,0.1);">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="${config.accentColor}"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg>
   <span style="color:${config.textColor};font-size:14px;font-weight:600;">${config.repo}</span>
@@ -270,16 +257,10 @@ function generateIframeCode(html: string): string {
 // Input Component
 // ---------------------------------------------------------------------------
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+      <label className="mb-1.5 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
         {label}
       </label>
       {children}
@@ -304,7 +285,7 @@ function TextInput({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
+      className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder-gray-400 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
     />
   );
 }
@@ -330,7 +311,7 @@ function NumberInput({
       min={min}
       max={max}
       step={step}
-      className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:focus:border-gray-600"
+      className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:focus:border-gray-600"
     />
   );
 }
@@ -353,9 +334,7 @@ function ColorInput({
         className="h-8 w-8 cursor-pointer rounded border-0 bg-transparent p-0"
       />
       <div className="flex-1">
-        <span className="text-xs text-gray-500 dark:text-gray-400">
-          {label}
-        </span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
         <input
           type="text"
           value={value}
@@ -382,12 +361,9 @@ export default function WidgetGenerator() {
   const [activeTab, setActiveTab] = useState<WidgetType>("github");
 
   // Configs
-  const [githubConfig, setGithubConfig] =
-    useState<GithubBadgeConfig>(DEFAULT_GITHUB);
-  const [profileConfig, setProfileConfig] =
-    useState<ProfileCardConfig>(DEFAULT_PROFILE);
-  const [counterConfig, setCounterConfig] =
-    useState<CounterConfig>(DEFAULT_COUNTER);
+  const [githubConfig, setGithubConfig] = useState<GithubBadgeConfig>(DEFAULT_GITHUB);
+  const [profileConfig, setProfileConfig] = useState<ProfileCardConfig>(DEFAULT_PROFILE);
+  const [counterConfig, setCounterConfig] = useState<CounterConfig>(DEFAULT_COUNTER);
 
   // GitHub stars
   const { stars, loading: starsLoading } = useGithubStars(githubConfig.repo);
@@ -395,14 +371,11 @@ export default function WidgetGenerator() {
   // Counter reset key
   const [counterKey, setCounterKey] = useState(0);
 
-  const copyToClipboard = useCallback(
-    (text: string, label: string) => {
-      navigator.clipboard.writeText(text).then(() => {
-        useToastStore.getState().addToast(`${label} copied to clipboard`);
-      });
-    },
-    [],
-  );
+  const copyToClipboard = useCallback((text: string, label: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      useToastStore.getState().addToast(`${label} copied to clipboard`);
+    });
+  }, []);
 
   // Generate widget HTML
   const widgetHtml = useMemo(() => {
@@ -423,12 +396,7 @@ export default function WidgetGenerator() {
     if (activeTab === "counter") {
       setCounterKey((k) => k + 1);
     }
-  }, [
-    counterConfig.startValue,
-    counterConfig.endValue,
-    counterConfig.duration,
-    activeTab,
-  ]);
+  }, [counterConfig.startValue, counterConfig.endValue, counterConfig.duration, activeTab]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
@@ -437,17 +405,13 @@ export default function WidgetGenerator() {
         <div className="mb-8">
           <Breadcrumbs />
           <div className="flex items-center gap-3">
-            <Code2
-              size={24}
-              className="text-gray-700 dark:text-gray-300"
-            />
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+            <Code2 size={24} className="text-gray-700 dark:text-gray-300" />
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
               Widget Generator
             </h1>
           </div>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            Create embeddable HTML widgets with live preview. Copy the code and
-            paste it anywhere.
+            Create embeddable HTML widgets with live preview. Copy the code and paste it anywhere.
           </p>
         </div>
 
@@ -493,16 +457,10 @@ export default function WidgetGenerator() {
                   />
                 )}
                 {activeTab === "profile" && (
-                  <ProfileForm
-                    config={profileConfig}
-                    onChange={setProfileConfig}
-                  />
+                  <ProfileForm config={profileConfig} onChange={setProfileConfig} />
                 )}
                 {activeTab === "counter" && (
-                  <CounterForm
-                    config={counterConfig}
-                    onChange={setCounterConfig}
-                  />
+                  <CounterForm config={counterConfig} onChange={setCounterConfig} />
                 )}
               </motion.div>
             </AnimatePresence>
@@ -512,7 +470,7 @@ export default function WidgetGenerator() {
           <div className="space-y-6">
             {/* Live Preview */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Live Preview
               </label>
               <div className="flex min-h-[200px] items-center justify-center rounded-xl border border-gray-200 bg-gray-950 p-8 dark:border-gray-800">
@@ -531,14 +489,9 @@ export default function WidgetGenerator() {
                         loading={starsLoading}
                       />
                     )}
-                    {activeTab === "profile" && (
-                      <ProfileCardPreview config={profileConfig} />
-                    )}
+                    {activeTab === "profile" && <ProfileCardPreview config={profileConfig} />}
                     {activeTab === "counter" && (
-                      <CounterPreview
-                        key={counterKey}
-                        config={counterConfig}
-                      />
+                      <CounterPreview key={counterKey} config={counterConfig} />
                     )}
                   </motion.div>
                 </AnimatePresence>
@@ -565,7 +518,7 @@ export default function WidgetGenerator() {
 
             {/* Code Output */}
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <label className="mb-2 block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 HTML Code
               </label>
               <div className="relative">
@@ -574,7 +527,7 @@ export default function WidgetGenerator() {
                 </pre>
                 <button
                   onClick={() => copyToClipboard(widgetHtml, "HTML")}
-                  className="absolute right-2 top-2 rounded-md border border-gray-200 bg-white p-1.5 text-gray-500 transition-colors hover:text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                  className="absolute top-2 right-2 rounded-md border border-gray-200 bg-white p-1.5 text-gray-500 transition-colors hover:text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
                 >
                   <Copy size={14} />
                 </button>
@@ -583,7 +536,6 @@ export default function WidgetGenerator() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
@@ -603,8 +555,7 @@ function GithubForm({
   loading: boolean;
   stars: number | null;
 }) {
-  const update = (patch: Partial<GithubBadgeConfig>) =>
-    onChange({ ...config, ...patch });
+  const update = (patch: Partial<GithubBadgeConfig>) => onChange({ ...config, ...patch });
 
   return (
     <>
@@ -614,23 +565,17 @@ function GithubForm({
           onChange={(v) => update({ repo: v })}
           placeholder="facebook/react"
         />
-        {loading && (
-          <p className="mt-1 text-xs text-gray-400">Fetching stars...</p>
-        )}
+        {loading && <p className="mt-1 text-xs text-gray-400">Fetching stars...</p>}
         {!loading && stars !== null && (
-          <p className="mt-1 text-xs text-gray-400">
-            {stars.toLocaleString()} stars
-          </p>
+          <p className="mt-1 text-xs text-gray-400">{stars.toLocaleString()} stars</p>
         )}
         {!loading && stars === null && config.repo.includes("/") && (
-          <p className="mt-1 text-xs text-red-400">
-            Could not fetch repository
-          </p>
+          <p className="mt-1 text-xs text-red-400">Could not fetch repository</p>
         )}
       </Field>
 
       <div className="space-y-3">
-        <label className="block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label className="block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
           Colors
         </label>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -666,8 +611,7 @@ function ProfileForm({
   config: ProfileCardConfig;
   onChange: (c: ProfileCardConfig) => void;
 }) {
-  const update = (patch: Partial<ProfileCardConfig>) =>
-    onChange({ ...config, ...patch });
+  const update = (patch: Partial<ProfileCardConfig>) => onChange({ ...config, ...patch });
 
   return (
     <>
@@ -717,7 +661,7 @@ function ProfileForm({
       </div>
 
       <div className="space-y-3">
-        <label className="block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label className="block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
           Colors
         </label>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -753,8 +697,7 @@ function CounterForm({
   config: CounterConfig;
   onChange: (c: CounterConfig) => void;
 }) {
-  const update = (patch: Partial<CounterConfig>) =>
-    onChange({ ...config, ...patch });
+  const update = (patch: Partial<CounterConfig>) => onChange({ ...config, ...patch });
 
   return (
     <>
@@ -774,11 +717,7 @@ function CounterForm({
           />
         </Field>
         <Field label="End Value">
-          <NumberInput
-            value={config.endValue}
-            onChange={(v) => update({ endValue: v })}
-            min={0}
-          />
+          <NumberInput value={config.endValue} onChange={(v) => update({ endValue: v })} min={0} />
         </Field>
         <Field label="Duration (s)">
           <NumberInput
@@ -792,7 +731,7 @@ function CounterForm({
       </div>
 
       <div className="space-y-3">
-        <label className="block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+        <label className="block text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
           Colors
         </label>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -831,11 +770,7 @@ function GithubBadgePreview({
   loading: boolean;
 }) {
   const displayStars =
-    stars !== null
-      ? stars >= 1000
-        ? `${(stars / 1000).toFixed(1)}k`
-        : String(stars)
-      : "---";
+    stars !== null ? (stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : String(stars)) : "---";
 
   return (
     <div
@@ -846,16 +781,10 @@ function GithubBadgePreview({
       }}
     >
       <Star size={16} fill={config.accentColor} color={config.accentColor} />
-      <span
-        style={{ color: config.textColor }}
-        className="text-sm font-semibold"
-      >
+      <span style={{ color: config.textColor }} className="text-sm font-semibold">
         {config.repo}
       </span>
-      <span
-        style={{ color: config.accentColor }}
-        className="text-sm font-bold"
-      >
+      <span style={{ color: config.accentColor }} className="text-sm font-bold">
         {loading ? (
           <span className="inline-block h-4 w-8 animate-pulse rounded bg-gray-700" />
         ) : (
@@ -890,40 +819,25 @@ function ProfileCardPreview({ config }: { config: ProfileCardConfig }) {
           }}
         />
       )}
-      <div
-        style={{ color: config.textColor }}
-        className="text-lg font-bold"
-      >
+      <div style={{ color: config.textColor }} className="text-lg font-bold">
         {config.name}
       </div>
-      <div
-        style={{ color: config.textColor }}
-        className="mb-4 text-sm opacity-60"
-      >
+      <div style={{ color: config.textColor }} className="mb-4 text-sm opacity-60">
         {config.title}
       </div>
       <div className="flex justify-center gap-3">
         {config.github && (
-          <span
-            style={{ color: config.accentColor }}
-            className="text-xs font-medium"
-          >
+          <span style={{ color: config.accentColor }} className="text-xs font-medium">
             GitHub
           </span>
         )}
         {config.twitter && (
-          <span
-            style={{ color: config.accentColor }}
-            className="text-xs font-medium"
-          >
+          <span style={{ color: config.accentColor }} className="text-xs font-medium">
             Twitter
           </span>
         )}
         {config.website && (
-          <span
-            style={{ color: config.accentColor }}
-            className="text-xs font-medium"
-          >
+          <span style={{ color: config.accentColor }} className="text-xs font-medium">
             {config.website}
           </span>
         )}
@@ -952,10 +866,7 @@ function CounterPreview({ config }: { config: CounterConfig }) {
         textColor={config.textColor}
         accentColor={config.accentColor}
       />
-      <div
-        style={{ color: config.textColor }}
-        className="mt-1 text-sm opacity-70"
-      >
+      <div style={{ color: config.textColor }} className="mt-1 text-sm opacity-70">
         {config.label}
       </div>
     </div>

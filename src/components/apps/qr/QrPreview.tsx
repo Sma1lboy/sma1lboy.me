@@ -42,7 +42,7 @@ export default function QrPreview() {
             (inBottomLeft && r === gridSize - 2 && c === 1);
           cells[r][c] = isEdge || isCenter;
         } else {
-          cells[r][c] = ((r * 7 + c * 13 + r * c) % 3) !== 0;
+          cells[r][c] = (r * 7 + c * 13 + r * c) % 3 !== 0;
         }
       }
     }
@@ -71,16 +71,14 @@ export default function QrPreview() {
           let filled = cells[r][c];
           if (!isFinderRegion) {
             // Animate some data cells
-            const phase = Math.sin((frame * 0.03) + r * 0.5 + c * 0.7);
+            const phase = Math.sin(frame * 0.03 + r * 0.5 + c * 0.7);
             if (Math.abs(phase) > 0.85) {
               filled = !filled;
             }
           }
 
           if (filled) {
-            const alpha = isFinderRegion
-              ? 0.9
-              : 0.5 + Math.sin((frame * 0.04) + r + c * 2) * 0.3;
+            const alpha = isFinderRegion ? 0.9 : 0.5 + Math.sin(frame * 0.04 + r + c * 2) * 0.3;
             ctx.fillStyle = `rgba(167, 139, 250, ${alpha})`;
             ctx.fillRect(x, y, cellSize - 1, cellSize - 1);
           } else {
@@ -107,11 +105,7 @@ export default function QrPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

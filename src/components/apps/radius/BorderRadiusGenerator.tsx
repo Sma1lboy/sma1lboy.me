@@ -210,10 +210,7 @@ export default function BorderRadiusGenerator() {
     return `${tl}${u} ${tr}${u} ${br}${u} ${bl}${u}`;
   }, [unit, advanced, corners, advCorners]);
 
-  const fullCss = useMemo(
-    () => `border-radius: ${borderRadiusCss};`,
-    [borderRadiusCss],
-  );
+  const fullCss = useMemo(() => `border-radius: ${borderRadiusCss};`, [borderRadiusCss]);
 
   // Inline style for preview
   const previewStyle = useMemo(() => {
@@ -269,7 +266,12 @@ export default function BorderRadiusGenerator() {
     });
   }, []);
 
-  const cornerLabels: { key: keyof Corners; hKey: keyof AdvancedCorners; vKey: keyof AdvancedCorners; label: string }[] = [
+  const cornerLabels: {
+    key: keyof Corners;
+    hKey: keyof AdvancedCorners;
+    vKey: keyof AdvancedCorners;
+    label: string;
+  }[] = [
     { key: "tl", hKey: "tlH", vKey: "tlV", label: "Top Left" },
     { key: "tr", hKey: "trH", vKey: "trV", label: "Top Right" },
     { key: "br", hKey: "brH", vKey: "brV", label: "Bottom Right" },
@@ -290,8 +292,7 @@ export default function BorderRadiusGenerator() {
             Border Radius Generator
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Create CSS border-radius with live preview, advanced 8-value mode,
-            and presets.
+            Create CSS border-radius with live preview, advanced 8-value mode, and presets.
           </p>
         </motion.div>
 
@@ -401,9 +402,7 @@ export default function BorderRadiusGenerator() {
                           min={0}
                           max={max}
                           value={advCorners[hKey]}
-                          onChange={(e) =>
-                            updateAdvCorner(hKey, Number(e.target.value))
-                          }
+                          onChange={(e) => updateAdvCorner(hKey, Number(e.target.value))}
                           className="w-full accent-cyan-500"
                           aria-label={`${label} horizontal radius`}
                         />
@@ -421,9 +420,7 @@ export default function BorderRadiusGenerator() {
                           min={0}
                           max={max}
                           value={advCorners[vKey]}
-                          onChange={(e) =>
-                            updateAdvCorner(vKey, Number(e.target.value))
-                          }
+                          onChange={(e) => updateAdvCorner(vKey, Number(e.target.value))}
                           className="w-full accent-cyan-500"
                           aria-label={`${label} vertical radius`}
                         />
@@ -443,9 +440,7 @@ export default function BorderRadiusGenerator() {
                         min={0}
                         max={max}
                         value={corners[key]}
-                        onChange={(e) =>
-                          updateCorner(key, Number(e.target.value))
-                        }
+                        onChange={(e) => updateCorner(key, Number(e.target.value))}
                         className="w-full accent-cyan-500"
                         aria-label={`${label} radius`}
                       />

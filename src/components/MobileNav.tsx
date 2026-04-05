@@ -203,7 +203,7 @@ export function MobileNav() {
             >
               {/* Drag handle */}
               <div
-                className="sticky top-0 z-10 flex justify-center bg-white/80 pb-2 pt-3 backdrop-blur-md dark:bg-[#111]/80"
+                className="sticky top-0 z-10 flex justify-center bg-white/80 pt-3 pb-2 backdrop-blur-md dark:bg-[#111]/80"
                 onPointerDown={(e) => dragControls.start(e)}
               >
                 <div className="h-1 w-8 rounded-full bg-gray-300 dark:bg-gray-600" />
@@ -237,7 +237,7 @@ export function MobileNav() {
                             className="flex flex-col items-center gap-1.5 rounded-xl px-2 py-3 text-gray-700 transition-colors active:bg-gray-100 dark:text-gray-300 dark:active:bg-[#1a1a1a]"
                           >
                             <Icon size={18} className="text-gray-500 dark:text-gray-400" />
-                            <span className="text-[11px] font-medium leading-tight">
+                            <span className="text-[11px] leading-tight font-medium">
                               {t(item.labelKey)}
                             </span>
                           </motion.button>

@@ -15,7 +15,7 @@ export interface BlogPost {
  * JSON API: GET /api/blog-posts.json
  */
 export const blogPosts: BlogPost[] = (blogData as BlogPost[]).sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
 );
 
 export function getBlogPost(slug: string): BlogPost | undefined {

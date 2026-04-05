@@ -114,10 +114,7 @@ export default function Chat() {
     const delay = 800 + Math.random() * 400;
     setTimeout(() => {
       const response = getResponse(trimmed);
-      setMessages((prev) => [
-        ...prev,
-        { id: nextId++, role: "bot", text: response },
-      ]);
+      setMessages((prev) => [...prev, { id: nextId++, role: "bot", text: response }]);
       setIsTyping(false);
     }, delay);
   }, [input, isTyping]);
@@ -132,25 +129,20 @@ export default function Chat() {
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-black">
       {/* Back link */}
-      <div className="fixed left-6 top-6 z-10">
+      <div className="fixed top-6 left-6 z-10">
         <Breadcrumbs />
       </div>
 
       {/* Header */}
-      <div className="border-b border-gray-200 px-6 pb-4 pt-16 text-center dark:border-gray-800">
-        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-          sma1lbot
-        </h1>
+      <div className="border-b border-gray-200 px-6 pt-16 pb-4 text-center dark:border-gray-800">
+        <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">sma1lbot</h1>
         <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
           Ask me anything about Jackson
         </p>
       </div>
 
       {/* Messages */}
-      <div
-        ref={scrollRef}
-        className="flex-1 overflow-y-auto px-4 py-6 sm:px-6"
-      >
+      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-2xl space-y-4">
           <AnimatePresence initial={false}>
             {messages.map((msg) => (
@@ -219,7 +211,7 @@ export default function Chat() {
       </div>
 
       {/* Input */}
-      <div className="border-t border-gray-200 px-4 py-4 dark:border-gray-800 sm:px-6">
+      <div className="border-t border-gray-200 px-4 py-4 sm:px-6 dark:border-gray-800">
         <div className="mx-auto flex max-w-2xl gap-3">
           <input
             ref={inputRef}
@@ -229,7 +221,7 @@ export default function Chat() {
             onKeyDown={handleKeyDown}
             placeholder="Ask about Jackson..."
             disabled={isTyping}
-            className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-indigo-600 dark:focus:ring-indigo-900/30"
+            className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 transition-colors outline-none focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-indigo-600 dark:focus:ring-indigo-900/30"
           />
           <button
             onClick={handleSend}

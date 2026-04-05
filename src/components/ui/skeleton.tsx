@@ -14,10 +14,7 @@ interface SkeletonProps {
 export function Skeleton({ className, width, height, rounded }: SkeletonProps) {
   return (
     <div
-      className={cn(
-        "animate-shimmer rounded-md bg-gray-200 dark:bg-neutral-800",
-        className,
-      )}
+      className={cn("animate-shimmer rounded-md bg-gray-200 dark:bg-neutral-800", className)}
       style={{
         width: typeof width === "number" ? `${width}px` : width,
         height: typeof height === "number" ? `${height}px` : height,
@@ -38,12 +35,7 @@ export function SkeletonText({
   lines?: number;
 }) {
   if (lines === 1) {
-    return (
-      <Skeleton
-        className={cn("h-4", className)}
-        width={width}
-      />
-    );
+    return <Skeleton className={cn("h-4", className)} width={width} />;
   }
 
   return (
@@ -85,28 +77,13 @@ export function SkeletonImage({
 }) {
   return (
     <div
-      className={cn(
-        "animate-shimmer w-full rounded-xl bg-gray-200 dark:bg-neutral-800",
-        className,
-      )}
+      className={cn("animate-shimmer w-full rounded-xl bg-gray-200 dark:bg-neutral-800", className)}
       style={{ aspectRatio }}
     />
   );
 }
 
 /** Circular skeleton for avatars. */
-export function SkeletonCircle({
-  size = 40,
-  className,
-}: {
-  size?: number;
-  className?: string;
-}) {
-  return (
-    <Skeleton
-      className={cn("shrink-0 rounded-full", className)}
-      width={size}
-      height={size}
-    />
-  );
+export function SkeletonCircle({ size = 40, className }: { size?: number; className?: string }) {
+  return <Skeleton className={cn("shrink-0 rounded-full", className)} width={size} height={size} />;
 }

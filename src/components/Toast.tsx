@@ -28,7 +28,7 @@ function ToastItem({ id, message }: { id: string; message: string }) {
         <X size={14} />
       </button>
       {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/10">
+      <div className="absolute right-0 bottom-0 left-0 h-0.5 bg-white/10">
         <motion.div
           className="h-full bg-white/40"
           initial={{ width: "100%" }}

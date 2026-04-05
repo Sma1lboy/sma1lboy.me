@@ -38,15 +38,10 @@ export default function ChatPreview() {
     <div className="flex h-full w-full items-center justify-center p-4">
       <div className="w-full max-w-[180px] space-y-1.5">
         {bubbles.slice(0, visible).map((b, i) => (
-          <div
-            key={i}
-            className={`flex ${b.role === "user" ? "justify-end" : "justify-start"}`}
-          >
+          <div key={i} className={`flex ${b.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
               className={`rounded-lg px-2.5 py-1 text-[9px] leading-tight ${
-                b.role === "user"
-                  ? "bg-gray-700 text-gray-200"
-                  : "bg-indigo-900/60 text-indigo-200"
+                b.role === "user" ? "bg-gray-700 text-gray-200" : "bg-indigo-900/60 text-indigo-200"
               }`}
             >
               {b.text}

@@ -26,19 +26,15 @@ export default function NetworkPreview() {
       <div className="flex items-center gap-0.5">
         {ip.map((octet, i) => (
           <span key={i} className="flex items-center">
-            <span
-              className="rounded bg-gray-800 px-1.5 py-1 font-mono text-sm font-semibold text-cyan-400 transition-all duration-500"
-            >
+            <span className="rounded bg-gray-800 px-1.5 py-1 font-mono text-sm font-semibold text-cyan-400 transition-all duration-500">
               {octet}
             </span>
-            {i < 3 && (
-              <span className="px-0.5 font-mono text-xs text-gray-600">.</span>
-            )}
+            {i < 3 && <span className="px-0.5 font-mono text-xs text-gray-600">.</span>}
           </span>
         ))}
       </div>
       {/* Label */}
-      <span className="text-[9px] font-medium uppercase tracking-wider text-gray-500">
+      <span className="text-[9px] font-medium tracking-wider text-gray-500 uppercase">
         Network Info
       </span>
       {/* Signal bars */}

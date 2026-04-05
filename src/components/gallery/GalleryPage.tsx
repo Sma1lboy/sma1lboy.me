@@ -61,18 +61,12 @@ function CategoryFilters({
 
 /* ── Photo Card ── */
 
-function PhotoCard({
-  photo,
-  onClick,
-}: {
-  photo: GalleryPhoto;
-  onClick: () => void;
-}) {
+function PhotoCard({ photo, onClick }: { photo: GalleryPhoto; onClick: () => void }) {
   return (
     <motion.div
       layout
       variants={itemVariants}
-      className="group mb-4 cursor-pointer overflow-hidden rounded-xl break-inside-avoid"
+      className="group mb-4 cursor-pointer break-inside-avoid overflow-hidden rounded-xl"
       onClick={onClick}
       onKeyDown={(e: React.KeyboardEvent) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -265,7 +259,9 @@ export default function GalleryPage() {
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
 
   const goPrev = useCallback(() => {
-    setLightboxIndex((i) => (i === null ? null : (i - 1 + filteredPhotos.length) % filteredPhotos.length));
+    setLightboxIndex((i) =>
+      i === null ? null : (i - 1 + filteredPhotos.length) % filteredPhotos.length,
+    );
   }, [filteredPhotos.length]);
 
   const goNext = useCallback(() => {

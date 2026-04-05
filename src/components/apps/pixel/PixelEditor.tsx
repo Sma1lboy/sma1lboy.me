@@ -88,9 +88,7 @@ export default function PixelEditor() {
 
   // Reset grid when size changes
   useEffect(() => {
-    const newGrid = Array.from({ length: gridSize }, () =>
-      Array(gridSize).fill(TRANSPARENT),
-    );
+    const newGrid = Array.from({ length: gridSize }, () => Array(gridSize).fill(TRANSPARENT));
     setGrid(newGrid);
     setHistory([]);
     setRedoStack([]);
@@ -133,13 +131,10 @@ export default function PixelEditor() {
     }
   }, [grid, gridSize, showGrid]);
 
-  const pushHistory = useCallback(
-    (current: string[][]) => {
-      setHistory((prev) => [...prev.slice(-50), current]);
-      setRedoStack([]);
-    },
-    [],
-  );
+  const pushHistory = useCallback((current: string[][]) => {
+    setHistory((prev) => [...prev.slice(-50), current]);
+    setRedoStack([]);
+  }, []);
 
   const getCellFromEvent = useCallback(
     (e: React.MouseEvent | React.TouchEvent) => {
@@ -256,9 +251,7 @@ export default function PixelEditor() {
 
   const clearCanvas = useCallback(() => {
     pushHistory(grid);
-    setGrid(
-      Array.from({ length: gridSize }, () => Array(gridSize).fill(TRANSPARENT)),
-    );
+    setGrid(Array.from({ length: gridSize }, () => Array(gridSize).fill(TRANSPARENT)));
   }, [grid, gridSize, pushHistory]);
 
   const exportPNG = useCallback(() => {
@@ -315,12 +308,11 @@ export default function PixelEditor() {
         {/* Header */}
         <div className="mb-8">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             Pixel Art Editor
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Draw pixel art on a {gridSize}x{gridSize} canvas. Click and drag to
-            paint.
+            Draw pixel art on a {gridSize}x{gridSize} canvas. Click and drag to paint.
           </p>
         </div>
 
@@ -334,7 +326,7 @@ export default function PixelEditor() {
           <div className="flex flex-row gap-4 lg:w-56 lg:flex-col">
             {/* Tool buttons */}
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950">
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <p className="mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Tools
               </p>
               <div className="grid grid-cols-4 gap-1.5 lg:grid-cols-2">
@@ -357,7 +349,7 @@ export default function PixelEditor() {
 
             {/* Color palette */}
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950">
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <p className="mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Colors
               </p>
               <div className="grid grid-cols-8 gap-1 lg:grid-cols-4">
@@ -366,8 +358,7 @@ export default function PixelEditor() {
                     key={c}
                     onClick={() => {
                       setColor(c);
-                      if (tool === "eraser" || tool === "eyedropper")
-                        setTool("brush");
+                      if (tool === "eraser" || tool === "eyedropper") setTool("brush");
                     }}
                     className={`h-7 w-7 rounded-md border-2 transition-transform hover:scale-110 ${
                       color === c
@@ -384,20 +375,17 @@ export default function PixelEditor() {
                   value={color}
                   onChange={(e) => {
                     setColor(e.target.value);
-                    if (tool === "eraser" || tool === "eyedropper")
-                      setTool("brush");
+                    if (tool === "eraser" || tool === "eyedropper") setTool("brush");
                   }}
                   className="h-8 w-8 cursor-pointer rounded border-0 bg-transparent"
                 />
-                <span className="font-mono text-xs text-gray-500 dark:text-gray-400">
-                  {color}
-                </span>
+                <span className="font-mono text-xs text-gray-500 dark:text-gray-400">{color}</span>
               </div>
             </div>
 
             {/* Actions */}
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950">
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <p className="mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Actions
               </p>
               <div className="flex flex-col gap-1.5">
@@ -443,7 +431,7 @@ export default function PixelEditor() {
 
             {/* Grid size */}
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 dark:border-gray-800 dark:bg-gray-950">
-              <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <p className="mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                 Canvas
               </p>
               <div className="flex gap-1.5">
@@ -489,7 +477,7 @@ export default function PixelEditor() {
                 onTouchStart={handlePointerDown}
                 onTouchMove={handlePointerMove}
                 onTouchEnd={handlePointerUp}
-                className="max-w-full cursor-crosshair rounded-lg touch-none"
+                className="max-w-full cursor-crosshair touch-none rounded-lg"
                 style={{
                   width: "min(100%, 512px)",
                   height: "auto",

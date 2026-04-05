@@ -1,9 +1,4 @@
-export type UsesCategory =
-  | "hardware"
-  | "development"
-  | "ai-tools"
-  | "design"
-  | "productivity";
+export type UsesCategory = "hardware" | "development" | "ai-tools" | "design" | "productivity";
 
 export interface UsesItem {
   id: string;
@@ -24,12 +19,12 @@ export const usesItems: Record<UsesCategory, UsesItem[]> = {
   hardware: [
     {
       id: "macbook",
-      name: "MacBook Pro 16\" M3 Max",
+      name: 'MacBook Pro 16" M3 Max',
       description: "Main development machine with 48GB RAM",
     },
     {
       id: "monitor",
-      name: "LG 27\" 4K Monitor",
+      name: 'LG 27" 4K Monitor',
       description: "External display for productivity",
     },
     {

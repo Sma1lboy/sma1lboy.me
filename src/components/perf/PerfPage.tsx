@@ -37,11 +37,61 @@ interface VitalMetric {
 }
 
 const VITALS: VitalMetric[] = [
-  { key: "lcp", label: "LCP", fullLabel: "Largest Contentful Paint", unit: "s", good: 2.5, poor: 4, maxGauge: 6, decimals: 2, icon: Zap },
-  { key: "fcp", label: "FCP", fullLabel: "First Contentful Paint", unit: "s", good: 1.8, poor: 3, maxGauge: 5, decimals: 2, icon: Eye },
-  { key: "ttfb", label: "TTFB", fullLabel: "Time to First Byte", unit: "ms", good: 800, poor: 1800, maxGauge: 3000, decimals: 0, icon: Clock },
-  { key: "cls", label: "CLS", fullLabel: "Cumulative Layout Shift", unit: "", good: 0.1, poor: 0.25, maxGauge: 0.5, decimals: 3, icon: Move },
-  { key: "inp", label: "INP", fullLabel: "Interaction to Next Paint", unit: "ms", good: 200, poor: 500, maxGauge: 800, decimals: 0, icon: Activity },
+  {
+    key: "lcp",
+    label: "LCP",
+    fullLabel: "Largest Contentful Paint",
+    unit: "s",
+    good: 2.5,
+    poor: 4,
+    maxGauge: 6,
+    decimals: 2,
+    icon: Zap,
+  },
+  {
+    key: "fcp",
+    label: "FCP",
+    fullLabel: "First Contentful Paint",
+    unit: "s",
+    good: 1.8,
+    poor: 3,
+    maxGauge: 5,
+    decimals: 2,
+    icon: Eye,
+  },
+  {
+    key: "ttfb",
+    label: "TTFB",
+    fullLabel: "Time to First Byte",
+    unit: "ms",
+    good: 800,
+    poor: 1800,
+    maxGauge: 3000,
+    decimals: 0,
+    icon: Clock,
+  },
+  {
+    key: "cls",
+    label: "CLS",
+    fullLabel: "Cumulative Layout Shift",
+    unit: "",
+    good: 0.1,
+    poor: 0.25,
+    maxGauge: 0.5,
+    decimals: 3,
+    icon: Move,
+  },
+  {
+    key: "inp",
+    label: "INP",
+    fullLabel: "Interaction to Next Paint",
+    unit: "ms",
+    good: 200,
+    poor: 500,
+    maxGauge: 800,
+    decimals: 0,
+    icon: Activity,
+  },
 ];
 
 function getVitalColor(value: number | null, metric: VitalMetric) {
@@ -105,10 +155,10 @@ function VitalGauge({ metric, value }: { metric: VitalMetric; value: number | nu
         {/* Center label */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pt-1">
           <Icon size={14} className="mb-1 text-gray-400 dark:text-gray-500" />
-          <span className="text-base font-bold tabular-nums text-gray-900 sm:text-lg dark:text-gray-100">
+          <span className="text-base font-bold text-gray-900 tabular-nums sm:text-lg dark:text-gray-100">
             {formatVitalValue(value, metric)}
           </span>
-          <span className="text-[10px] font-medium leading-tight" style={{ color }}>
+          <span className="text-[10px] leading-tight font-medium" style={{ color }}>
             {rating}
           </span>
         </div>
@@ -196,7 +246,7 @@ function ResourceWaterfall({ resources }: { resources: ResourceEntry[] }) {
                 }}
               />
             </div>
-            <span className="w-[48px] shrink-0 text-right tabular-nums text-gray-400 dark:text-gray-500">
+            <span className="w-[48px] shrink-0 text-right text-gray-400 tabular-nums dark:text-gray-500">
               {Math.round(resource.duration)}ms
             </span>
           </motion.div>
@@ -222,9 +272,9 @@ function useWebVitals() {
 
   useEffect(() => {
     // TTFB — from navigation timing
-    const nav = performance.getEntriesByType(
-      "navigation",
-    )[0] as PerformanceNavigationTiming | undefined;
+    const nav = performance.getEntriesByType("navigation")[0] as
+      | PerformanceNavigationTiming
+      | undefined;
     if (nav) {
       setVitals((v) => ({ ...v, ttfb: nav.responseStart }));
     }

@@ -126,8 +126,7 @@ export const changelogEntries: ChangelogEntry[] = [
     date: "2024-03-14",
     version: "v1.3.0",
     title: "Resume Page",
-    description:
-      "Added a Resume/CV page with timeline-based experience layout and skills grid.",
+    description: "Added a Resume/CV page with timeline-based experience layout and skills grid.",
     type: "new",
   },
   {

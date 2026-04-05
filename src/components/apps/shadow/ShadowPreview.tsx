@@ -34,14 +34,7 @@ export default function ShadowPreview() {
       const boxH = 36;
 
       // Shadow glow
-      const gradient = ctx.createRadialGradient(
-        cx + ox,
-        cy + oy,
-        0,
-        cx + ox,
-        cy + oy,
-        blur + 20,
-      );
+      const gradient = ctx.createRadialGradient(cx + ox, cy + oy, 0, cx + ox, cy + oy, blur + 20);
       gradient.addColorStop(0, "rgba(139, 92, 246, 0.35)");
       gradient.addColorStop(0.5, "rgba(139, 92, 246, 0.12)");
       gradient.addColorStop(1, "rgba(139, 92, 246, 0)");

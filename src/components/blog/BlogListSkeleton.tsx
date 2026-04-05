@@ -38,9 +38,7 @@ export function BlogListSkeleton() {
               </div>
 
               {/* Divider */}
-              {i < 4 && (
-                <div className="mt-5 border-b border-gray-100 dark:border-gray-800/50" />
-              )}
+              {i < 4 && <div className="mt-5 border-b border-gray-100 dark:border-gray-800/50" />}
             </div>
           ))}
         </div>

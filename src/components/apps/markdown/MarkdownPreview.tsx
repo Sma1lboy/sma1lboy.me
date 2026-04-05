@@ -46,10 +46,7 @@ export default function MarkdownPreview() {
       ctx.font = "10px monospace";
       lines.forEach((line, i) => {
         const y = 22 + i * 15;
-        const progress = Math.min(
-          1,
-          Math.max(0, (frame - i * 12) / 20),
-        );
+        const progress = Math.min(1, Math.max(0, (frame - i * 12) / 20));
         const visibleChars = Math.floor(progress * line.text.length);
         const displayed = line.text.substring(0, visibleChars);
 
@@ -64,10 +61,7 @@ export default function MarkdownPreview() {
 
       lines.forEach((line, i) => {
         const y = 22 + i * 15;
-        const progress = Math.min(
-          1,
-          Math.max(0, (frame - i * 12 - 10) / 15),
-        );
+        const progress = Math.min(1, Math.max(0, (frame - i * 12 - 10) / 15));
 
         if (progress <= 0) return;
 
@@ -108,18 +102,10 @@ export default function MarkdownPreview() {
       // Cursor blink on left side
       ctx.globalAlpha = 1;
       if (Math.floor(frame / 15) % 2 === 0) {
-        const cursorLine = Math.min(
-          Math.floor(frame / 12),
-          lines.length - 1,
-        );
+        const cursorLine = Math.min(Math.floor(frame / 12), lines.length - 1);
         const cursorY = 14 + cursorLine * 15;
-        const charProgress = Math.min(
-          1,
-          Math.max(0, (frame - cursorLine * 12) / 20),
-        );
-        const cursorX =
-          14 +
-          Math.floor(charProgress * lines[cursorLine].text.length) * 6;
+        const charProgress = Math.min(1, Math.max(0, (frame - cursorLine * 12) / 20));
+        const cursorX = 14 + Math.floor(charProgress * lines[cursorLine].text.length) * 6;
 
         ctx.fillStyle = "#60a5fa";
         ctx.fillRect(cursorX, cursorY, 1, 12);
@@ -140,11 +126,7 @@ export default function MarkdownPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

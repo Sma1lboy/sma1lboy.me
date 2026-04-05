@@ -48,7 +48,10 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
   const { language, toggleLanguage } = useLanguageStore();
 
   return (
-    <nav aria-label={t("nav.home")} className="fixed bottom-3 left-1/2 z-50 hidden -translate-x-1/2 transform md:block sm:bottom-4">
+    <nav
+      aria-label={t("nav.home")}
+      className="fixed bottom-3 left-1/2 z-50 hidden -translate-x-1/2 transform sm:bottom-4 md:block"
+    >
       <Dock className="px-2 py-1 sm:px-3 sm:py-2">
         <DockIcon
           label={t("nav.home")}
@@ -304,7 +307,7 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
         >
           <div className="relative flex items-center justify-center">
             <Languages size={18} className="text-gray-700 sm:size-5 dark:text-gray-300" />
-            <span className="absolute -right-1 -top-1 text-[8px] font-bold leading-none text-gray-700 dark:text-gray-300">
+            <span className="absolute -top-1 -right-1 text-[8px] leading-none font-bold text-gray-700 dark:text-gray-300">
               {language === "en" ? "EN" : "中"}
             </span>
           </div>

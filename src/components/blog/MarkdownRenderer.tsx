@@ -77,7 +77,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           </a>
         ),
         blockquote: ({ children }) => (
-          <blockquote className="my-5 border-l-2 border-gray-200 pl-4 italic text-gray-500 dark:border-gray-700 dark:text-gray-400">
+          <blockquote className="my-5 border-l-2 border-gray-200 pl-4 text-gray-500 italic dark:border-gray-700 dark:text-gray-400">
             {children}
           </blockquote>
         ),
@@ -95,12 +95,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
         hr: () => <hr className="my-8 border-gray-100 dark:border-gray-800/50" />,
         img: ({ src, alt }) => (
           <figure className="my-6">
-            <img
-              src={src}
-              alt={alt ?? ""}
-              className="w-full rounded-lg"
-              loading="lazy"
-            />
+            <img src={src} alt={alt ?? ""} className="w-full rounded-lg" loading="lazy" />
             {alt && (
               <figcaption className="mt-2 text-center text-xs text-gray-400 dark:text-gray-500">
                 {alt}
@@ -114,7 +109,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
           </div>
         ),
         thead: ({ children }) => (
-          <thead className="border-b border-gray-200 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:border-gray-700 dark:text-gray-400">
+          <thead className="border-b border-gray-200 text-left text-xs font-medium tracking-wider text-gray-500 uppercase dark:border-gray-700 dark:text-gray-400">
             {children}
           </thead>
         ),
@@ -129,7 +124,7 @@ export default function MarkdownRenderer({ content }: { content: string }) {
 
           if (!match) {
             return (
-              <code className="rounded bg-gray-100 px-1.5 py-0.5 text-[13px] font-mono text-gray-800 dark:bg-gray-800/60 dark:text-gray-200">
+              <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-[13px] text-gray-800 dark:bg-gray-800/60 dark:text-gray-200">
                 {children}
               </code>
             );

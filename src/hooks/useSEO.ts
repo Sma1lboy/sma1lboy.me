@@ -13,14 +13,8 @@ interface UseSEOParams {
   ogImage?: string;
 }
 
-function setMetaTag(
-  attr: "name" | "property",
-  key: string,
-  content: string,
-): void {
-  let el = document.querySelector<HTMLMetaElement>(
-    `meta[${attr}="${key}"]`,
-  );
+function setMetaTag(attr: "name" | "property", key: string, content: string): void {
+  let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
   if (el) {
     el.setAttribute("content", content);
   } else {
@@ -57,31 +51,21 @@ export function useSEO({ title, description, path, ogImage }: UseSEOParams) {
     // Store previous values for cleanup
     const prevTitle = document.title;
     const prevDesc =
-      document.querySelector<HTMLMetaElement>('meta[name="description"]')
-        ?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[name="description"]')?.content || "";
     const prevOgTitle =
-      document.querySelector<HTMLMetaElement>('meta[property="og:title"]')
-        ?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.content || "";
     const prevOgDesc =
-      document.querySelector<HTMLMetaElement>(
-        'meta[property="og:description"]',
-      )?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.content || "";
     const prevOgUrl =
-      document.querySelector<HTMLMetaElement>('meta[property="og:url"]')
-        ?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.content || "";
     const prevOgImage =
-      document.querySelector<HTMLMetaElement>('meta[property="og:image"]')
-        ?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.content || "";
     const prevTwitterTitle =
-      document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')
-        ?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.content || "";
     const prevTwitterDesc =
-      document.querySelector<HTMLMetaElement>(
-        'meta[name="twitter:description"]',
-      )?.content || "";
+      document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')?.content || "";
     const prevCanonical =
-      document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href ||
-      "";
+      document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href || "";
 
     // Set new values
     document.title = fullTitle;

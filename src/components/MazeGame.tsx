@@ -45,8 +45,7 @@ function generateMaze(): Cell[][] {
           opposite,
         }))
         .filter(
-          ({ nr, nc }) =>
-            nr >= 0 && nr < GRID && nc >= 0 && nc < GRID && !grid[nr][nc].visited,
+          ({ nr, nc }) => nr >= 0 && nr < GRID && nc >= 0 && nc < GRID && !grid[nr][nc].visited,
         );
 
       if (neighbors.length === 0) {
@@ -54,8 +53,7 @@ function generateMaze(): Cell[][] {
         continue;
       }
 
-      const { nr, nc, wall, opposite } =
-        neighbors[Math.floor(Math.random() * neighbors.length)];
+      const { nr, nc, wall, opposite } = neighbors[Math.floor(Math.random() * neighbors.length)];
       (grid[r][c] as unknown as Record<string, boolean>)[wall] = false;
       (grid[nr][nc] as unknown as Record<string, boolean>)[opposite] = false;
       grid[nr][nc].visited = true;
@@ -189,14 +187,7 @@ export function MazeGame() {
       const exitRadius = cs * 0.28;
 
       // Outer glow
-      const exitGlow = ctx.createRadialGradient(
-        exitX,
-        exitY,
-        0,
-        exitX,
-        exitY,
-        exitRadius * 3,
-      );
+      const exitGlow = ctx.createRadialGradient(exitX, exitY, 0, exitX, exitY, exitRadius * 3);
       exitGlow.addColorStop(0, isDark ? "rgba(74,222,128,0.4)" : "rgba(22,163,74,0.3)");
       exitGlow.addColorStop(1, "transparent");
       ctx.fillStyle = exitGlow;
@@ -233,10 +224,7 @@ export function MazeGame() {
 
       // Player glow
       const playerGlow = ctx.createRadialGradient(px, py, 0, px, py, playerRadius * 4);
-      playerGlow.addColorStop(
-        0,
-        isDark ? "rgba(147,197,253,0.5)" : "rgba(59,130,246,0.4)",
-      );
+      playerGlow.addColorStop(0, isDark ? "rgba(147,197,253,0.5)" : "rgba(59,130,246,0.4)");
       playerGlow.addColorStop(1, "transparent");
       ctx.fillStyle = playerGlow;
       ctx.fillRect(
@@ -318,9 +306,7 @@ export function MazeGame() {
           New Maze
         </button>
 
-        <p className="text-xs text-gray-400 dark:text-gray-600">
-          Arrow keys or WASD to move
-        </p>
+        <p className="text-xs text-gray-400 dark:text-gray-600">Arrow keys or WASD to move</p>
       </div>
     </div>
   );

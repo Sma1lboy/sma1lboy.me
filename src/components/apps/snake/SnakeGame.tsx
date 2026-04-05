@@ -45,7 +45,9 @@ function getHighScore(): number {
 function setHighScore(score: number) {
   try {
     localStorage.setItem("snake-high-score", String(score));
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
 }
 
 export default function SnakeGame() {

@@ -40,12 +40,7 @@ export default function CurrencyPreview() {
       // Animated symbol
       const symbolIdx = Math.floor(frame / 90) % SYMBOLS.length;
       const progress = (frame % 90) / 90;
-      const alpha =
-        progress < 0.1
-          ? progress / 0.1
-          : progress > 0.9
-            ? (1 - progress) / 0.1
-            : 1;
+      const alpha = progress < 0.1 ? progress / 0.1 : progress > 0.9 ? (1 - progress) / 0.1 : 1;
 
       // Draw chart line
       const chartX = 20;
@@ -108,11 +103,7 @@ export default function CurrencyPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

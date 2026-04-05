@@ -272,14 +272,18 @@ function getHighScore(): number {
   try {
     const s = localStorage.getItem("tetris-high-score");
     if (s) return parseInt(s, 10);
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
   return 0;
 }
 
 function saveHighScore(score: number) {
   try {
     localStorage.setItem("tetris-high-score", String(score));
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
 }
 
 // ── Component ──────────────────────────────────────────────────────

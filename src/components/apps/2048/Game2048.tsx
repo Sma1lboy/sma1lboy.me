@@ -38,14 +38,18 @@ function getHighScore(): number {
   try {
     const stored = localStorage.getItem("2048-high-score");
     if (stored) return parseInt(stored, 10);
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
   return 0;
 }
 
 function saveHighScore(score: number) {
   try {
     localStorage.setItem("2048-high-score", String(score));
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
 }
 
 function createEmptyGrid(): Grid {

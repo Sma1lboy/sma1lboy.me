@@ -7,9 +7,7 @@ function randomChar() {
 }
 
 export default function PasswordPreview() {
-  const [chars, setChars] = useState(() =>
-    Array.from({ length: 16 }, randomChar),
-  );
+  const [chars, setChars] = useState(() => Array.from({ length: 16 }, randomChar));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,14 +29,13 @@ export default function PasswordPreview() {
             key={i}
             className="inline-block w-[9px] text-center font-mono text-[13px] tabular-nums"
             style={{
-              color:
-                /[A-Z]/.test(ch)
-                  ? "#60a5fa"
-                  : /[a-z]/.test(ch)
-                    ? "#a5b4fc"
-                    : /[0-9]/.test(ch)
-                      ? "#34d399"
-                      : "#f472b6",
+              color: /[A-Z]/.test(ch)
+                ? "#60a5fa"
+                : /[a-z]/.test(ch)
+                  ? "#a5b4fc"
+                  : /[0-9]/.test(ch)
+                    ? "#34d399"
+                    : "#f472b6",
             }}
           >
             {ch}

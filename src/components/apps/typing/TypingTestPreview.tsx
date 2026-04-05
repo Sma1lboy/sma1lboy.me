@@ -22,7 +22,7 @@ export default function TypingTestPreview() {
     <div className="flex h-full w-full items-center justify-center p-4">
       <div className="w-full max-w-[220px] overflow-hidden rounded-md border border-gray-700 bg-[#0a0a0a] p-3">
         <div className="mb-2 flex items-center justify-between">
-          <span className="font-mono text-[8px] uppercase tracking-wider text-gray-500">
+          <span className="font-mono text-[8px] tracking-wider text-gray-500 uppercase">
             Typing Test
           </span>
           <span className="font-mono text-[9px] text-yellow-400">

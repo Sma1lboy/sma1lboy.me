@@ -1,13 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Copy,
-  Upload,
-  FileText,
-  X,
-  Hash,
-  GitCompareArrows,
-} from "lucide-react";
+import { Copy, Upload, FileText, X, Hash, GitCompareArrows } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 import { useToastStore } from "@/store/toastStore";
@@ -25,24 +18,20 @@ function md5Bytes(bytes: Uint8Array): string {
   }
 
   const K = [
-    0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee, 0xf57c0faf, 0x4787c62a,
-    0xa8304613, 0xfd469501, 0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be,
-    0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821, 0xf61e2562, 0xc040b340,
-    0x265e5a51, 0xe9b6c7aa, 0xd62f105d, 0x02441453, 0xd8a1e681, 0xe7d3fbc8,
-    0x21e1cde6, 0xc33707d6, 0xf4d50d87, 0x455a14ed, 0xa9e3e905, 0xfcefa3f8,
-    0x676f02d9, 0x8d2a4c8a, 0xfffa3942, 0x8771f681, 0x6d9d6122, 0xfde5380c,
-    0xa4beea44, 0x4bdecfa9, 0xf6bb4b60, 0xbebfbc70, 0x289b7ec6, 0xeaa127fa,
-    0xd4ef3085, 0x04881d05, 0xd9d4d039, 0xe6db99e5, 0x1fa27cf8, 0xc4ac5665,
-    0xf4292244, 0x432aff97, 0xab9423a7, 0xfc93a039, 0x655b59c3, 0x8f0ccc92,
-    0xffeff47d, 0x85845dd1, 0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
-    0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391,
+    0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee, 0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
+    0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be, 0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821,
+    0xf61e2562, 0xc040b340, 0x265e5a51, 0xe9b6c7aa, 0xd62f105d, 0x02441453, 0xd8a1e681, 0xe7d3fbc8,
+    0x21e1cde6, 0xc33707d6, 0xf4d50d87, 0x455a14ed, 0xa9e3e905, 0xfcefa3f8, 0x676f02d9, 0x8d2a4c8a,
+    0xfffa3942, 0x8771f681, 0x6d9d6122, 0xfde5380c, 0xa4beea44, 0x4bdecfa9, 0xf6bb4b60, 0xbebfbc70,
+    0x289b7ec6, 0xeaa127fa, 0xd4ef3085, 0x04881d05, 0xd9d4d039, 0xe6db99e5, 0x1fa27cf8, 0xc4ac5665,
+    0xf4292244, 0x432aff97, 0xab9423a7, 0xfc93a039, 0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1,
+    0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391,
   ];
 
   const S = [
-    7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 5, 9, 14, 20,
-    5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23,
-    4, 11, 16, 23, 4, 11, 16, 23, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21,
-    6, 10, 15, 21,
+    7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9,
+    14, 20, 5, 9, 14, 20, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 6, 10, 15, 21,
+    6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21,
   ];
 
   // Pre-processing: pad message
@@ -68,7 +57,10 @@ function md5Bytes(bytes: Uint8Array): string {
       M[j] = view.getUint32(offset + j * 4, true);
     }
 
-    let A = a0, B = b0, C = c0, D = d0;
+    let A = a0,
+      B = b0,
+      C = c0,
+      D = d0;
 
     for (let i = 0; i < 64; i++) {
       let F: number, g: number;
@@ -105,7 +97,9 @@ function md5Bytes(bytes: Uint8Array): string {
       .join("");
   }
 
-  return toLittleEndianHex(a0) + toLittleEndianHex(b0) + toLittleEndianHex(c0) + toLittleEndianHex(d0);
+  return (
+    toLittleEndianHex(a0) + toLittleEndianHex(b0) + toLittleEndianHex(c0) + toLittleEndianHex(d0)
+  );
 }
 
 // --- Web Crypto helpers ---
@@ -141,11 +135,14 @@ type Mode = "generate" | "compare";
 function CopyButton({ text }: { text: string }) {
   const handleCopy = useCallback(() => {
     if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
-      useToastStore.getState().addToast("Copied to clipboard!");
-    }).catch(() => {
-      // clipboard denied — ignore
-    });
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        useToastStore.getState().addToast("Copied to clipboard!");
+      })
+      .catch(() => {
+        // clipboard denied — ignore
+      });
   }, [text]);
 
   return (
@@ -220,7 +217,9 @@ export default function HashGenerator() {
     };
 
     compute();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [input, mode, fileBuffer]);
 
   // Compute hashes for file
@@ -250,7 +249,9 @@ export default function HashGenerator() {
     };
 
     compute();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [fileBuffer, mode]);
 
   // Compare mode computation
@@ -282,7 +283,9 @@ export default function HashGenerator() {
     };
 
     compute();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [compareInput, compareHash, mode]);
 
   // File handling
@@ -333,7 +336,7 @@ export default function HashGenerator() {
         {/* Header */}
         <div className="mb-8">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             Hash Generator
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -419,7 +422,7 @@ export default function HashGenerator() {
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       spellCheck={false}
-                      className="min-h-[160px] w-full resize-none bg-transparent p-4 font-mono text-sm leading-6 text-gray-900 outline-none placeholder:text-gray-400 dark:text-gray-100 dark:placeholder:text-gray-600 sm:min-h-[200px]"
+                      className="min-h-[160px] w-full resize-none bg-transparent p-4 font-mono text-sm leading-6 text-gray-900 outline-none placeholder:text-gray-400 sm:min-h-[200px] dark:text-gray-100 dark:placeholder:text-gray-600"
                       placeholder="Enter text to hash..."
                     />
                   )}
@@ -432,9 +435,7 @@ export default function HashGenerator() {
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   className={`border-b border-gray-200 px-4 py-3 transition-colors dark:border-gray-800 ${
-                    dragging
-                      ? "bg-blue-50 dark:bg-blue-950/30"
-                      : "bg-transparent"
+                    dragging ? "bg-blue-50 dark:bg-blue-950/30" : "bg-transparent"
                   }`}
                 >
                   <div className="flex items-center justify-center gap-3">
@@ -443,9 +444,7 @@ export default function HashGenerator() {
                       className={`${dragging ? "text-blue-500" : "text-gray-400"}`}
                     />
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {dragging
-                        ? "Drop file here"
-                        : "Drag & drop a file here, or"}
+                      {dragging ? "Drop file here" : "Drag & drop a file here, or"}
                     </span>
                     {!dragging && (
                       <>
@@ -471,32 +470,31 @@ export default function HashGenerator() {
 
                 {/* Hash outputs */}
                 <div className="divide-y divide-gray-200 dark:divide-gray-800">
-                  {(hashes.length > 0 ? hashes : [
-                    { algorithm: "MD5", hash: "" },
-                    { algorithm: "SHA-1", hash: "" },
-                    { algorithm: "SHA-256", hash: "" },
-                    { algorithm: "SHA-512", hash: "" },
-                  ]).map((result) => (
+                  {(hashes.length > 0
+                    ? hashes
+                    : [
+                        { algorithm: "MD5", hash: "" },
+                        { algorithm: "SHA-1", hash: "" },
+                        { algorithm: "SHA-256", hash: "" },
+                        { algorithm: "SHA-512", hash: "" },
+                      ]
+                  ).map((result) => (
                     <div
                       key={result.algorithm}
                       className="flex items-start justify-between gap-4 px-4 py-3"
                     >
-                      <div className="flex-1 min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div className="mb-1 flex items-center gap-2">
                           <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
                             {result.algorithm}
                           </span>
                           {computing && result.hash === "" && (
-                            <span className="text-xs text-gray-400">
-                              computing...
-                            </span>
+                            <span className="text-xs text-gray-400">computing...</span>
                           )}
                         </div>
-                        <p className="break-all font-mono text-xs leading-5 text-gray-900 dark:text-gray-100">
+                        <p className="font-mono text-xs leading-5 break-all text-gray-900 dark:text-gray-100">
                           {result.hash || (
-                            <span className="text-gray-400 dark:text-gray-600">
-                              —
-                            </span>
+                            <span className="text-gray-400 dark:text-gray-600">—</span>
                           )}
                         </p>
                       </div>
@@ -560,7 +558,10 @@ export default function HashGenerator() {
                       }`}
                     >
                       {anyMatch
-                        ? `Match found: ${compareResults.filter((r) => r.match).map((r) => r.algorithm).join(", ")}`
+                        ? `Match found: ${compareResults
+                            .filter((r) => r.match)
+                            .map((r) => r.algorithm)
+                            .join(", ")}`
                         : "No match — hash does not correspond to any algorithm for this input"}
                     </div>
 
@@ -569,12 +570,10 @@ export default function HashGenerator() {
                         <div
                           key={result.algorithm}
                           className={`flex items-start justify-between gap-4 px-4 py-3 ${
-                            result.match
-                              ? "bg-green-50/50 dark:bg-green-950/20"
-                              : ""
+                            result.match ? "bg-green-50/50 dark:bg-green-950/20" : ""
                           }`}
                         >
-                          <div className="flex-1 min-w-0">
+                          <div className="min-w-0 flex-1">
                             <div className="mb-1 flex items-center gap-2">
                               <span
                                 className={`text-xs font-semibold ${
@@ -595,7 +594,7 @@ export default function HashGenerator() {
                                 {result.match ? "Match" : "No match"}
                               </span>
                             </div>
-                            <p className="break-all font-mono text-xs leading-5 text-gray-900 dark:text-gray-100">
+                            <p className="font-mono text-xs leading-5 break-all text-gray-900 dark:text-gray-100">
                               {result.hash}
                             </p>
                           </div>
@@ -612,7 +611,7 @@ export default function HashGenerator() {
                   </div>
                 )}
 
-                {(compareResults.length === 0 && (!compareHash || !compareInput)) && (
+                {compareResults.length === 0 && (!compareHash || !compareInput) && (
                   <div className="px-4 py-8 text-center text-xs text-gray-400 dark:text-gray-500">
                     Enter both a hash and text above to verify
                   </div>

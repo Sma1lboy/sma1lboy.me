@@ -1,13 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import {
-  ArrowUp,
-  Github,
-  Linkedin,
-  Mail,
-  Twitter,
-  Play,
-} from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Twitter, Play } from "lucide-react";
 import { socialLinks } from "@/constants/home";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -45,14 +38,14 @@ export function Footer() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5 }}
-      className="border-t border-border pb-24 md:pb-28"
+      className="border-border border-t pb-24 md:pb-28"
     >
       <div className="mx-auto max-w-5xl px-6 pt-12 pb-8">
         {/* Sitemap columns */}
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {/* Content */}
           <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="text-foreground mb-3 text-xs font-semibold tracking-wider uppercase">
               Content
             </h3>
             <ul className="space-y-2">
@@ -60,7 +53,7 @@ export function Footer() {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -71,7 +64,7 @@ export function Footer() {
 
           {/* Tools */}
           <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="text-foreground mb-3 text-xs font-semibold tracking-wider uppercase">
               Tools
             </h3>
             <ul className="space-y-2">
@@ -79,7 +72,7 @@ export function Footer() {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -90,7 +83,7 @@ export function Footer() {
 
           {/* Connect */}
           <div className="col-span-2 sm:col-span-1">
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="text-foreground mb-3 text-xs font-semibold tracking-wider uppercase">
               Connect
             </h3>
             <ul className="space-y-2">
@@ -100,7 +93,7 @@ export function Footer() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-muted-foreground hover:text-foreground text-sm transition-colors"
                   >
                     {link.label}
                   </a>
@@ -122,7 +115,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Icon size={16} />
               </a>
@@ -133,16 +126,12 @@ export function Footer() {
         {/* Copyright + credit + back to top */}
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
-            <p className="text-xs text-muted-foreground">
-              &copy; {currentYear} Jackson Chen
-            </p>
-            <p className="text-xs text-muted-foreground/60">
-              Built with React + Vite
-            </p>
+            <p className="text-muted-foreground text-xs">&copy; {currentYear} Jackson Chen</p>
+            <p className="text-muted-foreground/60 text-xs">Built with React + Vite</p>
           </div>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs transition-colors"
             aria-label="Back to top"
           >
             <ArrowUp size={14} />

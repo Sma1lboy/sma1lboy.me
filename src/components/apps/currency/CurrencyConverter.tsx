@@ -1,11 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import {
-  ArrowDownUp,
-  Loader2,
-  TrendingUp,
-  RefreshCw,
-  DollarSign,
-} from "lucide-react";
+import { ArrowDownUp, Loader2, TrendingUp, RefreshCw, DollarSign } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { motion } from "framer-motion";
 import { useSEO } from "@/hooks/useSEO";
@@ -28,8 +22,7 @@ interface HistoricalRates {
 export default function CurrencyConverter() {
   useSEO({
     title: "Currency Converter",
-    description:
-      "Convert currencies in real-time with exchange rates and 30-day historical chart.",
+    description: "Convert currencies in real-time with exchange rates and 30-day historical chart.",
     path: "/apps/currency",
   });
 
@@ -55,67 +48,61 @@ export default function CurrencyConverter() {
   }, []);
 
   // Convert currency
-  const convert = useCallback(
-    async (amt: string, fromCur: string, toCur: string) => {
-      if (fromCur === toCur) {
-        setResult({
-          amount: parseFloat(amt) || 0,
-          base: fromCur,
-          date: new Date().toISOString().slice(0, 10),
-          rates: { [toCur]: parseFloat(amt) || 0 },
-        });
-        return;
-      }
-      const parsedAmt = parseFloat(amt);
-      if (!parsedAmt || parsedAmt <= 0) {
-        setResult(null);
-        return;
-      }
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(
-          `https://api.frankfurter.app/latest?amount=${parsedAmt}&from=${fromCur}&to=${toCur}`,
-        );
-        if (!res.ok) throw new Error("Conversion failed");
-        const data: ConversionResult = await res.json();
-        setResult(data);
-      } catch {
-        setError("Failed to convert. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    },
-    [],
-  );
+  const convert = useCallback(async (amt: string, fromCur: string, toCur: string) => {
+    if (fromCur === toCur) {
+      setResult({
+        amount: parseFloat(amt) || 0,
+        base: fromCur,
+        date: new Date().toISOString().slice(0, 10),
+        rates: { [toCur]: parseFloat(amt) || 0 },
+      });
+      return;
+    }
+    const parsedAmt = parseFloat(amt);
+    if (!parsedAmt || parsedAmt <= 0) {
+      setResult(null);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(
+        `https://api.frankfurter.app/latest?amount=${parsedAmt}&from=${fromCur}&to=${toCur}`,
+      );
+      if (!res.ok) throw new Error("Conversion failed");
+      const data: ConversionResult = await res.json();
+      setResult(data);
+    } catch {
+      setError("Failed to convert. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   // Fetch 30-day history
-  const fetchHistory = useCallback(
-    async (fromCur: string, toCur: string) => {
-      if (fromCur === toCur) {
-        setHistory(null);
-        return;
-      }
-      setHistoryLoading(true);
-      try {
-        const end = new Date();
-        const start = new Date();
-        start.setDate(end.getDate() - 30);
-        const fmt = (d: Date) => d.toISOString().slice(0, 10);
-        const res = await fetch(
-          `https://api.frankfurter.app/${fmt(start)}..${fmt(end)}?from=${fromCur}&to=${toCur}`,
-        );
-        if (!res.ok) throw new Error("History fetch failed");
-        const data = await res.json();
-        setHistory(data.rates as HistoricalRates);
-      } catch {
-        setHistory(null);
-      } finally {
-        setHistoryLoading(false);
-      }
-    },
-    [],
-  );
+  const fetchHistory = useCallback(async (fromCur: string, toCur: string) => {
+    if (fromCur === toCur) {
+      setHistory(null);
+      return;
+    }
+    setHistoryLoading(true);
+    try {
+      const end = new Date();
+      const start = new Date();
+      start.setDate(end.getDate() - 30);
+      const fmt = (d: Date) => d.toISOString().slice(0, 10);
+      const res = await fetch(
+        `https://api.frankfurter.app/${fmt(start)}..${fmt(end)}?from=${fromCur}&to=${toCur}`,
+      );
+      if (!res.ok) throw new Error("History fetch failed");
+      const data = await res.json();
+      setHistory(data.rates as HistoricalRates);
+    } catch {
+      setHistory(null);
+    } finally {
+      setHistoryLoading(false);
+    }
+  }, []);
 
   // Debounced conversion
   useEffect(() => {
@@ -165,8 +152,7 @@ export default function CurrencyConverter() {
     const plotH = h - pad.top - pad.bottom;
 
     const toX = (i: number) => pad.left + (i / (dates.length - 1)) * plotW;
-    const toY = (v: number) =>
-      pad.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
+    const toY = (v: number) => pad.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
 
     // Clear
     ctx.clearRect(0, 0, w, h);
@@ -175,11 +161,8 @@ export default function CurrencyConverter() {
     const gridLines = 4;
     ctx.strokeStyle = "rgba(107, 114, 128, 0.15)";
     ctx.lineWidth = 1;
-    const isDark =
-      document.documentElement.classList.contains("dark");
-    ctx.fillStyle = isDark
-      ? "rgba(156, 163, 175, 0.6)"
-      : "rgba(107, 114, 128, 0.6)";
+    const isDark = document.documentElement.classList.contains("dark");
+    ctx.fillStyle = isDark ? "rgba(156, 163, 175, 0.6)" : "rgba(107, 114, 128, 0.6)";
     ctx.font = "10px ui-monospace, monospace";
     ctx.textAlign = "right";
     for (let i = 0; i <= gridLines; i++) {
@@ -258,10 +241,7 @@ export default function CurrencyConverter() {
       <div className="container mx-auto max-w-2xl px-6 py-10 sm:px-8 sm:py-14">
         <Breadcrumbs />
         <div className="mb-8 flex items-center gap-3">
-          <DollarSign
-            size={28}
-            className="text-gray-700 dark:text-gray-300"
-          />
+          <DollarSign size={28} className="text-gray-700 dark:text-gray-300" />
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
             Currency Converter
           </h1>
@@ -275,7 +255,7 @@ export default function CurrencyConverter() {
           className="mb-6 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950"
         >
           {/* Amount */}
-          <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+          <label className="mb-1.5 block text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
             Amount
           </label>
           <input
@@ -285,19 +265,19 @@ export default function CurrencyConverter() {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount"
-            className="mb-5 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-lg font-medium text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
+            className="mb-5 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-lg font-medium text-gray-900 placeholder-gray-400 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
           />
 
           {/* From / Swap / To */}
           <div className="flex items-end gap-3">
             <div className="flex-1">
-              <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <label className="mb-1.5 block text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 From
               </label>
               <select
                 value={from}
                 onChange={(e) => setFrom(e.target.value)}
-                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-900 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-600"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-900 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-600"
               >
                 {sortedCodes.map((code) => (
                   <option key={code} value={code}>
@@ -316,13 +296,13 @@ export default function CurrencyConverter() {
             </button>
 
             <div className="flex-1">
-              <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <label className="mb-1.5 block text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 To
               </label>
               <select
                 value={to}
                 onChange={(e) => setTo(e.target.value)}
-                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-900 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-600"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-900 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-gray-600"
               >
                 {sortedCodes.map((code) => (
                   <option key={code} value={code}>
@@ -357,9 +337,7 @@ export default function CurrencyConverter() {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 4,
                   })}{" "}
-                  <span className="text-lg font-medium text-gray-500 dark:text-gray-400">
-                    {to}
-                  </span>
+                  <span className="text-lg font-medium text-gray-500 dark:text-gray-400">{to}</span>
                 </div>
                 {rate !== null && (
                   <div className="mt-1 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
@@ -367,9 +345,7 @@ export default function CurrencyConverter() {
                     <span>
                       1 {from} = {rate.toFixed(4)} {to}
                     </span>
-                    <span className="text-gray-300 dark:text-gray-600">
-                      &middot;
-                    </span>
+                    <span className="text-gray-300 dark:text-gray-600">&middot;</span>
                     <span>{result.date}</span>
                   </div>
                 )}
@@ -387,7 +363,7 @@ export default function CurrencyConverter() {
         >
           <div className="mb-4 flex items-center gap-2">
             <TrendingUp size={16} className="text-gray-400" />
-            <span className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+            <span className="text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
               30-Day History &middot; {from}/{to}
             </span>
           </div>
@@ -405,10 +381,7 @@ export default function CurrencyConverter() {
           )}
 
           {!historyLoading && history && from !== to && (
-            <canvas
-              ref={canvasRef}
-              className="h-48 w-full sm:h-56"
-            />
+            <canvas ref={canvasRef} className="h-48 w-full sm:h-56" />
           )}
         </motion.div>
 

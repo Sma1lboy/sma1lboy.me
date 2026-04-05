@@ -29,10 +29,7 @@ export function GalleryPageSkeleton() {
         <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
           {heights.map((h, i) => (
             <div key={i} className="mb-4 break-inside-avoid">
-              <Skeleton
-                className="w-full rounded-xl"
-                height={h}
-              />
+              <Skeleton className="w-full rounded-xl" height={h} />
             </div>
           ))}
         </div>

@@ -1,13 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  clamp,
-  hsvToRgb,
-  rgbToHsv,
-  rgbToHsl,
-  hslToRgb,
-  rgbToHex,
-  hexToRgb,
-} from "../color";
+import { clamp, hsvToRgb, rgbToHsv, rgbToHsl, hslToRgb, rgbToHex, hexToRgb } from "../color";
 
 describe("clamp", () => {
   it("clamps value below min", () => {

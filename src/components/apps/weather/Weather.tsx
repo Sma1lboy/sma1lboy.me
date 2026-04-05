@@ -25,14 +25,23 @@ interface WeatherInfo {
 }
 
 function getWeatherInfo(code: number, size = 24): WeatherInfo {
-  if (code === 0) return { label: "Clear Sky", icon: <Sun size={size} className="text-yellow-400" /> };
-  if (code <= 3) return { label: "Partly Cloudy", icon: <Cloud size={size} className="text-gray-300" /> };
+  if (code === 0)
+    return { label: "Clear Sky", icon: <Sun size={size} className="text-yellow-400" /> };
+  if (code <= 3)
+    return { label: "Partly Cloudy", icon: <Cloud size={size} className="text-gray-300" /> };
   if (code <= 48) return { label: "Fog", icon: <CloudFog size={size} className="text-gray-400" /> };
-  if (code <= 55) return { label: "Drizzle", icon: <CloudDrizzle size={size} className="text-blue-300" /> };
-  if (code <= 65) return { label: "Rain", icon: <CloudRain size={size} className="text-blue-400" /> };
+  if (code <= 55)
+    return { label: "Drizzle", icon: <CloudDrizzle size={size} className="text-blue-300" /> };
+  if (code <= 65)
+    return { label: "Rain", icon: <CloudRain size={size} className="text-blue-400" /> };
   if (code <= 75) return { label: "Snow", icon: <CloudSnow size={size} className="text-white" /> };
-  if (code <= 82) return { label: "Showers", icon: <CloudRain size={size} className="text-blue-500" /> };
-  if (code <= 99) return { label: "Thunderstorm", icon: <CloudLightning size={size} className="text-yellow-300" /> };
+  if (code <= 82)
+    return { label: "Showers", icon: <CloudRain size={size} className="text-blue-500" /> };
+  if (code <= 99)
+    return {
+      label: "Thunderstorm",
+      icon: <CloudLightning size={size} className="text-yellow-300" />,
+    };
   return { label: "Unknown", icon: <Cloud size={size} className="text-gray-400" /> };
 }
 
@@ -275,7 +284,7 @@ export default function Weather() {
         <div ref={searchRef} className="relative mb-8">
           <Search
             size={16}
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-gray-400"
           />
           <input
             type="text"
@@ -288,7 +297,7 @@ export default function Weather() {
             onFocus={() => {
               if (suggestions.length > 0) setShowSuggestions(true);
             }}
-            className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-9 pr-4 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
+            className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pr-4 pl-9 text-sm text-gray-900 placeholder-gray-400 transition-colors outline-none focus:border-gray-400 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-600"
           />
           <AnimatePresence>
             {showSuggestions && suggestions.length > 0 && (
@@ -297,7 +306,7 @@ export default function Weather() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.15 }}
-                className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-950"
+                className="absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-950"
               >
                 {suggestions.map((city) => (
                   <button
@@ -352,7 +361,7 @@ export default function Weather() {
           >
             {/* Current weather card */}
             <div className="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950">
-              <div className="mb-1 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <div className="mb-1 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 Current Weather
               </div>
               <div className="flex items-center gap-6">
@@ -385,7 +394,7 @@ export default function Weather() {
 
             {/* 5-day forecast */}
             <div className="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950">
-              <div className="mb-4 text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              <div className="mb-4 text-xs font-medium tracking-wider text-gray-400 uppercase dark:text-gray-500">
                 5-Day Forecast
               </div>
               <div className="space-y-3">
@@ -402,17 +411,19 @@ export default function Weather() {
                         {formatDay(day)}
                       </span>
                       <span className="shrink-0">{info.icon}</span>
-                      <span className="hidden text-xs text-gray-500 dark:text-gray-400 sm:block sm:w-24">
+                      <span className="hidden text-xs text-gray-500 sm:block sm:w-24 dark:text-gray-400">
                         {info.label}
                       </span>
                       <div className="ml-auto flex items-center gap-2">
                         <Thermometer size={14} className="text-gray-400" />
                         <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                          {high}{tempSymbol}
+                          {high}
+                          {tempSymbol}
                         </span>
                         <span className="text-sm text-gray-400">/</span>
                         <span className="text-sm text-gray-500 dark:text-gray-400">
-                          {low}{tempSymbol}
+                          {low}
+                          {tempSymbol}
                         </span>
                       </div>
                     </div>

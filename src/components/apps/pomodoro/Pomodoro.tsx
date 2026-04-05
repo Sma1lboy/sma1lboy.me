@@ -71,8 +71,7 @@ function formatTime(seconds: number): string {
 export default function Pomodoro() {
   useSEO({
     title: "Pomodoro Timer",
-    description:
-      "Focus timer with 25-min work sessions and breaks. Track your productivity.",
+    description: "Focus timer with 25-min work sessions and breaks. Track your productivity.",
     path: "/apps/pomodoro",
   });
 
@@ -83,8 +82,7 @@ export default function Pomodoro() {
   const [totalSessions, setTotalSessions] = useState(getStoredSessions);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const currentDuration =
-    mode === "idle" ? DURATIONS.working : DURATIONS[mode];
+  const currentDuration = mode === "idle" ? DURATIONS.working : DURATIONS[mode];
   const progress = timeLeft / currentDuration;
   const dashOffset = RING_CIRCUMFERENCE * (1 - progress);
 
@@ -179,7 +177,7 @@ export default function Pomodoro() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-6 dark:bg-black">
       {/* Back link */}
-      <div className="fixed left-6 top-6">
+      <div className="fixed top-6 left-6">
         <Breadcrumbs />
       </div>
 
@@ -207,12 +205,7 @@ export default function Pomodoro() {
 
       {/* Progress ring */}
       <div className="relative flex items-center justify-center">
-        <svg
-          width="320"
-          height="320"
-          viewBox="0 0 320 320"
-          className="-rotate-90"
-        >
+        <svg width="320" height="320" viewBox="0 0 320 320" className="-rotate-90">
           {/* Track */}
           <circle
             cx="160"
@@ -239,7 +232,7 @@ export default function Pomodoro() {
 
         {/* Time display */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-mono text-6xl font-light tabular-nums tracking-tight text-gray-900 dark:text-gray-100">
+          <span className="font-mono text-6xl font-light tracking-tight text-gray-900 tabular-nums dark:text-gray-100">
             {formatTime(timeLeft)}
           </span>
           <span className="mt-2 text-xs text-gray-400 dark:text-gray-500">

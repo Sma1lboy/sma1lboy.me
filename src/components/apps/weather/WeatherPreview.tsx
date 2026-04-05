@@ -5,13 +5,7 @@ const H = 120;
 
 const WEATHER_ICONS = ["sun", "cloud", "rain", "snow"] as const;
 
-function drawSun(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  r: number,
-  frame: number,
-) {
+function drawSun(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: number, frame: number) {
   ctx.fillStyle = "#facc15";
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -24,20 +18,12 @@ function drawSun(
     const angle = (i * Math.PI) / 4 + frame * 0.01;
     ctx.beginPath();
     ctx.moveTo(cx + Math.cos(angle) * (r + 3), cy + Math.sin(angle) * (r + 3));
-    ctx.lineTo(
-      cx + Math.cos(angle) * (r + 3 + rayLen),
-      cy + Math.sin(angle) * (r + 3 + rayLen),
-    );
+    ctx.lineTo(cx + Math.cos(angle) * (r + 3 + rayLen), cy + Math.sin(angle) * (r + 3 + rayLen));
     ctx.stroke();
   }
 }
 
-function drawCloud(
-  ctx: CanvasRenderingContext2D,
-  cx: number,
-  cy: number,
-  scale: number,
-) {
+function drawCloud(ctx: CanvasRenderingContext2D, cx: number, cy: number, scale: number) {
   ctx.fillStyle = "rgba(209, 213, 219, 0.8)";
   ctx.beginPath();
   ctx.arc(cx, cy, 8 * scale, 0, Math.PI * 2);
@@ -46,12 +32,7 @@ function drawCloud(
   ctx.fill();
 }
 
-function drawRainDrop(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  len: number,
-) {
+function drawRainDrop(ctx: CanvasRenderingContext2D, x: number, y: number, len: number) {
   ctx.strokeStyle = "rgba(96, 165, 250, 0.6)";
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -60,12 +41,7 @@ function drawRainDrop(
   ctx.stroke();
 }
 
-function drawSnowflake(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-) {
+function drawSnowflake(ctx: CanvasRenderingContext2D, x: number, y: number, r: number) {
   ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
   ctx.beginPath();
   ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -181,11 +157,7 @@ export default function WeatherPreview() {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <canvas
-        ref={canvasRef}
-        className="rounded"
-        style={{ width: W, height: H }}
-      />
+      <canvas ref={canvasRef} className="rounded" style={{ width: W, height: H }} />
     </div>
   );
 }

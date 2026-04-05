@@ -49,7 +49,9 @@ function getHighScores(): Record<Difficulty, number | null> {
   try {
     const stored = localStorage.getItem("minesweeper-high-scores");
     if (stored) return JSON.parse(stored);
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
   return { easy: null, medium: null, hard: null };
 }
 
@@ -60,7 +62,9 @@ function saveHighScore(difficulty: Difficulty, time: number) {
       scores[difficulty] = time;
       localStorage.setItem("minesweeper-high-scores", JSON.stringify(scores));
     }
-  } catch { /* ignored */ }
+  } catch {
+    /* ignored */
+  }
 }
 
 function createEmptyGrid(rows: number, cols: number): CellData[][] {

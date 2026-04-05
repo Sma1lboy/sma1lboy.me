@@ -32,13 +32,9 @@ export default function UnitsPreview() {
         className="transition-all duration-300"
         style={{ opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(4px)" }}
       >
-        <div className="text-center font-mono text-lg font-bold text-blue-400">
-          {pair.from}
-        </div>
+        <div className="text-center font-mono text-lg font-bold text-blue-400">{pair.from}</div>
         <div className="my-1 text-center text-xs text-gray-500">=</div>
-        <div className="text-center font-mono text-lg font-bold text-emerald-400">
-          {pair.to}
-        </div>
+        <div className="text-center font-mono text-lg font-bold text-emerald-400">{pair.to}</div>
       </div>
       <div className="flex gap-1">
         {UNITS.map((_, i) => (

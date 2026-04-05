@@ -20,15 +20,7 @@ const LOWER = "abcdefghijklmnopqrstuvwxyz";
 const NUMBERS = "0123456789";
 const SYMBOLS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-const AMBIGUOUS = new Set([
-  "0",
-  "O",
-  "o",
-  "l",
-  "1",
-  "I",
-  "|",
-]);
+const AMBIGUOUS = new Set(["0", "O", "o", "l", "1", "I", "|"]);
 
 function buildCharset(options: {
   upper: boolean;
@@ -135,9 +127,7 @@ export default function Password() {
   const generate = useCallback(() => {
     if (!charset) return;
     const count = showBatch ? batchCount : 1;
-    const newPasswords = Array.from({ length: count }, () =>
-      generatePassword(length, charset),
-    );
+    const newPasswords = Array.from({ length: count }, () => generatePassword(length, charset));
     setPasswords(newPasswords);
 
     // Add to history
@@ -154,19 +144,16 @@ export default function Password() {
     generate();
   }, [generate]);
 
-  const copyToClipboard = useCallback(
-    async (text: string, idx: number) => {
-      try {
-        await navigator.clipboard.writeText(text);
-        setCopiedIdx(idx);
-        if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
-        copyTimeoutRef.current = setTimeout(() => setCopiedIdx(null), 1500);
-      } catch {
-        // clipboard API not available
-      }
-    },
-    [],
-  );
+  const copyToClipboard = useCallback(async (text: string, idx: number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedIdx(idx);
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      copyTimeoutRef.current = setTimeout(() => setCopiedIdx(null), 1500);
+    } catch {
+      // clipboard API not available
+    }
+  }, []);
 
   const copyAll = useCallback(async () => {
     try {
@@ -180,10 +167,7 @@ export default function Password() {
   }, [passwords]);
 
   const handleToggle = useCallback(
-    (
-      setter: React.Dispatch<React.SetStateAction<boolean>>,
-      current: boolean,
-    ) => {
+    (setter: React.Dispatch<React.SetStateAction<boolean>>, current: boolean) => {
       if (current && activeCount <= 1) return; // keep at least one
       setter((v) => !v);
     },
@@ -191,8 +175,7 @@ export default function Password() {
   );
 
   const primaryPassword = passwords[0] ?? "";
-  const { level: strengthLevel, score: strengthScore } =
-    calcStrength(primaryPassword);
+  const { level: strengthLevel, score: strengthScore } = calcStrength(primaryPassword);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
@@ -215,7 +198,7 @@ export default function Password() {
         <div className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-950">
           {passwords.length <= 1 ? (
             <div className="flex items-center gap-3">
-              <code className="flex-1 break-all font-mono text-lg text-gray-900 dark:text-gray-100">
+              <code className="flex-1 font-mono text-lg break-all text-gray-900 dark:text-gray-100">
                 {primaryPassword}
               </code>
               <button
@@ -234,10 +217,8 @@ export default function Password() {
             <div className="space-y-2">
               {passwords.map((pw, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="w-6 text-right text-xs text-gray-400">
-                    {i + 1}
-                  </span>
-                  <code className="flex-1 break-all font-mono text-sm text-gray-900 dark:text-gray-100">
+                  <span className="w-6 text-right text-xs text-gray-400">{i + 1}</span>
+                  <code className="flex-1 font-mono text-sm break-all text-gray-900 dark:text-gray-100">
                     {pw}
                   </code>
                   <button
@@ -297,12 +278,8 @@ export default function Password() {
           {/* Length */}
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Length
-              </label>
-              <span className="font-mono text-sm text-gray-900 dark:text-gray-100">
-                {length}
-              </span>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Length</label>
+              <span className="font-mono text-sm text-gray-900 dark:text-gray-100">{length}</span>
             </div>
             <input
               type="range"
@@ -336,9 +313,7 @@ export default function Password() {
                   key={label}
                   onClick={() =>
                     handleToggle(
-                      setter as React.Dispatch<
-                        React.SetStateAction<boolean>
-                      >,
+                      setter as React.Dispatch<React.SetStateAction<boolean>>,
                       active as boolean,
                     )
                   }
@@ -364,22 +339,16 @@ export default function Password() {
               <span className="font-medium text-gray-700 dark:text-gray-300">
                 Exclude ambiguous characters
               </span>
-              <span className="ml-2 font-mono text-xs text-gray-400">
-                0 O o l 1 I |
-              </span>
+              <span className="ml-2 font-mono text-xs text-gray-400">0 O o l 1 I |</span>
             </div>
             <div
               className={`flex h-5 w-9 items-center rounded-full px-0.5 transition-colors ${
-                excludeAmbiguous
-                  ? "bg-gray-900 dark:bg-gray-100"
-                  : "bg-gray-300 dark:bg-gray-700"
+                excludeAmbiguous ? "bg-gray-900 dark:bg-gray-100" : "bg-gray-300 dark:bg-gray-700"
               }`}
             >
               <motion.div
                 className={`h-4 w-4 rounded-full ${
-                  excludeAmbiguous
-                    ? "bg-white dark:bg-gray-900"
-                    : "bg-white dark:bg-gray-500"
+                  excludeAmbiguous ? "bg-white dark:bg-gray-900" : "bg-white dark:bg-gray-500"
                 }`}
                 animate={{ x: excludeAmbiguous ? 14 : 0 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
@@ -393,9 +362,7 @@ export default function Password() {
               onClick={() => setShowBatch((v) => !v)}
               className="flex w-full items-center justify-between px-4 py-3 text-sm"
             >
-              <span className="font-medium text-gray-700 dark:text-gray-300">
-                Batch generate
-              </span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">Batch generate</span>
               {showBatch ? (
                 <ChevronUp size={16} className="text-gray-400" />
               ) : (
@@ -413,9 +380,7 @@ export default function Password() {
                 >
                   <div className="border-t border-gray-200 px-4 py-3 dark:border-gray-700">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm text-gray-600 dark:text-gray-400">
-                        Count
-                      </label>
+                      <label className="text-sm text-gray-600 dark:text-gray-400">Count</label>
                       <span className="font-mono text-sm text-gray-900 dark:text-gray-100">
                         {batchCount}
                       </span>
@@ -448,14 +413,8 @@ export default function Password() {
                 className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Session History
-                <span className="text-xs text-gray-400">
-                  ({history.length})
-                </span>
-                {showHistory ? (
-                  <ChevronUp size={14} />
-                ) : (
-                  <ChevronDown size={14} />
-                )}
+                <span className="text-xs text-gray-400">({history.length})</span>
+                {showHistory ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
               </button>
               {showHistory && (
                 <button
@@ -491,9 +450,7 @@ export default function Password() {
                           {formatTime(entry.timestamp)}
                         </span>
                         <button
-                          onClick={() =>
-                            copyToClipboard(entry.password, 1000 + i)
-                          }
+                          onClick={() => copyToClipboard(entry.password, 1000 + i)}
                           className="rounded p-1 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
                         >
                           {copiedIdx === 1000 + i ? (

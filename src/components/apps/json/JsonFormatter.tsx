@@ -25,13 +25,19 @@ function formatBytes(n: number): string {
   return `${(n / 1024).toFixed(1)} KB`;
 }
 
-function extractErrorPosition(err: unknown): { line: number; column: number; message: string } | null {
+function extractErrorPosition(
+  err: unknown,
+): { line: number; column: number; message: string } | null {
   if (!(err instanceof SyntaxError)) return null;
   const msg = err.message;
   // Chrome: "... at position 42" or "... at line 3 column 5"
   const lineColMatch = msg.match(/line (\d+) column (\d+)/i);
   if (lineColMatch) {
-    return { line: parseInt(lineColMatch[1], 10), column: parseInt(lineColMatch[2], 10), message: msg };
+    return {
+      line: parseInt(lineColMatch[1], 10),
+      column: parseInt(lineColMatch[2], 10),
+      message: msg,
+    };
   }
   // Firefox: "... at line 3 column 5"
   const posMatch = msg.match(/position (\d+)/);
@@ -59,7 +65,12 @@ function positionToLineCol(text: string, position: number): { line: number; colu
 
 type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
 
-function TreeNode({ label, value, depth, defaultOpen }: {
+function TreeNode({
+  label,
+  value,
+  depth,
+  defaultOpen,
+}: {
   label?: string;
   value: JsonValue;
   depth: number;
@@ -70,9 +81,7 @@ function TreeNode({ label, value, depth, defaultOpen }: {
   if (value === null) {
     return (
       <div className="flex items-center" style={{ paddingLeft: depth * 20 }}>
-        {label !== undefined && (
-          <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>
-        )}
+        {label !== undefined && <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>}
         <span className="text-gray-500 italic">null</span>
       </div>
     );
@@ -92,9 +101,7 @@ function TreeNode({ label, value, depth, defaultOpen }: {
   if (typeof value === "number") {
     return (
       <div className="flex items-center" style={{ paddingLeft: depth * 20 }}>
-        {label !== undefined && (
-          <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>
-        )}
+        {label !== undefined && <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>}
         <span className="text-blue-400">{String(value)}</span>
       </div>
     );
@@ -103,9 +110,7 @@ function TreeNode({ label, value, depth, defaultOpen }: {
   if (typeof value === "boolean") {
     return (
       <div className="flex items-center" style={{ paddingLeft: depth * 20 }}>
-        {label !== undefined && (
-          <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>
-        )}
+        {label !== undefined && <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>}
         <span className="text-orange-400">{String(value)}</span>
       </div>
     );
@@ -123,16 +128,14 @@ function TreeNode({ label, value, depth, defaultOpen }: {
     <div style={{ paddingLeft: depth * 20 }}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-0.5 text-left hover:bg-gray-800/50 rounded px-0.5 -ml-0.5"
+        className="-ml-0.5 flex items-center gap-0.5 rounded px-0.5 text-left hover:bg-gray-800/50"
       >
         {open ? (
           <ChevronDown size={14} className="shrink-0 text-gray-500" />
         ) : (
           <ChevronRight size={14} className="shrink-0 text-gray-500" />
         )}
-        {label !== undefined && (
-          <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>
-        )}
+        {label !== undefined && <span className="mr-1 text-purple-400">&quot;{label}&quot;: </span>}
         {open ? (
           <span className="text-yellow-300">{bracket[0]}</span>
         ) : (
@@ -163,15 +166,9 @@ function TreeNode({ label, value, depth, defaultOpen }: {
 
 function LineNumbers({ count, errorLine }: { count: number; errorLine: number }) {
   return (
-    <div
-      className="select-none pr-3 text-right text-xs leading-[1.5rem] text-gray-600"
-      aria-hidden
-    >
+    <div className="pr-3 text-right text-xs leading-[1.5rem] text-gray-600 select-none" aria-hidden>
       {Array.from({ length: count }, (_, i) => (
-        <div
-          key={i}
-          className={i + 1 === errorLine ? "text-red-400 font-bold" : ""}
-        >
+        <div key={i} className={i + 1 === errorLine ? "font-bold text-red-400" : ""}>
           {i + 1}
         </div>
       ))}
@@ -224,7 +221,8 @@ export default function JsonFormatter() {
 
   // Parse result
   const parseResult = useMemo(() => {
-    if (!input.trim()) return { valid: true, value: null, formatted: "", error: null, errorLine: -1 };
+    if (!input.trim())
+      return { valid: true, value: null, formatted: "", error: null, errorLine: -1 };
     try {
       const value = JSON.parse(input);
       const formatted = JSON.stringify(value, null, 2);
@@ -305,7 +303,7 @@ export default function JsonFormatter() {
         {/* Header */}
         <div className="mb-8">
           <Breadcrumbs />
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
             JSON Formatter
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -319,7 +317,7 @@ export default function JsonFormatter() {
           <button
             onClick={handleFormat}
             disabled={!parseResult.valid}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
           >
             <Braces size={14} />
             Prettify
@@ -327,7 +325,7 @@ export default function JsonFormatter() {
           <button
             onClick={handleMinify}
             disabled={!parseResult.valid}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
           >
             <Minimize2 size={14} />
             Minify
@@ -382,7 +380,7 @@ export default function JsonFormatter() {
             <button
               onClick={() => setViewMode("tree")}
               disabled={!parseResult.valid}
-              className={`inline-flex items-center gap-1.5 rounded-r-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+              className={`inline-flex items-center gap-1.5 rounded-r-lg px-3 py-1.5 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
                 viewMode === "tree"
                   ? "bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
                   : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -410,11 +408,7 @@ export default function JsonFormatter() {
                 }
               >
                 ({sizeInfo.after <= sizeInfo.before ? "−" : "+"}
-                {Math.abs(
-                  Math.round(
-                    ((sizeInfo.after - sizeInfo.before) / sizeInfo.before) * 100,
-                  ),
-                )}
+                {Math.abs(Math.round(((sizeInfo.after - sizeInfo.before) / sizeInfo.before) * 100))}
                 %)
               </span>
             </span>
@@ -437,7 +431,7 @@ export default function JsonFormatter() {
         {/* Main editor / output area */}
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-950">
           {viewMode === "editor" ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-200 dark:divide-gray-800">
+            <div className="grid grid-cols-1 divide-y divide-gray-200 lg:grid-cols-2 lg:divide-x lg:divide-y-0 dark:divide-gray-800">
               {/* Input pane */}
               <div className="relative">
                 <div className="border-b border-gray-200 px-4 py-2 dark:border-gray-800">
@@ -496,7 +490,7 @@ export default function JsonFormatter() {
                         )}
                       </Highlight>
                     ) : (
-                      <pre className="font-mono text-sm leading-6 text-red-400 whitespace-pre-wrap">
+                      <pre className="font-mono text-sm leading-6 whitespace-pre-wrap text-red-400">
                         {input}
                       </pre>
                     )}

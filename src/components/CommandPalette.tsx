@@ -374,7 +374,13 @@ export function CommandPalette() {
             </div>
 
             {/* Results */}
-            <div ref={listRef} id="command-palette-results" role="listbox" aria-live="polite" className="max-h-[50vh] overflow-y-auto overscroll-contain p-2">
+            <div
+              ref={listRef}
+              id="command-palette-results"
+              role="listbox"
+              aria-live="polite"
+              className="max-h-[50vh] overflow-y-auto overscroll-contain p-2"
+            >
               {flatFiltered.length === 0 ? (
                 <div className="text-muted-foreground px-4 py-8 text-center text-sm">
                   {t("commandPalette.noResults")}

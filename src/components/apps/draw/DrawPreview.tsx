@@ -107,17 +107,11 @@ export default function DrawPreview() {
       }
 
       // Cursor
-      const activeStroke = Math.min(
-        Math.floor(t / totalFramesPerStroke),
-        STROKES.length - 1,
-      );
+      const activeStroke = Math.min(Math.floor(t / totalFramesPerStroke), STROKES.length - 1);
       if (t < STROKES.length * totalFramesPerStroke) {
         const s = STROKES[activeStroke];
         const localT = (t - activeStroke * totalFramesPerStroke) / totalFramesPerStroke;
-        const idx = Math.min(
-          Math.floor(localT * (s.points.length - 1)),
-          s.points.length - 2,
-        );
+        const idx = Math.min(Math.floor(localT * (s.points.length - 1)), s.points.length - 2);
         const frac = (localT * (s.points.length - 1)) % 1;
         const a = s.points[idx];
         const b = s.points[idx + 1];

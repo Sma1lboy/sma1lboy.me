@@ -57,8 +57,7 @@ interface ToolbarAction {
 export default function MarkdownEditor() {
   useSEO({
     title: "Markdown Editor",
-    description:
-      "Write markdown with live preview, toolbar shortcuts, auto-save, and HTML export.",
+    description: "Write markdown with live preview, toolbar shortcuts, auto-save, and HTML export.",
     path: "/apps/markdown",
   });
 
@@ -123,20 +122,12 @@ export default function MarkdownEditor() {
         cursorPos = lineStart + prefix.length + line.length + suffix.length;
       } else if (selected) {
         insertion =
-          content.substring(0, start) +
-          prefix +
-          selected +
-          suffix +
-          content.substring(end);
+          content.substring(0, start) + prefix + selected + suffix + content.substring(end);
         cursorPos = start + prefix.length + selected.length + suffix.length;
       } else {
         const placeholder = "text";
         insertion =
-          content.substring(0, start) +
-          prefix +
-          placeholder +
-          suffix +
-          content.substring(end);
+          content.substring(0, start) + prefix + placeholder + suffix + content.substring(end);
         cursorPos = start + prefix.length;
         // Select the placeholder
         setTimeout(() => {
@@ -244,10 +235,7 @@ ${previewEl.innerHTML}
           <Breadcrumbs />
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <FileText
-                size={28}
-                className="text-gray-700 dark:text-gray-300"
-              />
+              <FileText size={28} className="text-gray-700 dark:text-gray-300" />
               <div>
                 <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                   Markdown Editor
@@ -278,9 +266,7 @@ ${previewEl.innerHTML}
           {toolbarActions.map((action) => (
             <button
               key={action.label}
-              onClick={() =>
-                insertMarkdown(action.prefix, action.suffix, action.block)
-              }
+              onClick={() => insertMarkdown(action.prefix, action.suffix, action.block)}
               title={action.label}
               className="rounded-md p-2 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200"
             >
@@ -300,7 +286,7 @@ ${previewEl.innerHTML}
           <div className="flex-1">
             <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
               <div className="border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-800 dark:bg-gray-900">
-                <span className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Editor
                 </span>
               </div>
@@ -319,7 +305,7 @@ ${previewEl.innerHTML}
           <div className="flex-1">
             <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
               <div className="border-b border-gray-200 bg-gray-50 px-4 py-2 dark:border-gray-800 dark:bg-gray-900">
-                <span className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <span className="text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Preview
                 </span>
               </div>
