@@ -1,8 +1,10 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { CommandPalette } from "@/components/CommandPalette";
 
 export const Route = createRootRoute({
   component: () => (
     <>
+      <CommandPalette />
       <Outlet />
     </>
   ),
