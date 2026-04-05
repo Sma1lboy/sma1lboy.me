@@ -1,5 +1,6 @@
 import {
   Activity,
+  BarChart3,
   BookOpen,
   Code,
   FileText,
@@ -178,6 +179,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <Monitor
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label="Stats"
+          onClick={() => navigate({ to: "/stats" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <BarChart3
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />

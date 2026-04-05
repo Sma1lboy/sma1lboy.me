@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  BarChart3,
   BookOpen,
   Code2,
   Command,
@@ -129,6 +130,14 @@ export function CommandPalette() {
         icon: Code2,
         action: () => navigate({ to: "/snippets" }),
       },
+      {
+        id: "page-stats",
+        title: "Stats",
+        description: "Developer stats & metrics",
+        category: "Pages",
+        icon: BarChart3,
+        action: () => navigate({ to: "/stats" }),
+      },
     ];
 
     const blogItems: SearchItem[] = blogPosts.map((post) => ({
@@ -158,16 +167,16 @@ export function CommandPalette() {
       .filter(
         (item) =>
           fuzzyMatch(query, item.title) ||
-          (item.description && fuzzyMatch(query, item.description))
+          (item.description && fuzzyMatch(query, item.description)),
       )
       .sort((a, b) => {
         const aScore = Math.max(
           scoreMatch(query, a.title),
-          a.description ? scoreMatch(query, a.description) : 0
+          a.description ? scoreMatch(query, a.description) : 0,
         );
         const bScore = Math.max(
           scoreMatch(query, b.title),
-          b.description ? scoreMatch(query, b.description) : 0
+          b.description ? scoreMatch(query, b.description) : 0,
         );
         return bScore - aScore;
       });
@@ -272,7 +281,7 @@ export function CommandPalette() {
 
           {/* Modal */}
           <motion.div
-            className="relative w-full max-w-[560px] mx-4 overflow-hidden rounded-xl border border-border bg-card shadow-2xl"
+            className="border-border bg-card relative mx-4 w-full max-w-[560px] overflow-hidden rounded-xl border shadow-2xl"
             initial={{ opacity: 0, scale: 0.95, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
@@ -280,28 +289,25 @@ export function CommandPalette() {
             onKeyDown={handleKeyDown}
           >
             {/* Search input */}
-            <div className="flex items-center gap-3 border-b border-border px-4">
-              <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <div className="border-border flex items-center gap-3 border-b px-4">
+              <Search className="text-muted-foreground h-4 w-4 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
                 placeholder="Search pages, posts, projects..."
-                className="h-12 w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                className="text-foreground placeholder:text-muted-foreground h-12 w-full bg-transparent text-sm outline-none"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
-              <kbd className="hidden sm:inline-flex h-5 items-center gap-0.5 rounded border border-border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
+              <kbd className="border-border bg-muted text-muted-foreground hidden h-5 items-center gap-0.5 rounded border px-1.5 text-[10px] font-medium sm:inline-flex">
                 ESC
               </kbd>
             </div>
 
             {/* Results */}
-            <div
-              ref={listRef}
-              className="max-h-[50vh] overflow-y-auto overscroll-contain p-2"
-            >
+            <div ref={listRef} className="max-h-[50vh] overflow-y-auto overscroll-contain p-2">
               {flatFiltered.length === 0 ? (
-                <div className="px-4 py-8 text-center text-sm text-muted-foreground">
+                <div className="text-muted-foreground px-4 py-8 text-center text-sm">
                   No results found.
                 </div>
               ) : (
@@ -310,7 +316,7 @@ export function CommandPalette() {
                   if (!items || items.length === 0) return null;
                   return (
                     <div key={category} className="mb-1">
-                      <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+                      <div className="text-muted-foreground px-2 py-1.5 text-xs font-medium">
                         {category}
                       </div>
                       {items.map((item) => {
@@ -332,11 +338,11 @@ export function CommandPalette() {
                             }}
                             onMouseEnter={() => setSelectedIndex(flatIndex)}
                           >
-                            <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
+                            <Icon className="text-muted-foreground h-4 w-4 shrink-0" />
                             <div className="min-w-0 flex-1">
                               <div className="truncate font-medium">{item.title}</div>
                               {item.description && (
-                                <div className="truncate text-xs text-muted-foreground">
+                                <div className="text-muted-foreground truncate text-xs">
                                   {item.description}
                                 </div>
                               )}
@@ -351,18 +357,24 @@ export function CommandPalette() {
             </div>
 
             {/* Footer hint */}
-            <div className="flex items-center justify-between border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
+            <div className="border-border text-muted-foreground flex items-center justify-between border-t px-4 py-2 text-[11px]">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">↑↓</kbd>
+                  <kbd className="border-border bg-muted rounded border px-1 py-0.5 text-[10px]">
+                    ↑↓
+                  </kbd>
                   navigate
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">↵</kbd>
+                  <kbd className="border-border bg-muted rounded border px-1 py-0.5 text-[10px]">
+                    ↵
+                  </kbd>
                   select
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-border bg-muted px-1 py-0.5 text-[10px]">esc</kbd>
+                  <kbd className="border-border bg-muted rounded border px-1 py-0.5 text-[10px]">
+                    esc
+                  </kbd>
                   close
                 </span>
               </div>
