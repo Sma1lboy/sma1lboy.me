@@ -30,6 +30,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as AppsWidgetRouteImport } from './routes/apps/widget'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
@@ -151,6 +152,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/blog/$slug.lazy').then((d) => d.Route))
+const AppsWidgetRoute = AppsWidgetRouteImport.update({
+  id: '/apps/widget',
+  path: '/apps/widget',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/widget.lazy').then((d) => d.Route))
 const AppsTypingRoute = AppsTypingRouteImport.update({
   id: '/apps/typing',
   path: '/apps/typing',
@@ -263,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -301,6 +308,7 @@ export interface FileRoutesByTo {
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -340,6 +348,7 @@ export interface FileRoutesById {
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -380,6 +389,7 @@ export interface FileRouteTypes {
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/widget'
     | '/blog/$slug'
     | '/apps'
     | '/blog'
@@ -418,6 +428,7 @@ export interface FileRouteTypes {
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/widget'
     | '/blog/$slug'
     | '/apps'
     | '/blog'
@@ -456,6 +467,7 @@ export interface FileRouteTypes {
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/widget'
     | '/blog/$slug'
     | '/apps/'
     | '/blog/'
@@ -495,6 +507,7 @@ export interface RootRouteChildren {
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
+  AppsWidgetRoute: typeof AppsWidgetRoute
   BlogSlugRoute: typeof BlogSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -649,6 +662,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/widget': {
+      id: '/apps/widget'
+      path: '/apps/widget'
+      fullPath: '/apps/widget'
+      preLoaderRoute: typeof AppsWidgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/typing': {
       id: '/apps/typing'
       path: '/apps/typing'
@@ -791,6 +811,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,
+  AppsWidgetRoute: AppsWidgetRoute,
   BlogSlugRoute: BlogSlugRoute,
   AppsIndexRoute: AppsIndexRoute,
   BlogIndexRoute: BlogIndexRoute,

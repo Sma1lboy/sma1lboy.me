@@ -25,6 +25,7 @@ import RegexPreview from "../../components/apps/regex/RegexPreview";
 import MarkdownPreview from "../../components/apps/markdown/MarkdownPreview";
 import GradientPreview from "../../components/apps/gradient/GradientPreview";
 import KanbanPreview from "../../components/apps/kanban/KanbanPreview";
+import WidgetPreview from "../../components/apps/widget/WidgetPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -45,6 +46,7 @@ const newAppPaths = new Set([
   "/apps/colors",
   "/apps/encode",
   "/apps/kanban",
+  "/apps/widget",
 ]);
 
 const categories: {
@@ -90,6 +92,13 @@ const categories: {
         description:
           "Test regular expressions in real-time with live match highlighting, capture groups, and a handy cheat sheet.",
         preview: <RegexPreview />,
+      },
+      {
+        to: "/apps/widget",
+        title: "Widget Generator",
+        description:
+          "Create embeddable HTML widgets — GitHub badges, profile cards, and custom counters with live preview.",
+        preview: <WidgetPreview />,
       },
     ],
   },
