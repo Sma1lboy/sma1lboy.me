@@ -1,6 +1,7 @@
 import {
   Activity,
   Code,
+  FileText,
   FlaskConical,
   FolderOpen,
   Github,
@@ -129,6 +130,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <MessageCircle
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label="Resume"
+          onClick={() => navigate({ to: "/resume" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <FileText
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />
