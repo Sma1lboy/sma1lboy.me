@@ -1,11 +1,12 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute } from "@tanstack/react-router";
 import { CommandPalette } from "@/components/CommandPalette";
+import { PageTransition } from "@/components/PageTransition";
 
 export const Route = createRootRoute({
   component: () => (
     <>
       <CommandPalette />
-      <Outlet />
+      <PageTransition />
     </>
   ),
   errorComponent: RootErrorBoundary,
