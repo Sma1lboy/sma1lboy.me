@@ -99,7 +99,11 @@ export default function AsciiPreview() {
       ctx.strokeStyle = "rgba(100, 100, 100, 0.4)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.roundRect(startX - 4, fieldY, totalW + 12, 16, 3);
+      if (ctx.roundRect) {
+        ctx.roundRect(startX - 4, fieldY, totalW + 12, 16, 3);
+      } else {
+        ctx.rect(startX - 4, fieldY, totalW + 12, 16);
+      }
       ctx.stroke();
 
       // "Type here..." text

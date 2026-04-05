@@ -26,10 +26,13 @@ export default function AsciiArt() {
 
   const handleCopy = useCallback(() => {
     if (!output) return;
-    navigator.clipboard.writeText(output).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    navigator.clipboard.writeText(output).then(
+      () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      },
+      () => {},
+    );
   }, [output]);
 
   return (
