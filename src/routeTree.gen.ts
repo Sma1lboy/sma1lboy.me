@@ -34,6 +34,7 @@ import { Route as AppsWidgetRouteImport } from './routes/apps/widget'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
+import { Route as AppsSnakeRouteImport } from './routes/apps/snake'
 import { Route as AppsRegexRouteImport } from './routes/apps/regex'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsQrRouteImport } from './routes/apps/qr'
@@ -46,6 +47,7 @@ import { Route as AppsJsonRouteImport } from './routes/apps/json'
 import { Route as AppsHashRouteImport } from './routes/apps/hash'
 import { Route as AppsGradientRouteImport } from './routes/apps/gradient'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
+import { Route as AppsDrawRouteImport } from './routes/apps/draw'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
 import { Route as AppsColorsRouteImport } from './routes/apps/colors'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
@@ -178,6 +180,11 @@ const AppsTerminalRoute = AppsTerminalRouteImport.update({
   path: '/apps/terminal',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/terminal.lazy').then((d) => d.Route))
+const AppsSnakeRoute = AppsSnakeRouteImport.update({
+  id: '/apps/snake',
+  path: '/apps/snake',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/snake.lazy').then((d) => d.Route))
 const AppsRegexRoute = AppsRegexRouteImport.update({
   id: '/apps/regex',
   path: '/apps/regex',
@@ -238,6 +245,11 @@ const AppsEncodeRoute = AppsEncodeRouteImport.update({
   path: '/apps/encode',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/encode.lazy').then((d) => d.Route))
+const AppsDrawRoute = AppsDrawRouteImport.update({
+  id: '/apps/draw',
+  path: '/apps/draw',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/draw.lazy').then((d) => d.Route))
 const AppsDiffRoute = AppsDiffRouteImport.update({
   id: '/apps/diff',
   path: '/apps/diff',
@@ -282,6 +294,7 @@ export interface FileRoutesByFullPath {
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
+  '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/hash': typeof AppsHashRoute
@@ -294,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
+  '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
@@ -325,6 +339,7 @@ export interface FileRoutesByTo {
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
+  '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/hash': typeof AppsHashRoute
@@ -337,6 +352,7 @@ export interface FileRoutesByTo {
   '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
+  '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
@@ -369,6 +385,7 @@ export interface FileRoutesById {
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
+  '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/hash': typeof AppsHashRoute
@@ -381,6 +398,7 @@ export interface FileRoutesById {
   '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
+  '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
@@ -414,6 +432,7 @@ export interface FileRouteTypes {
     | '/apps/chat'
     | '/apps/colors'
     | '/apps/diff'
+    | '/apps/draw'
     | '/apps/encode'
     | '/apps/gradient'
     | '/apps/hash'
@@ -426,6 +445,7 @@ export interface FileRouteTypes {
     | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
+    | '/apps/snake'
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
@@ -457,6 +477,7 @@ export interface FileRouteTypes {
     | '/apps/chat'
     | '/apps/colors'
     | '/apps/diff'
+    | '/apps/draw'
     | '/apps/encode'
     | '/apps/gradient'
     | '/apps/hash'
@@ -469,6 +490,7 @@ export interface FileRouteTypes {
     | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
+    | '/apps/snake'
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
@@ -500,6 +522,7 @@ export interface FileRouteTypes {
     | '/apps/chat'
     | '/apps/colors'
     | '/apps/diff'
+    | '/apps/draw'
     | '/apps/encode'
     | '/apps/gradient'
     | '/apps/hash'
@@ -512,6 +535,7 @@ export interface FileRouteTypes {
     | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
+    | '/apps/snake'
     | '/apps/terminal'
     | '/apps/typewriter'
     | '/apps/typing'
@@ -544,6 +568,7 @@ export interface RootRouteChildren {
   AppsChatRoute: typeof AppsChatRoute
   AppsColorsRoute: typeof AppsColorsRoute
   AppsDiffRoute: typeof AppsDiffRoute
+  AppsDrawRoute: typeof AppsDrawRoute
   AppsEncodeRoute: typeof AppsEncodeRoute
   AppsGradientRoute: typeof AppsGradientRoute
   AppsHashRoute: typeof AppsHashRoute
@@ -556,6 +581,7 @@ export interface RootRouteChildren {
   AppsQrRoute: typeof AppsQrRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsRegexRoute: typeof AppsRegexRoute
+  AppsSnakeRoute: typeof AppsSnakeRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
@@ -742,6 +768,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsTerminalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/snake': {
+      id: '/apps/snake'
+      path: '/apps/snake'
+      fullPath: '/apps/snake'
+      preLoaderRoute: typeof AppsSnakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/regex': {
       id: '/apps/regex'
       path: '/apps/regex'
@@ -826,6 +859,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsEncodeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/draw': {
+      id: '/apps/draw'
+      path: '/apps/draw'
+      fullPath: '/apps/draw'
+      preLoaderRoute: typeof AppsDrawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/diff': {
       id: '/apps/diff'
       path: '/apps/diff'
@@ -880,6 +920,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsChatRoute: AppsChatRoute,
   AppsColorsRoute: AppsColorsRoute,
   AppsDiffRoute: AppsDiffRoute,
+  AppsDrawRoute: AppsDrawRoute,
   AppsEncodeRoute: AppsEncodeRoute,
   AppsGradientRoute: AppsGradientRoute,
   AppsHashRoute: AppsHashRoute,
@@ -892,6 +933,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsQrRoute: AppsQrRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsRegexRoute: AppsRegexRoute,
+  AppsSnakeRoute: AppsSnakeRoute,
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,

@@ -31,6 +31,7 @@ import AsciiPreview from "../../components/apps/ascii/AsciiPreview";
 import HashPreview from "../../components/apps/hash/HashPreview";
 import QrPreview from "../../components/apps/qr/QrPreview";
 import PixelPreview from "../../components/apps/pixel/PixelPreview";
+import DrawPreview from "../../components/apps/draw/DrawPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -57,6 +58,7 @@ const newAppPaths = new Set([
   "/apps/hash",
   "/apps/qr",
   "/apps/pixel",
+  "/apps/draw",
 ]);
 
 const categories: {
@@ -225,6 +227,13 @@ const categories: {
         description:
           "Draw pixel art on a canvas grid with brushes, fill tool, and color picker. Export as PNG.",
         preview: <PixelPreview />,
+      },
+      {
+        to: "/apps/draw",
+        title: "Drawing Canvas",
+        description:
+          "Freehand whiteboard with pen, eraser, shapes, color picker, and PNG export.",
+        preview: <DrawPreview />,
       },
     ],
   },
