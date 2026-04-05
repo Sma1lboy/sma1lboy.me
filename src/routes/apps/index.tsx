@@ -3,6 +3,7 @@ import { ArrowLeft, FlaskConical } from "lucide-react";
 import TypewriterPreview from "../../components/apps/typewriter/TypewriterPreview";
 import ReceiptPreview from "../../components/apps/receipt/ReceiptPreview";
 import TerminalPreview from "../../components/apps/terminal/TerminalPreview";
+import TypingTestPreview from "../../components/apps/typing/TypingTestPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -29,6 +30,13 @@ const experiments = [
     description:
       "Interactive terminal emulator. Type commands to explore.",
     preview: <TerminalPreview />,
+  },
+  {
+    to: "/apps/typing" as const,
+    title: "Typing Speed Test",
+    description:
+      "Test your typing speed with programming passages. Track WPM, accuracy, and beat your best score.",
+    preview: <TypingTestPreview />,
   },
 ];
 
