@@ -32,6 +32,7 @@ import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AppsWidgetRouteImport } from './routes/apps/widget'
 import { Route as AppsWeatherRouteImport } from './routes/apps/weather'
+import { Route as AppsUnitsRouteImport } from './routes/apps/units'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTimerRouteImport } from './routes/apps/timer'
@@ -46,6 +47,7 @@ import { Route as AppsPixelRouteImport } from './routes/apps/pixel'
 import { Route as AppsPasswordRouteImport } from './routes/apps/password'
 import { Route as AppsMinesweeperRouteImport } from './routes/apps/minesweeper'
 import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
+import { Route as AppsLoremRouteImport } from './routes/apps/lorem'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
 import { Route as AppsKanbanRouteImport } from './routes/apps/kanban'
 import { Route as AppsJsonRouteImport } from './routes/apps/json'
@@ -175,6 +177,11 @@ const AppsWeatherRoute = AppsWeatherRouteImport.update({
   path: '/apps/weather',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/weather.lazy').then((d) => d.Route))
+const AppsUnitsRoute = AppsUnitsRouteImport.update({
+  id: '/apps/units',
+  path: '/apps/units',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/units.lazy').then((d) => d.Route))
 const AppsTypingRoute = AppsTypingRouteImport.update({
   id: '/apps/typing',
   path: '/apps/typing',
@@ -249,6 +256,11 @@ const AppsMarkdownRoute = AppsMarkdownRouteImport.update({
   path: '/apps/markdown',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/markdown.lazy').then((d) => d.Route))
+const AppsLoremRoute = AppsLoremRouteImport.update({
+  id: '/apps/lorem',
+  path: '/apps/lorem',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/lorem.lazy').then((d) => d.Route))
 const AppsLifeRoute = AppsLifeRouteImport.update({
   id: '/apps/life',
   path: '/apps/life',
@@ -347,6 +359,7 @@ export interface FileRoutesByFullPath {
   '/apps/json': typeof AppsJsonRoute
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
+  '/apps/lorem': typeof AppsLoremRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
   '/apps/password': typeof AppsPasswordRoute
@@ -361,6 +374,7 @@ export interface FileRoutesByFullPath {
   '/apps/timer': typeof AppsTimerRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/units': typeof AppsUnitsRoute
   '/apps/weather': typeof AppsWeatherRoute
   '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -399,6 +413,7 @@ export interface FileRoutesByTo {
   '/apps/json': typeof AppsJsonRoute
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
+  '/apps/lorem': typeof AppsLoremRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
   '/apps/password': typeof AppsPasswordRoute
@@ -413,6 +428,7 @@ export interface FileRoutesByTo {
   '/apps/timer': typeof AppsTimerRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/units': typeof AppsUnitsRoute
   '/apps/weather': typeof AppsWeatherRoute
   '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -452,6 +468,7 @@ export interface FileRoutesById {
   '/apps/json': typeof AppsJsonRoute
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
+  '/apps/lorem': typeof AppsLoremRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
   '/apps/password': typeof AppsPasswordRoute
@@ -466,6 +483,7 @@ export interface FileRoutesById {
   '/apps/timer': typeof AppsTimerRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
+  '/apps/units': typeof AppsUnitsRoute
   '/apps/weather': typeof AppsWeatherRoute
   '/apps/widget': typeof AppsWidgetRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -506,6 +524,7 @@ export interface FileRouteTypes {
     | '/apps/json'
     | '/apps/kanban'
     | '/apps/life'
+    | '/apps/lorem'
     | '/apps/markdown'
     | '/apps/minesweeper'
     | '/apps/password'
@@ -520,6 +539,7 @@ export interface FileRouteTypes {
     | '/apps/timer'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/units'
     | '/apps/weather'
     | '/apps/widget'
     | '/blog/$slug'
@@ -558,6 +578,7 @@ export interface FileRouteTypes {
     | '/apps/json'
     | '/apps/kanban'
     | '/apps/life'
+    | '/apps/lorem'
     | '/apps/markdown'
     | '/apps/minesweeper'
     | '/apps/password'
@@ -572,6 +593,7 @@ export interface FileRouteTypes {
     | '/apps/timer'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/units'
     | '/apps/weather'
     | '/apps/widget'
     | '/blog/$slug'
@@ -610,6 +632,7 @@ export interface FileRouteTypes {
     | '/apps/json'
     | '/apps/kanban'
     | '/apps/life'
+    | '/apps/lorem'
     | '/apps/markdown'
     | '/apps/minesweeper'
     | '/apps/password'
@@ -624,6 +647,7 @@ export interface FileRouteTypes {
     | '/apps/timer'
     | '/apps/typewriter'
     | '/apps/typing'
+    | '/apps/units'
     | '/apps/weather'
     | '/apps/widget'
     | '/blog/$slug'
@@ -663,6 +687,7 @@ export interface RootRouteChildren {
   AppsJsonRoute: typeof AppsJsonRoute
   AppsKanbanRoute: typeof AppsKanbanRoute
   AppsLifeRoute: typeof AppsLifeRoute
+  AppsLoremRoute: typeof AppsLoremRoute
   AppsMarkdownRoute: typeof AppsMarkdownRoute
   AppsMinesweeperRoute: typeof AppsMinesweeperRoute
   AppsPasswordRoute: typeof AppsPasswordRoute
@@ -677,6 +702,7 @@ export interface RootRouteChildren {
   AppsTimerRoute: typeof AppsTimerRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
+  AppsUnitsRoute: typeof AppsUnitsRoute
   AppsWeatherRoute: typeof AppsWeatherRoute
   AppsWidgetRoute: typeof AppsWidgetRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -847,6 +873,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsWeatherRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/units': {
+      id: '/apps/units'
+      path: '/apps/units'
+      fullPath: '/apps/units'
+      preLoaderRoute: typeof AppsUnitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/typing': {
       id: '/apps/typing'
       path: '/apps/typing'
@@ -943,6 +976,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/markdown'
       fullPath: '/apps/markdown'
       preLoaderRoute: typeof AppsMarkdownRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/lorem': {
+      id: '/apps/lorem'
+      path: '/apps/lorem'
+      fullPath: '/apps/lorem'
+      preLoaderRoute: typeof AppsLoremRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/life': {
@@ -1071,6 +1111,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsJsonRoute: AppsJsonRoute,
   AppsKanbanRoute: AppsKanbanRoute,
   AppsLifeRoute: AppsLifeRoute,
+  AppsLoremRoute: AppsLoremRoute,
   AppsMarkdownRoute: AppsMarkdownRoute,
   AppsMinesweeperRoute: AppsMinesweeperRoute,
   AppsPasswordRoute: AppsPasswordRoute,
@@ -1085,6 +1126,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsTimerRoute: AppsTimerRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,
+  AppsUnitsRoute: AppsUnitsRoute,
   AppsWeatherRoute: AppsWeatherRoute,
   AppsWidgetRoute: AppsWidgetRoute,
   BlogSlugRoute: BlogSlugRoute,

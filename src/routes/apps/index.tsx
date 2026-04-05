@@ -39,6 +39,7 @@ import TetrisPreview from "../../components/apps/tetris/TetrisPreview";
 import CurrencyPreview from "../../components/apps/currency/CurrencyPreview";
 import PasswordPreview from "../../components/apps/password/PasswordPreview";
 import UnitsPreview from "../../components/apps/units/UnitsPreview";
+import LoremPreview from "../../components/apps/lorem/LoremPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -73,6 +74,7 @@ const newAppPaths = new Set([
   "/apps/currency",
   "/apps/password",
   "/apps/units",
+  "/apps/lorem",
 ]);
 
 const categories: {
@@ -146,6 +148,13 @@ const categories: {
         description:
           "Generate secure passwords with customizable length, character sets, strength meter, and batch generation.",
         preview: <PasswordPreview />,
+      },
+      {
+        to: "/apps/lorem",
+        title: "Lorem Ipsum Generator",
+        description:
+          "Generate placeholder text in classic or programmer-themed styles with paragraphs, sentences, words, or byte modes.",
+        preview: <LoremPreview />,
       },
     ],
   },
