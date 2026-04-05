@@ -36,6 +36,7 @@ import MinesweeperPreview from "../../components/apps/minesweeper/MinesweeperPre
 import Game2048Preview from "../../components/apps/2048/Game2048Preview";
 import WeatherPreview from "../../components/apps/weather/WeatherPreview";
 import TetrisPreview from "../../components/apps/tetris/TetrisPreview";
+import CurrencyPreview from "../../components/apps/currency/CurrencyPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -67,6 +68,7 @@ const newAppPaths = new Set([
   "/apps/2048",
   "/apps/weather",
   "/apps/tetris",
+  "/apps/currency",
 ]);
 
 const categories: {
@@ -174,6 +176,13 @@ const categories: {
         description:
           "Check current weather and 5-day forecast for any city. Auto-detects your location with unit toggle.",
         preview: <WeatherPreview />,
+      },
+      {
+        to: "/apps/currency",
+        title: "Currency Converter",
+        description:
+          "Convert currencies in real-time with live exchange rates and a 30-day historical rate chart.",
+        preview: <CurrencyPreview />,
       },
     ],
   },
