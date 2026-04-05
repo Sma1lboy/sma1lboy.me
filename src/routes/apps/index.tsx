@@ -28,6 +28,7 @@ import KanbanPreview from "../../components/apps/kanban/KanbanPreview";
 import WidgetPreview from "../../components/apps/widget/WidgetPreview";
 import AsciiPreview from "../../components/apps/ascii/AsciiPreview";
 import HashPreview from "../../components/apps/hash/HashPreview";
+import QrPreview from "../../components/apps/qr/QrPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -51,6 +52,7 @@ const newAppPaths = new Set([
   "/apps/widget",
   "/apps/ascii",
   "/apps/hash",
+  "/apps/qr",
 ]);
 
 const categories: {
@@ -110,6 +112,13 @@ const categories: {
         description:
           "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files. Compare and verify hashes.",
         preview: <HashPreview />,
+      },
+      {
+        to: "/apps/qr",
+        title: "QR Code Generator",
+        description:
+          "Generate QR codes from text or URLs with custom colors. Download as PNG.",
+        preview: <QrPreview />,
       },
     ],
   },
