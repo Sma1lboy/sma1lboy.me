@@ -10,6 +10,7 @@ import LifePreview from "../../components/apps/life/LifePreview";
 import DiffPreview from "../../components/apps/diff/DiffPreview";
 import JsonPreview from "../../components/apps/json/JsonPreview";
 import EncodePreview from "../../components/apps/encode/EncodePreview";
+import ColorsPreview from "../../components/apps/colors/ColorsPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -85,6 +86,13 @@ const experiments = [
     description:
       "Multi-tool encoder/decoder with Base64, URL encoding, HTML entities, and JWT decode.",
     preview: <EncodePreview />,
+  },
+  {
+    to: "/apps/colors" as const,
+    title: "Color Picker",
+    description:
+      "Pick colors, generate harmonious palettes, check WCAG contrast ratios, and save your favorites.",
+    preview: <ColorsPreview />,
   },
 ];
 

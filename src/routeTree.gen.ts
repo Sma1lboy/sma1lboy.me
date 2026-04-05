@@ -38,6 +38,7 @@ import { Route as AppsLifeRouteImport } from './routes/apps/life'
 import { Route as AppsJsonRouteImport } from './routes/apps/json'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
+import { Route as AppsColorsRouteImport } from './routes/apps/colors'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
 
 const UsesRoute = UsesRouteImport.update({
@@ -187,6 +188,11 @@ const AppsDiffRoute = AppsDiffRouteImport.update({
   path: '/apps/diff',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/diff.lazy').then((d) => d.Route))
+const AppsColorsRoute = AppsColorsRouteImport.update({
+  id: '/apps/colors',
+  path: '/apps/colors',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/colors.lazy').then((d) => d.Route))
 const AppsChatRoute = AppsChatRouteImport.update({
   id: '/apps/chat',
   path: '/apps/chat',
@@ -212,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
+  '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/json': typeof AppsJsonRoute
@@ -244,6 +251,7 @@ export interface FileRoutesByTo {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
+  '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/json': typeof AppsJsonRoute
@@ -277,6 +285,7 @@ export interface FileRoutesById {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
+  '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/json': typeof AppsJsonRoute
@@ -311,6 +320,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/chat'
+    | '/apps/colors'
     | '/apps/diff'
     | '/apps/encode'
     | '/apps/json'
@@ -343,6 +353,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/chat'
+    | '/apps/colors'
     | '/apps/diff'
     | '/apps/encode'
     | '/apps/json'
@@ -375,6 +386,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/chat'
+    | '/apps/colors'
     | '/apps/diff'
     | '/apps/encode'
     | '/apps/json'
@@ -408,6 +420,7 @@ export interface RootRouteChildren {
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
   AppsChatRoute: typeof AppsChatRoute
+  AppsColorsRoute: typeof AppsColorsRoute
   AppsDiffRoute: typeof AppsDiffRoute
   AppsEncodeRoute: typeof AppsEncodeRoute
   AppsJsonRoute: typeof AppsJsonRoute
@@ -627,6 +640,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsDiffRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/colors': {
+      id: '/apps/colors'
+      path: '/apps/colors'
+      fullPath: '/apps/colors'
+      preLoaderRoute: typeof AppsColorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/chat': {
       id: '/apps/chat'
       path: '/apps/chat'
@@ -656,6 +676,7 @@ const rootRouteChildren: RootRouteChildren = {
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
   AppsChatRoute: AppsChatRoute,
+  AppsColorsRoute: AppsColorsRoute,
   AppsDiffRoute: AppsDiffRoute,
   AppsEncodeRoute: AppsEncodeRoute,
   AppsJsonRoute: AppsJsonRoute,
