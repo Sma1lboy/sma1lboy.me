@@ -57,6 +57,7 @@ import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
 import { Route as AppsDrawRouteImport } from './routes/apps/draw'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
 import { Route as AppsCurrencyRouteImport } from './routes/apps/currency'
+import { Route as AppsCronRouteImport } from './routes/apps/cron'
 import { Route as AppsColorsRouteImport } from './routes/apps/colors'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
 import { Route as AppsAsciiRouteImport } from './routes/apps/ascii'
@@ -306,6 +307,11 @@ const AppsCurrencyRoute = AppsCurrencyRouteImport.update({
   path: '/apps/currency',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/currency.lazy').then((d) => d.Route))
+const AppsCronRoute = AppsCronRouteImport.update({
+  id: '/apps/cron',
+  path: '/apps/cron',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/cron.lazy').then((d) => d.Route))
 const AppsColorsRoute = AppsColorsRouteImport.update({
   id: '/apps/colors',
   path: '/apps/colors',
@@ -350,6 +356,7 @@ export interface FileRoutesByFullPath {
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
+  '/apps/cron': typeof AppsCronRoute
   '/apps/currency': typeof AppsCurrencyRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
@@ -404,6 +411,7 @@ export interface FileRoutesByTo {
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
+  '/apps/cron': typeof AppsCronRoute
   '/apps/currency': typeof AppsCurrencyRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
@@ -459,6 +467,7 @@ export interface FileRoutesById {
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
+  '/apps/cron': typeof AppsCronRoute
   '/apps/currency': typeof AppsCurrencyRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
@@ -515,6 +524,7 @@ export interface FileRouteTypes {
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
+    | '/apps/cron'
     | '/apps/currency'
     | '/apps/diff'
     | '/apps/draw'
@@ -569,6 +579,7 @@ export interface FileRouteTypes {
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
+    | '/apps/cron'
     | '/apps/currency'
     | '/apps/diff'
     | '/apps/draw'
@@ -623,6 +634,7 @@ export interface FileRouteTypes {
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
+    | '/apps/cron'
     | '/apps/currency'
     | '/apps/diff'
     | '/apps/draw'
@@ -678,6 +690,7 @@ export interface RootRouteChildren {
   AppsAsciiRoute: typeof AppsAsciiRoute
   AppsChatRoute: typeof AppsChatRoute
   AppsColorsRoute: typeof AppsColorsRoute
+  AppsCronRoute: typeof AppsCronRoute
   AppsCurrencyRoute: typeof AppsCurrencyRoute
   AppsDiffRoute: typeof AppsDiffRoute
   AppsDrawRoute: typeof AppsDrawRoute
@@ -1048,6 +1061,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsCurrencyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/cron': {
+      id: '/apps/cron'
+      path: '/apps/cron'
+      fullPath: '/apps/cron'
+      preLoaderRoute: typeof AppsCronRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/colors': {
       id: '/apps/colors'
       path: '/apps/colors'
@@ -1102,6 +1122,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsAsciiRoute: AppsAsciiRoute,
   AppsChatRoute: AppsChatRoute,
   AppsColorsRoute: AppsColorsRoute,
+  AppsCronRoute: AppsCronRoute,
   AppsCurrencyRoute: AppsCurrencyRoute,
   AppsDiffRoute: AppsDiffRoute,
   AppsDrawRoute: AppsDrawRoute,

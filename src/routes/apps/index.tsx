@@ -40,6 +40,7 @@ import CurrencyPreview from "../../components/apps/currency/CurrencyPreview";
 import PasswordPreview from "../../components/apps/password/PasswordPreview";
 import UnitsPreview from "../../components/apps/units/UnitsPreview";
 import LoremPreview from "../../components/apps/lorem/LoremPreview";
+import CronPreview from "../../components/apps/cron/CronPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -75,6 +76,7 @@ const newAppPaths = new Set([
   "/apps/password",
   "/apps/units",
   "/apps/lorem",
+  "/apps/cron",
 ]);
 
 const categories: {
@@ -155,6 +157,13 @@ const categories: {
         description:
           "Generate placeholder text in classic or programmer-themed styles with paragraphs, sentences, words, or byte modes.",
         preview: <LoremPreview />,
+      },
+      {
+        to: "/apps/cron",
+        title: "Cron Parser",
+        description:
+          "Parse cron expressions into human-readable schedules. Visualize fields, see next execution times, and use quick presets.",
+        preview: <CronPreview />,
       },
     ],
   },
