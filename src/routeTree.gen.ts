@@ -34,6 +34,8 @@ import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
+import { Route as AppsLifeRouteImport } from './routes/apps/life'
+import { Route as AppsDiffRouteImport } from './routes/apps/diff'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
 
 const UsesRoute = UsesRouteImport.update({
@@ -163,6 +165,16 @@ const AppsPomodoroRoute = AppsPomodoroRouteImport.update({
   path: '/apps/pomodoro',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/pomodoro.lazy').then((d) => d.Route))
+const AppsLifeRoute = AppsLifeRouteImport.update({
+  id: '/apps/life',
+  path: '/apps/life',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/life.lazy').then((d) => d.Route))
+const AppsDiffRoute = AppsDiffRouteImport.update({
+  id: '/apps/diff',
+  path: '/apps/diff',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/diff.lazy').then((d) => d.Route))
 const AppsChatRoute = AppsChatRouteImport.update({
   id: '/apps/chat',
   path: '/apps/chat',
@@ -188,6 +200,8 @@ export interface FileRoutesByFullPath {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
+  '/apps/diff': typeof AppsDiffRoute
+  '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
@@ -216,6 +230,8 @@ export interface FileRoutesByTo {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
+  '/apps/diff': typeof AppsDiffRoute
+  '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
@@ -245,6 +261,8 @@ export interface FileRoutesById {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
+  '/apps/diff': typeof AppsDiffRoute
+  '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
@@ -275,6 +293,8 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/chat'
+    | '/apps/diff'
+    | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/terminal'
@@ -303,6 +323,8 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/chat'
+    | '/apps/diff'
+    | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/terminal'
@@ -331,6 +353,8 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/chat'
+    | '/apps/diff'
+    | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/terminal'
@@ -360,6 +384,8 @@ export interface RootRouteChildren {
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
   AppsChatRoute: typeof AppsChatRoute
+  AppsDiffRoute: typeof AppsDiffRoute
+  AppsLifeRoute: typeof AppsLifeRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
@@ -547,6 +573,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsPomodoroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/life': {
+      id: '/apps/life'
+      path: '/apps/life'
+      fullPath: '/apps/life'
+      preLoaderRoute: typeof AppsLifeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/diff': {
+      id: '/apps/diff'
+      path: '/apps/diff'
+      fullPath: '/apps/diff'
+      preLoaderRoute: typeof AppsDiffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/chat': {
       id: '/apps/chat'
       path: '/apps/chat'
@@ -576,6 +616,8 @@ const rootRouteChildren: RootRouteChildren = {
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
   AppsChatRoute: AppsChatRoute,
+  AppsDiffRoute: AppsDiffRoute,
+  AppsLifeRoute: AppsLifeRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTerminalRoute: AppsTerminalRoute,
