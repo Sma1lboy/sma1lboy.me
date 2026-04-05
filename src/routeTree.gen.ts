@@ -33,6 +33,8 @@ import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
+import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
+import { Route as AppsChatRouteImport } from './routes/apps/chat'
 
 const UsesRoute = UsesRouteImport.update({
   id: '/uses',
@@ -156,6 +158,16 @@ const AppsReceiptRoute = AppsReceiptRouteImport.update({
   path: '/apps/receipt',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/receipt.lazy').then((d) => d.Route))
+const AppsPomodoroRoute = AppsPomodoroRouteImport.update({
+  id: '/apps/pomodoro',
+  path: '/apps/pomodoro',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/pomodoro.lazy').then((d) => d.Route))
+const AppsChatRoute = AppsChatRouteImport.update({
+  id: '/apps/chat',
+  path: '/apps/chat',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/chat.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -175,6 +187,8 @@ export interface FileRoutesByFullPath {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/chat': typeof AppsChatRoute
+  '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
@@ -201,6 +215,8 @@ export interface FileRoutesByTo {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/chat': typeof AppsChatRoute
+  '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
@@ -228,6 +244,8 @@ export interface FileRoutesById {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/chat': typeof AppsChatRoute
+  '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
@@ -256,6 +274,8 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/chat'
+    | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/terminal'
     | '/apps/typewriter'
@@ -282,6 +302,8 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/chat'
+    | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/terminal'
     | '/apps/typewriter'
@@ -308,6 +330,8 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/chat'
+    | '/apps/pomodoro'
     | '/apps/receipt'
     | '/apps/terminal'
     | '/apps/typewriter'
@@ -335,6 +359,8 @@ export interface RootRouteChildren {
   StatsRoute: typeof StatsRoute
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
+  AppsChatRoute: typeof AppsChatRoute
+  AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
@@ -514,6 +540,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsReceiptRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/pomodoro': {
+      id: '/apps/pomodoro'
+      path: '/apps/pomodoro'
+      fullPath: '/apps/pomodoro'
+      preLoaderRoute: typeof AppsPomodoroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/chat': {
+      id: '/apps/chat'
+      path: '/apps/chat'
+      fullPath: '/apps/chat'
+      preLoaderRoute: typeof AppsChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -535,6 +575,8 @@ const rootRouteChildren: RootRouteChildren = {
   StatsRoute: StatsRoute,
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
+  AppsChatRoute: AppsChatRoute,
+  AppsPomodoroRoute: AppsPomodoroRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,

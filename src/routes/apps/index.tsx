@@ -5,6 +5,7 @@ import ReceiptPreview from "../../components/apps/receipt/ReceiptPreview";
 import TerminalPreview from "../../components/apps/terminal/TerminalPreview";
 import TypingTestPreview from "../../components/apps/typing/TypingTestPreview";
 import PomodoroPreview from "../../components/apps/pomodoro/PomodoroPreview";
+import ChatPreview from "../../components/apps/chat/ChatPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -45,6 +46,13 @@ const experiments = [
     description:
       "Focus timer with 25-min work sessions and breaks. Track your productivity.",
     preview: <PomodoroPreview />,
+  },
+  {
+    to: "/apps/chat" as const,
+    title: "AI Chat",
+    description:
+      "Chat with a simulated AI assistant. Ask about Jackson, his projects, tech stack, and more.",
+    preview: <ChatPreview />,
   },
 ];
 
