@@ -10,6 +10,7 @@ import {
   Github,
   Home as HomeIcon,
   Linkedin,
+  ListOrdered,
   Mail,
   MessageSquare,
   MessageCircle,
@@ -190,6 +191,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <BarChart3
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label="Changelog"
+          onClick={() => navigate({ to: "/changelog" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <ListOrdered
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />

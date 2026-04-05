@@ -9,6 +9,7 @@ import {
   FileText,
   Github,
   Home,
+  ListOrdered,
   Mail,
   Monitor,
   Search,
@@ -137,6 +138,14 @@ export function CommandPalette() {
         category: "Pages",
         icon: BarChart3,
         action: () => navigate({ to: "/stats" }),
+      },
+      {
+        id: "page-changelog",
+        title: "Changelog",
+        description: "What's new on this site",
+        category: "Pages",
+        icon: ListOrdered,
+        action: () => navigate({ to: "/changelog" }),
       },
     ];
 
