@@ -45,6 +45,7 @@ import { Route as AppsQrRouteImport } from './routes/apps/qr'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsPixelRouteImport } from './routes/apps/pixel'
 import { Route as AppsPasswordRouteImport } from './routes/apps/password'
+import { Route as AppsNetworkRouteImport } from './routes/apps/network'
 import { Route as AppsMinesweeperRouteImport } from './routes/apps/minesweeper'
 import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLoremRouteImport } from './routes/apps/lorem'
@@ -53,6 +54,7 @@ import { Route as AppsKanbanRouteImport } from './routes/apps/kanban'
 import { Route as AppsJsonRouteImport } from './routes/apps/json'
 import { Route as AppsHashRouteImport } from './routes/apps/hash'
 import { Route as AppsGradientRouteImport } from './routes/apps/gradient'
+import { Route as AppsEpochRouteImport } from './routes/apps/epoch'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
 import { Route as AppsDrawRouteImport } from './routes/apps/draw'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
@@ -245,6 +247,11 @@ const AppsPasswordRoute = AppsPasswordRouteImport.update({
   path: '/apps/password',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/password.lazy').then((d) => d.Route))
+const AppsNetworkRoute = AppsNetworkRouteImport.update({
+  id: '/apps/network',
+  path: '/apps/network',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/network.lazy').then((d) => d.Route))
 const AppsMinesweeperRoute = AppsMinesweeperRouteImport.update({
   id: '/apps/minesweeper',
   path: '/apps/minesweeper',
@@ -287,6 +294,11 @@ const AppsGradientRoute = AppsGradientRouteImport.update({
   path: '/apps/gradient',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/gradient.lazy').then((d) => d.Route))
+const AppsEpochRoute = AppsEpochRouteImport.update({
+  id: '/apps/epoch',
+  path: '/apps/epoch',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/epoch.lazy').then((d) => d.Route))
 const AppsEncodeRoute = AppsEncodeRouteImport.update({
   id: '/apps/encode',
   path: '/apps/encode',
@@ -361,6 +373,7 @@ export interface FileRoutesByFullPath {
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
+  '/apps/epoch': typeof AppsEpochRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/hash': typeof AppsHashRoute
   '/apps/json': typeof AppsJsonRoute
@@ -369,6 +382,7 @@ export interface FileRoutesByFullPath {
   '/apps/lorem': typeof AppsLoremRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
+  '/apps/network': typeof AppsNetworkRoute
   '/apps/password': typeof AppsPasswordRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
@@ -416,6 +430,7 @@ export interface FileRoutesByTo {
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
+  '/apps/epoch': typeof AppsEpochRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/hash': typeof AppsHashRoute
   '/apps/json': typeof AppsJsonRoute
@@ -424,6 +439,7 @@ export interface FileRoutesByTo {
   '/apps/lorem': typeof AppsLoremRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
+  '/apps/network': typeof AppsNetworkRoute
   '/apps/password': typeof AppsPasswordRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
@@ -472,6 +488,7 @@ export interface FileRoutesById {
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
+  '/apps/epoch': typeof AppsEpochRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/hash': typeof AppsHashRoute
   '/apps/json': typeof AppsJsonRoute
@@ -480,6 +497,7 @@ export interface FileRoutesById {
   '/apps/lorem': typeof AppsLoremRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
+  '/apps/network': typeof AppsNetworkRoute
   '/apps/password': typeof AppsPasswordRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
@@ -529,6 +547,7 @@ export interface FileRouteTypes {
     | '/apps/diff'
     | '/apps/draw'
     | '/apps/encode'
+    | '/apps/epoch'
     | '/apps/gradient'
     | '/apps/hash'
     | '/apps/json'
@@ -537,6 +556,7 @@ export interface FileRouteTypes {
     | '/apps/lorem'
     | '/apps/markdown'
     | '/apps/minesweeper'
+    | '/apps/network'
     | '/apps/password'
     | '/apps/pixel'
     | '/apps/pomodoro'
@@ -584,6 +604,7 @@ export interface FileRouteTypes {
     | '/apps/diff'
     | '/apps/draw'
     | '/apps/encode'
+    | '/apps/epoch'
     | '/apps/gradient'
     | '/apps/hash'
     | '/apps/json'
@@ -592,6 +613,7 @@ export interface FileRouteTypes {
     | '/apps/lorem'
     | '/apps/markdown'
     | '/apps/minesweeper'
+    | '/apps/network'
     | '/apps/password'
     | '/apps/pixel'
     | '/apps/pomodoro'
@@ -639,6 +661,7 @@ export interface FileRouteTypes {
     | '/apps/diff'
     | '/apps/draw'
     | '/apps/encode'
+    | '/apps/epoch'
     | '/apps/gradient'
     | '/apps/hash'
     | '/apps/json'
@@ -647,6 +670,7 @@ export interface FileRouteTypes {
     | '/apps/lorem'
     | '/apps/markdown'
     | '/apps/minesweeper'
+    | '/apps/network'
     | '/apps/password'
     | '/apps/pixel'
     | '/apps/pomodoro'
@@ -695,6 +719,7 @@ export interface RootRouteChildren {
   AppsDiffRoute: typeof AppsDiffRoute
   AppsDrawRoute: typeof AppsDrawRoute
   AppsEncodeRoute: typeof AppsEncodeRoute
+  AppsEpochRoute: typeof AppsEpochRoute
   AppsGradientRoute: typeof AppsGradientRoute
   AppsHashRoute: typeof AppsHashRoute
   AppsJsonRoute: typeof AppsJsonRoute
@@ -703,6 +728,7 @@ export interface RootRouteChildren {
   AppsLoremRoute: typeof AppsLoremRoute
   AppsMarkdownRoute: typeof AppsMarkdownRoute
   AppsMinesweeperRoute: typeof AppsMinesweeperRoute
+  AppsNetworkRoute: typeof AppsNetworkRoute
   AppsPasswordRoute: typeof AppsPasswordRoute
   AppsPixelRoute: typeof AppsPixelRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
@@ -977,6 +1003,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/network': {
+      id: '/apps/network'
+      path: '/apps/network'
+      fullPath: '/apps/network'
+      preLoaderRoute: typeof AppsNetworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/minesweeper': {
       id: '/apps/minesweeper'
       path: '/apps/minesweeper'
@@ -1031,6 +1064,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/gradient'
       fullPath: '/apps/gradient'
       preLoaderRoute: typeof AppsGradientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/epoch': {
+      id: '/apps/epoch'
+      path: '/apps/epoch'
+      fullPath: '/apps/epoch'
+      preLoaderRoute: typeof AppsEpochRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/encode': {
@@ -1127,6 +1167,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsDiffRoute: AppsDiffRoute,
   AppsDrawRoute: AppsDrawRoute,
   AppsEncodeRoute: AppsEncodeRoute,
+  AppsEpochRoute: AppsEpochRoute,
   AppsGradientRoute: AppsGradientRoute,
   AppsHashRoute: AppsHashRoute,
   AppsJsonRoute: AppsJsonRoute,
@@ -1135,6 +1176,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsLoremRoute: AppsLoremRoute,
   AppsMarkdownRoute: AppsMarkdownRoute,
   AppsMinesweeperRoute: AppsMinesweeperRoute,
+  AppsNetworkRoute: AppsNetworkRoute,
   AppsPasswordRoute: AppsPasswordRoute,
   AppsPixelRoute: AppsPixelRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,

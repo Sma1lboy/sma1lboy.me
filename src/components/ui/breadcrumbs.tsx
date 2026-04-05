@@ -28,6 +28,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   ascii: "ASCII Art",
   tetris: "Tetris",
   password: "Password Generator",
+  network: "IP & Network Info",
 };
 
 export interface BreadcrumbItem {

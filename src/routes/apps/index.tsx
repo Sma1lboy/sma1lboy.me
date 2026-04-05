@@ -42,6 +42,7 @@ import UnitsPreview from "../../components/apps/units/UnitsPreview";
 import LoremPreview from "../../components/apps/lorem/LoremPreview";
 import CronPreview from "../../components/apps/cron/CronPreview";
 import EpochPreview from "../../components/apps/epoch/EpochPreview";
+import NetworkPreview from "../../components/apps/network/NetworkPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -79,6 +80,7 @@ const newAppPaths = new Set([
   "/apps/lorem",
   "/apps/cron",
   "/apps/epoch",
+  "/apps/network",
 ]);
 
 const categories: {
@@ -173,6 +175,13 @@ const categories: {
         description:
           "Convert Unix timestamps to dates and back. ISO 8601, UTC, local time, relative time, live clock, and common epochs reference.",
         preview: <EpochPreview />,
+      },
+      {
+        to: "/apps/network",
+        title: "IP & Network Info",
+        description:
+          "View your public IP, location, and browser info. Calculate CIDR subnets and reference common ports and private ranges.",
+        preview: <NetworkPreview />,
       },
     ],
   },
