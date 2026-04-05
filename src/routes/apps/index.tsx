@@ -13,6 +13,7 @@ import EncodePreview from "../../components/apps/encode/EncodePreview";
 import ColorsPreview from "../../components/apps/colors/ColorsPreview";
 import RegexPreview from "../../components/apps/regex/RegexPreview";
 import MarkdownPreview from "../../components/apps/markdown/MarkdownPreview";
+import GradientPreview from "../../components/apps/gradient/GradientPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -109,6 +110,13 @@ const experiments = [
     description:
       "Write markdown with live preview, formatting toolbar, auto-save, and HTML export.",
     preview: <MarkdownPreview />,
+  },
+  {
+    to: "/apps/gradient" as const,
+    title: "Gradient Generator",
+    description:
+      "Create beautiful CSS gradients with color stops, direction control, presets, and live CSS output.",
+    preview: <GradientPreview />,
   },
 ];
 
