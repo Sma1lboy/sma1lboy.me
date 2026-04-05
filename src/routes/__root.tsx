@@ -6,6 +6,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { PageTransition } from "@/components/PageTransition";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { AmbientPlayer } from "@/components/AmbientPlayer";
+import { Footer } from "@/components/Footer";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 function RootComponent() {
@@ -27,6 +28,7 @@ function RootComponent() {
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={closeShortcuts} />
       <MobileNav />
       <PageTransition />
+      <Footer />
       <ScrollToTop />
       <AmbientPlayer />
     </>
