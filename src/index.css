@@ -216,6 +216,15 @@
   --color-border-strong: var(--border-strong);
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@utility animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -223,7 +232,9 @@
   body {
     @apply bg-background text-foreground;
     /* Smooth theme transition */
-    transition: background-color 300ms ease, color 300ms ease;
+    transition:
+      background-color 300ms ease,
+      color 300ms ease;
     /* Optimize text rendering for better readability */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -238,7 +249,10 @@
   aside,
   .dark,
   :root {
-    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+    transition:
+      background-color 300ms ease,
+      color 300ms ease,
+      border-color 300ms ease;
   }
 
   /* Dark mode image adjustments */

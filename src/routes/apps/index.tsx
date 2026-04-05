@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, FlaskConical } from "lucide-react";
 import TypewriterPreview from "../../components/apps/typewriter/TypewriterPreview";
 import ReceiptPreview from "../../components/apps/receipt/ReceiptPreview";
+import TerminalPreview from "../../components/apps/terminal/TerminalPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -21,6 +22,13 @@ const experiments = [
     description:
       "Interactive receipt with Verlet cloth physics. Grab, drag, and fold thermal paper.",
     preview: <ReceiptPreview />,
+  },
+  {
+    to: "/apps/terminal" as const,
+    title: "Terminal",
+    description:
+      "Interactive terminal emulator. Type commands to explore.",
+    preview: <TerminalPreview />,
   },
 ];
 

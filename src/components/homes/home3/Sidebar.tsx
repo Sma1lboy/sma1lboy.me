@@ -25,6 +25,7 @@ const artifacts = [
 const labs = [
   { label: "receipt", id: "receipt" },
   { label: "typewriter", id: "typewriter" },
+  { label: "terminal", id: "terminal" },
 ];
 
 const stack = ["typescript", "rust", "react", "python", "java", "postgres"];
@@ -56,17 +57,12 @@ export function Sidebar() {
       </div>
 
       <div>
-        <h2
-          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
-        >
+        <h2 className="text-[11px] tracking-[0.2em] text-gray-400 uppercase dark:text-[#666]">
           Now
         </h2>
         <ul className="mt-3 space-y-2">
           {now.map((item) => (
-            <li
-              key={item}
-              className="text-[13px] text-gray-600 dark:text-[#b0b0b0]"
-            >
+            <li key={item} className="text-[13px] text-gray-600 dark:text-[#b0b0b0]">
               {item}
             </li>
           ))}
@@ -74,9 +70,7 @@ export function Sidebar() {
       </div>
 
       <div>
-        <h2
-          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
-        >
+        <h2 className="text-[11px] tracking-[0.2em] text-gray-400 uppercase dark:text-[#666]">
           Artifacts
         </h2>
         <ul className="mt-3 space-y-2">
@@ -84,9 +78,7 @@ export function Sidebar() {
             <li key={item.id}>
               <button
                 onClick={() =>
-                  "route" in item && item.route
-                    ? navigate({ to: item.route })
-                    : randomNav(navigate)
+                  "route" in item && item.route ? navigate({ to: item.route }) : randomNav(navigate)
                 }
                 className="text-[13px] text-gray-600 transition-colors duration-150 hover:cursor-pointer hover:text-gray-900 dark:text-[#b0b0b0] dark:hover:text-white"
               >
@@ -98,9 +90,7 @@ export function Sidebar() {
       </div>
 
       <div>
-        <h2
-          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
-        >
+        <h2 className="text-[11px] tracking-[0.2em] text-gray-400 uppercase dark:text-[#666]">
           Lab
         </h2>
         <ul className="mt-3 space-y-2">
@@ -118,17 +108,12 @@ export function Sidebar() {
       </div>
 
       <div>
-        <h2
-          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
-        >
+        <h2 className="text-[11px] tracking-[0.2em] text-gray-400 uppercase dark:text-[#666]">
           Stack
         </h2>
         <ul className="mt-3 space-y-2">
           {stack.map((item) => (
-            <li
-              key={item}
-              className="text-[13px] text-gray-600 dark:text-[#b0b0b0]"
-            >
+            <li key={item} className="text-[13px] text-gray-600 dark:text-[#b0b0b0]">
               {item}
             </li>
           ))}
@@ -136,9 +121,7 @@ export function Sidebar() {
       </div>
 
       <div>
-        <h2
-          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
-        >
+        <h2 className="text-[11px] tracking-[0.2em] text-gray-400 uppercase dark:text-[#666]">
           Social
         </h2>
         <ul className="mt-3 space-y-2">

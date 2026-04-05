@@ -12,6 +12,7 @@ import {
   ListOrdered,
   Mail,
   Monitor,
+  TerminalSquare,
   Search,
   User,
   Briefcase,
@@ -146,6 +147,14 @@ export function CommandPalette() {
         category: "Pages",
         icon: ListOrdered,
         action: () => navigate({ to: "/changelog" }),
+      },
+      {
+        id: "page-terminal",
+        title: "Terminal",
+        description: "Interactive terminal emulator",
+        category: "Pages",
+        icon: TerminalSquare,
+        action: () => navigate({ to: "/apps/terminal" }),
       },
     ];
 

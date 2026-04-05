@@ -20,6 +20,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as GithubRouteImport } from './routes/github'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CmtRouteImport } from './routes/cmt'
+import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as ApiRouteImport } from './routes/api'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
@@ -27,6 +28,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
+import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 
 const UsesRoute = UsesRouteImport.update({
@@ -84,6 +86,11 @@ const CmtRoute = CmtRouteImport.update({
   path: '/cmt',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/cmt.lazy').then((d) => d.Route))
+const ChangelogRoute = ChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/changelog.lazy').then((d) => d.Route))
 const ApiRoute = ApiRouteImport.update({
   id: '/api',
   path: '/api',
@@ -121,6 +128,11 @@ const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
 } as any).lazy(() =>
   import('./routes/apps/typewriter.lazy').then((d) => d.Route),
 )
+const AppsTerminalRoute = AppsTerminalRouteImport.update({
+  id: '/apps/terminal',
+  path: '/apps/terminal',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/terminal.lazy').then((d) => d.Route))
 const AppsReceiptRoute = AppsReceiptRouteImport.update({
   id: '/apps/receipt',
   path: '/apps/receipt',
@@ -131,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
+  '/changelog': typeof ChangelogRoute
   '/cmt': typeof CmtRoute
   '/contact': typeof ContactRoute
   '/github': typeof GithubRoute
@@ -143,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
+  '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
@@ -152,6 +166,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
+  '/changelog': typeof ChangelogRoute
   '/cmt': typeof CmtRoute
   '/contact': typeof ContactRoute
   '/github': typeof GithubRoute
@@ -164,6 +179,7 @@ export interface FileRoutesByTo {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
+  '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps': typeof AppsIndexRoute
@@ -174,6 +190,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
+  '/changelog': typeof ChangelogRoute
   '/cmt': typeof CmtRoute
   '/contact': typeof ContactRoute
   '/github': typeof GithubRoute
@@ -186,6 +203,7 @@ export interface FileRoutesById {
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
+  '/apps/terminal': typeof AppsTerminalRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/apps/': typeof AppsIndexRoute
@@ -197,6 +215,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/api'
+    | '/changelog'
     | '/cmt'
     | '/contact'
     | '/github'
@@ -209,6 +228,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/receipt'
+    | '/apps/terminal'
     | '/apps/typewriter'
     | '/blog/$slug'
     | '/apps'
@@ -218,6 +238,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/api'
+    | '/changelog'
     | '/cmt'
     | '/contact'
     | '/github'
@@ -230,6 +251,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/receipt'
+    | '/apps/terminal'
     | '/apps/typewriter'
     | '/blog/$slug'
     | '/apps'
@@ -239,6 +261,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/api'
+    | '/changelog'
     | '/cmt'
     | '/contact'
     | '/github'
@@ -251,6 +274,7 @@ export interface FileRouteTypes {
     | '/timeline'
     | '/uses'
     | '/apps/receipt'
+    | '/apps/terminal'
     | '/apps/typewriter'
     | '/blog/$slug'
     | '/apps/'
@@ -261,6 +285,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   ApiRoute: typeof ApiRoute
+  ChangelogRoute: typeof ChangelogRoute
   CmtRoute: typeof CmtRoute
   ContactRoute: typeof ContactRoute
   GithubRoute: typeof GithubRoute
@@ -273,6 +298,7 @@ export interface RootRouteChildren {
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
+  AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   BlogSlugRoute: typeof BlogSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
@@ -358,6 +384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CmtRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/changelog': {
+      id: '/changelog'
+      path: '/changelog'
+      fullPath: '/changelog'
+      preLoaderRoute: typeof ChangelogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api': {
       id: '/api'
       path: '/api'
@@ -407,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsTypewriterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/terminal': {
+      id: '/apps/terminal'
+      path: '/apps/terminal'
+      fullPath: '/apps/terminal'
+      preLoaderRoute: typeof AppsTerminalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/receipt': {
       id: '/apps/receipt'
       path: '/apps/receipt'
@@ -421,6 +461,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   ApiRoute: ApiRoute,
+  ChangelogRoute: ChangelogRoute,
   CmtRoute: CmtRoute,
   ContactRoute: ContactRoute,
   GithubRoute: GithubRoute,
@@ -433,6 +474,7 @@ const rootRouteChildren: RootRouteChildren = {
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
   AppsReceiptRoute: AppsReceiptRoute,
+  AppsTerminalRoute: AppsTerminalRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   BlogSlugRoute: BlogSlugRoute,
   AppsIndexRoute: AppsIndexRoute,
