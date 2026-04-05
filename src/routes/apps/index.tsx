@@ -24,6 +24,7 @@ import ColorsPreview from "../../components/apps/colors/ColorsPreview";
 import RegexPreview from "../../components/apps/regex/RegexPreview";
 import MarkdownPreview from "../../components/apps/markdown/MarkdownPreview";
 import GradientPreview from "../../components/apps/gradient/GradientPreview";
+import KanbanPreview from "../../components/apps/kanban/KanbanPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -43,6 +44,7 @@ const newAppPaths = new Set([
   "/apps/regex",
   "/apps/colors",
   "/apps/encode",
+  "/apps/kanban",
 ]);
 
 const categories: {
@@ -115,6 +117,13 @@ const categories: {
         description:
           "Test your typing speed with programming passages. Track WPM, accuracy, and beat your best score.",
         preview: <TypingTestPreview />,
+      },
+      {
+        to: "/apps/kanban",
+        title: "Kanban Board",
+        description:
+          "Drag-and-drop sticky note Kanban board. Organize tasks across columns with pastel cards.",
+        preview: <KanbanPreview />,
       },
     ],
   },

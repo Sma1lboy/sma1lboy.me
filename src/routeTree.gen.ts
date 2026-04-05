@@ -38,6 +38,7 @@ import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
+import { Route as AppsKanbanRouteImport } from './routes/apps/kanban'
 import { Route as AppsJsonRouteImport } from './routes/apps/json'
 import { Route as AppsGradientRouteImport } from './routes/apps/gradient'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
@@ -192,6 +193,11 @@ const AppsLifeRoute = AppsLifeRouteImport.update({
   path: '/apps/life',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/life.lazy').then((d) => d.Route))
+const AppsKanbanRoute = AppsKanbanRouteImport.update({
+  id: '/apps/kanban',
+  path: '/apps/kanban',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/kanban.lazy').then((d) => d.Route))
 const AppsJsonRoute = AppsJsonRouteImport.update({
   id: '/apps/json',
   path: '/apps/json',
@@ -248,6 +254,7 @@ export interface FileRoutesByFullPath {
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/json': typeof AppsJsonRoute
+  '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
@@ -285,6 +292,7 @@ export interface FileRoutesByTo {
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/json': typeof AppsJsonRoute
+  '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
@@ -323,6 +331,7 @@ export interface FileRoutesById {
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
   '/apps/json': typeof AppsJsonRoute
+  '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
@@ -362,6 +371,7 @@ export interface FileRouteTypes {
     | '/apps/encode'
     | '/apps/gradient'
     | '/apps/json'
+    | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
     | '/apps/pomodoro'
@@ -399,6 +409,7 @@ export interface FileRouteTypes {
     | '/apps/encode'
     | '/apps/gradient'
     | '/apps/json'
+    | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
     | '/apps/pomodoro'
@@ -436,6 +447,7 @@ export interface FileRouteTypes {
     | '/apps/encode'
     | '/apps/gradient'
     | '/apps/json'
+    | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
     | '/apps/pomodoro'
@@ -474,6 +486,7 @@ export interface RootRouteChildren {
   AppsEncodeRoute: typeof AppsEncodeRoute
   AppsGradientRoute: typeof AppsGradientRoute
   AppsJsonRoute: typeof AppsJsonRoute
+  AppsKanbanRoute: typeof AppsKanbanRoute
   AppsLifeRoute: typeof AppsLifeRoute
   AppsMarkdownRoute: typeof AppsMarkdownRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
@@ -692,6 +705,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsLifeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/kanban': {
+      id: '/apps/kanban'
+      path: '/apps/kanban'
+      fullPath: '/apps/kanban'
+      preLoaderRoute: typeof AppsKanbanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/json': {
       id: '/apps/json'
       path: '/apps/json'
@@ -762,6 +782,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsEncodeRoute: AppsEncodeRoute,
   AppsGradientRoute: AppsGradientRoute,
   AppsJsonRoute: AppsJsonRoute,
+  AppsKanbanRoute: AppsKanbanRoute,
   AppsLifeRoute: AppsLifeRoute,
   AppsMarkdownRoute: AppsMarkdownRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
