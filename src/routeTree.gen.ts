@@ -41,6 +41,7 @@ import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
 import { Route as AppsKanbanRouteImport } from './routes/apps/kanban'
 import { Route as AppsJsonRouteImport } from './routes/apps/json'
+import { Route as AppsHashRouteImport } from './routes/apps/hash'
 import { Route as AppsGradientRouteImport } from './routes/apps/gradient'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
@@ -210,6 +211,11 @@ const AppsJsonRoute = AppsJsonRouteImport.update({
   path: '/apps/json',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/json.lazy').then((d) => d.Route))
+const AppsHashRoute = AppsHashRouteImport.update({
+  id: '/apps/hash',
+  path: '/apps/hash',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/hash.lazy').then((d) => d.Route))
 const AppsGradientRoute = AppsGradientRouteImport.update({
   id: '/apps/gradient',
   path: '/apps/gradient',
@@ -266,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/apps/diff': typeof AppsDiffRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
+  '/apps/hash': typeof AppsHashRoute
   '/apps/json': typeof AppsJsonRoute
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
@@ -306,6 +313,7 @@ export interface FileRoutesByTo {
   '/apps/diff': typeof AppsDiffRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
+  '/apps/hash': typeof AppsHashRoute
   '/apps/json': typeof AppsJsonRoute
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
@@ -347,6 +355,7 @@ export interface FileRoutesById {
   '/apps/diff': typeof AppsDiffRoute
   '/apps/encode': typeof AppsEncodeRoute
   '/apps/gradient': typeof AppsGradientRoute
+  '/apps/hash': typeof AppsHashRoute
   '/apps/json': typeof AppsJsonRoute
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
@@ -389,6 +398,7 @@ export interface FileRouteTypes {
     | '/apps/diff'
     | '/apps/encode'
     | '/apps/gradient'
+    | '/apps/hash'
     | '/apps/json'
     | '/apps/kanban'
     | '/apps/life'
@@ -429,6 +439,7 @@ export interface FileRouteTypes {
     | '/apps/diff'
     | '/apps/encode'
     | '/apps/gradient'
+    | '/apps/hash'
     | '/apps/json'
     | '/apps/kanban'
     | '/apps/life'
@@ -469,6 +480,7 @@ export interface FileRouteTypes {
     | '/apps/diff'
     | '/apps/encode'
     | '/apps/gradient'
+    | '/apps/hash'
     | '/apps/json'
     | '/apps/kanban'
     | '/apps/life'
@@ -510,6 +522,7 @@ export interface RootRouteChildren {
   AppsDiffRoute: typeof AppsDiffRoute
   AppsEncodeRoute: typeof AppsEncodeRoute
   AppsGradientRoute: typeof AppsGradientRoute
+  AppsHashRoute: typeof AppsHashRoute
   AppsJsonRoute: typeof AppsJsonRoute
   AppsKanbanRoute: typeof AppsKanbanRoute
   AppsLifeRoute: typeof AppsLifeRoute
@@ -752,6 +765,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsJsonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/hash': {
+      id: '/apps/hash'
+      path: '/apps/hash'
+      fullPath: '/apps/hash'
+      preLoaderRoute: typeof AppsHashRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/gradient': {
       id: '/apps/gradient'
       path: '/apps/gradient'
@@ -822,6 +842,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsDiffRoute: AppsDiffRoute,
   AppsEncodeRoute: AppsEncodeRoute,
   AppsGradientRoute: AppsGradientRoute,
+  AppsHashRoute: AppsHashRoute,
   AppsJsonRoute: AppsJsonRoute,
   AppsKanbanRoute: AppsKanbanRoute,
   AppsLifeRoute: AppsLifeRoute,

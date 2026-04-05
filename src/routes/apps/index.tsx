@@ -27,6 +27,7 @@ import GradientPreview from "../../components/apps/gradient/GradientPreview";
 import KanbanPreview from "../../components/apps/kanban/KanbanPreview";
 import WidgetPreview from "../../components/apps/widget/WidgetPreview";
 import AsciiPreview from "../../components/apps/ascii/AsciiPreview";
+import HashPreview from "../../components/apps/hash/HashPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -49,6 +50,7 @@ const newAppPaths = new Set([
   "/apps/kanban",
   "/apps/widget",
   "/apps/ascii",
+  "/apps/hash",
 ]);
 
 const categories: {
@@ -101,6 +103,13 @@ const categories: {
         description:
           "Create embeddable HTML widgets — GitHub badges, profile cards, and custom counters with live preview.",
         preview: <WidgetPreview />,
+      },
+      {
+        to: "/apps/hash",
+        title: "Hash Generator",
+        description:
+          "Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from text or files. Compare and verify hashes.",
+        preview: <HashPreview />,
       },
     ],
   },
