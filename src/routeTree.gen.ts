@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as GithubRouteImport } from './routes/github'
 import { Route as CmtRouteImport } from './routes/cmt'
 import { Route as ApiRouteImport } from './routes/api'
 import { Route as SplatRouteImport } from './routes/$'
@@ -37,6 +38,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/profile.lazy').then((d) => d.Route))
+const GithubRoute = GithubRouteImport.update({
+  id: '/github',
+  path: '/github',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/github.lazy').then((d) => d.Route))
 const CmtRoute = CmtRouteImport.update({
   id: '/cmt',
   path: '/cmt',
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
+  '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/resume': typeof ResumeRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
+  '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/resume': typeof ResumeRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
+  '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
   '/resume': typeof ResumeRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/api'
     | '/cmt'
+    | '/github'
     | '/profile'
     | '/projects'
     | '/resume'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/api'
     | '/cmt'
+    | '/github'
     | '/profile'
     | '/projects'
     | '/resume'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/api'
     | '/cmt'
+    | '/github'
     | '/profile'
     | '/projects'
     | '/resume'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   ApiRoute: typeof ApiRoute
   CmtRoute: typeof CmtRoute
+  GithubRoute: typeof GithubRoute
   ProfileRoute: typeof ProfileRoute
   ProjectsRoute: typeof ProjectsRoute
   ResumeRoute: typeof ResumeRoute
@@ -209,6 +222,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/github': {
+      id: '/github'
+      path: '/github'
+      fullPath: '/github'
+      preLoaderRoute: typeof GithubRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cmt': {
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   ApiRoute: ApiRoute,
   CmtRoute: CmtRoute,
+  GithubRoute: GithubRoute,
   ProfileRoute: ProfileRoute,
   ProjectsRoute: ProjectsRoute,
   ResumeRoute: ResumeRoute,

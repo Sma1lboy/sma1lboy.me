@@ -92,6 +92,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
         </DockIcon>
 
         <DockIcon
+          label="GitHub Activity"
+          onClick={() => navigate({ to: "/github" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <Activity
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
           label="Portfolio"
           onClick={() => navigate({ to: "/projects" })}
           className={`touch-manipulation ${inactiveClass}`}
