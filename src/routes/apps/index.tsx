@@ -1,8 +1,8 @@
 import { useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { RouteErrorBoundary } from "@/components/ErrorBoundary";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import {
-  ArrowLeft,
   FlaskConical,
   Search,
   X,
@@ -256,13 +256,7 @@ function AppsIndex() {
       <div className="container mx-auto px-6 py-10 sm:px-8 sm:py-14">
         {/* Header */}
         <div className="mb-8">
-          <Link
-            to="/"
-            className="mb-6 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back
-          </Link>
+          <Breadcrumbs />
           <div className="flex items-center gap-3">
             <FlaskConical
               size={28}

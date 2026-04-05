@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Pause, Play, SkipForward, Trash2, Shuffle } from "lucide-react";
+import { Pause, Play, SkipForward, Trash2, Shuffle } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const CELL_SIZE = 14;
 const GRID_LINE = 1;
@@ -340,15 +340,9 @@ export default function Life() {
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-white dark:bg-black">
-      {/* Back link */}
+      {/* Breadcrumbs */}
       <div className="fixed left-6 top-6 z-10">
-        <Link
-          to="/apps"
-          className="inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-        >
-          <ArrowLeft size={14} />
-          Back
-        </Link>
+        <Breadcrumbs />
       </div>
 
       {/* Canvas */}

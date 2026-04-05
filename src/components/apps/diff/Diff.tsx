@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 import { diffLines, type DiffLine } from "@/lib/diff";
 
@@ -47,13 +46,7 @@ export default function Diff() {
       <div className="container mx-auto px-4 py-8 sm:px-6">
         {/* Header */}
         <div className="mb-6">
-          <Link
-            to="/apps"
-            className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back
-          </Link>
+          <Breadcrumbs />
           <h1 className="text-2xl font-bold tracking-tight text-gray-100">
             Code Diff Viewer
           </h1>

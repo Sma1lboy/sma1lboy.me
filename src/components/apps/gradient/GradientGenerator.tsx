@@ -1,13 +1,12 @@
 import { useState, useCallback, useMemo } from "react";
-import { Link } from "@tanstack/react-router";
 import {
-  ArrowLeft,
   Copy,
   Check,
   Plus,
   Trash2,
   RotateCcw,
 } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 
 // ---------------------------------------------------------------------------
@@ -256,13 +255,7 @@ export default function GradientGenerator() {
       <div className="container mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <Link
-            to="/apps"
-            className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back to Apps
-          </Link>
+          <Breadcrumbs />
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
               CSS Gradient Generator

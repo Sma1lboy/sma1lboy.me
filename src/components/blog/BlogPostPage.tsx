@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts, getBlogPost } from "../../constants/blog";
 import { useSEO } from "@/hooks/useSEO";
 import MarkdownRenderer from "./MarkdownRenderer";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -47,20 +48,7 @@ export default function BlogPostPage() {
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100">
       <div className="mx-auto max-w-2xl px-6 py-12 sm:py-20">
-        {/* Back */}
-        <motion.div
-          initial={{ opacity: 0, x: -8 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Link
-            to="/blog"
-            className="mb-10 inline-flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300"
-          >
-            <ArrowLeft size={14} />
-            Writing
-          </Link>
-        </motion.div>
+        <Breadcrumbs lastLabel={post.title} />
 
         {/* Article header */}
         <motion.header

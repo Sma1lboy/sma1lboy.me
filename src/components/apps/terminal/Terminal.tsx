@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 
 interface OutputLine {
@@ -325,13 +324,7 @@ export default function Terminal() {
     <div className="min-h-screen bg-black p-4 sm:p-8">
       <div className="mx-auto max-w-4xl">
         {/* Back button */}
-        <Link
-          to="/apps"
-          className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-300"
-        >
-          <ArrowLeft size={14} />
-          Back to Lab
-        </Link>
+        <Breadcrumbs />
 
         {/* Terminal window */}
         <motion.div

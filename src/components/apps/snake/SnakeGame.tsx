@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft, Play, RotateCcw, Trophy } from "lucide-react";
+import { Play, RotateCcw, Trophy } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 const CELL_SIZE = 20;
 const INITIAL_SPEED = 150;
@@ -376,14 +376,9 @@ export default function SnakeGame() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6 flex items-center gap-3"
+          className="mb-6"
         >
-          <Link
-            to="/apps"
-            className="rounded-lg p-2 transition-colors hover:bg-neutral-800"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
+          <Breadcrumbs />
           <h1 className="text-2xl font-bold">Snake</h1>
         </motion.div>
 

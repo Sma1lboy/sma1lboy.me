@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
 import {
-  ArrowLeft,
   Bold,
   Italic,
   Heading1,
@@ -14,6 +12,7 @@ import {
   FileText,
 } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import MarkdownRenderer from "@/components/blog/MarkdownRenderer";
 
 const STORAGE_KEY = "markdown-editor-content";
@@ -242,13 +241,7 @@ ${previewEl.innerHTML}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Header */}
         <div className="mb-6">
-          <Link
-            to="/apps"
-            className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back to Apps
-          </Link>
+          <Breadcrumbs />
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <FileText

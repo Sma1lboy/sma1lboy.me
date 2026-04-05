@@ -1,8 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  ArrowLeft,
   Copy,
   Check,
   Code2,
@@ -10,6 +8,7 @@ import {
   Hash,
   Star,
 } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 
 // ---------------------------------------------------------------------------
@@ -466,13 +465,7 @@ export default function WidgetGenerator() {
       <div className="container mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <Link
-            to="/apps"
-            className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back to Apps
-          </Link>
+          <Breadcrumbs />
           <div className="flex items-center gap-3">
             <Code2
               size={24}

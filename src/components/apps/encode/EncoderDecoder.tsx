@@ -1,13 +1,12 @@
 import { useState, useMemo, useCallback } from "react";
-import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft,
   Copy,
   Check,
   ArrowRightLeft,
   Lock,
 } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useSEO } from "@/hooks/useSEO";
 
 // --- Helpers ---
@@ -174,13 +173,7 @@ export default function EncoderDecoder() {
       <div className="container mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <Link
-            to="/apps"
-            className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back
-          </Link>
+          <Breadcrumbs />
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
             Encoder / Decoder
           </h1>

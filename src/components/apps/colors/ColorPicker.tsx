@@ -1,8 +1,6 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft,
   Copy,
   Check,
   Trash2,
@@ -11,6 +9,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import {
   clamp,
   hsvToRgb,
@@ -521,13 +520,7 @@ export default function ColorPicker() {
       <div className="container mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
         {/* Header */}
         <div className="mb-8">
-          <Link
-            to="/apps"
-            className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <ArrowLeft size={14} />
-            Back
-          </Link>
+          <Breadcrumbs />
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
             Color Picker & Palette Generator
           </h1>

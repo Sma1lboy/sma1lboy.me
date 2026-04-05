@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, RotateCcw, Timer, Trophy, Zap } from "lucide-react";
+import { RotateCcw, Timer, Trophy, Zap } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 
 // --- Passages ---
 
@@ -229,14 +229,7 @@ export default function TypingTest() {
   return (
     <div className="min-h-screen bg-white dark:bg-black p-4 sm:p-8">
       <div className="mx-auto max-w-3xl">
-        {/* Back button */}
-        <Link
-          to="/apps"
-          className="mb-4 inline-flex items-center gap-1.5 text-sm text-gray-500 transition-colors hover:text-gray-800 dark:hover:text-gray-300"
-        >
-          <ArrowLeft size={14} />
-          Back to Lab
-        </Link>
+        <Breadcrumbs />
 
         <AnimatePresence mode="wait">
           {/* --- READY STATE --- */}
