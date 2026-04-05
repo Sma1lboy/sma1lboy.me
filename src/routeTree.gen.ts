@@ -42,6 +42,7 @@ import { Route as AppsSnakeRouteImport } from './routes/apps/snake'
 import { Route as AppsShadowRouteImport } from './routes/apps/shadow'
 import { Route as AppsRegexRouteImport } from './routes/apps/regex'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
+import { Route as AppsRadiusRouteImport } from './routes/apps/radius'
 import { Route as AppsQrRouteImport } from './routes/apps/qr'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsPixelRouteImport } from './routes/apps/pixel'
@@ -233,6 +234,11 @@ const AppsReceiptRoute = AppsReceiptRouteImport.update({
   path: '/apps/receipt',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/receipt.lazy').then((d) => d.Route))
+const AppsRadiusRoute = AppsRadiusRouteImport.update({
+  id: '/apps/radius',
+  path: '/apps/radius',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/radius.lazy').then((d) => d.Route))
 const AppsQrRoute = AppsQrRouteImport.update({
   id: '/apps/qr',
   path: '/apps/qr',
@@ -393,6 +399,7 @@ export interface FileRoutesByFullPath {
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
+  '/apps/radius': typeof AppsRadiusRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
   '/apps/shadow': typeof AppsShadowRoute
@@ -451,6 +458,7 @@ export interface FileRoutesByTo {
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
+  '/apps/radius': typeof AppsRadiusRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
   '/apps/shadow': typeof AppsShadowRoute
@@ -510,6 +518,7 @@ export interface FileRoutesById {
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
+  '/apps/radius': typeof AppsRadiusRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
   '/apps/shadow': typeof AppsShadowRoute
@@ -570,6 +579,7 @@ export interface FileRouteTypes {
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
+    | '/apps/radius'
     | '/apps/receipt'
     | '/apps/regex'
     | '/apps/shadow'
@@ -628,6 +638,7 @@ export interface FileRouteTypes {
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
+    | '/apps/radius'
     | '/apps/receipt'
     | '/apps/regex'
     | '/apps/shadow'
@@ -686,6 +697,7 @@ export interface FileRouteTypes {
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
+    | '/apps/radius'
     | '/apps/receipt'
     | '/apps/regex'
     | '/apps/shadow'
@@ -745,6 +757,7 @@ export interface RootRouteChildren {
   AppsPixelRoute: typeof AppsPixelRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsQrRoute: typeof AppsQrRoute
+  AppsRadiusRoute: typeof AppsRadiusRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsRegexRoute: typeof AppsRegexRoute
   AppsShadowRoute: typeof AppsShadowRoute
@@ -995,6 +1008,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsReceiptRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/radius': {
+      id: '/apps/radius'
+      path: '/apps/radius'
+      fullPath: '/apps/radius'
+      preLoaderRoute: typeof AppsRadiusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/qr': {
       id: '/apps/qr'
       path: '/apps/qr'
@@ -1201,6 +1221,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsPixelRoute: AppsPixelRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsQrRoute: AppsQrRoute,
+  AppsRadiusRoute: AppsRadiusRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsRegexRoute: AppsRegexRoute,
   AppsShadowRoute: AppsShadowRoute,

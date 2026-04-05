@@ -44,6 +44,7 @@ import CronPreview from "../../components/apps/cron/CronPreview";
 import EpochPreview from "../../components/apps/epoch/EpochPreview";
 import NetworkPreview from "../../components/apps/network/NetworkPreview";
 import ShadowPreview from "../../components/apps/shadow/ShadowPreview";
+import RadiusPreview from "../../components/apps/radius/RadiusPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -83,6 +84,7 @@ const newAppPaths = new Set([
   "/apps/epoch",
   "/apps/network",
   "/apps/shadow",
+  "/apps/radius",
 ]);
 
 const categories: {
@@ -321,6 +323,13 @@ const categories: {
         description:
           "Create CSS box shadows with sliders for offset, blur, spread, color, and opacity. Multiple layers, presets, and copy-ready CSS output.",
         preview: <ShadowPreview />,
+      },
+      {
+        to: "/apps/radius",
+        title: "Border Radius Generator",
+        description:
+          "Create CSS border-radius with 4 corner sliders, link/unlink, live preview, px/% toggle, advanced 8-value mode, and presets.",
+        preview: <RadiusPreview />,
       },
       {
         to: "/apps/ascii",
