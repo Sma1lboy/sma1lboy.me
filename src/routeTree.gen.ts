@@ -35,6 +35,7 @@ import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
+import { Route as AppsJsonRouteImport } from './routes/apps/json'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
 
@@ -170,6 +171,11 @@ const AppsLifeRoute = AppsLifeRouteImport.update({
   path: '/apps/life',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/life.lazy').then((d) => d.Route))
+const AppsJsonRoute = AppsJsonRouteImport.update({
+  id: '/apps/json',
+  path: '/apps/json',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/json.lazy').then((d) => d.Route))
 const AppsDiffRoute = AppsDiffRouteImport.update({
   id: '/apps/diff',
   path: '/apps/diff',
@@ -201,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/diff': typeof AppsDiffRoute
+  '/apps/json': typeof AppsJsonRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -231,6 +238,7 @@ export interface FileRoutesByTo {
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/diff': typeof AppsDiffRoute
+  '/apps/json': typeof AppsJsonRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -262,6 +270,7 @@ export interface FileRoutesById {
   '/uses': typeof UsesRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/diff': typeof AppsDiffRoute
+  '/apps/json': typeof AppsJsonRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -294,6 +303,7 @@ export interface FileRouteTypes {
     | '/uses'
     | '/apps/chat'
     | '/apps/diff'
+    | '/apps/json'
     | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/uses'
     | '/apps/chat'
     | '/apps/diff'
+    | '/apps/json'
     | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
@@ -354,6 +365,7 @@ export interface FileRouteTypes {
     | '/uses'
     | '/apps/chat'
     | '/apps/diff'
+    | '/apps/json'
     | '/apps/life'
     | '/apps/pomodoro'
     | '/apps/receipt'
@@ -385,6 +397,7 @@ export interface RootRouteChildren {
   UsesRoute: typeof UsesRoute
   AppsChatRoute: typeof AppsChatRoute
   AppsDiffRoute: typeof AppsDiffRoute
+  AppsJsonRoute: typeof AppsJsonRoute
   AppsLifeRoute: typeof AppsLifeRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
@@ -580,6 +593,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsLifeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/json': {
+      id: '/apps/json'
+      path: '/apps/json'
+      fullPath: '/apps/json'
+      preLoaderRoute: typeof AppsJsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/diff': {
       id: '/apps/diff'
       path: '/apps/diff'
@@ -617,6 +637,7 @@ const rootRouteChildren: RootRouteChildren = {
   UsesRoute: UsesRoute,
   AppsChatRoute: AppsChatRoute,
   AppsDiffRoute: AppsDiffRoute,
+  AppsJsonRoute: AppsJsonRoute,
   AppsLifeRoute: AppsLifeRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsReceiptRoute: AppsReceiptRoute,

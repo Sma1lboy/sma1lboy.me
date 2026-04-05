@@ -8,6 +8,7 @@ import PomodoroPreview from "../../components/apps/pomodoro/PomodoroPreview";
 import ChatPreview from "../../components/apps/chat/ChatPreview";
 import LifePreview from "../../components/apps/life/LifePreview";
 import DiffPreview from "../../components/apps/diff/DiffPreview";
+import JsonPreview from "../../components/apps/json/JsonPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -69,6 +70,13 @@ const experiments = [
     description:
       "Compare code side-by-side with visual diffs. GitHub-style additions and deletions.",
     preview: <DiffPreview />,
+  },
+  {
+    to: "/apps/json" as const,
+    title: "JSON Formatter",
+    description:
+      "Format, validate, and explore JSON with syntax highlighting, tree view, and byte size comparison.",
+    preview: <JsonPreview />,
   },
 ];
 
