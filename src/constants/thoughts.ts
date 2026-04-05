@@ -5,6 +5,8 @@ export interface Thought {
   content: string;
   /** ISO date string, e.g. "2026-03-23" */
   date: string;
+  /** Content type — affects visual rendering in Home3 */
+  type?: "thought" | "quote" | "milestone" | "update";
   /** Optional tags for categorization */
   tags?: string[];
   /** Optional mood/emoji indicator */
@@ -17,4 +19,4 @@ export interface Thought {
  *
  * JSON API: GET /api/thoughts.json
  */
-export const thoughts: Thought[] = thoughtsData;
+export const thoughts: Thought[] = thoughtsData as Thought[];

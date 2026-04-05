@@ -25,7 +25,7 @@ export function Home3() {
       <div className="hidden md:block" style={{ width: "1px", backgroundColor: "#1a1a1a" }} />
 
       {/* Right — image gallery */}
-      <div className="w-full md:min-h-0 md:w-[350px] md:shrink-0 md:overflow-y-auto">
+      <div className="w-full md:min-h-0 md:w-[420px] md:shrink-0 md:overflow-y-auto">
         <ImageGallery />
       </div>
     </div>

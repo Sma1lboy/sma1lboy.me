@@ -11,12 +11,12 @@ const galleryImages = [
 export function ImageGallery() {
   return (
     <motion.div
-      className="p-6 md:p-8"
+      className="p-4 md:p-6"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      <div className="space-y-6">
+      <div className="space-y-4">
         {galleryImages.map((image, i) => (
           <motion.figure
             key={image.src}

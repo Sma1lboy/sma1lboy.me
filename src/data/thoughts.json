@@ -1,8 +1,49 @@
 [
   {
+    "id": "15",
+    "content": "New site variant live — three-column terminal layout inspired by DANY.",
+    "date": "2026-04-03",
+    "type": "update",
+    "tags": ["meta", "ship"],
+    "mood": "🚀"
+  },
+  {
+    "id": "14",
+    "content": "Exploring WebGPU for browser-based ML inference. Early experiments are promising — ran a small transformer entirely client-side.",
+    "date": "2026-03-30",
+    "type": "update",
+    "tags": ["research", "ai"],
+    "mood": "🔬"
+  },
+  {
+    "id": "8",
+    "content": "The gap between 'demo' and 'production' in AI products is where most startups die. It's not the model — it's the 10,000 edge cases around the model.",
+    "date": "2026-04-01",
+    "type": "thought",
+    "tags": ["ai", "thinking"],
+    "mood": "🧠"
+  },
+  {
+    "id": "6",
+    "content": "Working on distributed systems at TikTok scale changes how you think about everything. When your 'edge case' affects 50 million users, there are no edge cases.",
+    "date": "2026-03-28",
+    "type": "thought",
+    "tags": ["work", "systems"],
+    "mood": "⚡"
+  },
+  {
+    "id": "5",
+    "content": "Rust's ownership model rewired how I think about state management everywhere. Even in TypeScript now, I instinctively think about who 'owns' a piece of data.",
+    "date": "2026-03-25",
+    "type": "thought",
+    "tags": ["rust", "thinking"],
+    "mood": "🦀"
+  },
+  {
     "id": "4",
     "content": "刚给网站加了 3D Receipt 物理模拟，Verlet integration 写起来比想象中简单。下一步想试试 soft body。",
     "date": "2026-03-23",
+    "type": "thought",
     "tags": ["dev", "physics"],
     "mood": "🔬"
   },
@@ -10,6 +51,7 @@
     "id": "3",
     "content": "AI coding 的核心不是让 AI 写代码，是让 AI 理解你的 codebase context 然后做出符合整体架构的决策。",
     "date": "2026-03-22",
+    "type": "thought",
     "tags": ["ai", "thinking"],
     "mood": "🧠"
   },
@@ -17,6 +59,7 @@
     "id": "2",
     "content": "好的 DX 就是让开发者忘记工具的存在，直接进入心流。",
     "date": "2026-03-20",
+    "type": "thought",
     "tags": ["dx", "thinking"],
     "mood": "💭"
   },
@@ -24,7 +67,56 @@
     "id": "1",
     "content": "Started building this site. Goal: not just a portfolio, but a living ecosystem that reflects how I think and build.",
     "date": "2026-03-18",
+    "type": "thought",
     "tags": ["meta"],
     "mood": "🚀"
+  },
+  {
+    "id": "7",
+    "content": "GSoC taught me that open source isn't about code — it's about building trust with a community of strangers through consistent, transparent work.",
+    "date": "2026-03-15",
+    "type": "thought",
+    "tags": ["oss", "reflection"],
+    "mood": "🌱"
+  },
+  {
+    "id": "12",
+    "content": "Shipped Pochi v1.0 to production — from prototype to real users.",
+    "date": "2026-03-10",
+    "type": "milestone",
+    "tags": ["ship", "pochi"],
+    "mood": "🎉"
+  },
+  {
+    "id": "13",
+    "content": "tabby hit 31k GitHub stars.",
+    "date": "2026-02-15",
+    "type": "milestone",
+    "tags": ["oss", "tabby"],
+    "mood": "⭐"
+  },
+  {
+    "id": "9",
+    "content": "Make it work, make it right, make it fast. — Kent Beck",
+    "date": "",
+    "type": "quote",
+    "tags": ["engineering"],
+    "mood": "📖"
+  },
+  {
+    "id": "10",
+    "content": "The best code is no code at all.",
+    "date": "",
+    "type": "quote",
+    "tags": ["engineering"],
+    "mood": "📖"
+  },
+  {
+    "id": "11",
+    "content": "Simplicity is the ultimate sophistication. — Leonardo da Vinci",
+    "date": "",
+    "type": "quote",
+    "tags": ["design"],
+    "mood": "📖"
   }
 ]

@@ -8,6 +8,12 @@ function randomNav(navigate: ReturnType<typeof useNavigate>) {
   navigate({ to: route });
 }
 
+const now = [
+  "SDE @ TikTok — distributed systems",
+  "building pochi — AI coding teammate",
+  "open source — tabby, codefox",
+];
+
 const artifacts = [
   { label: "codefox", id: "codefox" },
   { label: "tabby", id: "tabby" },
@@ -19,6 +25,8 @@ const labs = [
   { label: "receipt", id: "receipt" },
   { label: "typewriter", id: "typewriter" },
 ];
+
+const stack = ["typescript", "rust", "react", "python", "java", "postgres"];
 
 const socials = [
   { label: "x.com", href: "https://x.com/sma1lboy" },
@@ -44,6 +52,26 @@ export function Sidebar() {
           Full-stack dev. CS @ UW-Madison. Building AI tooling and open-source at TikTok. GSoC
           alumnus.
         </p>
+      </div>
+
+      <div>
+        <h2
+          className="text-[11px] uppercase tracking-[0.2em]"
+          style={{ color: "#666666" }}
+        >
+          Now
+        </h2>
+        <ul className="mt-3 space-y-2">
+          {now.map((item) => (
+            <li
+              key={item}
+              className="text-[13px]"
+              style={{ color: "#b0b0b0" }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div>
@@ -89,6 +117,26 @@ export function Sidebar() {
               >
                 {item.label}
               </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h2
+          className="text-[11px] uppercase tracking-[0.2em]"
+          style={{ color: "#666666" }}
+        >
+          Stack
+        </h2>
+        <ul className="mt-3 space-y-2">
+          {stack.map((item) => (
+            <li
+              key={item}
+              className="text-[13px]"
+              style={{ color: "#b0b0b0" }}
+            >
+              {item}
             </li>
           ))}
         </ul>
