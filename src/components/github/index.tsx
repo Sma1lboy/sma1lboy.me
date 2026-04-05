@@ -15,7 +15,7 @@ const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
 // --- Color helpers ---
 
-const CONTRIBUTION_COLORS = [
+const CONTRIBUTION_COLORS_DARK = [
   "bg-neutral-800", // 0
   "bg-emerald-900", // 1-2
   "bg-emerald-700", // 3-5
@@ -23,12 +23,17 @@ const CONTRIBUTION_COLORS = [
   "bg-emerald-400", // 9+
 ] as const;
 
+const CONTRIBUTION_COLORS_LIGHT = [
+  "bg-gray-200", // 0
+  "bg-emerald-200", // 1-2
+  "bg-emerald-300", // 3-5
+  "bg-emerald-400", // 6-8
+  "bg-emerald-500", // 9+
+] as const;
+
 function getContributionColor(count: number) {
-  if (count === 0) return CONTRIBUTION_COLORS[0];
-  if (count <= 2) return CONTRIBUTION_COLORS[1];
-  if (count <= 5) return CONTRIBUTION_COLORS[2];
-  if (count <= 8) return CONTRIBUTION_COLORS[3];
-  return CONTRIBUTION_COLORS[4];
+  const idx = count === 0 ? 0 : count <= 2 ? 1 : count <= 5 ? 2 : count <= 8 ? 3 : 4;
+  return `${CONTRIBUTION_COLORS_LIGHT[idx]} dark:${CONTRIBUTION_COLORS_DARK[idx]}`;
 }
 
 const LANGUAGE_COLORS: Record<string, string> = {
@@ -74,10 +79,10 @@ function relativeTime(dateStr: string) {
 function SkeletonHeatmap() {
   return (
     <div className="space-y-3">
-      <div className="h-5 w-32 animate-pulse rounded bg-neutral-800" />
+      <div className="h-5 w-32 animate-pulse rounded bg-gray-200 dark:bg-neutral-800" />
       <div className="grid grid-cols-[repeat(53,1fr)] gap-[3px]">
         {Array.from({ length: 53 * 7 }).map((_, i) => (
-          <div key={i} className="aspect-square animate-pulse rounded-sm bg-neutral-800" />
+          <div key={i} className="aspect-square animate-pulse rounded-sm bg-gray-200 dark:bg-neutral-800" />
         ))}
       </div>
     </div>
@@ -88,9 +93,9 @@ function SkeletonStats() {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="animate-pulse rounded-xl border border-white/10 bg-neutral-900 p-5">
-          <div className="mb-2 h-4 w-20 rounded bg-neutral-800" />
-          <div className="h-8 w-16 rounded bg-neutral-800" />
+        <div key={i} className="animate-pulse rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900">
+          <div className="mb-2 h-4 w-20 rounded bg-gray-200 dark:bg-neutral-800" />
+          <div className="h-8 w-16 rounded bg-gray-200 dark:bg-neutral-800" />
         </div>
       ))}
     </div>
@@ -103,13 +108,13 @@ function SkeletonRepoList() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="animate-pulse rounded-xl border border-white/10 bg-neutral-900 p-5"
+          className="animate-pulse rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
         >
-          <div className="mb-2 h-5 w-40 rounded bg-neutral-800" />
-          <div className="mb-3 h-4 w-full rounded bg-neutral-800" />
+          <div className="mb-2 h-5 w-40 rounded bg-gray-200 dark:bg-neutral-800" />
+          <div className="mb-3 h-4 w-full rounded bg-gray-200 dark:bg-neutral-800" />
           <div className="flex gap-4">
-            <div className="h-4 w-16 rounded bg-neutral-800" />
-            <div className="h-4 w-12 rounded bg-neutral-800" />
+            <div className="h-4 w-16 rounded bg-gray-200 dark:bg-neutral-800" />
+            <div className="h-4 w-12 rounded bg-gray-200 dark:bg-neutral-800" />
           </div>
         </div>
       ))}
@@ -127,7 +132,7 @@ export default function GitHubActivityPage() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-gray-100">
+    <div className="min-h-screen bg-white text-gray-900 transition-colors duration-300 dark:bg-neutral-950 dark:text-gray-100">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
         {/* Back link */}
         <motion.div
@@ -137,7 +142,7 @@ export default function GitHubActivityPage() {
         >
           <Link
             to="/"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white"
+            className="mb-8 inline-flex items-center gap-2 text-sm text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
           >
             <ArrowLeft size={16} />
             Back
@@ -152,7 +157,7 @@ export default function GitHubActivityPage() {
           transition={{ duration: 0.5, ease }}
         >
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">GitHub Activity</h1>
-          <p className="mt-2 text-gray-400">Open source contributions and activity</p>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Open source contributions and activity</p>
         </motion.div>
 
         {/* Stats */}
@@ -172,7 +177,7 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease }}
         >
-          <h2 className="mb-4 text-lg font-semibold text-gray-200">Contributions</h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">Contributions</h2>
           {loading ? <SkeletonHeatmap /> : <ContributionHeatmap contributions={contributions} />}
         </motion.section>
 
@@ -183,11 +188,11 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3, ease }}
         >
-          <h2 className="mb-4 text-lg font-semibold text-gray-200">Top Languages</h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">Top Languages</h2>
           {loading ? (
             <div className="flex flex-wrap gap-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-8 w-24 animate-pulse rounded-full bg-neutral-800" />
+                <div key={i} className="h-8 w-24 animate-pulse rounded-full bg-gray-200 dark:bg-neutral-800" />
               ))}
             </div>
           ) : (
@@ -201,7 +206,7 @@ export default function GitHubActivityPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4, ease }}
         >
-          <h2 className="mb-4 text-lg font-semibold text-gray-200">Recent Repositories</h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-200">Recent Repositories</h2>
           {loading ? <SkeletonRepoList /> : <RepoActivityFeed repos={repos} />}
         </motion.section>
       </div>
@@ -236,13 +241,13 @@ function StatsBar({
       {stats.map((s, i) => (
         <motion.div
           key={s.label}
-          className="rounded-xl border border-white/10 bg-neutral-900 p-5"
+          className="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease }}
         >
-          <p className="text-xs font-medium uppercase tracking-wider text-gray-400">{s.label}</p>
-          <p className="mt-1 text-2xl font-bold text-emerald-400">
+          <p className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">{s.label}</p>
+          <p className="mt-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400">
             {s.value.toLocaleString()}
           </p>
         </motion.div>
@@ -299,7 +304,7 @@ function ContributionHeatmap({
   const dayLabels = ["", "Mon", "", "Wed", "", "Fri", ""];
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/10 bg-neutral-900 p-4">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-neutral-900">
       {/* Month labels */}
       <div className="mb-1 flex" style={{ paddingLeft: 32 }}>
         {months.map((m, i) => {
@@ -353,8 +358,8 @@ function ContributionHeatmap({
       {/* Legend */}
       <div className="mt-3 flex items-center justify-end gap-1 text-xs text-gray-500">
         <span>Less</span>
-        {CONTRIBUTION_COLORS.map((c, i) => (
-          <div key={i} className={`h-[11px] w-[11px] rounded-sm ${c}`} />
+        {[0, 1, 3, 6, 9].map((count, i) => (
+          <div key={i} className={`h-[11px] w-[11px] rounded-sm ${getContributionColor(count)}`} />
         ))}
         <span>More</span>
       </div>
@@ -398,7 +403,7 @@ function TopLanguages({ repos }: { repos: GitHubRepo[] }) {
         {sorted.map(([lang, count], i) => (
           <motion.span
             key={lang}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-neutral-900 px-3 py-1 text-sm text-gray-300"
+            className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-sm text-gray-700 dark:border-white/10 dark:bg-neutral-900 dark:text-gray-300"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.15 + i * 0.04, ease }}
@@ -433,7 +438,7 @@ function RepoActivityFeed({ repos }: { repos: GitHubRepo[] }) {
           href={repo.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group block rounded-xl border border-white/10 bg-neutral-900 p-5 transition-colors hover:border-emerald-500/30 hover:bg-neutral-900/80"
+          className="group block rounded-xl border border-gray-200 bg-gray-50 p-5 transition-colors hover:border-emerald-400/40 hover:bg-gray-100 dark:border-white/10 dark:bg-neutral-900 dark:hover:border-emerald-500/30 dark:hover:bg-neutral-900/80"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.05 + i * 0.04, ease }}
@@ -441,13 +446,13 @@ function RepoActivityFeed({ repos }: { repos: GitHubRepo[] }) {
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <BookOpen size={14} className="shrink-0 text-emerald-400" />
-                <h3 className="truncate font-semibold text-gray-100 group-hover:text-emerald-400">
+                <BookOpen size={14} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="truncate font-semibold text-gray-900 group-hover:text-emerald-600 dark:text-gray-100 dark:group-hover:text-emerald-400">
                   {repo.name}
                 </h3>
               </div>
               {repo.description && (
-                <p className="mt-1 line-clamp-2 text-sm text-gray-400">{repo.description}</p>
+                <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">{repo.description}</p>
               )}
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-gray-500">
                 {repo.language && (
@@ -472,7 +477,7 @@ function RepoActivityFeed({ repos }: { repos: GitHubRepo[] }) {
             </div>
             <ExternalLink
               size={14}
-              className="shrink-0 text-gray-600 transition-colors group-hover:text-emerald-400"
+              className="shrink-0 text-gray-400 transition-colors group-hover:text-emerald-600 dark:text-gray-600 dark:group-hover:text-emerald-400"
             />
           </div>
         </motion.a>
@@ -483,19 +488,19 @@ function RepoActivityFeed({ repos }: { repos: GitHubRepo[] }) {
 
 function ErrorFallback({ message }: { message: string }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-neutral-950 text-gray-100">
+    <div className="flex min-h-screen items-center justify-center bg-white text-gray-900 dark:bg-neutral-950 dark:text-gray-100">
       <div className="text-center">
-        <p className="mb-4 text-lg text-gray-400">Failed to load GitHub data</p>
-        <p className="mb-6 text-sm text-gray-500">{message}</p>
+        <p className="mb-4 text-lg text-gray-500 dark:text-gray-400">Failed to load GitHub data</p>
+        <p className="mb-6 text-sm text-gray-400 dark:text-gray-500">{message}</p>
         <button
           onClick={() => window.location.reload()}
-          className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-neutral-900 px-4 py-2 text-sm transition-colors hover:bg-neutral-800"
+          className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-sm transition-colors hover:bg-gray-100 dark:border-white/10 dark:bg-neutral-900 dark:hover:bg-neutral-800"
         >
           <RefreshCw size={14} />
           Retry
         </button>
         <div className="mt-4">
-          <Link to="/" className="text-sm text-gray-500 hover:text-white">
+          <Link to="/" className="text-sm text-gray-500 hover:text-gray-900 dark:hover:text-white">
             Back to home
           </Link>
         </div>

@@ -19,9 +19,9 @@ export function ProjectsGallery() {
       : featuredProjects.filter((p) => p.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+    <div className="min-h-screen bg-white transition-colors duration-300 dark:bg-[#0a0a0a]">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md dark:border-[#1a1a1a] dark:bg-[#0a0a0a]/80">
+      <header className="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur-md transition-colors duration-300 dark:border-[#1a1a1a] dark:bg-[#0a0a0a]/80">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-6 py-4">
           <Link
             to="/"
@@ -32,8 +32,7 @@ export function ProjectsGallery() {
           </Link>
           <div className="h-4 w-px bg-gray-200 dark:bg-[#2a2a2a]" />
           <h1
-            className="text-sm font-medium tracking-wide"
-            style={{ color: "#e0e0e0" }}
+            className="text-sm font-medium tracking-wide text-gray-900 dark:text-[#e0e0e0]"
           >
             Projects
           </h1>
@@ -68,8 +67,7 @@ function FeaturedHero({
   return (
     <section className="mb-16">
       <motion.p
-        className="mb-6 flex items-center gap-2 text-[11px] uppercase tracking-[0.2em]"
-        style={{ color: "#666666" }}
+        className="mb-6 flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-gray-500 dark:text-[#666]"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -103,19 +101,15 @@ function FeaturedHero({
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             </div>
 
-            {/* Content overlay */}
+            {/* Content overlay — stays light text on dark gradient regardless of theme */}
             <div className="absolute inset-x-0 bottom-0 p-6">
               <div className="mb-2 flex items-center gap-2">
                 <span
-                  className="rounded-full px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.1)",
-                    color: "#b0b0b0",
-                  }}
+                  className="rounded-full bg-white/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[#b0b0b0]"
                 >
                   {project.category}
                 </span>
-                <span className="text-[11px]" style={{ color: "#666" }}>
+                <span className="text-[11px] text-[#666]">
                   {project.year}
                 </span>
               </div>
@@ -133,11 +127,7 @@ function FeaturedHero({
                 {project.techTags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-md px-2 py-0.5 text-[11px]"
-                    style={{
-                      backgroundColor: "rgba(255,255,255,0.08)",
-                      color: "#999",
-                    }}
+                    className="rounded-md bg-white/[0.08] px-2 py-0.5 text-[11px] text-[#999]"
                   >
                     {tag}
                   </span>
@@ -179,17 +169,17 @@ function FilterBar({
         <button
           key={filter}
           onClick={() => onChange(filter)}
-          className="relative whitespace-nowrap rounded-lg px-4 py-2 text-[13px] font-medium transition-colors hover:cursor-pointer"
-          style={{
-            color: active === filter ? "#e0e0e0" : "#666666",
-          }}
+          className={`relative whitespace-nowrap rounded-lg px-4 py-2 text-[13px] font-medium transition-colors hover:cursor-pointer ${
+            active === filter
+              ? "text-gray-900 dark:text-[#e0e0e0]"
+              : "text-gray-400 dark:text-[#666]"
+          }`}
         >
           <span className="relative z-10">{filter}</span>
           {active === filter && (
             <motion.div
               layoutId="activeFilter"
-              className="absolute inset-0 rounded-lg"
-              style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
+              className="absolute inset-0 rounded-lg bg-gray-100 dark:bg-white/[0.06]"
               transition={{ type: "spring", stiffness: 380, damping: 30 }}
             />
           )}
@@ -235,7 +225,7 @@ function ProjectCard({
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-gray-100 transition-colors dark:border-[#1a1a1a] dark:hover:border-[#2a2a2a]"
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 transition-colors hover:border-gray-300 dark:border-[#1a1a1a] dark:hover:border-[#2a2a2a]"
       initial={{ opacity: 0, y: 20, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.97 }}
@@ -261,21 +251,18 @@ function ProjectCard({
       <div className="flex flex-1 flex-col p-4">
         <div className="mb-2 flex items-center justify-between">
           <h3
-            className="text-sm font-semibold transition-colors duration-200 group-hover:text-white"
-            style={{ color: "#d0d0d0" }}
+            className="text-sm font-semibold text-gray-800 transition-colors duration-200 group-hover:text-gray-900 dark:text-[#d0d0d0] dark:group-hover:text-white"
           >
             {project.title}
           </h3>
           <ArrowUpRight
             size={14}
-            className="text-gray-600 opacity-0 transition-all duration-200 group-hover:opacity-100"
-            style={{ color: "#666" }}
+            className="text-gray-400 opacity-0 transition-all duration-200 group-hover:opacity-100 dark:text-[#666]"
           />
         </div>
 
         <p
-          className="mb-3 line-clamp-2 text-[12px] leading-relaxed"
-          style={{ color: "#888" }}
+          className="mb-3 line-clamp-2 text-[12px] leading-relaxed text-gray-500 dark:text-[#888]"
         >
           {project.description}
         </p>
@@ -285,12 +272,7 @@ function ProjectCard({
           {project.techTags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-md px-2 py-0.5 text-[10px]"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.04)",
-                color: "#666",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
+              className="rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] text-gray-500 dark:border-white/[0.06] dark:bg-white/[0.04] dark:text-[#666]"
             >
               {tag}
             </span>
@@ -300,15 +282,14 @@ function ProjectCard({
         {/* Category + Year */}
         <div className="mt-3 flex items-center gap-2 border-t border-gray-100 pt-3 dark:border-[#1a1a1a]">
           <span
-            className="text-[10px] uppercase tracking-wider"
-            style={{ color: "#555" }}
+            className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-[#555]"
           >
             {project.category}
           </span>
-          <span className="text-[10px]" style={{ color: "#444" }}>
+          <span className="text-[10px] text-gray-300 dark:text-[#444]">
             ·
           </span>
-          <span className="text-[10px]" style={{ color: "#444" }}>
+          <span className="text-[10px] text-gray-300 dark:text-[#444]">
             {project.year}
           </span>
         </div>

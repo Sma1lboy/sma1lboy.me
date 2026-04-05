@@ -46,10 +46,10 @@ export function Sidebar() {
       transition={{ duration: 0.5, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div>
-        <h1 className="text-sm font-bold tracking-widest" style={{ color: "#e0e0e0" }}>
+        <h1 className="text-sm font-bold tracking-widest text-gray-900 dark:text-[#e0e0e0]">
           SMA1LBOY
         </h1>
-        <p className="mt-3 text-[13px] leading-relaxed" style={{ color: "#888888" }}>
+        <p className="mt-3 text-[13px] leading-relaxed text-gray-500 dark:text-[#888]">
           Full-stack dev. CS @ UW-Madison. Building AI tooling and open-source at TikTok. GSoC
           alumnus.
         </p>
@@ -57,8 +57,7 @@ export function Sidebar() {
 
       <div>
         <h2
-          className="text-[11px] uppercase tracking-[0.2em]"
-          style={{ color: "#666666" }}
+          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
         >
           Now
         </h2>
@@ -66,8 +65,7 @@ export function Sidebar() {
           {now.map((item) => (
             <li
               key={item}
-              className="text-[13px]"
-              style={{ color: "#b0b0b0" }}
+              className="text-[13px] text-gray-600 dark:text-[#b0b0b0]"
             >
               {item}
             </li>
@@ -77,8 +75,7 @@ export function Sidebar() {
 
       <div>
         <h2
-          className="text-[11px] uppercase tracking-[0.2em]"
-          style={{ color: "#666666" }}
+          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
         >
           Artifacts
         </h2>
@@ -91,10 +88,7 @@ export function Sidebar() {
                     ? navigate({ to: item.route })
                     : randomNav(navigate)
                 }
-                className="text-[13px] transition-colors duration-150 hover:cursor-pointer"
-                style={{ color: "#b0b0b0" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#b0b0b0")}
+                className="text-[13px] text-gray-600 transition-colors duration-150 hover:cursor-pointer hover:text-gray-900 dark:text-[#b0b0b0] dark:hover:text-white"
               >
                 {item.label}
               </button>
@@ -105,8 +99,7 @@ export function Sidebar() {
 
       <div>
         <h2
-          className="text-[11px] uppercase tracking-[0.2em]"
-          style={{ color: "#666666" }}
+          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
         >
           Lab
         </h2>
@@ -115,10 +108,7 @@ export function Sidebar() {
             <li key={item.id}>
               <button
                 onClick={() => randomNav(navigate)}
-                className="text-[13px] transition-colors duration-150 hover:cursor-pointer"
-                style={{ color: "#b0b0b0" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#b0b0b0")}
+                className="text-[13px] text-gray-600 transition-colors duration-150 hover:cursor-pointer hover:text-gray-900 dark:text-[#b0b0b0] dark:hover:text-white"
               >
                 {item.label}
               </button>
@@ -129,8 +119,7 @@ export function Sidebar() {
 
       <div>
         <h2
-          className="text-[11px] uppercase tracking-[0.2em]"
-          style={{ color: "#666666" }}
+          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
         >
           Stack
         </h2>
@@ -138,8 +127,7 @@ export function Sidebar() {
           {stack.map((item) => (
             <li
               key={item}
-              className="text-[13px]"
-              style={{ color: "#b0b0b0" }}
+              className="text-[13px] text-gray-600 dark:text-[#b0b0b0]"
             >
               {item}
             </li>
@@ -149,8 +137,7 @@ export function Sidebar() {
 
       <div>
         <h2
-          className="text-[11px] uppercase tracking-[0.2em]"
-          style={{ color: "#666666" }}
+          className="text-[11px] uppercase tracking-[0.2em] text-gray-400 dark:text-[#666]"
         >
           Social
         </h2>
@@ -161,10 +148,7 @@ export function Sidebar() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[13px] transition-colors duration-150"
-                style={{ color: "#b0b0b0" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#b0b0b0")}
+                className="text-[13px] text-gray-600 transition-colors duration-150 hover:text-gray-900 dark:text-[#b0b0b0] dark:hover:text-white"
               >
                 {item.label}
               </a>

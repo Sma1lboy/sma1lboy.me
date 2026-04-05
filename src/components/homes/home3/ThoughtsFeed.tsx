@@ -7,12 +7,10 @@ function ThoughtEntry({ thought }: { thought: Thought }) {
   if (type === "quote") {
     return (
       <article
-        className="border-l-2 pl-4"
-        style={{ borderColor: "#333333" }}
+        className="border-l-2 border-gray-300 pl-4 dark:border-[#333]"
       >
         <p
-          className="text-sm italic leading-relaxed"
-          style={{ color: "#999999" }}
+          className="text-sm italic leading-relaxed text-gray-500 dark:text-[#999]"
         >
           {thought.content}
         </p>
@@ -25,22 +23,20 @@ function ThoughtEntry({ thought }: { thought: Thought }) {
       <article>
         {thought.date && (
           <time
-            className="block text-[11px]"
-            style={{ color: "#666666" }}
+            className="block text-[11px] text-gray-400 dark:text-[#666]"
             dateTime={thought.date}
           >
             {thought.date}
           </time>
         )}
         <p
-          className="mt-2 text-sm leading-relaxed"
-          style={{ color: "#b0b0b0" }}
+          className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-[#b0b0b0]"
         >
-          <span style={{ color: "#666666" }}>{">"} </span>
+          <span className="text-gray-400 dark:text-[#666]">{">"} </span>
           {thought.content}
         </p>
         {thought.tags && thought.tags.length > 0 && (
-          <p className="mt-1.5 text-[10px] uppercase tracking-widest" style={{ color: "#555555" }}>
+          <p className="mt-1.5 text-[10px] uppercase tracking-widest text-gray-400 dark:text-[#555]">
             {thought.tags.join(" / ")}
           </p>
         )}
@@ -53,21 +49,19 @@ function ThoughtEntry({ thought }: { thought: Thought }) {
       <article>
         {thought.date && (
           <time
-            className="block text-[11px]"
-            style={{ color: "#666666" }}
+            className="block text-[11px] text-gray-400 dark:text-[#666]"
             dateTime={thought.date}
           >
             {thought.date}
           </time>
         )}
         <p
-          className="mt-2 text-sm leading-relaxed"
-          style={{ color: "#b0b0b0" }}
+          className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-[#b0b0b0]"
         >
           {thought.content}
         </p>
         {thought.tags && thought.tags.length > 0 && (
-          <p className="mt-1.5 text-[10px] uppercase tracking-widest" style={{ color: "#555555" }}>
+          <p className="mt-1.5 text-[10px] uppercase tracking-widest text-gray-400 dark:text-[#555]">
             {thought.tags.join(" / ")}
           </p>
         )}
@@ -79,15 +73,13 @@ function ThoughtEntry({ thought }: { thought: Thought }) {
   return (
     <article>
       <time
-        className="block text-[11px]"
-        style={{ color: "#666666" }}
+        className="block text-[11px] text-gray-400 dark:text-[#666]"
         dateTime={thought.date}
       >
         {thought.date}
       </time>
       <p
-        className="mt-2 text-sm leading-relaxed"
-        style={{ color: "#b0b0b0" }}
+        className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-[#b0b0b0]"
       >
         {thought.content}
       </p>

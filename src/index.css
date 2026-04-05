@@ -124,6 +124,37 @@
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.1 0 0);
   --sidebar-ring: oklch(0.2 0 0);
+
+  /* Custom variables — dark counterparts */
+  /* Text hierarchy */
+  --text-primary: oklch(0.98 0 0);
+  --text-secondary: oklch(0.75 0 0);
+  --text-muted: oklch(0.6 0 0);
+  --text-subtle: oklch(0.45 0 0);
+  --text-placeholder: oklch(0.35 0 0);
+
+  /* Background hierarchy */
+  --bg-primary: oklch(0.03 0 0);
+  --bg-secondary: oklch(0.06 0 0);
+  --bg-tertiary: oklch(0.08 0 0);
+  --bg-quaternary: oklch(0.1 0 0);
+
+  /* Interactive states */
+  --interactive-hover: oklch(0.08 0 0);
+  --interactive-active: oklch(0.1 0 0);
+  --interactive-selected: oklch(0.12 0 0);
+
+  /* Borders and dividers */
+  --border-light: oklch(0.1 0 0);
+  --border-medium: oklch(0.15 0 0);
+  --border-strong: oklch(0.2 0 0);
+
+  /* Shadows and elevation — stronger for dark backgrounds */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
 }
 
 @theme inline {
@@ -191,10 +222,23 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Smooth theme transition */
+    transition: background-color 300ms ease, color 300ms ease;
     /* Optimize text rendering for better readability */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth theme transition on major containers */
+  main,
+  section,
+  header,
+  nav,
+  aside,
+  .dark,
+  :root {
+    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
   }
 
   /* Dark mode image adjustments */

@@ -36,8 +36,7 @@ export function ImageGallery() {
               className="w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
             />
             <figcaption
-              className="mt-2 font-mono text-[11px]"
-              style={{ color: "#666666" }}
+              className="mt-2 font-mono text-[11px] text-gray-400 dark:text-[#666]"
             >
               {image.caption}
             </figcaption>
@@ -46,8 +45,7 @@ export function ImageGallery() {
       </div>
 
       <p
-        className="mt-8 pb-4 text-center font-mono text-[10px]"
-        style={{ color: "#444444" }}
+        className="mt-8 pb-4 text-center font-mono text-[10px] text-gray-400 dark:text-[#444]"
       >
         {galleryImages.length} projects
       </p>
