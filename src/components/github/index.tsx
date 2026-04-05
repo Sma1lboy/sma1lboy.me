@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, GitFork, RefreshCw, Star, BookOpen, ExternalLink } from "lucide-react";
 import { useGitHub } from "@/hooks/useGitHub";
 import { useSEO } from "@/hooks/useSEO";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { GitHubRepo } from "@/services/githubApi";
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
@@ -73,13 +74,10 @@ function relativeTime(dateStr: string) {
 function SkeletonHeatmap() {
   return (
     <div className="space-y-3">
-      <div className="h-5 w-32 animate-pulse rounded bg-gray-200 dark:bg-neutral-800" />
+      <Skeleton className="h-5 w-32" />
       <div className="grid grid-cols-[repeat(53,1fr)] gap-[3px]">
         {Array.from({ length: 53 * 7 }).map((_, i) => (
-          <div
-            key={i}
-            className="aspect-square animate-pulse rounded-sm bg-gray-200 dark:bg-neutral-800"
-          />
+          <Skeleton key={i} className="aspect-square rounded-sm" />
         ))}
       </div>
     </div>
@@ -92,10 +90,10 @@ function SkeletonStats() {
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
-          className="animate-pulse rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
+          className="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
         >
-          <div className="mb-2 h-4 w-20 rounded bg-gray-200 dark:bg-neutral-800" />
-          <div className="h-8 w-16 rounded bg-gray-200 dark:bg-neutral-800" />
+          <Skeleton className="mb-2 h-4 w-20" />
+          <Skeleton className="h-8 w-16" />
         </div>
       ))}
     </div>
@@ -108,13 +106,13 @@ function SkeletonRepoList() {
       {Array.from({ length: 6 }).map((_, i) => (
         <div
           key={i}
-          className="animate-pulse rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
+          className="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-white/10 dark:bg-neutral-900"
         >
-          <div className="mb-2 h-5 w-40 rounded bg-gray-200 dark:bg-neutral-800" />
-          <div className="mb-3 h-4 w-full rounded bg-gray-200 dark:bg-neutral-800" />
+          <Skeleton className="mb-2 h-5 w-40" />
+          <Skeleton className="mb-3 h-4 w-full" />
           <div className="flex gap-4">
-            <div className="h-4 w-16 rounded bg-gray-200 dark:bg-neutral-800" />
-            <div className="h-4 w-12 rounded bg-gray-200 dark:bg-neutral-800" />
+            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-4 w-12" />
           </div>
         </div>
       ))}
@@ -208,10 +206,7 @@ export default function GitHubActivityPage() {
           {loading ? (
             <div className="flex flex-wrap gap-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-8 w-24 animate-pulse rounded-full bg-gray-200 dark:bg-neutral-800"
-                />
+                <Skeleton key={i} className="h-8 w-24 rounded-full" />
               ))}
             </div>
           ) : (
