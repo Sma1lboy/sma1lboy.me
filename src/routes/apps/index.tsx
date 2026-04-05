@@ -32,6 +32,7 @@ import HashPreview from "../../components/apps/hash/HashPreview";
 import QrPreview from "../../components/apps/qr/QrPreview";
 import PixelPreview from "../../components/apps/pixel/PixelPreview";
 import DrawPreview from "../../components/apps/draw/DrawPreview";
+import MinesweeperPreview from "../../components/apps/minesweeper/MinesweeperPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -59,6 +60,7 @@ const newAppPaths = new Set([
   "/apps/qr",
   "/apps/pixel",
   "/apps/draw",
+  "/apps/minesweeper",
 ]);
 
 const categories: {
@@ -186,6 +188,13 @@ const categories: {
         description:
           "Interactive receipt with Verlet cloth physics. Grab, drag, and fold thermal paper.",
         preview: <ReceiptPreview />,
+      },
+      {
+        to: "/apps/minesweeper",
+        title: "Minesweeper",
+        description:
+          "Classic Minesweeper with Easy, Medium, and Hard modes. Flag mines, beat the clock, and track high scores.",
+        preview: <MinesweeperPreview />,
       },
     ],
   },
