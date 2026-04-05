@@ -36,7 +36,9 @@ import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsRegexRouteImport } from './routes/apps/regex'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
+import { Route as AppsQrRouteImport } from './routes/apps/qr'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
+import { Route as AppsPixelRouteImport } from './routes/apps/pixel'
 import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
 import { Route as AppsKanbanRouteImport } from './routes/apps/kanban'
@@ -186,11 +188,21 @@ const AppsReceiptRoute = AppsReceiptRouteImport.update({
   path: '/apps/receipt',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/receipt.lazy').then((d) => d.Route))
+const AppsQrRoute = AppsQrRouteImport.update({
+  id: '/apps/qr',
+  path: '/apps/qr',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/qr.lazy').then((d) => d.Route))
 const AppsPomodoroRoute = AppsPomodoroRouteImport.update({
   id: '/apps/pomodoro',
   path: '/apps/pomodoro',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/pomodoro.lazy').then((d) => d.Route))
+const AppsPixelRoute = AppsPixelRouteImport.update({
+  id: '/apps/pixel',
+  path: '/apps/pixel',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/pixel.lazy').then((d) => d.Route))
 const AppsMarkdownRoute = AppsMarkdownRouteImport.update({
   id: '/apps/markdown',
   path: '/apps/markdown',
@@ -277,7 +289,9 @@ export interface FileRoutesByFullPath {
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
+  '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
+  '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
   '/apps/terminal': typeof AppsTerminalRoute
@@ -318,7 +332,9 @@ export interface FileRoutesByTo {
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
+  '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
+  '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
   '/apps/terminal': typeof AppsTerminalRoute
@@ -360,7 +376,9 @@ export interface FileRoutesById {
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
+  '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
+  '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
   '/apps/terminal': typeof AppsTerminalRoute
@@ -403,7 +421,9 @@ export interface FileRouteTypes {
     | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
+    | '/apps/pixel'
     | '/apps/pomodoro'
+    | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
     | '/apps/terminal'
@@ -444,7 +464,9 @@ export interface FileRouteTypes {
     | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
+    | '/apps/pixel'
     | '/apps/pomodoro'
+    | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
     | '/apps/terminal'
@@ -485,7 +507,9 @@ export interface FileRouteTypes {
     | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
+    | '/apps/pixel'
     | '/apps/pomodoro'
+    | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
     | '/apps/terminal'
@@ -527,7 +551,9 @@ export interface RootRouteChildren {
   AppsKanbanRoute: typeof AppsKanbanRoute
   AppsLifeRoute: typeof AppsLifeRoute
   AppsMarkdownRoute: typeof AppsMarkdownRoute
+  AppsPixelRoute: typeof AppsPixelRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
+  AppsQrRoute: typeof AppsQrRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsRegexRoute: typeof AppsRegexRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
@@ -730,11 +756,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsReceiptRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/qr': {
+      id: '/apps/qr'
+      path: '/apps/qr'
+      fullPath: '/apps/qr'
+      preLoaderRoute: typeof AppsQrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/pomodoro': {
       id: '/apps/pomodoro'
       path: '/apps/pomodoro'
       fullPath: '/apps/pomodoro'
       preLoaderRoute: typeof AppsPomodoroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/pixel': {
+      id: '/apps/pixel'
+      path: '/apps/pixel'
+      fullPath: '/apps/pixel'
+      preLoaderRoute: typeof AppsPixelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/markdown': {
@@ -847,7 +887,9 @@ const rootRouteChildren: RootRouteChildren = {
   AppsKanbanRoute: AppsKanbanRoute,
   AppsLifeRoute: AppsLifeRoute,
   AppsMarkdownRoute: AppsMarkdownRoute,
+  AppsPixelRoute: AppsPixelRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
+  AppsQrRoute: AppsQrRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsRegexRoute: AppsRegexRoute,
   AppsTerminalRoute: AppsTerminalRoute,

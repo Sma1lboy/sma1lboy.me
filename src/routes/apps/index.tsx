@@ -29,6 +29,7 @@ import WidgetPreview from "../../components/apps/widget/WidgetPreview";
 import AsciiPreview from "../../components/apps/ascii/AsciiPreview";
 import HashPreview from "../../components/apps/hash/HashPreview";
 import QrPreview from "../../components/apps/qr/QrPreview";
+import PixelPreview from "../../components/apps/pixel/PixelPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -53,6 +54,7 @@ const newAppPaths = new Set([
   "/apps/ascii",
   "/apps/hash",
   "/apps/qr",
+  "/apps/pixel",
 ]);
 
 const categories: {
@@ -214,6 +216,13 @@ const categories: {
         description:
           "Type text and see it rendered as large ASCII art with multiple font styles.",
         preview: <AsciiPreview />,
+      },
+      {
+        to: "/apps/pixel",
+        title: "Pixel Art Editor",
+        description:
+          "Draw pixel art on a canvas grid with brushes, fill tool, and color picker. Export as PNG.",
+        preview: <PixelPreview />,
       },
     ],
   },
