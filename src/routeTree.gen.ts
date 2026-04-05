@@ -40,6 +40,7 @@ import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsQrRouteImport } from './routes/apps/qr'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsPixelRouteImport } from './routes/apps/pixel'
+import { Route as AppsMinesweeperRouteImport } from './routes/apps/minesweeper'
 import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
 import { Route as AppsKanbanRouteImport } from './routes/apps/kanban'
@@ -52,6 +53,7 @@ import { Route as AppsDiffRouteImport } from './routes/apps/diff'
 import { Route as AppsColorsRouteImport } from './routes/apps/colors'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
 import { Route as AppsAsciiRouteImport } from './routes/apps/ascii'
+import { Route as Apps2048RouteImport } from './routes/apps/2048'
 
 const UsesRoute = UsesRouteImport.update({
   id: '/uses',
@@ -210,6 +212,13 @@ const AppsPixelRoute = AppsPixelRouteImport.update({
   path: '/apps/pixel',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/pixel.lazy').then((d) => d.Route))
+const AppsMinesweeperRoute = AppsMinesweeperRouteImport.update({
+  id: '/apps/minesweeper',
+  path: '/apps/minesweeper',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/apps/minesweeper.lazy').then((d) => d.Route),
+)
 const AppsMarkdownRoute = AppsMarkdownRouteImport.update({
   id: '/apps/markdown',
   path: '/apps/markdown',
@@ -270,6 +279,11 @@ const AppsAsciiRoute = AppsAsciiRouteImport.update({
   path: '/apps/ascii',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/ascii.lazy').then((d) => d.Route))
+const Apps2048Route = Apps2048RouteImport.update({
+  id: '/apps/2048',
+  path: '/apps/2048',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/2048.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -290,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/2048': typeof Apps2048Route
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
@@ -302,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
+  '/apps/minesweeper': typeof AppsMinesweeperRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
@@ -335,6 +351,7 @@ export interface FileRoutesByTo {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/2048': typeof Apps2048Route
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
@@ -347,6 +364,7 @@ export interface FileRoutesByTo {
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
+  '/apps/minesweeper': typeof AppsMinesweeperRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
@@ -381,6 +399,7 @@ export interface FileRoutesById {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/2048': typeof Apps2048Route
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
@@ -393,6 +412,7 @@ export interface FileRoutesById {
   '/apps/kanban': typeof AppsKanbanRoute
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
+  '/apps/minesweeper': typeof AppsMinesweeperRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
@@ -428,6 +448,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/2048'
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
@@ -440,6 +461,7 @@ export interface FileRouteTypes {
     | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
+    | '/apps/minesweeper'
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
@@ -473,6 +495,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/2048'
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
@@ -485,6 +508,7 @@ export interface FileRouteTypes {
     | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
+    | '/apps/minesweeper'
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
@@ -518,6 +542,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/2048'
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
@@ -530,6 +555,7 @@ export interface FileRouteTypes {
     | '/apps/kanban'
     | '/apps/life'
     | '/apps/markdown'
+    | '/apps/minesweeper'
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
@@ -564,6 +590,7 @@ export interface RootRouteChildren {
   StatsRoute: typeof StatsRoute
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
+  Apps2048Route: typeof Apps2048Route
   AppsAsciiRoute: typeof AppsAsciiRoute
   AppsChatRoute: typeof AppsChatRoute
   AppsColorsRoute: typeof AppsColorsRoute
@@ -576,6 +603,7 @@ export interface RootRouteChildren {
   AppsKanbanRoute: typeof AppsKanbanRoute
   AppsLifeRoute: typeof AppsLifeRoute
   AppsMarkdownRoute: typeof AppsMarkdownRoute
+  AppsMinesweeperRoute: typeof AppsMinesweeperRoute
   AppsPixelRoute: typeof AppsPixelRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsQrRoute: typeof AppsQrRoute
@@ -810,6 +838,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsPixelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/minesweeper': {
+      id: '/apps/minesweeper'
+      path: '/apps/minesweeper'
+      fullPath: '/apps/minesweeper'
+      preLoaderRoute: typeof AppsMinesweeperRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/markdown': {
       id: '/apps/markdown'
       path: '/apps/markdown'
@@ -894,6 +929,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsAsciiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/2048': {
+      id: '/apps/2048'
+      path: '/apps/2048'
+      fullPath: '/apps/2048'
+      preLoaderRoute: typeof Apps2048RouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -916,6 +958,7 @@ const rootRouteChildren: RootRouteChildren = {
   StatsRoute: StatsRoute,
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
+  Apps2048Route: Apps2048Route,
   AppsAsciiRoute: AppsAsciiRoute,
   AppsChatRoute: AppsChatRoute,
   AppsColorsRoute: AppsColorsRoute,
@@ -928,6 +971,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsKanbanRoute: AppsKanbanRoute,
   AppsLifeRoute: AppsLifeRoute,
   AppsMarkdownRoute: AppsMarkdownRoute,
+  AppsMinesweeperRoute: AppsMinesweeperRoute,
   AppsPixelRoute: AppsPixelRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsQrRoute: AppsQrRoute,

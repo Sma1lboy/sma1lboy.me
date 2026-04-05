@@ -33,6 +33,7 @@ import QrPreview from "../../components/apps/qr/QrPreview";
 import PixelPreview from "../../components/apps/pixel/PixelPreview";
 import DrawPreview from "../../components/apps/draw/DrawPreview";
 import MinesweeperPreview from "../../components/apps/minesweeper/MinesweeperPreview";
+import Game2048Preview from "../../components/apps/2048/Game2048Preview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -61,6 +62,7 @@ const newAppPaths = new Set([
   "/apps/pixel",
   "/apps/draw",
   "/apps/minesweeper",
+  "/apps/2048",
 ]);
 
 const categories: {
@@ -195,6 +197,13 @@ const categories: {
         description:
           "Classic Minesweeper with Easy, Medium, and Hard modes. Flag mines, beat the clock, and track high scores.",
         preview: <MinesweeperPreview />,
+      },
+      {
+        to: "/apps/2048",
+        title: "2048",
+        description:
+          "Slide and merge tiles to reach 2048. Arrow keys or swipe to play, with score tracking and high score persistence.",
+        preview: <Game2048Preview />,
       },
     ],
   },
