@@ -20,12 +20,14 @@ import {
 } from "lucide-react";
 import blogPosts from "@/data/blog-posts.json";
 import projects from "@/data/projects.json";
+import { useTranslation } from "@/i18n";
 
 interface SearchItem {
   id: string;
   title: string;
   description?: string;
   category: "Pages" | "Blog Posts" | "Projects";
+  categoryKey: string;
   icon: LucideIcon;
   action: () => void;
 }
@@ -57,102 +59,115 @@ export function CommandPalette() {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const allItems = useMemo<SearchItem[]>(() => {
     const pages: SearchItem[] = [
       {
         id: "page-home",
-        title: "Home",
-        description: "Back to homepage",
+        title: t("commandPalette.pages.home"),
+        description: t("commandPalette.pages.homeDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: Home,
         action: () => navigate({ to: "/" }),
       },
       {
         id: "page-blog",
-        title: "Blog",
-        description: "Read my writing",
+        title: t("commandPalette.pages.blog"),
+        description: t("commandPalette.pages.blogDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: BookOpen,
         action: () => navigate({ to: "/blog" }),
       },
       {
         id: "page-projects",
-        title: "Projects",
-        description: "View my work",
+        title: t("commandPalette.pages.projects"),
+        description: t("commandPalette.pages.projectsDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: Code2,
         action: () => navigate({ to: "/projects" }),
       },
       {
         id: "page-profile",
-        title: "Profile",
-        description: "About me",
+        title: t("commandPalette.pages.profile"),
+        description: t("commandPalette.pages.profileDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: User,
         action: () => navigate({ to: "/profile" }),
       },
       {
         id: "page-resume",
-        title: "Resume",
-        description: "Experience & skills",
+        title: t("commandPalette.pages.resume"),
+        description: t("commandPalette.pages.resumeDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: FileText,
         action: () => navigate({ to: "/resume" }),
       },
       {
         id: "page-github",
-        title: "GitHub Activity",
-        description: "Contributions & repos",
+        title: t("commandPalette.pages.githubActivity"),
+        description: t("commandPalette.pages.githubActivityDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: Github,
         action: () => navigate({ to: "/github" }),
       },
       {
         id: "page-contact",
-        title: "Contact",
-        description: "Get in touch",
+        title: t("commandPalette.pages.contact"),
+        description: t("commandPalette.pages.contactDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: Mail,
         action: () => navigate({ to: "/contact" }),
       },
       {
         id: "page-uses",
-        title: "Uses",
-        description: "Developer setup & tools",
+        title: t("commandPalette.pages.uses"),
+        description: t("commandPalette.pages.usesDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: Monitor,
         action: () => navigate({ to: "/uses" }),
       },
       {
         id: "page-snippets",
-        title: "Snippets",
-        description: "Code patterns & tricks",
+        title: t("commandPalette.pages.snippets"),
+        description: t("commandPalette.pages.snippetsDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: Code2,
         action: () => navigate({ to: "/snippets" }),
       },
       {
         id: "page-stats",
-        title: "Stats",
-        description: "Developer stats & metrics",
+        title: t("commandPalette.pages.stats"),
+        description: t("commandPalette.pages.statsDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: BarChart3,
         action: () => navigate({ to: "/stats" }),
       },
       {
         id: "page-changelog",
-        title: "Changelog",
-        description: "What's new on this site",
+        title: t("commandPalette.pages.changelog"),
+        description: t("commandPalette.pages.changelogDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: ListOrdered,
         action: () => navigate({ to: "/changelog" }),
       },
       {
         id: "page-terminal",
-        title: "Terminal",
-        description: "Interactive terminal emulator",
+        title: t("commandPalette.pages.terminal"),
+        description: t("commandPalette.pages.terminalDesc"),
         category: "Pages",
+        categoryKey: "commandPalette.categories.pages",
         icon: TerminalSquare,
         action: () => navigate({ to: "/apps/terminal" }),
       },
@@ -163,6 +178,7 @@ export function CommandPalette() {
       title: post.title,
       description: post.excerpt,
       category: "Blog Posts",
+      categoryKey: "commandPalette.categories.blogPosts",
       icon: BookOpen,
       action: () => navigate({ to: "/blog/$slug", params: { slug: post.slug } }),
     }));
@@ -172,12 +188,13 @@ export function CommandPalette() {
       title: project.title,
       description: project.description,
       category: "Projects",
+      categoryKey: "commandPalette.categories.projects",
       icon: Briefcase,
       action: () => navigate({ to: "/projects" }),
     }));
 
     return [...pages, ...blogItems, ...projectItems];
-  }, [navigate]);
+  }, [navigate, t]);
 
   const filtered = useMemo(() => {
     if (!query.trim()) return allItems;
@@ -287,6 +304,12 @@ export function CommandPalette() {
     }
   }
 
+  const categoryDisplayNames: Record<string, string> = {
+    Pages: t("commandPalette.categories.pages"),
+    "Blog Posts": t("commandPalette.categories.blogPosts"),
+    Projects: t("commandPalette.categories.projects"),
+  };
+
   return (
     <AnimatePresence>
       {open && (
@@ -321,7 +344,7 @@ export function CommandPalette() {
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Search pages, posts, projects..."
+                placeholder={t("commandPalette.searchPlaceholder")}
                 className="text-foreground placeholder:text-muted-foreground h-12 w-full bg-transparent text-sm outline-none"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -335,7 +358,7 @@ export function CommandPalette() {
             <div ref={listRef} className="max-h-[50vh] overflow-y-auto overscroll-contain p-2">
               {flatFiltered.length === 0 ? (
                 <div className="text-muted-foreground px-4 py-8 text-center text-sm">
-                  No results found.
+                  {t("commandPalette.noResults")}
                 </div>
               ) : (
                 (["Pages", "Blog Posts", "Projects"] as const).map((category) => {
@@ -344,7 +367,7 @@ export function CommandPalette() {
                   return (
                     <div key={category} className="mb-1">
                       <div className="text-muted-foreground px-2 py-1.5 text-xs font-medium">
-                        {category}
+                        {categoryDisplayNames[category]}
                       </div>
                       {items.map((item) => {
                         const flatIndex = flatFiltered.indexOf(item);
@@ -390,19 +413,19 @@ export function CommandPalette() {
                   <kbd className="border-border bg-muted rounded border px-1 py-0.5 text-[10px]">
                     ↑↓
                   </kbd>
-                  navigate
+                  {t("commandPalette.footer.navigate")}
                 </span>
                 <span className="flex items-center gap-1">
                   <kbd className="border-border bg-muted rounded border px-1 py-0.5 text-[10px]">
                     ↵
                   </kbd>
-                  select
+                  {t("commandPalette.footer.select")}
                 </span>
                 <span className="flex items-center gap-1">
                   <kbd className="border-border bg-muted rounded border px-1 py-0.5 text-[10px]">
                     esc
                   </kbd>
-                  close
+                  {t("commandPalette.footer.close")}
                 </span>
               </div>
               <span className="flex items-center gap-1">
