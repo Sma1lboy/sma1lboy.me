@@ -88,6 +88,18 @@ const en = {
     footer: "Press ? to toggle this overlay",
     then: "then",
   },
+  ambientPlayer: {
+    title: "Ambient Player",
+    idle: "No sound",
+    stop: "Stop",
+    clickToResume: "Click to resume",
+    presets: {
+      lofi: "Lofi",
+      rain: "Rain",
+      coffee: "Coffee Shop",
+      silence: "Silence",
+    },
+  },
   common: {
     close: "Close",
     search: "Search",

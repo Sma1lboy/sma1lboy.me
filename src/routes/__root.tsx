@@ -4,6 +4,7 @@ import { CommandPalette } from "@/components/CommandPalette";
 import { KeyboardShortcutsModal } from "@/components/KeyboardShortcutsModal";
 import { PageTransition } from "@/components/PageTransition";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { AmbientPlayer } from "@/components/AmbientPlayer";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 function RootComponent() {
@@ -19,6 +20,7 @@ function RootComponent() {
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={closeShortcuts} />
       <PageTransition />
       <ScrollToTop />
+      <AmbientPlayer />
     </>
   );
 }

@@ -90,6 +90,18 @@ const zh: Translations = {
     footer: "按 ? 键切换此覆盖层",
     then: "然后",
   },
+  ambientPlayer: {
+    title: "氛围音乐",
+    idle: "无声音",
+    stop: "停止",
+    clickToResume: "点击继续播放",
+    presets: {
+      lofi: "Lofi",
+      rain: "雨声",
+      coffee: "咖啡馆",
+      silence: "静音",
+    },
+  },
   common: {
     close: "关闭",
     search: "搜索",
