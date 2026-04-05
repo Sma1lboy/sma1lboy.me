@@ -26,6 +26,7 @@ import MarkdownPreview from "../../components/apps/markdown/MarkdownPreview";
 import GradientPreview from "../../components/apps/gradient/GradientPreview";
 import KanbanPreview from "../../components/apps/kanban/KanbanPreview";
 import WidgetPreview from "../../components/apps/widget/WidgetPreview";
+import AsciiPreview from "../../components/apps/ascii/AsciiPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -47,6 +48,7 @@ const newAppPaths = new Set([
   "/apps/encode",
   "/apps/kanban",
   "/apps/widget",
+  "/apps/ascii",
 ]);
 
 const categories: {
@@ -187,6 +189,13 @@ const categories: {
         description:
           "Create beautiful CSS gradients with color stops, direction control, presets, and live CSS output.",
         preview: <GradientPreview />,
+      },
+      {
+        to: "/apps/ascii",
+        title: "ASCII Art",
+        description:
+          "Type text and see it rendered as large ASCII art with multiple font styles.",
+        preview: <AsciiPreview />,
       },
     ],
   },

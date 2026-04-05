@@ -46,6 +46,7 @@ import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
 import { Route as AppsColorsRouteImport } from './routes/apps/colors'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
+import { Route as AppsAsciiRouteImport } from './routes/apps/ascii'
 
 const UsesRoute = UsesRouteImport.update({
   id: '/uses',
@@ -234,6 +235,11 @@ const AppsChatRoute = AppsChatRouteImport.update({
   path: '/apps/chat',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/chat.lazy').then((d) => d.Route))
+const AppsAsciiRoute = AppsAsciiRouteImport.update({
+  id: '/apps/ascii',
+  path: '/apps/ascii',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/ascii.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -254,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
@@ -293,6 +300,7 @@ export interface FileRoutesByTo {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
@@ -333,6 +341,7 @@ export interface FileRoutesById {
   '/stats': typeof StatsRoute
   '/timeline': typeof TimelineRoute
   '/uses': typeof UsesRoute
+  '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
   '/apps/diff': typeof AppsDiffRoute
@@ -374,6 +383,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
     | '/apps/diff'
@@ -413,6 +423,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
     | '/apps/diff'
@@ -452,6 +463,7 @@ export interface FileRouteTypes {
     | '/stats'
     | '/timeline'
     | '/uses'
+    | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
     | '/apps/diff'
@@ -492,6 +504,7 @@ export interface RootRouteChildren {
   StatsRoute: typeof StatsRoute
   TimelineRoute: typeof TimelineRoute
   UsesRoute: typeof UsesRoute
+  AppsAsciiRoute: typeof AppsAsciiRoute
   AppsChatRoute: typeof AppsChatRoute
   AppsColorsRoute: typeof AppsColorsRoute
   AppsDiffRoute: typeof AppsDiffRoute
@@ -774,6 +787,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/ascii': {
+      id: '/apps/ascii'
+      path: '/apps/ascii'
+      fullPath: '/apps/ascii'
+      preLoaderRoute: typeof AppsAsciiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -796,6 +816,7 @@ const rootRouteChildren: RootRouteChildren = {
   StatsRoute: StatsRoute,
   TimelineRoute: TimelineRoute,
   UsesRoute: UsesRoute,
+  AppsAsciiRoute: AppsAsciiRoute,
   AppsChatRoute: AppsChatRoute,
   AppsColorsRoute: AppsColorsRoute,
   AppsDiffRoute: AppsDiffRoute,
