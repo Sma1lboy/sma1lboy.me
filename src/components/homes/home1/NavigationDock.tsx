@@ -9,6 +9,7 @@ import {
   GitBranch,
   Github,
   Home as HomeIcon,
+  Image,
   Linkedin,
   ListOrdered,
   Mail,
@@ -191,6 +192,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <BarChart3
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label="Gallery"
+          onClick={() => navigate({ to: "/gallery" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <Image
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />

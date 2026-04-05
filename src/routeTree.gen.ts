@@ -18,6 +18,7 @@ import { Route as ReadingRouteImport } from './routes/reading'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as GithubRouteImport } from './routes/github'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CmtRouteImport } from './routes/cmt'
 import { Route as ChangelogRouteImport } from './routes/changelog'
@@ -76,6 +77,11 @@ const GithubRoute = GithubRouteImport.update({
   path: '/github',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/github.lazy').then((d) => d.Route))
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/gallery.lazy').then((d) => d.Route))
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/changelog': typeof ChangelogRoute
   '/cmt': typeof CmtRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/changelog': typeof ChangelogRoute
   '/cmt': typeof CmtRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/changelog': typeof ChangelogRoute
   '/cmt': typeof CmtRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/cmt'
     | '/contact'
+    | '/gallery'
     | '/github'
     | '/profile'
     | '/projects'
@@ -241,6 +251,7 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/cmt'
     | '/contact'
+    | '/gallery'
     | '/github'
     | '/profile'
     | '/projects'
@@ -264,6 +275,7 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/cmt'
     | '/contact'
+    | '/gallery'
     | '/github'
     | '/profile'
     | '/projects'
@@ -288,6 +300,7 @@ export interface RootRouteChildren {
   ChangelogRoute: typeof ChangelogRoute
   CmtRoute: typeof CmtRoute
   ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
   GithubRoute: typeof GithubRoute
   ProfileRoute: typeof ProfileRoute
   ProjectsRoute: typeof ProjectsRoute
@@ -368,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/github'
       fullPath: '/github'
       preLoaderRoute: typeof GithubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -464,6 +484,7 @@ const rootRouteChildren: RootRouteChildren = {
   ChangelogRoute: ChangelogRoute,
   CmtRoute: CmtRoute,
   ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
   GithubRoute: GithubRoute,
   ProfileRoute: ProfileRoute,
   ProjectsRoute: ProjectsRoute,
