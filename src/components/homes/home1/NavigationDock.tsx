@@ -8,6 +8,7 @@ import {
   Linkedin,
   Mail,
   MessageCircle,
+  PenLine,
   Twitter,
   User,
 } from "lucide-react";
@@ -95,6 +96,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <FlaskConical
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label="Writing"
+          onClick={() => navigate({ to: "/blog" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <PenLine
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />

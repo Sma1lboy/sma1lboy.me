@@ -51,12 +51,13 @@ function jsonApiPlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use("/api/thoughts.json", serveJson("thoughts.json"));
       server.middlewares.use("/api/projects.json", serveJson("projects.json"));
+      server.middlewares.use("/api/blog-posts.json", serveJson("blog-posts.json"));
     },
 
     writeBundle() {
       const outDir = path.resolve(__dirname, "dist/api");
       fs.mkdirSync(outDir, { recursive: true });
-      for (const file of ["thoughts.json", "projects.json"]) {
+      for (const file of ["thoughts.json", "projects.json", "blog-posts.json"]) {
         const src = path.join(DATA_DIR, file);
         if (fs.existsSync(src)) {
           fs.writeFileSync(path.join(outDir, file), fs.readFileSync(src, "utf-8"));
