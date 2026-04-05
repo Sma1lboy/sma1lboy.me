@@ -9,6 +9,7 @@ import ChatPreview from "../../components/apps/chat/ChatPreview";
 import LifePreview from "../../components/apps/life/LifePreview";
 import DiffPreview from "../../components/apps/diff/DiffPreview";
 import JsonPreview from "../../components/apps/json/JsonPreview";
+import EncodePreview from "../../components/apps/encode/EncodePreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -77,6 +78,13 @@ const experiments = [
     description:
       "Format, validate, and explore JSON with syntax highlighting, tree view, and byte size comparison.",
     preview: <JsonPreview />,
+  },
+  {
+    to: "/apps/encode" as const,
+    title: "Encoder / Decoder",
+    description:
+      "Multi-tool encoder/decoder with Base64, URL encoding, HTML entities, and JWT decode.",
+    preview: <EncodePreview />,
   },
 ];
 
