@@ -37,6 +37,7 @@ import Game2048Preview from "../../components/apps/2048/Game2048Preview";
 import WeatherPreview from "../../components/apps/weather/WeatherPreview";
 import TetrisPreview from "../../components/apps/tetris/TetrisPreview";
 import CurrencyPreview from "../../components/apps/currency/CurrencyPreview";
+import PasswordPreview from "../../components/apps/password/PasswordPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -69,6 +70,7 @@ const newAppPaths = new Set([
   "/apps/weather",
   "/apps/tetris",
   "/apps/currency",
+  "/apps/password",
 ]);
 
 const categories: {
@@ -135,6 +137,13 @@ const categories: {
         description:
           "Generate QR codes from text or URLs with custom colors. Download as PNG.",
         preview: <QrPreview />,
+      },
+      {
+        to: "/apps/password",
+        title: "Password Generator",
+        description:
+          "Generate secure passwords with customizable length, character sets, strength meter, and batch generation.",
+        preview: <PasswordPreview />,
       },
     ],
   },

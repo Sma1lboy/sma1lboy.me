@@ -27,6 +27,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   gradient: "Gradient Generator",
   ascii: "ASCII Art",
   tetris: "Tetris",
+  password: "Password Generator",
 };
 
 export interface BreadcrumbItem {

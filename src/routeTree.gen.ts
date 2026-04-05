@@ -34,6 +34,7 @@ import { Route as AppsWidgetRouteImport } from './routes/apps/widget'
 import { Route as AppsWeatherRouteImport } from './routes/apps/weather'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
+import { Route as AppsTimerRouteImport } from './routes/apps/timer'
 import { Route as AppsTetrisRouteImport } from './routes/apps/tetris'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsSnakeRouteImport } from './routes/apps/snake'
@@ -42,6 +43,7 @@ import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsQrRouteImport } from './routes/apps/qr'
 import { Route as AppsPomodoroRouteImport } from './routes/apps/pomodoro'
 import { Route as AppsPixelRouteImport } from './routes/apps/pixel'
+import { Route as AppsPasswordRouteImport } from './routes/apps/password'
 import { Route as AppsMinesweeperRouteImport } from './routes/apps/minesweeper'
 import { Route as AppsMarkdownRouteImport } from './routes/apps/markdown'
 import { Route as AppsLifeRouteImport } from './routes/apps/life'
@@ -52,6 +54,7 @@ import { Route as AppsGradientRouteImport } from './routes/apps/gradient'
 import { Route as AppsEncodeRouteImport } from './routes/apps/encode'
 import { Route as AppsDrawRouteImport } from './routes/apps/draw'
 import { Route as AppsDiffRouteImport } from './routes/apps/diff'
+import { Route as AppsCurrencyRouteImport } from './routes/apps/currency'
 import { Route as AppsColorsRouteImport } from './routes/apps/colors'
 import { Route as AppsChatRouteImport } from './routes/apps/chat'
 import { Route as AppsAsciiRouteImport } from './routes/apps/ascii'
@@ -184,6 +187,11 @@ const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
 } as any).lazy(() =>
   import('./routes/apps/typewriter.lazy').then((d) => d.Route),
 )
+const AppsTimerRoute = AppsTimerRouteImport.update({
+  id: '/apps/timer',
+  path: '/apps/timer',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/timer.lazy').then((d) => d.Route))
 const AppsTetrisRoute = AppsTetrisRouteImport.update({
   id: '/apps/tetris',
   path: '/apps/tetris',
@@ -224,6 +232,11 @@ const AppsPixelRoute = AppsPixelRouteImport.update({
   path: '/apps/pixel',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/pixel.lazy').then((d) => d.Route))
+const AppsPasswordRoute = AppsPasswordRouteImport.update({
+  id: '/apps/password',
+  path: '/apps/password',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/password.lazy').then((d) => d.Route))
 const AppsMinesweeperRoute = AppsMinesweeperRouteImport.update({
   id: '/apps/minesweeper',
   path: '/apps/minesweeper',
@@ -276,6 +289,11 @@ const AppsDiffRoute = AppsDiffRouteImport.update({
   path: '/apps/diff',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/diff.lazy').then((d) => d.Route))
+const AppsCurrencyRoute = AppsCurrencyRouteImport.update({
+  id: '/apps/currency',
+  path: '/apps/currency',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/currency.lazy').then((d) => d.Route))
 const AppsColorsRoute = AppsColorsRouteImport.update({
   id: '/apps/colors',
   path: '/apps/colors',
@@ -320,6 +338,7 @@ export interface FileRoutesByFullPath {
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
+  '/apps/currency': typeof AppsCurrencyRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
@@ -330,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
+  '/apps/password': typeof AppsPasswordRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
@@ -338,6 +358,7 @@ export interface FileRoutesByFullPath {
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/tetris': typeof AppsTetrisRoute
+  '/apps/timer': typeof AppsTimerRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
   '/apps/weather': typeof AppsWeatherRoute
@@ -369,6 +390,7 @@ export interface FileRoutesByTo {
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
+  '/apps/currency': typeof AppsCurrencyRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
@@ -379,6 +401,7 @@ export interface FileRoutesByTo {
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
+  '/apps/password': typeof AppsPasswordRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
@@ -387,6 +410,7 @@ export interface FileRoutesByTo {
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/tetris': typeof AppsTetrisRoute
+  '/apps/timer': typeof AppsTimerRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
   '/apps/weather': typeof AppsWeatherRoute
@@ -419,6 +443,7 @@ export interface FileRoutesById {
   '/apps/ascii': typeof AppsAsciiRoute
   '/apps/chat': typeof AppsChatRoute
   '/apps/colors': typeof AppsColorsRoute
+  '/apps/currency': typeof AppsCurrencyRoute
   '/apps/diff': typeof AppsDiffRoute
   '/apps/draw': typeof AppsDrawRoute
   '/apps/encode': typeof AppsEncodeRoute
@@ -429,6 +454,7 @@ export interface FileRoutesById {
   '/apps/life': typeof AppsLifeRoute
   '/apps/markdown': typeof AppsMarkdownRoute
   '/apps/minesweeper': typeof AppsMinesweeperRoute
+  '/apps/password': typeof AppsPasswordRoute
   '/apps/pixel': typeof AppsPixelRoute
   '/apps/pomodoro': typeof AppsPomodoroRoute
   '/apps/qr': typeof AppsQrRoute
@@ -437,6 +463,7 @@ export interface FileRoutesById {
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/tetris': typeof AppsTetrisRoute
+  '/apps/timer': typeof AppsTimerRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
   '/apps/weather': typeof AppsWeatherRoute
@@ -470,6 +497,7 @@ export interface FileRouteTypes {
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
+    | '/apps/currency'
     | '/apps/diff'
     | '/apps/draw'
     | '/apps/encode'
@@ -480,6 +508,7 @@ export interface FileRouteTypes {
     | '/apps/life'
     | '/apps/markdown'
     | '/apps/minesweeper'
+    | '/apps/password'
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
@@ -488,6 +517,7 @@ export interface FileRouteTypes {
     | '/apps/snake'
     | '/apps/terminal'
     | '/apps/tetris'
+    | '/apps/timer'
     | '/apps/typewriter'
     | '/apps/typing'
     | '/apps/weather'
@@ -519,6 +549,7 @@ export interface FileRouteTypes {
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
+    | '/apps/currency'
     | '/apps/diff'
     | '/apps/draw'
     | '/apps/encode'
@@ -529,6 +560,7 @@ export interface FileRouteTypes {
     | '/apps/life'
     | '/apps/markdown'
     | '/apps/minesweeper'
+    | '/apps/password'
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
@@ -537,6 +569,7 @@ export interface FileRouteTypes {
     | '/apps/snake'
     | '/apps/terminal'
     | '/apps/tetris'
+    | '/apps/timer'
     | '/apps/typewriter'
     | '/apps/typing'
     | '/apps/weather'
@@ -568,6 +601,7 @@ export interface FileRouteTypes {
     | '/apps/ascii'
     | '/apps/chat'
     | '/apps/colors'
+    | '/apps/currency'
     | '/apps/diff'
     | '/apps/draw'
     | '/apps/encode'
@@ -578,6 +612,7 @@ export interface FileRouteTypes {
     | '/apps/life'
     | '/apps/markdown'
     | '/apps/minesweeper'
+    | '/apps/password'
     | '/apps/pixel'
     | '/apps/pomodoro'
     | '/apps/qr'
@@ -586,6 +621,7 @@ export interface FileRouteTypes {
     | '/apps/snake'
     | '/apps/terminal'
     | '/apps/tetris'
+    | '/apps/timer'
     | '/apps/typewriter'
     | '/apps/typing'
     | '/apps/weather'
@@ -618,6 +654,7 @@ export interface RootRouteChildren {
   AppsAsciiRoute: typeof AppsAsciiRoute
   AppsChatRoute: typeof AppsChatRoute
   AppsColorsRoute: typeof AppsColorsRoute
+  AppsCurrencyRoute: typeof AppsCurrencyRoute
   AppsDiffRoute: typeof AppsDiffRoute
   AppsDrawRoute: typeof AppsDrawRoute
   AppsEncodeRoute: typeof AppsEncodeRoute
@@ -628,6 +665,7 @@ export interface RootRouteChildren {
   AppsLifeRoute: typeof AppsLifeRoute
   AppsMarkdownRoute: typeof AppsMarkdownRoute
   AppsMinesweeperRoute: typeof AppsMinesweeperRoute
+  AppsPasswordRoute: typeof AppsPasswordRoute
   AppsPixelRoute: typeof AppsPixelRoute
   AppsPomodoroRoute: typeof AppsPomodoroRoute
   AppsQrRoute: typeof AppsQrRoute
@@ -636,6 +674,7 @@ export interface RootRouteChildren {
   AppsSnakeRoute: typeof AppsSnakeRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTetrisRoute: typeof AppsTetrisRoute
+  AppsTimerRoute: typeof AppsTimerRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
   AppsWeatherRoute: typeof AppsWeatherRoute
@@ -822,6 +861,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsTypewriterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/timer': {
+      id: '/apps/timer'
+      path: '/apps/timer'
+      fullPath: '/apps/timer'
+      preLoaderRoute: typeof AppsTimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/tetris': {
       id: '/apps/tetris'
       path: '/apps/tetris'
@@ -876,6 +922,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/pixel'
       fullPath: '/apps/pixel'
       preLoaderRoute: typeof AppsPixelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/password': {
+      id: '/apps/password'
+      path: '/apps/password'
+      fullPath: '/apps/password'
+      preLoaderRoute: typeof AppsPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/minesweeper': {
@@ -948,6 +1001,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsDiffRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/currency': {
+      id: '/apps/currency'
+      path: '/apps/currency'
+      fullPath: '/apps/currency'
+      preLoaderRoute: typeof AppsCurrencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/colors': {
       id: '/apps/colors'
       path: '/apps/colors'
@@ -1002,6 +1062,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsAsciiRoute: AppsAsciiRoute,
   AppsChatRoute: AppsChatRoute,
   AppsColorsRoute: AppsColorsRoute,
+  AppsCurrencyRoute: AppsCurrencyRoute,
   AppsDiffRoute: AppsDiffRoute,
   AppsDrawRoute: AppsDrawRoute,
   AppsEncodeRoute: AppsEncodeRoute,
@@ -1012,6 +1073,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsLifeRoute: AppsLifeRoute,
   AppsMarkdownRoute: AppsMarkdownRoute,
   AppsMinesweeperRoute: AppsMinesweeperRoute,
+  AppsPasswordRoute: AppsPasswordRoute,
   AppsPixelRoute: AppsPixelRoute,
   AppsPomodoroRoute: AppsPomodoroRoute,
   AppsQrRoute: AppsQrRoute,
@@ -1020,6 +1082,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsSnakeRoute: AppsSnakeRoute,
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTetrisRoute: AppsTetrisRoute,
+  AppsTimerRoute: AppsTimerRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,
   AppsWeatherRoute: AppsWeatherRoute,
