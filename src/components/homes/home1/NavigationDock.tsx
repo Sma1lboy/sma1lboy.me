@@ -1,5 +1,6 @@
 import {
   Activity,
+  BookOpen,
   Code,
   FileText,
   FlaskConical,
@@ -154,6 +155,17 @@ export function NavigationDock({ activeSection, scrollToSection }: NavigationDoc
           className={`touch-manipulation ${inactiveClass}`}
         >
           <GitBranch
+            size={18}
+            className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
+          />
+        </DockIcon>
+
+        <DockIcon
+          label="Reading"
+          onClick={() => navigate({ to: "/reading" })}
+          className={`touch-manipulation ${inactiveClass}`}
+        >
+          <BookOpen
             size={18}
             className="text-gray-700 transition-colors duration-200 sm:size-5 dark:text-gray-300"
           />

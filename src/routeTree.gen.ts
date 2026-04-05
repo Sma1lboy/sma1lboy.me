@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as ReadingRouteImport } from './routes/reading'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as GithubRouteImport } from './routes/github'
@@ -35,6 +36,11 @@ const ResumeRoute = ResumeRouteImport.update({
   path: '/resume',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/resume.lazy').then((d) => d.Route))
+const ReadingRoute = ReadingRouteImport.update({
+  id: '/reading',
+  path: '/reading',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/reading.lazy').then((d) => d.Route))
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
+  '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
   '/timeline': typeof TimelineRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
+  '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
   '/timeline': typeof TimelineRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/github': typeof GithubRoute
   '/profile': typeof ProfileRoute
   '/projects': typeof ProjectsRoute
+  '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
   '/timeline': typeof TimelineRoute
   '/apps/receipt': typeof AppsReceiptRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/github'
     | '/profile'
     | '/projects'
+    | '/reading'
     | '/resume'
     | '/timeline'
     | '/apps/receipt'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/github'
     | '/profile'
     | '/projects'
+    | '/reading'
     | '/resume'
     | '/timeline'
     | '/apps/receipt'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/github'
     | '/profile'
     | '/projects'
+    | '/reading'
     | '/resume'
     | '/timeline'
     | '/apps/receipt'
@@ -218,6 +230,7 @@ export interface RootRouteChildren {
   GithubRoute: typeof GithubRoute
   ProfileRoute: typeof ProfileRoute
   ProjectsRoute: typeof ProjectsRoute
+  ReadingRoute: typeof ReadingRoute
   ResumeRoute: typeof ResumeRoute
   TimelineRoute: typeof TimelineRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
@@ -241,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/resume'
       fullPath: '/resume'
       preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reading': {
+      id: '/reading'
+      path: '/reading'
+      fullPath: '/reading'
+      preLoaderRoute: typeof ReadingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -346,6 +366,7 @@ const rootRouteChildren: RootRouteChildren = {
   GithubRoute: GithubRoute,
   ProfileRoute: ProfileRoute,
   ProjectsRoute: ProjectsRoute,
+  ReadingRoute: ReadingRoute,
   ResumeRoute: ResumeRoute,
   TimelineRoute: TimelineRoute,
   AppsReceiptRoute: AppsReceiptRoute,
