@@ -21,6 +21,7 @@ export default function BlogPostPage() {
     title: post?.title ?? "Blog Post",
     description: post?.excerpt ?? "A blog post by Jackson Chen.",
     path: `/blog/${slug}`,
+    ogImage: `https://sma1lboy.me/og/${slug}.svg`,
   });
 
   if (!post) {

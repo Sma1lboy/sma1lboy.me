@@ -4,7 +4,7 @@ const BASE_URL = "https://sma1lboy.me";
 const DEFAULT_TITLE = "Jackson Chen - Full Stack Developer";
 const DEFAULT_DESCRIPTION =
   "Full Stack Developer & CS graduate. Building AI tooling, open-source projects, and interactive web experiences.";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/home-avatar.png`;
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og/default.svg`;
 
 interface UseSEOParams {
   title?: string;
