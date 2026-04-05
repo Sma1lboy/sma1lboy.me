@@ -242,6 +242,15 @@ export function CommandPalette() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  // Listen for custom event from keyboard shortcuts (/ key)
+  useEffect(() => {
+    function onOpenPalette() {
+      setOpen(true);
+    }
+    window.addEventListener("open-command-palette", onOpenPalette);
+    return () => window.removeEventListener("open-command-palette", onOpenPalette);
+  }, []);
+
   // Focus input when opening
   useEffect(() => {
     if (open) {

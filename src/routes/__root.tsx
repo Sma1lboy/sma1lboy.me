@@ -1,14 +1,28 @@
+import { useCallback, useState } from "react";
 import { createRootRoute } from "@tanstack/react-router";
 import { CommandPalette } from "@/components/CommandPalette";
+import { KeyboardShortcutsModal } from "@/components/KeyboardShortcutsModal";
 import { PageTransition } from "@/components/PageTransition";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
-export const Route = createRootRoute({
-  component: () => (
+function RootComponent() {
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const toggleShortcuts = useCallback(() => setShortcutsOpen((v) => !v), []);
+  const closeShortcuts = useCallback(() => setShortcutsOpen(false), []);
+
+  useKeyboardShortcuts({ onToggleShortcutsModal: toggleShortcuts });
+
+  return (
     <>
       <CommandPalette />
+      <KeyboardShortcutsModal open={shortcutsOpen} onClose={closeShortcuts} />
       <PageTransition />
     </>
-  ),
+  );
+}
+
+export const Route = createRootRoute({
+  component: RootComponent,
   errorComponent: RootErrorBoundary,
 });
 
