@@ -6,6 +6,7 @@ import TerminalPreview from "../../components/apps/terminal/TerminalPreview";
 import TypingTestPreview from "../../components/apps/typing/TypingTestPreview";
 import PomodoroPreview from "../../components/apps/pomodoro/PomodoroPreview";
 import ChatPreview from "../../components/apps/chat/ChatPreview";
+import LifePreview from "../../components/apps/life/LifePreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -53,6 +54,13 @@ const experiments = [
     description:
       "Chat with a simulated AI assistant. Ask about Jackson, his projects, tech stack, and more.",
     preview: <ChatPreview />,
+  },
+  {
+    to: "/apps/life" as const,
+    title: "Game of Life",
+    description:
+      "Conway's cellular automaton with presets, canvas rendering, and click-to-draw interaction.",
+    preview: <LifePreview />,
   },
 ];
 
