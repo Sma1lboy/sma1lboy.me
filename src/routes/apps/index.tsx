@@ -35,6 +35,7 @@ import DrawPreview from "../../components/apps/draw/DrawPreview";
 import MinesweeperPreview from "../../components/apps/minesweeper/MinesweeperPreview";
 import Game2048Preview from "../../components/apps/2048/Game2048Preview";
 import WeatherPreview from "../../components/apps/weather/WeatherPreview";
+import TetrisPreview from "../../components/apps/tetris/TetrisPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -65,6 +66,7 @@ const newAppPaths = new Set([
   "/apps/minesweeper",
   "/apps/2048",
   "/apps/weather",
+  "/apps/tetris",
 ]);
 
 const categories: {
@@ -213,6 +215,13 @@ const categories: {
         description:
           "Slide and merge tiles to reach 2048. Arrow keys or swipe to play, with score tracking and high score persistence.",
         preview: <Game2048Preview />,
+      },
+      {
+        to: "/apps/tetris",
+        title: "Tetris",
+        description:
+          "Classic Tetris with 7 tetrominoes, arrow key controls, hard drop, level progression, and high score tracking.",
+        preview: <TetrisPreview />,
       },
     ],
   },

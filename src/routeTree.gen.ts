@@ -34,6 +34,7 @@ import { Route as AppsWidgetRouteImport } from './routes/apps/widget'
 import { Route as AppsWeatherRouteImport } from './routes/apps/weather'
 import { Route as AppsTypingRouteImport } from './routes/apps/typing'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
+import { Route as AppsTetrisRouteImport } from './routes/apps/tetris'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsSnakeRouteImport } from './routes/apps/snake'
 import { Route as AppsRegexRouteImport } from './routes/apps/regex'
@@ -183,6 +184,11 @@ const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
 } as any).lazy(() =>
   import('./routes/apps/typewriter.lazy').then((d) => d.Route),
 )
+const AppsTetrisRoute = AppsTetrisRouteImport.update({
+  id: '/apps/tetris',
+  path: '/apps/tetris',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/tetris.lazy').then((d) => d.Route))
 const AppsTerminalRoute = AppsTerminalRouteImport.update({
   id: '/apps/terminal',
   path: '/apps/terminal',
@@ -331,6 +337,7 @@ export interface FileRoutesByFullPath {
   '/apps/regex': typeof AppsRegexRoute
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
+  '/apps/tetris': typeof AppsTetrisRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
   '/apps/weather': typeof AppsWeatherRoute
@@ -379,6 +386,7 @@ export interface FileRoutesByTo {
   '/apps/regex': typeof AppsRegexRoute
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
+  '/apps/tetris': typeof AppsTetrisRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
   '/apps/weather': typeof AppsWeatherRoute
@@ -428,6 +436,7 @@ export interface FileRoutesById {
   '/apps/regex': typeof AppsRegexRoute
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
+  '/apps/tetris': typeof AppsTetrisRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/typing': typeof AppsTypingRoute
   '/apps/weather': typeof AppsWeatherRoute
@@ -478,6 +487,7 @@ export interface FileRouteTypes {
     | '/apps/regex'
     | '/apps/snake'
     | '/apps/terminal'
+    | '/apps/tetris'
     | '/apps/typewriter'
     | '/apps/typing'
     | '/apps/weather'
@@ -526,6 +536,7 @@ export interface FileRouteTypes {
     | '/apps/regex'
     | '/apps/snake'
     | '/apps/terminal'
+    | '/apps/tetris'
     | '/apps/typewriter'
     | '/apps/typing'
     | '/apps/weather'
@@ -574,6 +585,7 @@ export interface FileRouteTypes {
     | '/apps/regex'
     | '/apps/snake'
     | '/apps/terminal'
+    | '/apps/tetris'
     | '/apps/typewriter'
     | '/apps/typing'
     | '/apps/weather'
@@ -623,6 +635,7 @@ export interface RootRouteChildren {
   AppsRegexRoute: typeof AppsRegexRoute
   AppsSnakeRoute: typeof AppsSnakeRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
+  AppsTetrisRoute: typeof AppsTetrisRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsTypingRoute: typeof AppsTypingRoute
   AppsWeatherRoute: typeof AppsWeatherRoute
@@ -807,6 +820,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/typewriter'
       fullPath: '/apps/typewriter'
       preLoaderRoute: typeof AppsTypewriterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/tetris': {
+      id: '/apps/tetris'
+      path: '/apps/tetris'
+      fullPath: '/apps/tetris'
+      preLoaderRoute: typeof AppsTetrisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/terminal': {
@@ -999,6 +1019,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsRegexRoute: AppsRegexRoute,
   AppsSnakeRoute: AppsSnakeRoute,
   AppsTerminalRoute: AppsTerminalRoute,
+  AppsTetrisRoute: AppsTetrisRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsTypingRoute: AppsTypingRoute,
   AppsWeatherRoute: AppsWeatherRoute,

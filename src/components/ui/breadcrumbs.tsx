@@ -26,6 +26,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   colors: "Color Picker",
   gradient: "Gradient Generator",
   ascii: "ASCII Art",
+  tetris: "Tetris",
 };
 
 export interface BreadcrumbItem {
