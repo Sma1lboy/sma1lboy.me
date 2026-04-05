@@ -3,6 +3,7 @@ import { createRootRoute } from "@tanstack/react-router";
 import { CommandPalette } from "@/components/CommandPalette";
 import { KeyboardShortcutsModal } from "@/components/KeyboardShortcutsModal";
 import { PageTransition } from "@/components/PageTransition";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 function RootComponent() {
@@ -17,6 +18,7 @@ function RootComponent() {
       <CommandPalette />
       <KeyboardShortcutsModal open={shortcutsOpen} onClose={closeShortcuts} />
       <PageTransition />
+      <ScrollToTop />
     </>
   );
 }
