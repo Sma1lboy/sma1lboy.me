@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Rss } from "lucide-react";
 import { blogPosts } from "../../constants/blog";
 
 function formatDate(iso: string): string {
@@ -37,9 +37,20 @@ export default function BlogPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
-            Writing
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
+              Writing
+            </h1>
+            <a
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="RSS Feed"
+              className="text-gray-400 transition-colors hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
+            >
+              <Rss size={18} />
+            </a>
+          </div>
           <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
             Long-form thoughts on engineering, systems, and building things.
           </p>
@@ -71,7 +82,7 @@ export default function BlogPage() {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-base font-medium leading-snug text-gray-900 transition-colors group-hover:text-gray-600 sm:text-lg dark:text-gray-100 dark:group-hover:text-gray-300">
+                <h2 className="text-base leading-snug font-medium text-gray-900 transition-colors group-hover:text-gray-600 sm:text-lg dark:text-gray-100 dark:group-hover:text-gray-300">
                   {post.title}
                 </h2>
 

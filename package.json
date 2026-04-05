@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-rss.mjs",
     "build": "tsc && vite build",
     "lint": "eslint . --report-unused-disable-directives",
     "lint:fix": "eslint . --fix",
