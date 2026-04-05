@@ -3,6 +3,7 @@ import { Link, useParams } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { blogPosts, getBlogPost } from "../../constants/blog";
 import { useSEO } from "@/hooks/useSEO";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -41,9 +42,6 @@ export default function BlogPostPage() {
   const currentIndex = blogPosts.findIndex((p) => p.slug === slug);
   const prevPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
-
-  // Split content into paragraphs
-  const paragraphs = post.content.split("\n\n").filter(Boolean);
 
   return (
     <div className="min-h-screen bg-white text-gray-900 dark:bg-black dark:text-gray-100">
@@ -106,11 +104,7 @@ export default function BlogPostPage() {
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          {paragraphs.map((paragraph, i) => (
-            <p key={i} className="text-[15px] leading-[1.8] text-gray-700 dark:text-gray-300">
-              {paragraph}
-            </p>
-          ))}
+          <MarkdownRenderer content={post.content} />
         </motion.div>
 
         {/* Prev / Next navigation */}
