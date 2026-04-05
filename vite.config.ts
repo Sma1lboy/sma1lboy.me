@@ -85,6 +85,63 @@ export default defineConfig({
     }),
     jsonApiPlugin(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+
+          // Core vendor: React, router, state, styling utilities
+          if (
+            id.includes("/react/") ||
+            id.includes("/react-dom/") ||
+            id.includes("/framer-motion/") ||
+            id.includes("/motion/") ||
+            id.includes("/@tanstack/react-router/") ||
+            id.includes("/zustand/") ||
+            id.includes("/clsx/") ||
+            id.includes("/class-variance-authority/") ||
+            id.includes("/tailwind-merge/")
+          ) {
+            return "vendor";
+          }
+
+          // Markdown rendering
+          if (
+            id.includes("/react-markdown/") ||
+            id.includes("/remark-gfm/") ||
+            id.includes("/prism-react-renderer/")
+          ) {
+            return "markdown";
+          }
+
+          // Three.js (heavy, lazy-loaded)
+          if (id.includes("/three/")) {
+            return "three-d";
+          }
+
+          // Canvas libs
+          if (
+            id.includes("/konva/") ||
+            id.includes("/react-konva/") ||
+            id.includes("/matter-js/")
+          ) {
+            return "canvas";
+          }
+
+          // Carousel
+          if (id.includes("/embla-carousel")) {
+            return "embla";
+          }
+
+          // QR code
+          if (id.includes("/qrcode/")) {
+            return "qrcode";
+          }
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
