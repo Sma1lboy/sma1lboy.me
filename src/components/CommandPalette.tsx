@@ -9,6 +9,7 @@ import {
   Github,
   Home,
   Mail,
+  Monitor,
   Search,
   User,
   Briefcase,
@@ -111,6 +112,14 @@ export function CommandPalette() {
         category: "Pages",
         icon: Mail,
         action: () => navigate({ to: "/contact" }),
+      },
+      {
+        id: "page-uses",
+        title: "Uses",
+        description: "Developer setup & tools",
+        category: "Pages",
+        icon: Monitor,
+        action: () => navigate({ to: "/uses" }),
       },
     ];
 

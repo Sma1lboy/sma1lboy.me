@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UsesRouteImport } from './routes/uses'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ReadingRouteImport } from './routes/reading'
@@ -26,6 +27,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 
+const UsesRoute = UsesRouteImport.update({
+  id: '/uses',
+  path: '/uses',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/uses.lazy').then((d) => d.Route))
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
   '/timeline': typeof TimelineRoute
+  '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
   '/timeline': typeof TimelineRoute
+  '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/reading': typeof ReadingRoute
   '/resume': typeof ResumeRoute
   '/timeline': typeof TimelineRoute
+  '/uses': typeof UsesRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/reading'
     | '/resume'
     | '/timeline'
+    | '/uses'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/blog/$slug'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/reading'
     | '/resume'
     | '/timeline'
+    | '/uses'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/blog/$slug'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/reading'
     | '/resume'
     | '/timeline'
+    | '/uses'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/blog/$slug'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   ReadingRoute: typeof ReadingRoute
   ResumeRoute: typeof ResumeRoute
   TimelineRoute: typeof TimelineRoute
+  UsesRoute: typeof UsesRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -242,6 +255,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/uses': {
+      id: '/uses'
+      path: '/uses'
+      fullPath: '/uses'
+      preLoaderRoute: typeof UsesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/timeline': {
       id: '/timeline'
       path: '/timeline'
@@ -369,6 +389,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReadingRoute: ReadingRoute,
   ResumeRoute: ResumeRoute,
   TimelineRoute: TimelineRoute,
+  UsesRoute: UsesRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   BlogSlugRoute: BlogSlugRoute,
