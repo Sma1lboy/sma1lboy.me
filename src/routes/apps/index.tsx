@@ -43,6 +43,7 @@ import LoremPreview from "../../components/apps/lorem/LoremPreview";
 import CronPreview from "../../components/apps/cron/CronPreview";
 import EpochPreview from "../../components/apps/epoch/EpochPreview";
 import NetworkPreview from "../../components/apps/network/NetworkPreview";
+import ShadowPreview from "../../components/apps/shadow/ShadowPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -81,6 +82,7 @@ const newAppPaths = new Set([
   "/apps/cron",
   "/apps/epoch",
   "/apps/network",
+  "/apps/shadow",
 ]);
 
 const categories: {
@@ -312,6 +314,13 @@ const categories: {
         description:
           "Create beautiful CSS gradients with color stops, direction control, presets, and live CSS output.",
         preview: <GradientPreview />,
+      },
+      {
+        to: "/apps/shadow",
+        title: "Box Shadow Generator",
+        description:
+          "Create CSS box shadows with sliders for offset, blur, spread, color, and opacity. Multiple layers, presets, and copy-ready CSS output.",
+        preview: <ShadowPreview />,
       },
       {
         to: "/apps/ascii",

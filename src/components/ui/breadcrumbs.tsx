@@ -29,6 +29,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   tetris: "Tetris",
   password: "Password Generator",
   network: "IP & Network Info",
+  shadow: "Box Shadow Generator",
 };
 
 export interface BreadcrumbItem {

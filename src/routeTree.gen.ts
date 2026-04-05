@@ -39,6 +39,7 @@ import { Route as AppsTimerRouteImport } from './routes/apps/timer'
 import { Route as AppsTetrisRouteImport } from './routes/apps/tetris'
 import { Route as AppsTerminalRouteImport } from './routes/apps/terminal'
 import { Route as AppsSnakeRouteImport } from './routes/apps/snake'
+import { Route as AppsShadowRouteImport } from './routes/apps/shadow'
 import { Route as AppsRegexRouteImport } from './routes/apps/regex'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
 import { Route as AppsQrRouteImport } from './routes/apps/qr'
@@ -217,6 +218,11 @@ const AppsSnakeRoute = AppsSnakeRouteImport.update({
   path: '/apps/snake',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/apps/snake.lazy').then((d) => d.Route))
+const AppsShadowRoute = AppsShadowRouteImport.update({
+  id: '/apps/shadow',
+  path: '/apps/shadow',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/shadow.lazy').then((d) => d.Route))
 const AppsRegexRoute = AppsRegexRouteImport.update({
   id: '/apps/regex',
   path: '/apps/regex',
@@ -389,6 +395,7 @@ export interface FileRoutesByFullPath {
   '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
+  '/apps/shadow': typeof AppsShadowRoute
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/tetris': typeof AppsTetrisRoute
@@ -446,6 +453,7 @@ export interface FileRoutesByTo {
   '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
+  '/apps/shadow': typeof AppsShadowRoute
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/tetris': typeof AppsTetrisRoute
@@ -504,6 +512,7 @@ export interface FileRoutesById {
   '/apps/qr': typeof AppsQrRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/regex': typeof AppsRegexRoute
+  '/apps/shadow': typeof AppsShadowRoute
   '/apps/snake': typeof AppsSnakeRoute
   '/apps/terminal': typeof AppsTerminalRoute
   '/apps/tetris': typeof AppsTetrisRoute
@@ -563,6 +572,7 @@ export interface FileRouteTypes {
     | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
+    | '/apps/shadow'
     | '/apps/snake'
     | '/apps/terminal'
     | '/apps/tetris'
@@ -620,6 +630,7 @@ export interface FileRouteTypes {
     | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
+    | '/apps/shadow'
     | '/apps/snake'
     | '/apps/terminal'
     | '/apps/tetris'
@@ -677,6 +688,7 @@ export interface FileRouteTypes {
     | '/apps/qr'
     | '/apps/receipt'
     | '/apps/regex'
+    | '/apps/shadow'
     | '/apps/snake'
     | '/apps/terminal'
     | '/apps/tetris'
@@ -735,6 +747,7 @@ export interface RootRouteChildren {
   AppsQrRoute: typeof AppsQrRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsRegexRoute: typeof AppsRegexRoute
+  AppsShadowRoute: typeof AppsShadowRoute
   AppsSnakeRoute: typeof AppsSnakeRoute
   AppsTerminalRoute: typeof AppsTerminalRoute
   AppsTetrisRoute: typeof AppsTetrisRoute
@@ -961,6 +974,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppsSnakeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/shadow': {
+      id: '/apps/shadow'
+      path: '/apps/shadow'
+      fullPath: '/apps/shadow'
+      preLoaderRoute: typeof AppsShadowRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apps/regex': {
       id: '/apps/regex'
       path: '/apps/regex'
@@ -1183,6 +1203,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsQrRoute: AppsQrRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsRegexRoute: AppsRegexRoute,
+  AppsShadowRoute: AppsShadowRoute,
   AppsSnakeRoute: AppsSnakeRoute,
   AppsTerminalRoute: AppsTerminalRoute,
   AppsTetrisRoute: AppsTetrisRoute,
