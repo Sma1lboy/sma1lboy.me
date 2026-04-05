@@ -262,13 +262,16 @@ export default function NetworkInfo() {
   // Browser info
   const browserInfo = useMemo(() => {
     const nav = typeof navigator !== "undefined" ? navigator : null;
-    const conn = nav && "connection" in nav ? (nav as unknown as Record<string, unknown>).connection : null;
+    const conn =
+      nav && "connection" in nav
+        ? (nav as unknown as Record<string, Record<string, unknown>>).connection
+        : null;
     return {
       userAgent: nav?.userAgent ?? "Unknown",
       platform: nav?.platform ?? "Unknown",
       language: nav?.language ?? "Unknown",
       screenRes: typeof screen !== "undefined" ? `${screen.width} × ${screen.height}` : "Unknown",
-      connectionType: conn?.effectiveType ?? "Unknown",
+      connectionType: (conn?.effectiveType as string) ?? "Unknown",
       downlink: conn?.downlink ? `${conn.downlink} Mbps` : null,
     };
   }, []);
