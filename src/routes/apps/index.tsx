@@ -4,6 +4,7 @@ import TypewriterPreview from "../../components/apps/typewriter/TypewriterPrevie
 import ReceiptPreview from "../../components/apps/receipt/ReceiptPreview";
 import TerminalPreview from "../../components/apps/terminal/TerminalPreview";
 import TypingTestPreview from "../../components/apps/typing/TypingTestPreview";
+import PomodoroPreview from "../../components/apps/pomodoro/PomodoroPreview";
 
 export const Route = createFileRoute("/apps/")({
   component: AppsIndex,
@@ -37,6 +38,13 @@ const experiments = [
     description:
       "Test your typing speed with programming passages. Track WPM, accuracy, and beat your best score.",
     preview: <TypingTestPreview />,
+  },
+  {
+    to: "/apps/pomodoro" as const,
+    title: "Pomodoro Timer",
+    description:
+      "Focus timer with 25-min work sessions and breaks. Track your productivity.",
+    preview: <PomodoroPreview />,
   },
 ];
 
