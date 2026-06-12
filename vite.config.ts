@@ -89,4 +89,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Split stable vendors into separate chunks for better long-term caching
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-dom/client"],
+          "vendor-router": ["@tanstack/react-router"],
+          "vendor-motion": ["framer-motion"],
+        },
+      },
+    },
+  },
 });

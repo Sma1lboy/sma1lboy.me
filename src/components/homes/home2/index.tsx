@@ -345,7 +345,7 @@ export function Home2() {
           {...fadeIn(0.24)}
         >
           <img
-            src="/home-avatar.png"
+            src="/home-avatar.webp"
             alt="Jackson Chen"
             className="h-24 w-24 shrink-0 rounded-full object-cover grayscale"
           />

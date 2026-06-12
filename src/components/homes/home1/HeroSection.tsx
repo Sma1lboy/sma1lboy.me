@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
+import { lazy, Suspense } from "react";
 import { avatarVariants, containerVariants, itemVariants } from "../../../constants/home";
-import { InteractiveAvatar } from "../../InteractiveAvatar";
 import { SocialLinks } from "./SocialLinks";
+
+// Lazy-loaded: keeps konva/react-konva out of the initial bundle
+const InteractiveAvatar = lazy(() =>
+  import("../../InteractiveAvatar").then((m) => ({ default: m.InteractiveAvatar })),
+);
 
 export function HeroSection() {
   return (
@@ -90,7 +95,9 @@ export function HeroSection() {
           >
             <div className="flex h-full w-full items-center justify-center overflow-hidden">
               <div className="flex h-full w-full max-w-full items-center justify-center">
-                <InteractiveAvatar imageSrc="/home-avatar.png" />
+                <Suspense fallback={<div className="h-full w-full" />}>
+                  <InteractiveAvatar imageSrc="/home-avatar.webp" />
+                </Suspense>
               </div>
             </div>
           </motion.div>
