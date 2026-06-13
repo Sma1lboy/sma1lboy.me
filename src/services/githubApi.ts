@@ -1,12 +1,33 @@
-import { Octokit } from "@octokit/rest";
-
 /**
- * Octokit response types for GitHub API data
+ * Minimal GitHub REST API types — only fields actually consumed by the app.
+ * (Replaces @octokit/rest to keep it out of the bundle.)
  */
-export type GitHubUserData = Awaited<ReturnType<Octokit["rest"]["users"]["getByUsername"]>>["data"];
-export type GitHubRepo = Awaited<
-  ReturnType<Octokit["rest"]["repos"]["listForUser"]>
->["data"][number];
+export interface GitHubUserData {
+  login: string;
+  name: string | null;
+  avatar_url: string;
+  html_url: string;
+  bio: string | null;
+  blog: string | null;
+  location: string | null;
+  company: string | null;
+  created_at: string;
+  followers: number;
+  following: number;
+  public_repos: number;
+}
+
+export interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  updated_at: string | null;
+  fork: boolean;
+}
 
 /**
  * GitHub contribution data interface (custom since GitHub's contribution API requires GraphQL)
@@ -48,7 +69,6 @@ export interface GitHubDataCache {
  * GitHub API service class with caching
  */
 class GitHubApiService {
-  private octokit: Octokit;
   private cache: GitHubDataCache | null = null;
   private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutes in milliseconds
   private readonly USERNAME = import.meta.env.VITE_GITHUB_USERNAME || "sma1lboy";
@@ -56,12 +76,19 @@ class GitHubApiService {
   private readonly REPOS_RESULT_LIMIT = 30; // Return top 30 starred repos
   private intervalId: NodeJS.Timeout | null = null;
 
-  constructor() {
-    // Initialize Octokit (no token needed for public data, but rate limited)
-    // For production, consider adding a GitHub token via environment variable
-    this.octokit = new Octokit({
-      auth: import.meta.env.VITE_GITHUB_TOKEN, // Optional: add token for higher rate limits
+  /** Plain fetch against GitHub REST API; token optional for higher rate limits */
+  private async restGet<T>(path: string): Promise<T> {
+    const token = import.meta.env.VITE_GITHUB_TOKEN;
+    const response = await fetch(`https://api.github.com${path}`, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
+    if (!response.ok) {
+      throw new Error(`GitHub API ${path} failed: ${response.status}`);
+    }
+    return (await response.json()) as T;
   }
 
   /**
@@ -192,12 +219,11 @@ class GitHubApiService {
    * Get top starred repositories as fallback
    */
   private async getTopStarredRepos(): Promise<GitHubRepo[]> {
-    const reposResponse = await this.octokit.rest.repos.listForUser({
-      username: this.USERNAME,
-      per_page: this.REPOS_FETCH_LIMIT,
-    });
+    const repos = await this.restGet<GitHubRepo[]>(
+      `/users/${this.USERNAME}/repos?per_page=${this.REPOS_FETCH_LIMIT}`,
+    );
     // Sort by stars in descending order and take top repos
-    return reposResponse.data
+    return repos
       .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0))
       .slice(0, this.REPOS_RESULT_LIMIT);
   }
@@ -210,9 +236,7 @@ class GitHubApiService {
       console.log("Fetching fresh GitHub data...");
 
       // Fetch user data
-      const userResponse = await this.octokit.rest.users.getByUsername({
-        username: this.USERNAME,
-      });
+      const user = await this.restGet<GitHubUserData>(`/users/${this.USERNAME}`);
 
       // Fetch repositories - try pinned repos first, fallback to top starred
       const repos = await this.getPinnedRepos();
@@ -225,8 +249,8 @@ class GitHubApiService {
 
       // Update cache
       this.cache = {
-        user: userResponse.data,
-        repos: repos,
+        user,
+        repos,
         contributions,
         totalContributions,
         lastUpdated: Date.now(),
