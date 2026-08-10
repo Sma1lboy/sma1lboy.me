@@ -35,8 +35,8 @@
   --border: oklch(0.93 0 0);
   /* Input borders (gray-300 equivalent) */
   --input: oklch(0.87 0 0);
-  /* Focus rings (gray-400 equivalent) */
-  --ring: oklch(0.74 0 0);
+  /* Focus rings — 必须在自身背景上 >=3:1,否则键盘用户看不到焦点在哪 */
+  --ring: oklch(0.45 0 0);
   /* Chart colors - keeping original for consistency */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -110,7 +110,8 @@
   /* Very subtle borders - barely visible */
   --border: oklch(0.1 0 0);
   --input: oklch(0.1 0 0);
-  --ring: oklch(0.2 0 0);
+  /* 深色下焦点环必须是亮色 —— 原来的 0.2 在近黑背景上是 1.05:1,等于没有 */
+  --ring: oklch(0.78 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -187,7 +188,13 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* outline 不带 /50 —— 半透明会把焦点环稀释到背景里,深色下直接消失 */
+    @apply border-border outline-ring;
+  }
+  /* 焦点环要看得见:2px 实边 + 偏移,只对键盘焦点生效 */
+  *:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground;

@@ -128,7 +128,6 @@ const links = [
   { to: "/" as const, label: "Home" },
   { to: "/apps" as const, label: "Lab" },
   { to: "/cmt" as const, label: "Thoughts" },
-  { to: "/profile" as const, label: "Profile" },
 ];
 
 export function NotFound() {

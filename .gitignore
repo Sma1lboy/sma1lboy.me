@@ -36,3 +36,9 @@ package-lock.json
 auto-imports.d.ts
 .eslintrc-auto-import.json
 .gstack/
+
+# 装的 agent skills / 本地 agent 配置 —— 是工具不是站点代码
+.agents/
+.claude/
+.pochi/
+skills-lock.json
