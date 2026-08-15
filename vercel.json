@@ -1,4 +1,5 @@
 {
+  "installCommand": "npm install --no-audit --no-fund",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
