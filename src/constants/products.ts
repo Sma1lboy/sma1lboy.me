@@ -85,12 +85,24 @@ export const products: Entry[] = [
     name: "brand-studio",
     href: "https://brand-studio.sma1lboy.me",
     pitch:
-      "generate → review → settle: brand assets as a pipeline, round boards and a share server",
+      "generate → review → settle: brand assets as a repeatable pipeline — it curates and seals, producers generate, humans gate every round",
     repo: "https://github.com/Sma1lboy/brand-studio",
     stars: 3,
     lang: "Python",
     year: "2026",
     live: true,
+    tier: 2,
+  },
+  {
+    name: "artifact-share",
+    href: "https://share.sma1lboy.me",
+    pitch:
+      "publish an HTML page, get the verdicts back — one POST turns a self-contained board into a public review link the agent reads as JSON",
+    repo: "https://github.com/Sma1lboy/artifact-share",
+    lang: "JavaScript",
+    year: "2026",
+    live: true,
+    note: "~200 lines",
     tier: 2,
   },
   {
