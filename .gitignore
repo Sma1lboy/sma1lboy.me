@@ -33,6 +33,12 @@ bun.lockb
 yarn.lock
 package-lock.json
 
+# Registry credentials. Also keeps a private mirror from being pinned here —
+# that's how bun.lock ended up full of internal URLs no CI could resolve (#75).
+.npmrc
+.yarnrc
+.yarnrc.yml
+
 auto-imports.d.ts
 .eslintrc-auto-import.json
 .gstack/
