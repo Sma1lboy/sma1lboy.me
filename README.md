@@ -1,6 +1,6 @@
 # sma1lboy's Personal Website
 
-This is the repository for my personal website, built with React, TypeScript, and Vite.
+This is the repository for my personal website, a modern, performant, and feature-rich portfolio built with the latest web technologies. The project leverages a powerful tech stack to deliver a seamless user experience with a focus on clean code and maintainability.
 
 ## 🚀 Live Demo
 
@@ -8,12 +8,13 @@ This is the repository for my personal website, built with React, TypeScript, an
 
 ## ✨ Features
 
-- **Framework**: [React](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Routing**: [TanStack Router](https://tanstack.com/router)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Framework**: [React](https://react.dev/) - A declarative, component-based library for building user interfaces.
+- **Build Tool**: [Vite](https://vitejs.dev/) - A next-generation frontend tooling that provides a faster and leaner development experience.
+- **Language**: [TypeScript](https://www.typescriptlang.org/) - A statically typed superset of JavaScript that enhances code quality and maintainability.
+- **Routing**: [TanStack Router](https://tanstack.com/router) - A fully type-safe router for React that enables efficient and scalable navigation.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) - A production-ready motion library for creating fluid animations.
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/) - A small, fast, and scalable state-management solution.
 
 ## 🛠️ Setup and Installation
 
