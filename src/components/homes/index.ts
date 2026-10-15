@@ -1,1 +1,1 @@
-export { Home6 } from "./home6";
+export { HomeAscii } from "./ascii/HomeAscii";

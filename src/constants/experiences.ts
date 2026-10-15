@@ -5,7 +5,7 @@ export const experiences: Experience[] = [
   {
     id: "tiktok-sde",
     title: "Full-Stack & AI Engineer",
-    company: "TikTok",
+    company: "ByteDance",
     period: {
       start: "2025-10",
     },
