@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# For LLMs: https://sma1lboy.me/llms.txt

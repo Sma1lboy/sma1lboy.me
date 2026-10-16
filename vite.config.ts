@@ -15,6 +15,33 @@ import svgr from "vite-plugin-svgr";
 import { TanStackRouterVite } from "@tanstack/router-vite-plugin";
 
 import { fonts } from "./configs/fonts.config";
+import { llmsFullTxt, llmsTxt } from "./src/components/resume/llms";
+
+/**
+ * Vite plugin: /llms.txt and /llms-full.txt rendered from src/constants at build time,
+ * so they can't drift from the pages. Dev serves the same text from middleware.
+ */
+function llmsTxtPlugin(): Plugin {
+  const files = { "llms.txt": llmsTxt, "llms-full.txt": llmsFullTxt };
+  return {
+    name: "llms-txt",
+
+    configureServer(server) {
+      for (const [name, render] of Object.entries(files)) {
+        server.middlewares.use(`/${name}`, (_req, res) => {
+          res.setHeader("Content-Type", "text/plain; charset=utf-8");
+          res.end(render());
+        });
+      }
+    },
+
+    generateBundle() {
+      for (const [name, render] of Object.entries(files)) {
+        this.emitFile({ type: "asset", fileName: name, source: render() });
+      }
+    },
+  };
+}
 
 /**
  * Vite plugin: serves & builds /api/*.json from src/data/*.json.
@@ -83,6 +110,7 @@ export default defineConfig({
       dirs: ["./src/components/ui"],
     }),
     jsonApiPlugin(),
+    llmsTxtPlugin(),
   ],
   resolve: {
     alias: {

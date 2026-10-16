@@ -30,18 +30,18 @@ export interface Entry {
 /** 产品 —— 有落地页、给别人用的东西 */
 export const products: Entry[] = [
   {
-    name: "kobe",
-    href: "https://kobe.sma1lboy.me",
+    name: "rove",
+    href: "https://rove.run",
     pitch:
-      "the agent multiplexer in your shell — fan out N coding agents into isolated git worktrees, compare, merge the winner",
-    repo: "https://github.com/Sma1lboy/kobe",
-    stars: 94,
+      "the agent multiplexer for your terminal — run coding agents on parallel tasks in isolated git worktrees, sessions that outlive the terminal",
+    repo: "https://github.com/Sma1lboy/rove",
+    stars: 173,
     lang: "TypeScript",
     year: "2026",
     live: true,
     note: "14k npm/mo",
     tier: 1,
-    cover: "kobe",
+    cover: "rove",
   },
   {
     name: "codefox",
@@ -205,9 +205,9 @@ export const skills: Entry[] = [
     tier: 2,
   },
   {
-    name: "kobe-plugins",
-    href: "https://github.com/Sma1lboy/kobe-plugins",
-    pitch: "official plugins for kobe",
+    name: "rove-plugins",
+    href: "https://github.com/Sma1lboy/rove-plugins",
+    pitch: "official plugins for rove",
     year: "2026",
     tier: 3,
   },

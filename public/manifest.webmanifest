@@ -1,0 +1,12 @@
+{
+  "name": "sma1lboy.me",
+  "short_name": "sma1lboy",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#101010",
+  "theme_color": "#101010",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/favicon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

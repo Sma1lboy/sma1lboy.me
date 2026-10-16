@@ -9,39 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as CmtRouteImport } from './routes/cmt'
-import { Route as ApiRouteImport } from './routes/api'
-import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SplatRouteImport } from './routes/$'
+import { Route as ApiRouteImport } from './routes/api'
+import { Route as CmtRouteImport } from './routes/cmt'
+import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as AppsIndexRouteImport } from './routes/apps/index'
-import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 import { Route as AppsReceiptRouteImport } from './routes/apps/receipt'
+import { Route as AppsTypewriterRouteImport } from './routes/apps/typewriter'
 
-const CmtRoute = CmtRouteImport.update({
-  id: '/cmt',
-  path: '/cmt',
-  getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/cmt.lazy').then((d) => d.Route))
-const ApiRoute = ApiRouteImport.update({
-  id: '/api',
-  path: '/api',
-  getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/api.lazy').then((d) => d.Route))
-const SplatRoute = SplatRouteImport.update({
-  id: '/$',
-  path: '/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRoute = ApiRouteImport.update({
+  id: '/api',
+  path: '/api',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/api.lazy').then((d) => d.Route))
+const CmtRoute = CmtRouteImport.update({
+  id: '/cmt',
+  path: '/cmt',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/cmt.lazy').then((d) => d.Route))
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/resume.lazy').then((d) => d.Route))
 const AppsIndexRoute = AppsIndexRouteImport.update({
   id: '/apps/',
   path: '/apps/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppsReceiptRoute = AppsReceiptRouteImport.update({
+  id: '/apps/receipt',
+  path: '/apps/receipt',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/apps/receipt.lazy').then((d) => d.Route))
 const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
   id: '/apps/typewriter',
   path: '/apps/typewriter',
@@ -49,26 +60,23 @@ const AppsTypewriterRoute = AppsTypewriterRouteImport.update({
 } as any).lazy(() =>
   import('./routes/apps/typewriter.lazy').then((d) => d.Route),
 )
-const AppsReceiptRoute = AppsReceiptRouteImport.update({
-  id: '/apps/receipt',
-  path: '/apps/receipt',
-  getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/apps/receipt.lazy').then((d) => d.Route))
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
+  '/resume': typeof ResumeRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
-  '/apps': typeof AppsIndexRoute
+  '/apps/': typeof AppsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
+  '/resume': typeof ResumeRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps': typeof AppsIndexRoute
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/api': typeof ApiRoute
   '/cmt': typeof CmtRoute
+  '/resume': typeof ResumeRoute
   '/apps/receipt': typeof AppsReceiptRoute
   '/apps/typewriter': typeof AppsTypewriterRoute
   '/apps/': typeof AppsIndexRoute
@@ -90,15 +99,17 @@ export interface FileRouteTypes {
     | '/$'
     | '/api'
     | '/cmt'
+    | '/resume'
     | '/apps/receipt'
     | '/apps/typewriter'
-    | '/apps'
+    | '/apps/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$'
     | '/api'
     | '/cmt'
+    | '/resume'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/apps'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/api'
     | '/cmt'
+    | '/resume'
     | '/apps/receipt'
     | '/apps/typewriter'
     | '/apps/'
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   SplatRoute: typeof SplatRoute
   ApiRoute: typeof ApiRoute
   CmtRoute: typeof CmtRoute
+  ResumeRoute: typeof ResumeRoute
   AppsReceiptRoute: typeof AppsReceiptRoute
   AppsTypewriterRoute: typeof AppsTypewriterRoute
   AppsIndexRoute: typeof AppsIndexRoute
@@ -125,18 +138,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/cmt': {
-      id: '/cmt'
-      path: '/cmt'
-      fullPath: '/cmt'
-      preLoaderRoute: typeof CmtRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api': {
-      id: '/api'
-      path: '/api'
-      fullPath: '/api'
-      preLoaderRoute: typeof ApiRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -146,25 +152,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/api': {
+      id: '/api'
+      path: '/api'
+      fullPath: '/api'
+      preLoaderRoute: typeof ApiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cmt': {
+      id: '/cmt'
+      path: '/cmt'
+      fullPath: '/cmt'
+      preLoaderRoute: typeof CmtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/': {
       id: '/apps/'
       path: '/apps'
-      fullPath: '/apps'
+      fullPath: '/apps/'
       preLoaderRoute: typeof AppsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/apps/typewriter': {
-      id: '/apps/typewriter'
-      path: '/apps/typewriter'
-      fullPath: '/apps/typewriter'
-      preLoaderRoute: typeof AppsTypewriterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apps/receipt': {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/receipt'
       fullPath: '/apps/receipt'
       preLoaderRoute: typeof AppsReceiptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/typewriter': {
+      id: '/apps/typewriter'
+      path: '/apps/typewriter'
+      fullPath: '/apps/typewriter'
+      preLoaderRoute: typeof AppsTypewriterRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   SplatRoute: SplatRoute,
   ApiRoute: ApiRoute,
   CmtRoute: CmtRoute,
+  ResumeRoute: ResumeRoute,
   AppsReceiptRoute: AppsReceiptRoute,
   AppsTypewriterRoute: AppsTypewriterRoute,
   AppsIndexRoute: AppsIndexRoute,
