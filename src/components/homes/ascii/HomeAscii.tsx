@@ -47,12 +47,13 @@ const NIGHT = {
   levels: ["#6b4a37", "#b4552c", "#ff7a45", "#f3dcc0"],
 } as const;
 
-/** 字符画:纯装饰,aria-hidden */
+/** 字符画:纯装饰,aria-hidden。去掉公共前导空格 —— 每幅画的左缘都贴住正文左缘 */
 function Art({ lines, className = "" }: { lines?: string[]; className?: string }) {
   if (!lines) return null;
+  const indent = Math.min(...lines.filter((l) => l.trim()).map((l) => l.search(/\S/)));
   return (
     <pre aria-hidden="true" className={`leading-[1.2] whitespace-pre select-none ${className}`} style={{ color: PAPER.dim }}>
-      {lines.join("\n")}
+      {lines.map((l) => l.slice(indent)).join("\n")}
     </pre>
   );
 }

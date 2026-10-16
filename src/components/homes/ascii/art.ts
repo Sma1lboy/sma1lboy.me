@@ -3,8 +3,8 @@
  * 产品图按 Entry.name 取;cat 是 Felix Lee 的经典 ASCII 猫。
  */
 export const ART: Record<string, string[]> = {
-  "kobe": [
-    "     $ kobe run \"fix it\"",
+  "rove": [
+    "          $ rove",
     "              |",
     "    .----+----+----+----.",
     "    |    |         |    |",
