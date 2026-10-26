@@ -75,8 +75,8 @@ export function Field({ still, palette }: { still: boolean; palette: FieldPalett
       show = new Uint8Array(n);
       seed = new Float32Array(n);
       for (let i = 0; i < n; i++) seed[i] = Math.random();
-      const grid: Grid = { cols, rows, cw, chh, cx, cy, r, show, lum: new Uint8Array(n) };
-      lum = grid.lum;
+      lum = new Uint8Array(n);
+      const grid: Grid = { cols, rows, cw, chh, cx, cy, r, show, lum };
       step = blackhole(grid);
     };
 
