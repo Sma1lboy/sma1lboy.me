@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
-import { SUBJECTS, SUBJECT_SIZE } from "./subjects";
+import { RAMP, blackhole, type Grid } from "./blackhole";
 
 /**
  * 首屏的活字符场,做法借自 Oriku 的 "Digital Bloom" 海报:
- * 一个主体被拆成一格一格的字符,按亮度分 4 级上色;光标经过,格子被弹开再弹回;
- * 每隔几秒主体碎开、重组成下一个(名字 → 花 → 狐狸 → 猫),点一下立刻换。
- * 背后还有一层很淡的噪声底纹。画布只是背景(aria-hidden),文字内容都在 DOM 里。
+ * 右边是一个一直在转的黑洞(blackhole.ts),每帧重算成字符格,亮度决定字符和 4 级颜色;
+ * 光标经过,格子被弹开再弹回。背后还有一层很淡的噪声底纹。
+ * 画布只是背景(aria-hidden),文字内容都在 DOM 里。
  */
 
 export interface FieldPalette {
@@ -15,28 +15,11 @@ export interface FieldPalette {
   levels: readonly [string, string, string, string];
 }
 
-export const FIGURES = ["sma1lboy", "bloom", "fox", "cat"] as const;
-const SOURCES = [null, SUBJECTS.flower, SUBJECTS.fox, SUBJECTS.cat];
-
 const DUST = " .,:;-=+*";
-const GLYPH = ["", ".:", "+=", "*#", "@%"];
 const SCRAMBLE = "/\\|<>?!~^";
 
-const HOLD = 5.5;
-const MORPH = 1.6;
-
-export function Field({
-  still,
-  palette,
-  onFigure,
-}: {
-  still: boolean;
-  palette: FieldPalette;
-  onFigure?: (i: number) => void;
-}) {
+export function Field({ still, palette }: { still: boolean; palette: FieldPalette }) {
   const ref = useRef<HTMLCanvasElement>(null);
-  const onFig = useRef(onFigure);
-  onFig.current = onFigure;
 
   useEffect(() => {
     const cv = ref.current;
@@ -44,27 +27,25 @@ export function Field({
     const ctx = cv.getContext("2d");
     if (!ctx) return;
 
-    // 窄屏格子缩小,主体才有足够的格数
-    const FS = window.innerWidth < 640 ? 8 : 12;
+    // 字号小一点,字符画才细;窄屏再小一档,主体才有足够的格数
+    const FS = window.innerWidth < 640 ? 7 : 9;
     const font = `${FS}px "SF Mono", Menlo, Consolas, monospace`;
     let cw = 8;
     let chh = 16;
     let cols = 0;
     let rows = 0;
     let n = 0;
-    let figs: Uint8Array[] = [];
     let ox = new Float32Array(0);
     let oy = new Float32Array(0);
     let vx = new Float32Array(0);
     let vy = new Float32Array(0);
     let seed = new Float32Array(0);
     let show = new Uint8Array(0);
+    let lum = new Uint8Array(0);
+    let step: (s: number) => void = () => {};
     let raf = 0;
     let last = 0;
     let visible = true;
-    let cur = 0;
-    let prev = 0;
-    let t0 = -MORPH;
     // px/py = 上一帧位置,用来算划动速度;t = 最后一次移动的时间,底纹涟漪从这刻起衰减
     const mouse = { x: -1e4, y: -1e4, px: -1e4, py: -1e4, t: -1e4 };
 
@@ -81,60 +62,11 @@ export function Field({
       rows = Math.ceil(height / chh);
       n = cols * rows;
 
-      // 主体区域:宽屏放右半边,窄屏放正中;格子竖长,行数按 cw/chh 压,画出来才是方的
+      // 主体:压在右下角出血,盘面右侧约 30% 和光圈下沿出画,像镜头只框住了一部分
       const wide = width >= 1024;
-      let rw = Math.floor(cols * (wide ? 0.44 : 0.92));
-      let rh = Math.round((rw * cw) / chh);
-      const maxH = Math.floor(rows * (wide ? 0.86 : 0.5));
-      if (rh > maxH) {
-        rh = maxH;
-        rw = Math.round((rh * chh) / cw);
-      }
-      const rx = Math.round(cols * (wide ? 0.7 : 0.5) - rw / 2);
-      const ry = Math.round(rows * (wide ? 0.5 : 0.47) - rh / 2);
-
-      figs = SOURCES.map((src) => {
-        const f = new Uint8Array(n);
-        if (src) {
-          for (let j = 0; j < rh; j++)
-            for (let i = 0; i < rw; i++) {
-              const x = rx + i;
-              const y = ry + j;
-              if (x < 0 || x >= cols || y < 0 || y >= rows) continue;
-              const sx = Math.floor((i / rw) * SUBJECT_SIZE);
-              const sy = Math.floor((j / rh) * SUBJECT_SIZE);
-              f[y * cols + x] = src.charCodeAt(sy * SUBJECT_SIZE + sx) - 48;
-            }
-          return f;
-        }
-        // 名字:离屏画 SMA1 / LBOY 两行,每格采样一个像素
-        const off = document.createElement("canvas");
-        off.width = rw;
-        off.height = rh;
-        const o = off.getContext("2d")!;
-        const face = (s: number) => `900 ${s}px "Helvetica Neue", Arial, sans-serif`;
-        o.font = face(100);
-        const size = Math.floor((100 * rw * 0.96) / o.measureText("LBOY").width);
-        o.font = face(size);
-        o.fillStyle = "#fff";
-        o.textAlign = "center";
-        o.textBaseline = "middle";
-        o.save();
-        o.translate(rw / 2, rh / 2);
-        o.scale(1, cw / chh);
-        o.fillText("SMA1", 0, -size * 0.46);
-        o.fillText("LBOY", 0, size * 0.46);
-        o.restore();
-        const px = o.getImageData(0, 0, rw, rh).data;
-        for (let j = 0; j < rh; j++)
-          for (let i = 0; i < rw; i++) {
-            const x = rx + i;
-            const y = ry + j;
-            if (x < 0 || x >= cols || y < 0 || y >= rows) continue;
-            if (px[(j * rw + i) * 4 + 3] > 110) f[y * cols + x] = (i * 7 + j * 13) % 9 === 0 ? 3 : 4;
-          }
-        return f;
-      });
+      const r = wide ? width * 0.46 : width * 0.8;
+      const cx = width - r * 0.4;
+      const cy = height * (wide ? 0.68 : 0.7);
 
       ox = new Float32Array(n);
       oy = new Float32Array(n);
@@ -143,23 +75,15 @@ export function Field({
       show = new Uint8Array(n);
       seed = new Float32Array(n);
       for (let i = 0; i < n; i++) seed[i] = Math.random();
-    };
-
-    const next = (s: number) => {
-      prev = cur;
-      cur = (cur + 1) % figs.length;
-      t0 = s;
-      onFig.current?.(cur);
+      const grid: Grid = { cols, rows, cw, chh, cx, cy, r, show, lum: new Uint8Array(n) };
+      lum = grid.lum;
+      step = blackhole(grid);
     };
 
     const draw = (t: number) => {
       const s = t / 1000;
-      if (!still && s - t0 > HOLD + MORPH) next(s);
-      const p = Math.min(1, Math.max(0, (s - t0) / MORPH));
-      // 碎开 → 重组:中段散得最开
-      const burst = Math.sin(Math.PI * p);
-      const A = figs[prev];
-      const B = figs[cur];
+      show.fill(0);
+      step(still ? 8 : s);
       const { width, height } = cv.getBoundingClientRect();
       ctx.clearRect(0, 0, width, height);
       ctx.font = font;
@@ -174,9 +98,7 @@ export function Field({
       mouse.py = mouse.y;
       const R = 80;
       for (let i = 0; i < n; i++) {
-        const L = p >= seed[i] ? B[i] : A[i];
-        show[i] = L;
-        if (!L && !ox[i] && !oy[i]) continue;
+        if (!show[i] && !ox[i] && !oy[i]) continue;
         const x = (i % cols) * cw + ox[i];
         const y = Math.floor(i / cols) * chh + oy[i];
         const dx = x - mouse.x;
@@ -212,7 +134,8 @@ export function Field({
             Math.sin(x * 0.09 + s * 0.7) * 0.5 +
             Math.sin(y * 0.21 - s * 0.5 + x * 0.03) * 0.5 +
             Math.sin((x + y) * 0.05 + s * 0.3) * 0.6;
-          v = ((v + 1.6) / 3.2) * 0.55;
+          // 底纹不落到空格:全黑只留给黑洞的阴影,不然底纹里的空白块读起来像好几个黑洞
+          v = 0.12 + ((v + 1.6) / 3.2) * 0.38;
           if (since < 6) {
             const dx = x * cw - mouse.x;
             const dy = y * chh - mouse.y;
@@ -227,20 +150,12 @@ export function Field({
       // 3. 主体:按级分批画,省掉来回切 fillStyle
       for (let L = 1; L <= 4; L++) {
         ctx.fillStyle = palette.levels[L - 1];
-        const g = GLYPH[L];
         for (let i = 0; i < n; i++) {
           if (show[i] !== L) continue;
-          const r = seed[i];
+          // 被弹开的格子乱码
           const disp = Math.abs(ox[i]) + Math.abs(oy[i]);
-          // 被弹开的格子乱码,散开中的格子沿各自方向飞
-          const ch = disp > 6 ? SCRAMBLE[Math.floor(r * 97 + tick) % SCRAMBLE.length] : g[(Math.floor(r * 10) + tick) % 2];
-          const ang = r * 6.283;
-          const fly = burst * (8 + r * 40);
-          ctx.fillText(
-            ch,
-            (i % cols) * cw + ox[i] + Math.cos(ang) * fly,
-            Math.floor(i / cols) * chh + oy[i] + Math.sin(ang) * fly,
-          );
+          const ch = disp > 6 ? SCRAMBLE[Math.floor(seed[i] * 97 + tick) % SCRAMBLE.length] : RAMP[lum[i]];
+          ctx.fillText(ch, (i % cols) * cw + ox[i], Math.floor(i / cols) * chh + oy[i]);
         }
       }
     };
@@ -267,13 +182,6 @@ export function Field({
     const onLeave = () => {
       mouse.x = mouse.y = mouse.px = mouse.py = -1e4;
     };
-    // 点首屏任意空白处换下一个主体;点到链接不算
-    const onClick = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).closest("a, button")) return;
-      const r = cv.getBoundingClientRect();
-      if (e.clientY < r.top || e.clientY > r.bottom) return;
-      if (performance.now() / 1000 - t0 > MORPH * 0.8) next(performance.now() / 1000);
-    };
 
     const io = new IntersectionObserver(([en]) => (visible = en.isIntersecting));
     io.observe(cv);
@@ -284,13 +192,11 @@ export function Field({
     ro.observe(cv);
 
     layout();
-    onFig.current?.(cur);
     draw(performance.now());
     if (!still) {
       raf = requestAnimationFrame(loop);
       window.addEventListener("pointermove", onMove);
       document.addEventListener("pointerleave", onLeave);
-      window.addEventListener("click", onClick);
     }
     return () => {
       cancelAnimationFrame(raf);
@@ -298,7 +204,6 @@ export function Field({
       ro.disconnect();
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("pointerleave", onLeave);
-      window.removeEventListener("click", onClick);
     };
   }, [still, palette]);
 

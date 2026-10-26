@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { useReducedMotion } from "framer-motion";
 import {
@@ -17,12 +17,12 @@ import {
   stats,
   ym,
 } from "./data";
-import { FIGURES, Field } from "./Field";
+import { Field } from "./Field";
 import { ART } from "./art";
 import { AsciiBox } from "./parts";
 
 /**
- * 首页:首屏是一张会动的海报 —— 字符场里的主体(名字/花/狐狸/猫)被光标弹散、定时碎开重组,
+ * 首页:首屏是一张会动的海报 —— 字符场里一个一直在转的黑洞,光标划过会把格子弹散,
  * 四角压小号大写的说明文字(借 Oriku "Digital Bloom" 的版式)。下面是 SMA1LBOY(1) 手册页。
  *
  * 整页一个底:深底暖白字,强调色橙。
@@ -111,7 +111,6 @@ function Item({
 export function HomeAscii() {
   const still = !!useReducedMotion();
   const T = NIGHT;
-  const [fig, setFig] = useState(0);
 
   useEffect(() => {
     const prev = document.body.style.background;
@@ -142,7 +141,7 @@ export function HomeAscii() {
     >
       {/* ══ 首屏:海报。主体在画布里,四角是字 ══ */}
       <section className="relative overflow-hidden">
-        <Field still={still} palette={T} onFigure={setFig} />
+        <Field still={still} palette={T} />
         <div className="pointer-events-none relative mx-auto grid min-h-[100dvh] w-full max-w-[1280px] grid-rows-[auto_1fr_auto] px-6 py-8 sm:px-10 sm:py-10">
           <div className="flex items-start justify-between gap-6">
             <div>
@@ -184,11 +183,13 @@ export function HomeAscii() {
                 ))}
               </p>
             </div>
-            <div className={`text-right ${caps}`} style={{ color: PAPER.dim }}>
-              <p aria-live="polite">
-                fig.0{fig + 1} — {FIGURES[fig]}
-              </p>
-              {!still && <p className="hidden sm:block">swipe to brush · click to regrow</p>}
+            {/* 黑洞压在右下角出血,说明字落在盘面上;垫一块羽化的底色才读得清,硬边方块会切断盘面 */}
+            <div
+              className={`text-right ${caps}`}
+              style={{ color: PAPER.dim, background: PAPER.paper, boxShadow: `0 0 28px 22px ${PAPER.paper}` }}
+            >
+              <p>fig.01 — black hole</p>
+              {!still && <p className="hidden sm:block">swipe to brush</p>}
               <p className="mt-3" style={{ color: PAPER.ink }}>
                 {new Date().getFullYear()}
               </p>
