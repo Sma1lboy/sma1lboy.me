@@ -4,7 +4,7 @@ import { Experience } from "../types";
 export const experiences: Experience[] = [
   {
     id: "tiktok-sde",
-    title: "Full-Stack & AI Engineer",
+    title: "Software Engineer II",
     company: "ByteDance",
     period: {
       start: "2025-10",
