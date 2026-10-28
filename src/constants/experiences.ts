@@ -7,7 +7,7 @@ export const experiences: Experience[] = [
     title: "Software Engineer II",
     company: "ByteDance",
     period: {
-      start: "2025-10",
+      start: "2026-09",
     },
     description:
       "Built the team's internal agent framework from scratch, collapsing agent bring-up to a single line of code and eliminating per-agent orchestration code. Designed an agent lifecycle hooks system under which independent modules attach at any stage of an agent's execution without modifying core orchestration. Own agent evaluation end to end — a hybrid harness combining an internal LLM judge with human labeling, scoring real business outcomes rather than generic benchmarks.",
@@ -22,6 +22,18 @@ export const experiences: Experience[] = [
     ],
     location: "San Jose, CA",
     featured: true,
+  },
+  {
+    id: "tiktok-sde-1",
+    title: "Software Engineer",
+    company: "ByteDance",
+    period: {
+      start: "2025-10",
+      end: "2026-09",
+    },
+    description: "",
+    type: "work",
+    location: "San Jose, CA",
   },
   {
     id: "tabbyml-engineer",
